@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	
+<title>在U盘上安装ArchLinux系统 | Hexagon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="在U盘上安装ArchLinux系统其实在U盘上安装Linux系统基本都能装,也有针对U盘设计的系统像puppy之类的,选Arch主要是个人喜好,还有就是它的安装是手动的,不仅能学到不少linux的知识,也能更好的去适配不同的电脑,arch的可定制化程度非常高,所以更加的灵活也能适应更多的人去使用 准备工作U盘 要装系统U盘不能太差,我要求比较高,U盘建议16G以上,高速读写不用说最好100m/s">
+<meta name="keywords" content="ArchLinux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在U盘上安装ArchLinux系统">
+<meta property="og:url" content="https://dracewang.github.io/2018/05/27/在U盘上安装ArchLinux系统/index.html">
+<meta property="og:site_name" content="Hexagon">
+<meta property="og:description" content="在U盘上安装ArchLinux系统其实在U盘上安装Linux系统基本都能装,也有针对U盘设计的系统像puppy之类的,选Arch主要是个人喜好,还有就是它的安装是手动的,不仅能学到不少linux的知识,也能更好的去适配不同的电脑,arch的可定制化程度非常高,所以更加的灵活也能适应更多的人去使用 准备工作U盘 要装系统U盘不能太差,我要求比较高,U盘建议16G以上,高速读写不用说最好100m/s">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/y1cOnn5.jpg">
+<meta property="og:updated_time" content="2018-02-15T02:19:06.061Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在U盘上安装ArchLinux系统">
+<meta name="twitter:description" content="在U盘上安装ArchLinux系统其实在U盘上安装Linux系统基本都能装,也有针对U盘设计的系统像puppy之类的,选Arch主要是个人喜好,还有就是它的安装是手动的,不仅能学到不少linux的知识,也能更好的去适配不同的电脑,arch的可定制化程度非常高,所以更加的灵活也能适应更多的人去使用 准备工作U盘 要装系统U盘不能太差,我要求比较高,U盘建议16G以上,高速读写不用说最好100m/s">
+<meta name="twitter:image" content="https://i.imgur.com/y1cOnn5.jpg">
+
+<link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="../../../../css/common.css">
+<link rel="stylesheet" href="../../../../css/nav.css">
+<link rel="stylesheet" href="../../../../css/layout.css">
+
+
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+		var hm = document.createElement("script");
+		hm.src = "https://hm.baidu.com/hm.js?e759225a2ef338699b2119eff971e1b5";
+		var s = document.getElementsByTagName("script")[0]; 
+		s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+</head>
+
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Drace Wang</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="../../../../index.html">
+                Home
+            </a>
+            
+            <a class="nav-item" href="../../../../archives">
+                Archives
+            </a>
+            
+            <a class="nav-item" href="../../../../tags">
+                Tags
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="../../../../index.html">
+                Home
+            </a>
+            
+            <a class="nav-item flex-1" href="../../../../archives">
+                Archives
+            </a>
+            
+            <a class="nav-item flex-1" href="../../../../tags">
+                Tags
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>在U盘上安装ArchLinux系统</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/me.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> Drace Wang</span>
+                <span class="post-date sub-title">at: 2018-05-27</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/ArchLinux/">ArchLinux</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <p><img src="https://i.imgur.com/y1cOnn5.jpg" alt="post-cover"></p>
+<h1 id="在U盘上安装ArchLinux系统"><a href="#在U盘上安装ArchLinux系统" class="headerlink" title="在U盘上安装ArchLinux系统"></a>在U盘上安装ArchLinux系统</h1><p>其实在U盘上安装Linux系统基本都能装,也有针对U盘设计的系统像puppy之类的,选Arch主要是个人喜好,还有就是它的安装是手动的,不仅能学到不少linux的知识,也能更好的去适配不同的电脑,arch的可定制化程度非常高,所以更加的灵活也能适应更多的人去使用</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p><strong>U盘</strong></p>
+<p>要装系统U盘不能太差,我要求比较高,U盘建议16G以上,高速读写不用说最好100m/s以上,4K性能不能忽略(别问我为什么知道,到时候你发现几百大洋买回的U盘用的很不爽别来找我),SanDisk至尊系列亲测还行,如果你们能买到OWC的envy Pro mini最好,这是我到目前为止看的觉得最好的,但是我没有用过,4k性能不知道</p>
+<h2 id="ArchLinux安装镜像"><a href="#ArchLinux安装镜像" class="headerlink" title="ArchLinux安装镜像"></a>ArchLinux安装镜像</h2><p><a href="https://www.archlinux.org/" target="_blank" rel="noopener">ArchLinux官方网站</a><br>自己下载最新的镜像,以下步骤为2016年1月尝试实践记录,请参考wikiArchLinux官方安装指导自行对比</p>
+<p>ArchLinux的wiki非常丰富,要养成自行查找,解决问题的好习惯(说给自己听的)</p>
+<h2 id="找个安装环境——VMware"><a href="#找个安装环境——VMware" class="headerlink" title="找个安装环境——VMware"></a>找个安装环境——VMware</h2><p>安装到U盘的确可以直接用实体机启动,但是做live盘要多用一个U盘或者cd,还有很大的可能会不小心格错盘,导致追悔莫及,所以利用虚拟机安装方便快捷,VMware的安装教程自行寻找,用VirtualBox的也可以参考</p>
+<h2 id="安装ArchLinux"><a href="#安装ArchLinux" class="headerlink" title="安装ArchLinux"></a>安装ArchLinux</h2><p>新建虚拟机,然后选择ArchLinux安装镜像启动,插上U盘,将U盘挂载到虚拟机中</p>
+<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><pre><code>lsblk
+</code></pre><p>查看U盘是否挂载上去,不出意外的话,应该会是出现在/dev/sdb检查容量大小是否一致(以下就认为U盘挂载在/dev/sdb)</p>
+<p>fdisk — Linux 自带的命令行分区工具<br><a href="https://www.kernel.org/" target="_blank" rel="noopener">https://www.kernel.org/</a></p>
+<pre><code>fdisk /dev/sdb
+#建立boot区
+
+–&gt;n p 4096 +512M
+
+#建立根目录/区
+
+–&gt; n p enter enter
+
+#查看分区表
+
+–&gt; p
+
+#将分区表写入U盘
+
+–&gt; w
+</code></pre><p>cfdisk — 使用 ncurses 库编写的具有伪图形界面的命令行分区工具<br><a href="https://www.kernel.org/" target="_blank" rel="noopener">https://www.kernel.org/</a><br>警告: cfdisk 创建的第一个分区起始位置是63扇区而不是通常的2048扇区这将会在 SSD 和使用高级格式化(4k 扇区)的设备上造成性能问题<br>GRUB2 也会受影响GRUB legacy 和 Syslinux不受影响<br>gdisk — GPT 版的 fdisk<br><a href="http://www.rodsbooks.com/gdisk/" target="_blank" rel="noopener">http://www.rodsbooks.com/gdisk/ </a><br>cgdisk — GPT 版的 cfdisk<br><a href="http://www.rodsbooks.com/gdisk/" target="_blank" rel="noopener">http://www.rodsbooks.com/gdisk/</a><br>sgdisk — Scriptable version of gdisk.<br><a href="http://www.rodsbooks.com/gdisk/sgdisk-walkthrough.html" target="_blank" rel="noopener">http://www.rodsbooks.com/gdisk/sgdisk-walkthrough.html</a><br>GNU Parted — 命令行分区工具<br><a href="http://www.gnu.org/software/parted/parted.html" target="_blank" rel="noopener">http://www.gnu.org/software/parted/parted.html</a><br>GParted — GTK 图形界面的分区工具<br><a href="http://gparted.sourceforge.net/" target="_blank" rel="noopener">http://gparted.sourceforge.net/</a><br>Partitionmanager — QT 图形界面的分区工具<br><a href="http://sourceforge.net/projects/partitionman/" target="_blank" rel="noopener">http://sourceforge.net/projects/partitionman/</a><br>QtParted — 与 Partitionmanager 类似,在 AUR 中可获取<br><a href="http://qtparted.sourceforge.net/" target="_blank" rel="noopener">http://qtparted.sourceforge.net/</a></p>
+<h3 id="格式化U盘建立文件系统"><a href="#格式化U盘建立文件系统" class="headerlink" title="格式化U盘建立文件系统"></a>格式化U盘建立文件系统</h3><pre><code>mkfs.ext4 /dev/sdb1
+</code></pre><p>以ext4格式,格式化sdb1</p>
+<pre><code>mkfs.ext4 /dev/sdb2
+</code></pre><p>以ext4格式,格式化sdb2</p>
+<h3 id="联网"><a href="#联网" class="headerlink" title="联网"></a>联网</h3><p>1.首先<code>ping baidu.com</code>如果能ping通说明已经联网了,就跳过这一部分<br>2.<code>ping 8.8.8.8</code>或者<code>ping 114.114.114.11</code>4能ping通说明Dns解析服务器有问题编辑这个文件<code>/etc/resolv.conf</code><br>3.以上两步都不行的话,先查服务</p>
+<pre><code>systemctl --type=service
+</code></pre><p>看看有没有fail的项,如果有就需要重启这项服务<br>比如</p>
+<pre><code>systemctl stop dhcpcd@enp2s0.service
+</code></pre><p>先停止服务再重启</p>
+<pre><code>systemctl restart dhcpcd@enp2s0.service
+</code></pre><p>这里失败是会有日志的,你可以<br>4.一般的话这样就可以了,如果还不行,请换网络配置(例如虚拟机桥接网络的,改成NAT),一般虚拟机模拟出来的网卡之类的,不会有这些问题</p>
+<h3 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h3><p>接下来说说驱动的事,ArchLinux开机会启动udev来检测驱动等,并在启动时自动载入必要的模块</p>
+<pre><code>lspci
+</code></pre><p>可以查看所有pci借口上的硬件</p>
+<pre><code>lspci |grep Ethernet
+</code></pre><p>会输出类似</p>
+<blockquote>
+<p>02:00.0 Ethernet controller: Attansic Technology Corp. L1 Gigabit Ethernet Adapter (rev b0)</p>
+</blockquote>
+<pre><code>lspci -s 02:00.0 -v
+</code></pre><p>查看02:00.0总线上的详细信息</p>
+<blockquote>
+<p>   02:00.0 Ethernet controller: Attansic Technology Corp. L1 Gigabit Ethernet Adapter (rev b0)</p>
+<p>   …</p>
+<p>Kernel driver in use: atl1</p>
+<p>   Kernel modules: atl1</p>
+</blockquote>
+<pre><code>dmesg | grep module_name
+</code></pre><p>会告诉你是否驱动加载成功</p>
+<pre><code>$ dmesg |grep atl1
+</code></pre><blockquote>
+<p>…</p>
+<p>atl1 0000:02:00.0: eth0 link is up 100 Mbps full duplex</p>
+</blockquote>
+<p>没有驱动当然要装驱动啦,你问我怎么装？我很严肃的告诉你！要联网！这就是为啥用虚拟机装的事了,虚拟机一般虚拟出来的硬件,在ArchLinux的基本驱动都能通用,你要是你的电脑的网卡正好是Atheros AR8161 Gigabit和我一样,恭喜你,你联网一会儿就会断,根本不能好好玩耍,我到现在都没能整明白为啥,但是wiki上这个网卡有收录,告诉你要加载alx模块,可是我编译不通过,这个以后解决这个问题,暂时先跳过</p>
+<h4 id="网络部分的一些小命令"><a href="#网络部分的一些小命令" class="headerlink" title="网络部分的一些小命令"></a>网络部分的一些小命令</h4><p><code>ip addr</code> 查看现有网络连接及ip地址(这里查出来的会有个自动命名的名字比如<code>enp2s0</code>下面的***就应该用这个名字代替)</p>
+<p><code>ip link</code> 查看现有网络连接</p>
+<p><code>ip link set *** up</code> 设置***连接网络</p>
+<p><code>ip link set *** down</code> 设置***断网</p>
+<p><code>dhcpcd ***</code> 使***启动dhcp服务</p>
+<p><code>ls /sys/class/net</code> 查看现有网络接口名字</p>
+<p><code>dhcpcd -k</code> 释放dhcp获得的IP地址</p>
+<p><code>systemctl status dhcpcd@enp2s0.service</code> 查看enp2s0的dhcp服务状态</p>
+<p><code>systemctl --type=service</code> 查看系统已启动的服务</p>
+<p>目前就学了这些,欢迎补充</p>
+<h3 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h3><pre><code>mount /dev/sdb2 /mnt
+</code></pre><p>(挂载sdb2 到 /mnt)</p>
+<pre><code>mkdir -p /mnt/boot
+</code></pre><p>(在mnt目录下创建boot目录)</p>
+<pre><code>mount /dev/sdb1 /mnt/boot
+</code></pre><p>(挂载sdb1 到 /mnt/boot)</p>
+<p>如果有建立了/home等目录的同理</p>
+<p>如果想要用swap 请参考wiki–swap “<a href="https://wiki.archlinux.org/index.php/Swap_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener">https://wiki.archlinux.org/index.php/Swap_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)</a>)”)</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在确认联网的情况下,就可以安装了,不过在真正安装前,选择快速的镜像源很重要,国内163和清华的比较快</p>
+<pre><code>nano /etc/pacman.d/mirrorlist
+</code></pre><p>按ctrl+K删除整行,去掉别的,就留163的和清华的即可</p>
+<pre><code>pacstrap -i /mnt base base-devel
+</code></pre><p>安装系统,默认全装</p>
+<blockquote>
+<p>–&gt;enter –&gt;enter –&gt;Y</p>
+</blockquote>
+<p>等待安装完成</p>
+<pre><code>genfstab -U -p /mnt &gt;&gt; /mnt/etc/fstab
+</code></pre><p>生成fstab</p>
+<h3 id="设置新系统"><a href="#设置新系统" class="headerlink" title="设置新系统"></a>设置新系统</h3><pre><code>arch-chroot /mnt
+</code></pre><p>转入新系统中,这样就在我们新安装好的系统中进行操作了,可以看到root@archiso变为sh4.3</p>
+<pre><code>nano /etc/locale.gen
+</code></pre><p>选择文字编码,找到en_US.UTF-8 UTF-8和zh开头的都打开注释</p>
+<pre><code>locale-gen
+</code></pre><p>更新文字编码系统<br>在 <code>/etc/locale.conf</code> 里设置系统locale偏好；单个用户请设置<code>$HOME/.config/locale.conf</code>:</p>
+<pre><code># echo LANG=zh_CN.UTF8 &gt; /etc/locale.conf
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+</code></pre><p>对于国内的基本可以用上海时间</p>
+<pre><code>hwclock --systohc
+</code></pre><p>应该可以同步时间</p>
+<pre><code>echo **** &gt; /etc/hostname
+</code></pre><p>设置主机名<em>**</em></p>
+<h3 id="设置U盘启动"><a href="#设置U盘启动" class="headerlink" title="设置U盘启动"></a>设置U盘启动</h3><p>这个很重要,为了启动后能首先加载usb</p>
+<pre><code>nano /etc/mkinitcpio.conf
+</code></pre><p>在udev 后面加入usb</p>
+<blockquote>
+<p>HOOKS=”base udev usb autodetect modconf block filesystems keyboard fsck”</p>
+</blockquote>
+<pre><code>mkinitcpio -p linux
+</code></pre><p>重新初始化内存盘</p>
+<h3 id="安装引导程序"><a href="#安装引导程序" class="headerlink" title="安装引导程序"></a>安装引导程序</h3><pre><code>pacman -S syslinux gptfdisk
+</code></pre><p>安装gptdisk分区软件</p>
+<p>安装syslinux</p>
+<pre><code>syslinux-install_update –iam
+</code></pre><p>安装引导项</p>
+<pre><code>blkid
+</code></pre><p>查看UUID,记录sdb2的UUID 目的是为了用UUID 做标识来启动操作系统,否则换了电脑硬盘标签变化就不能启动了</p>
+<pre><code>nano /boot/syslinux/syslinux.cfg
+</code></pre><p>修改</p>
+<pre><code># UI menu.c32 注释掉
+UI vesamenu.c32 取消注释
+</code></pre><p>把LABEL arch下面的root改成</p>
+<blockquote>
+<p>root=UUID=”<strong><strong><strong><strong><strong><strong><em>**</em></strong></strong></strong></strong></strong></strong>“ rw<br>完成了这步,在你开机选这个U盘启动后应该就能出现syslinux的引导界面了,如果不行,请自行wiki换grub之类的</p>
+</blockquote>
+<h3 id="新建用户"><a href="#新建用户" class="headerlink" title="新建用户"></a>新建用户</h3><p>passwd 先设置root用户的密码</p>
+<pre><code>pacman -S zsh
+</code></pre><p>安装zsh</p>
+<pre><code>useradd -m -g users -G wheel -s /bin/zsh ****
+</code></pre><p>创建一个名为<em>**</em>的用户,并使用zsh作默认shell</p>
+<pre><code>passwd ****
+</code></pre><p>为<em>**</em>设置密码</p>
+<p><em>如果后面使用的时候出现不能sudo,提示is not in the sudoers file. This incident will be reported.</em></p>
+<p>以root权限编辑 <code>/etc/sudoers</code> 文件,在 <code>root ALL=(ALL) ALL</code>下面 加上 <code>[username] ALL=(ALL)</code> ALL</p>
+<p>也可以去掉<code>#%wheel ALL=(ALL) ALL</code>这一行前面的#</p>
+<h3 id="更新下系统"><a href="#更新下系统" class="headerlink" title="更新下系统"></a>更新下系统</h3><pre><code>pacman –Syu
+</code></pre><p>更新系统</p>
+<pre><code>pacman-db-upgrade
+</code></pre><p>更新数据库</p>
+<p>基本配置就结束了,下面是锦上添花</p>
+<hr>
+<h3 id="配置WIFI"><a href="#配置WIFI" class="headerlink" title="配置WIFI"></a>配置WIFI</h3><p>把无线也写在这里吧,虚拟机中安装一般只会是有线状态,出问题也基本就是dhcp没获取到ip,手动重启一遍dhcp就会好</p>
+<p>首先应该安装网卡驱动,ArchLinux在安装base-devel的时候一般都带着了,除非你的没有,那就要查一下资料自己装下了</p>
+<p>首先需要安装无线相关的软件</p>
+<pre><code>pacman -S iw wpa_supplicant wireless_tools dialog networkmanager network-manager-applet
+
+systemctl enable NetworkManager
+</code></pre><p>这样就能开机自动启动网络配置。</p>
+<p>安装声卡服务</p>
+<pre><code>pacman -S alsa-utils
+</code></pre><p>官方说法叫解除静音</p>
+<h2 id="安装桌面系统"><a href="#安装桌面系统" class="headerlink" title="安装桌面系统"></a>安装桌面系统</h2><p>请自行根据喜欢的桌面环境去安装配置,先装X</p>
+<pre><code>pacman -S xorg xorg-xinit
+</code></pre><p>安装KDE桌面环境</p>
+<pre><code>pacman -S plasma
+</code></pre><p>这就能把最新的plasma5安装上,同时会找到很多依赖包,其中就包括显卡驱动,NVIDIA的显卡请选择开源的驱动,也就是默认选择,不要作死(不要问我为什么知道T_T)</p>
+<p>安装完KDE后,如果你这时候启动X,你会发现怎么没有终端,我们熟悉的终端呢？！对！就是没有,要自己装！</p>
+<pre><code>pacman -S konsole dolphin
+</code></pre><p>安装konsole和文件管理器</p>
+<pre><code>cp /etc/X11/xinit/xinitrc ~/.xinitrc
+</code></pre><p>拷贝X的启动文件到用户目录,针对用户修改</p>
+<pre><code>nano ~/.xinitrc
+</code></pre><p>把<code>exec</code>之前的都注释掉,把<code>exec</code>后面的改为<code>startkde</code></p>
+<p>安装GNOME桌面环境</p>
+<pre><code>sudo pacman -S gnome gnome-extra gdm
+</code></pre><p>将gdm设置为开机自启动，这样开机时会自动载入桌面</p>
+<pre><code>systemctl enable gdm
+</code></pre><h2 id="美化gnome"><a href="#美化gnome" class="headerlink" title="美化gnome"></a>美化gnome</h2><hr>
+<p><em>20170826-update</em></p>
+<h4 id="gnome-tweak-tool"><a href="#gnome-tweak-tool" class="headerlink" title="gnome-tweak-tool"></a>gnome-tweak-tool</h4><p>如果你安装了gnome-extra，那么这个工具已经被安装了，否则的话</p>
+<pre><code>sudo pacman -S gnome-tweak-tool
+</code></pre><p>图标包</p>
+<p>这里我使用的numix-circle图标包，这个图标包在aur里，直接用yaourt即可</p>
+<pre><code>yaourt -S numix-circle-icon-theme-git
+</code></pre><p>然后在gnome-tweak-tool里启用主题</p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>我们可以到下面这个网站上选自己喜欢的主体，安装方式也可以根据提示步骤来</p>
+<p><a href="https://www.gnome-look.org/" target="_blank" rel="noopener">https://www.gnome-look.org/</a></p>
+<p>然后在gnome-tweak-tool里启用</p>
+<h4 id="gdm背景"><a href="#gdm背景" class="headerlink" title="gdm背景"></a>gdm背景</h4><p>输入以下指令</p>
+<pre><code>curl -L -O http://archibold.io/sh/archibold
+chmod +x archibold
+./archibold login-backgroung 你的背景的地址
+</code></pre><p>重启后gdm就会变成你要的背景</p>
+<h4 id="gnome-shell拓展"><a href="#gnome-shell拓展" class="headerlink" title="gnome-shell拓展"></a>gnome-shell拓展</h4><p>shell拓展请进入<a href="https://extensions.gnome.org/" target="_blank" rel="noopener">https://extensions.gnome.org/</a>自行按照说明安装</p>
+<h4 id="screenfetch"><a href="#screenfetch" class="headerlink" title="screenfetch"></a>screenfetch</h4><p>screenfetch可以在终端里输出你的系统logo和状态。</p>
+<pre><code>sudo pacman -S screenfetch
+</code></pre><p>要让screenfetch在打开终端是自动输出，在<code>~/.zshrc</code>里加入</p>
+<hr>
+<p>最后<br><code>exit</code>然后<code>umount -R /mnt</code>关掉虚拟机,拔下U盘,去嗨吧</p>
+<hr>
+<h2 id="使用优化"><a href="#使用优化" class="headerlink" title="使用优化"></a>使用优化</h2><p>20160423-update</p>
+<p>安装必要字体</p>
+<pre><code>pacman -S ttf-dejavu wqy-zenhei wqy-microhei
+</code></pre><p>安装火狐</p>
+<pre><code>pacman -S firefox
+</code></pre><p>安装net-tools（包含ifconfig）</p>
+<pre><code>pacman -S net-tools
+</code></pre><p>修改<code>/boot/syslinux/syslinux.cfg</code></p>
+<pre><code>timeout = 0
+</code></pre><p>注销所有菜单选项</p>
+<p>启动sddm</p>
+<pre><code>systemctl enable sddm.service
+</code></pre><p>安装wget，git</p>
+<pre><code>pacamn -S wget git
+</code></pre><p>安装oh-my-zsh</p>
+<pre><code>sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;
+</code></pre><p>安装Yaourt</p>
+<pre><code>git clone https://aur.archlinux.org/package-query.git
+cd package-query
+makepkg -si
+cd ..
+git clone https://aur.archlinux.org/yaourt.git
+cd yaourt
+makepkg -si
+cd ..
+</code></pre><p>更新yaourt</p>
+<pre><code>yaourt -Syu --devel --aur
+</code></pre><p>安装搜狗中文输入法<br>    yaourt -S fcitx-sogoupinyin<br>由于设置的输出是UTF-8，所以终端中不做设置可能会显示为乱码，我们设置下<code>nano ~/.zshrc</code></p>
+<pre><code>export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8
+</code></pre><hr>
+<p>20170826-update</p>
+<p>安装chrome</p>
+<pre><code>yaourt -S google-chrome
+</code></pre><p>解压软件</p>
+<p>需要图形化的解压软件可以这样：</p>
+<pre><code>sudo pacman -S p7zip file-roller unrar
+</code></pre><p>文件系统支持</p>
+<p>要支持制作fat文件系统，安装dosfstools，默认内核只能读取ntfs，要支持ntfs读写，安装ntfs-3g。</p>
+<pre><code>sudo pacman -S ntfs-3g dosfstools
+</code></pre><p>无线AP</p>
+<p>需要安装create-ap才能使用gnome3设置里的创建热点选项</p>
+<pre><code>sudo pacman -S create_ap
+</code></pre>
+        </div>
+        <div class="post-reply">
+            
+            
+            
+                <!-- UY BEGIN -->
+                <div id="uyan_frame"></div>
+                <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2157835"></script>
+                <script type="text/javascript" src="http://v3.jiathis.com/code/plugin.client.js" charset="utf-8"></script>
+                <!-- UY END -->
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="../../../../css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        <!--请您保留作者署名, 主题制作来之不易-->
+        My Theme <a href="https://github.com/DraceWang/hexo-theme-Hexagon/">Hexagon</a>
+        Base on <a href="https://haojen.github.io/Claudia-theme-blog/">Claudia</a> Theme By <a href="https://haojen.github.io/">Haojen Ma</a>
+        <br>
+        Copyright © Drace Wang 2018
+        <br>
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../../../../js/search_core.js"></script>
+<script src="../../../../js/script.js"></script>
+
+</body>
+</html>
