@@ -6,22 +6,22 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 	
-<title>Android Broadcast的简单应用 | Hexagon</title>
+<title>ldap安装与关联redmine | Hexagon</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="Android Broadcast的简单应用broadcast静态使用1、在AndroidManifest.xml中注册  &amp;lt;receiver     android:name=&amp;quot;com.example.testBR&amp;quot;&amp;gt;    &amp;lt;intent-filter&amp;gt;         &amp;lt;action android:name=&amp;quot;com.examp">
-<meta name="keywords" content="Broadcast">
+<meta name="description" content="ldap安装与关联redminesudo vim /etc/hosts 修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname” sudo apt-get install slapd ldap-utils //安装ldap //测试 sudo ldapsearch -Q -LLL -Y EXTERN">
+<meta name="keywords" content="LDAP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android Broadcast的简单应用">
-<meta property="og:url" content="https://dracewang.github.io/2018/05/27/Android Broadcast的简单应用/index.html">
+<meta property="og:title" content="ldap安装与关联redmine">
+<meta property="og:url" content="https://dracewang.github.io/2018/02/15/ubuntu14.04安装openldapserver/index.html">
 <meta property="og:site_name" content="Hexagon">
-<meta property="og:description" content="Android Broadcast的简单应用broadcast静态使用1、在AndroidManifest.xml中注册  &amp;lt;receiver     android:name=&amp;quot;com.example.testBR&amp;quot;&amp;gt;    &amp;lt;intent-filter&amp;gt;         &amp;lt;action android:name=&amp;quot;com.examp">
+<meta property="og:description" content="ldap安装与关联redminesudo vim /etc/hosts 修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname” sudo apt-get install slapd ldap-utils //安装ldap //测试 sudo ldapsearch -Q -LLL -Y EXTERN">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg">
-<meta property="og:updated_time" content="2020-08-13T14:27:37.705Z">
+<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//ubuntu_post_cover.jpg">
+<meta property="og:updated_time" content="2020-08-13T14:40:10.305Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android Broadcast的简单应用">
-<meta name="twitter:description" content="Android Broadcast的简单应用broadcast静态使用1、在AndroidManifest.xml中注册  &amp;lt;receiver     android:name=&amp;quot;com.example.testBR&amp;quot;&amp;gt;    &amp;lt;intent-filter&amp;gt;         &amp;lt;action android:name=&amp;quot;com.examp">
-<meta name="twitter:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg">
+<meta name="twitter:title" content="ldap安装与关联redmine">
+<meta name="twitter:description" content="ldap安装与关联redminesudo vim /etc/hosts 修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname” sudo apt-get install slapd ldap-utils //安装ldap //测试 sudo ldapsearch -Q -LLL -Y EXTERN">
+<meta name="twitter:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//ubuntu_post_cover.jpg">
 
 <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
 
@@ -146,95 +146,133 @@
     <div class="container post-box">
         <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
             <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
-                <strong>Android Broadcast的简单应用</strong>
+                <strong>ldap安装与关联redmine</strong>
             </h1>
             
             <div class="is-flex align-center">
                 <img class="post-avatar" src="/images/me.jpg">
                 <span style="padding:0 10px;"> <span class="sub-title">By</span> Drace Wang</span>
-                <span class="post-date sub-title">at: 2018-05-27</span>
+                <span class="post-date sub-title">at: 2018-02-15</span>
             </div>
             
                 <div>
                     
-                         <a class="tag is-post-tag" href="/tags/Broadcast/">Broadcast</a>
+                         <a class="tag is-post-tag" href="/tags/LDAP/">LDAP</a>
                     
                 </div>
             
         </div>
         <div class="content" style="overflow: auto">
-            <p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg" alt="post-cover"></p>
-<h1 id="Android-Broadcast的简单应用"><a href="#Android-Broadcast的简单应用" class="headerlink" title="Android Broadcast的简单应用"></a>Android Broadcast的简单应用</h1><h2 id="broadcast静态使用"><a href="#broadcast静态使用" class="headerlink" title="broadcast静态使用"></a>broadcast静态使用</h2><p>1、在AndroidManifest.xml中注册 </p>
-<pre><code>&lt;receiver 
-   android:name=&quot;com.example.testBR&quot;&gt;
-   &lt;intent-filter&gt;
-        &lt;action android:name=&quot;com.example.test.ACTION_TEST&quot; /&gt;
-        &lt;/intent-filter&gt;
-   &lt;/receiver&gt;
-</code></pre><p>2、重写onReceive方法</p>
-<pre><code>@Override
-public void onReceive(Context context, Intent intent) {
-    // TODO Auto-generated method stub    
-}
-</code></pre><h2 id="broadcast动态注册"><a href="#broadcast动态注册" class="headerlink" title="broadcast动态注册"></a>broadcast动态注册</h2><pre><code>private BroadcastReceiver mReceiver = new BroadcastReceiver(){
+            <p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//ubuntu_post_cover.jpg" alt="post-cover"></p>
+<h2 id="ldap安装与关联redmine"><a href="#ldap安装与关联redmine" class="headerlink" title="ldap安装与关联redmine"></a>ldap安装与关联redmine</h2><pre><code>sudo vim /etc/hosts
+</code></pre><p>修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname”</p>
+<pre><code>sudo apt-get install slapd ldap-utils //安装ldap
+</code></pre><p>//测试</p>
+<pre><code>sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b cn=config dn
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        // TODO Auto-generated method stub    
-    }
-};
+ldapsearch -x -LLL -H ldap:/// -b dc=example,dc=com dn
+</code></pre><hr>
+<p>添加用户</p>
+<pre><code>cd /etc/ldap
 
-@Override
-protected void onPause() {
-super.onPause();
-unregisterReceiver(mReceiver);
-}
+sudo vim add_content.ldif   //创建add_content.ldif添加下列文字  
+</code></pre><hr>
+<pre><code>dn: ou=People,dc=example,dc=com
 
+objectClass: organizationalUnit
 
-@Override
-protected void onResume() {
-super.onResume();
-IntentFilter filter = new IntentFilter(&quot;com.example.test.ACTION_TEST&quot;);
-registerReceiver(mReceiver, filter);
+ou: People
+</code></pre><p>​    </p>
+<pre><code>dn: ou=Groups,dc=example,dc=com
 
-}
-</code></pre><p>发送广播</p>
-<pre><code>sendBroadcast(new Intent(&quot;com.example.test.ACTION_TEST&quot;));
-</code></pre><p>Intent中附加信息</p>
-<p>发送带有附加消息的Intent</p>
-<pre><code>Intent i = new Intent(this, TestService.class);
- i.putExtra(name, value);
- sendBroadcast(new Intent(&quot;com.example.test.ACTION_TEST&quot;));
-</code></pre><p>接收Intent中的附加消息</p>
-<pre><code>@Override
-public void onReceive(Context context, Intent intent) {
-    intent.getIntExtra(&quot;action&quot;, 0));
-}
-</code></pre><h3 id="broadcast权限"><a href="#broadcast权限" class="headerlink" title="broadcast权限"></a>broadcast权限</h3><p>如果reeceiver声明在AndroidManifest.xml中，且仅限应用内部使用，则可在标签上添加android:exported=”false”属性<br>这样系统的其他应用就再也无法接触到该receiver。</p>
-<p>另外也可以通过自己创建使用权限，在AndroidManifest.xml中添加标签来完成。</p>
-<pre><code>&lt;permission
-android:name=&quot;com.example.test.TestService.PRIVATE&quot;
-android:protectionLevel=&quot;signature&quot;
-&gt;&lt;/permission&gt;
+objectClass: organizationalUnit
 
-&lt;uses-permission android:name=&quot;com.example.test.TestService.PRIVATE&quot;/&gt;
-</code></pre><p>发送带权限的broadcast</p>
-<pre><code>String PREM_PRIVATE = &quot;com.example.test.TestService.PRIVATE&quot;;
-sendBroadcast(new Intent(&quot;com.example.test.ACTION_TEST&quot;),PREM_PRIVATE);
-</code></pre><p>通过ADB shell模拟发送broadcast</p>
-<p><code>adb shell am broadcast</code> 后面的参数有：</p>
-<pre><code>[-a &lt;ACTION&gt;]
-[-d &lt;DATA_URI&gt;]
-[-t &lt;MIME_TYPE&gt;] 
-[-c &lt;CATEGORY&gt; [-c &lt;CATEGORY&gt;] ...] 
-[-e|--es &lt;EXTRA_KEY&gt; &lt;EXTRA_STRING_VALUE&gt; ...] 
-[--ez &lt;EXTRA_KEY&gt; &lt;EXTRA_BOOLEAN_VALUE&gt; ...] 
-[-e|--ei &lt;EXTRA_KEY&gt; &lt;EXTRA_INT_VALUE&gt; ...] 
-[-n &lt;COMPONENT&gt;]
-[-f &lt;FLAGS&gt;] [&lt;URI&gt;]
-</code></pre><p>例如：</p>
-<pre><code>adb shell am broadcast -a com.android.test --es test_string &quot;this is test string&quot; --ei test_int 100 --ez test_boolean true
-</code></pre>
+ou: Groups
+</code></pre><p>​    </p>
+<pre><code>dn: cn=miners,ou=Groups,dc=example,dc=com
+
+objectClass: posixGroup
+
+cn: miners
+
+gidNumber: 5000
+</code></pre><p>​    </p>
+<pre><code>dn: uid=john,ou=People,dc=example,dc=com
+
+objectClass: inetOrgPerson
+
+objectClass: posixAccount
+
+objectClass: shadowAccount
+
+uid: john
+
+sn: Doe
+
+givenName: John
+
+cn: John Doe
+
+mail: 385691567@qq.com
+
+displayName: John Doe
+
+uidNumber: 10000
+
+gidNumber: 5000
+
+userPassword: johnldap
+
+gecos: John Doe
+
+loginShell: /bin/bash
+
+homeDirectory: /home/john
+</code></pre><hr>
+<pre><code>ldapadd -x -D cn=admin,dc=example,dc=com -W -f add_content.ldif //添加ldif文件
+
+ldapsearch -x -LLL -b dc=example,dc=com &#39;uid=john&#39; cn gidNumber //查询john
+</code></pre><blockquote>
+<p>-x:“简单”绑定;不使用默认SASL方法</p>
+</blockquote>
+<blockquote>
+<p>-LLL:禁用打印无关的信息</p>
+</blockquote>
+<blockquote>
+<p>uid =john:一个“过滤器”找到john用户</p>
+</blockquote>
+<blockquote>
+<p>cn gidNumber:请求某些特定属性的显示(默认是显示所有属性)</p>
+</blockquote>
+<h3 id="redmine设置"><a href="#redmine设置" class="headerlink" title="redmine设置"></a>redmine设置</h3><pre><code>认证模式（LDAP）
+
+名称：（随便填）
+
+主机： ldap服务器IP
+
+端口： 默认389
+
+账号： cn=admin,dc=example,dc=com
+
+密码： admin
+
+Base DN: dc=example,dc=com
+
+LDAP过滤器：
+
+超时（秒）：
+
+即时用户生成：打勾
+
+登录名属性：uid
+
+名字属性：sn
+
+姓氏属性：givenName
+
+邮件属性：mail
+</code></pre><hr>
+
         </div>
         <div class="post-reply">
             

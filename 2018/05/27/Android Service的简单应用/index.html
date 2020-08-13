@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="Hexagon">
 <meta property="og:description" content="Android Service的简单应用Service先自己写个类继承service public class TestService extends Service{      @Override     public IBinder onBind(Intent intent) {         // TODO Auto-generated method stub         retur">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.imgur.com/AkKGcTL.jpg">
-<meta property="og:image" content="https://dracewang.github.io/2018/05/27/Android%20Service的简单应用/android_service_lifecycle.png">
-<meta property="og:updated_time" content="2018-02-15T02:18:38.305Z">
+<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg">
+<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//android_service_lifecycle.png">
+<meta property="og:updated_time" content="2020-08-13T14:30:01.126Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Service的简单应用">
 <meta name="twitter:description" content="Android Service的简单应用Service先自己写个类继承service public class TestService extends Service{      @Override     public IBinder onBind(Intent intent) {         // TODO Auto-generated method stub         retur">
-<meta name="twitter:image" content="https://i.imgur.com/AkKGcTL.jpg">
+<meta name="twitter:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg">
 
 <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
 
@@ -164,7 +164,7 @@
             
         </div>
         <div class="content" style="overflow: auto">
-            <p><img src="https://i.imgur.com/AkKGcTL.jpg" alt="post-cover"></p>
+            <p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg" alt="post-cover"></p>
 <h1 id="Android-Service的简单应用"><a href="#Android-Service的简单应用" class="headerlink" title="Android Service的简单应用"></a>Android Service的简单应用</h1><h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><p>先自己写个类继承service</p>
 <pre><code>public class TestService extends Service{
 
@@ -177,7 +177,7 @@
 }
 </code></pre><p>service的onBind方法必须重写，如果我们不需要绑定Activity就return null.</p>
 <p>别忘了在AndroidManifest.xml中添加</p>
-<h2 id="service的生命周期"><a href="#service的生命周期" class="headerlink" title="service的生命周期"></a>service的生命周期</h2><p><img src="android_service_lifecycle.png" alt="service生命周期"></p>
+<h2 id="service的生命周期"><a href="#service的生命周期" class="headerlink" title="service的生命周期"></a>service的生命周期</h2><p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//android_service_lifecycle.png" alt="service生命周期"></p>
 <p>每一次组件通过<code>startService(Intent)</code>方法启动service时都会调用<code>onStartCommand(Intent,int,int)</code>两个整型参数，一个是标识符，一个是启动ID。<br>标志股用来区分是一次重新发送，还是一次从没成功过的发送。每次调用调用<code>onStartCommand(Intent,int,int)</code>方法，启动ID都会不同。因此，启动ID<br>也可以用来区别不同的命令。</p>
 <pre><code>@Override
 public int onStartCommand(Intent intent, int flags, int startId) {
@@ -298,7 +298,7 @@ public IBinder onBind(Intent intent) {
         My Theme <a href="https://github.com/DraceWang/hexo-theme-Hexagon/">Hexagon</a>
         Base on <a href="https://haojen.github.io/Claudia-theme-blog/">Claudia</a> Theme By <a href="https://haojen.github.io/">Haojen Ma</a>
         <br>
-        Copyright © Drace Wang 2019
+        Copyright © Drace Wang 2020
         <br>
         Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
       </div>
@@ -308,6 +308,7 @@ public IBinder onBind(Intent intent) {
 
 <script src="../../../../js/search_core.js"></script>
 <script src="../../../../js/script.js"></script>
+<script src="../../../../js/canvas-nest.js"></script>
 
 </body>
 </html>

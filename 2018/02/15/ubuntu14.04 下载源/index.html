@@ -6,22 +6,22 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 	
-<title>Android Broadcast的简单应用 | Hexagon</title>
+<title>ubuntu14.04 下载源 | Hexagon</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="Android Broadcast的简单应用broadcast静态使用1、在AndroidManifest.xml中注册  &amp;lt;receiver     android:name=&amp;quot;com.example.testBR&amp;quot;&amp;gt;    &amp;lt;intent-filter&amp;gt;         &amp;lt;action android:name=&amp;quot;com.examp">
-<meta name="keywords" content="Broadcast">
+<meta name="description" content="中国科学技术大学源：deb http://mirrors.ustc.edu.cn/ubuntu/ trusty main restricted universe multiverse deb http://mirrors.ustc.edu.cn/ubuntu/ trusty-security main restricted universe multiverse deb http://mirro">
+<meta name="keywords" content="ubuntu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android Broadcast的简单应用">
-<meta property="og:url" content="https://dracewang.github.io/2018/05/27/Android Broadcast的简单应用/index.html">
+<meta property="og:title" content="ubuntu14.04 下载源">
+<meta property="og:url" content="https://dracewang.github.io/2018/02/15/ubuntu14.04 下载源/index.html">
 <meta property="og:site_name" content="Hexagon">
-<meta property="og:description" content="Android Broadcast的简单应用broadcast静态使用1、在AndroidManifest.xml中注册  &amp;lt;receiver     android:name=&amp;quot;com.example.testBR&amp;quot;&amp;gt;    &amp;lt;intent-filter&amp;gt;         &amp;lt;action android:name=&amp;quot;com.examp">
+<meta property="og:description" content="中国科学技术大学源：deb http://mirrors.ustc.edu.cn/ubuntu/ trusty main restricted universe multiverse deb http://mirrors.ustc.edu.cn/ubuntu/ trusty-security main restricted universe multiverse deb http://mirro">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg">
-<meta property="og:updated_time" content="2020-08-13T14:27:37.705Z">
+<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//ubuntu_post_cover.jpg">
+<meta property="og:updated_time" content="2020-08-13T14:39:28.051Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android Broadcast的简单应用">
-<meta name="twitter:description" content="Android Broadcast的简单应用broadcast静态使用1、在AndroidManifest.xml中注册  &amp;lt;receiver     android:name=&amp;quot;com.example.testBR&amp;quot;&amp;gt;    &amp;lt;intent-filter&amp;gt;         &amp;lt;action android:name=&amp;quot;com.examp">
-<meta name="twitter:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg">
+<meta name="twitter:title" content="ubuntu14.04 下载源">
+<meta name="twitter:description" content="中国科学技术大学源：deb http://mirrors.ustc.edu.cn/ubuntu/ trusty main restricted universe multiverse deb http://mirrors.ustc.edu.cn/ubuntu/ trusty-security main restricted universe multiverse deb http://mirro">
+<meta name="twitter:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//ubuntu_post_cover.jpg">
 
 <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
 
@@ -146,94 +146,66 @@
     <div class="container post-box">
         <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
             <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
-                <strong>Android Broadcast的简单应用</strong>
+                <strong>ubuntu14.04 下载源</strong>
             </h1>
             
             <div class="is-flex align-center">
                 <img class="post-avatar" src="/images/me.jpg">
                 <span style="padding:0 10px;"> <span class="sub-title">By</span> Drace Wang</span>
-                <span class="post-date sub-title">at: 2018-05-27</span>
+                <span class="post-date sub-title">at: 2018-02-15</span>
             </div>
             
                 <div>
                     
-                         <a class="tag is-post-tag" href="/tags/Broadcast/">Broadcast</a>
+                         <a class="tag is-post-tag" href="/tags/ubuntu/">ubuntu</a>
                     
                 </div>
             
         </div>
         <div class="content" style="overflow: auto">
-            <p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg" alt="post-cover"></p>
-<h1 id="Android-Broadcast的简单应用"><a href="#Android-Broadcast的简单应用" class="headerlink" title="Android Broadcast的简单应用"></a>Android Broadcast的简单应用</h1><h2 id="broadcast静态使用"><a href="#broadcast静态使用" class="headerlink" title="broadcast静态使用"></a>broadcast静态使用</h2><p>1、在AndroidManifest.xml中注册 </p>
-<pre><code>&lt;receiver 
-   android:name=&quot;com.example.testBR&quot;&gt;
-   &lt;intent-filter&gt;
-        &lt;action android:name=&quot;com.example.test.ACTION_TEST&quot; /&gt;
-        &lt;/intent-filter&gt;
-   &lt;/receiver&gt;
-</code></pre><p>2、重写onReceive方法</p>
-<pre><code>@Override
-public void onReceive(Context context, Intent intent) {
-    // TODO Auto-generated method stub    
-}
-</code></pre><h2 id="broadcast动态注册"><a href="#broadcast动态注册" class="headerlink" title="broadcast动态注册"></a>broadcast动态注册</h2><pre><code>private BroadcastReceiver mReceiver = new BroadcastReceiver(){
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        // TODO Auto-generated method stub    
-    }
-};
-
-@Override
-protected void onPause() {
-super.onPause();
-unregisterReceiver(mReceiver);
-}
-
-
-@Override
-protected void onResume() {
-super.onResume();
-IntentFilter filter = new IntentFilter(&quot;com.example.test.ACTION_TEST&quot;);
-registerReceiver(mReceiver, filter);
-
-}
-</code></pre><p>发送广播</p>
-<pre><code>sendBroadcast(new Intent(&quot;com.example.test.ACTION_TEST&quot;));
-</code></pre><p>Intent中附加信息</p>
-<p>发送带有附加消息的Intent</p>
-<pre><code>Intent i = new Intent(this, TestService.class);
- i.putExtra(name, value);
- sendBroadcast(new Intent(&quot;com.example.test.ACTION_TEST&quot;));
-</code></pre><p>接收Intent中的附加消息</p>
-<pre><code>@Override
-public void onReceive(Context context, Intent intent) {
-    intent.getIntExtra(&quot;action&quot;, 0));
-}
-</code></pre><h3 id="broadcast权限"><a href="#broadcast权限" class="headerlink" title="broadcast权限"></a>broadcast权限</h3><p>如果reeceiver声明在AndroidManifest.xml中，且仅限应用内部使用，则可在标签上添加android:exported=”false”属性<br>这样系统的其他应用就再也无法接触到该receiver。</p>
-<p>另外也可以通过自己创建使用权限，在AndroidManifest.xml中添加标签来完成。</p>
-<pre><code>&lt;permission
-android:name=&quot;com.example.test.TestService.PRIVATE&quot;
-android:protectionLevel=&quot;signature&quot;
-&gt;&lt;/permission&gt;
-
-&lt;uses-permission android:name=&quot;com.example.test.TestService.PRIVATE&quot;/&gt;
-</code></pre><p>发送带权限的broadcast</p>
-<pre><code>String PREM_PRIVATE = &quot;com.example.test.TestService.PRIVATE&quot;;
-sendBroadcast(new Intent(&quot;com.example.test.ACTION_TEST&quot;),PREM_PRIVATE);
-</code></pre><p>通过ADB shell模拟发送broadcast</p>
-<p><code>adb shell am broadcast</code> 后面的参数有：</p>
-<pre><code>[-a &lt;ACTION&gt;]
-[-d &lt;DATA_URI&gt;]
-[-t &lt;MIME_TYPE&gt;] 
-[-c &lt;CATEGORY&gt; [-c &lt;CATEGORY&gt;] ...] 
-[-e|--es &lt;EXTRA_KEY&gt; &lt;EXTRA_STRING_VALUE&gt; ...] 
-[--ez &lt;EXTRA_KEY&gt; &lt;EXTRA_BOOLEAN_VALUE&gt; ...] 
-[-e|--ei &lt;EXTRA_KEY&gt; &lt;EXTRA_INT_VALUE&gt; ...] 
-[-n &lt;COMPONENT&gt;]
-[-f &lt;FLAGS&gt;] [&lt;URI&gt;]
-</code></pre><p>例如：</p>
-<pre><code>adb shell am broadcast -a com.android.test --es test_string &quot;this is test string&quot; --ei test_int 100 --ez test_boolean true
+            <p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//ubuntu_post_cover.jpg" alt="post-cover"></p>
+<h3 id="中国科学技术大学源："><a href="#中国科学技术大学源：" class="headerlink" title="中国科学技术大学源："></a>中国科学技术大学源：</h3><pre><code>deb http://mirrors.ustc.edu.cn/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.ustc.edu.cn/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.ustc.edu.cn/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.ustc.edu.cn/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.ustc.edu.cn/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.ustc.edu.cn/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.ustc.edu.cn/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.ustc.edu.cn/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.ustc.edu.cn/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.ustc.edu.cn/ubuntu/ trusty-backports main restricted universe multiverse
+</code></pre><h3 id="阿里云源："><a href="#阿里云源：" class="headerlink" title="阿里云源："></a>阿里云源：</h3><pre><code>deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+</code></pre><h3 id="163源："><a href="#163源：" class="headerlink" title="163源："></a>163源：</h3><pre><code>deb http://mirrors.163.com/ubuntu/ trusty main restricted
+deb-src http://mirrors.163.com/ubuntu/ trusty main restricted
+deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+</code></pre><h3 id="sohu源："><a href="#sohu源：" class="headerlink" title="sohu源："></a>sohu源：</h3><pre><code>deb http://mirrors.sohu.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.sohu.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ trusty-backports main restricted universe multiverse
 </code></pre>
         </div>
         <div class="post-reply">
