@@ -9,19 +9,19 @@
 <title>ubuntu14.04 配置openssh | Hexagon</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="本文对本机内虚拟机上开启SSH服务，没有涉及外网桥接等方法，考虑后续更新。 安装OpenSSH serversudo apt-get install openssh-sever 修改ssh配置文件（没有安装vim的，请自行替换文本编辑器：nano ；gedit；vi）   sudo vim /etc/ssh/ssh_config 修改以下四行（配置文件的代码意义请自行百度） #Port 22 #">
-<meta name="keywords" content="ubuntu">
+<meta name="keywords" content="ubuntu,openSSH">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu14.04 配置openssh">
 <meta property="og:url" content="https://dracewang.github.io/2018/02/15/ubuntu14.04 配置openssh/index.html">
 <meta property="og:site_name" content="Hexagon">
 <meta property="og:description" content="本文对本机内虚拟机上开启SSH服务，没有涉及外网桥接等方法，考虑后续更新。 安装OpenSSH serversudo apt-get install openssh-sever 修改ssh配置文件（没有安装vim的，请自行替换文本编辑器：nano ；gedit；vi）   sudo vim /etc/ssh/ssh_config 修改以下四行（配置文件的代码意义请自行百度） #Port 22 #">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//ubuntu_post_cover.jpg">
-<meta property="og:updated_time" content="2020-08-13T14:38:19.980Z">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/DwBuaAUOdTmpXyE.jpg">
+<meta property="og:updated_time" content="2020-10-27T14:25:24.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu14.04 配置openssh">
 <meta name="twitter:description" content="本文对本机内虚拟机上开启SSH服务，没有涉及外网桥接等方法，考虑后续更新。 安装OpenSSH serversudo apt-get install openssh-sever 修改ssh配置文件（没有安装vim的，请自行替换文本编辑器：nano ；gedit；vi）   sudo vim /etc/ssh/ssh_config 修改以下四行（配置文件的代码意义请自行百度） #Port 22 #">
-<meta name="twitter:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//ubuntu_post_cover.jpg">
+<meta name="twitter:image" content="https://i.loli.net/2020/10/27/DwBuaAUOdTmpXyE.jpg">
 
 <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
 
@@ -153,11 +153,13 @@
                     
                          <a class="tag is-post-tag" href="/tags/ubuntu/">ubuntu</a>
                     
+                         <a class="tag is-post-tag" href="/tags/openSSH/">openSSH</a>
+                    
                 </div>
             
         </div>
         <div class="content" style="overflow: auto">
-            <p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//ubuntu_post_cover.jpg" alt="post-cover"></p>
+            <p><img src="https://i.loli.net/2020/10/27/DwBuaAUOdTmpXyE.jpg" alt="post-cover"></p>
 <p><em>本文对本机内虚拟机上开启SSH服务，没有涉及外网桥接等方法，考虑后续更新。</em></p>
 <h2 id="安装OpenSSH-server"><a href="#安装OpenSSH-server" class="headerlink" title="安装OpenSSH server"></a>安装OpenSSH server</h2><pre><code>sudo apt-get install openssh-sever
 </code></pre><p>修改ssh配置文件（没有安装vim的，请自行替换文本编辑器：nano ；gedit；vi）  </p>

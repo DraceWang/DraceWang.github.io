@@ -9,26 +9,26 @@
 <title>Android LCD屏幕亮度曲线调整 | Hexagon</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Android LCD屏幕亮度曲线调整 由于公司项目比较急，我也是刚开始接触源码上修改代码，但是正因如此这次的需求来了之后对Android屏幕亮度曲线调节有了一个新的认知，记录下来也算时一种经验分享。我会从自动和手动两个方面来说明，最后在补充一些使用的测试仪器时候的一些心得吧。  1.对Android源码背光亮度方面的研究公欲善其事，必先利其器。所以首先我们先来看下源码。同样我们也时分为两个部分">
-<meta name="keywords" content="LCD backlight">
+<meta name="keywords" content="LCD backlight,Android,BSP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android LCD屏幕亮度曲线调整">
 <meta property="og:url" content="https://dracewang.github.io/2019/02/13/Android LCD屏幕亮度曲线调整/index.html">
 <meta property="og:site_name" content="Hexagon">
 <meta property="og:description" content="Android LCD屏幕亮度曲线调整 由于公司项目比较急，我也是刚开始接触源码上修改代码，但是正因如此这次的需求来了之后对Android屏幕亮度曲线调节有了一个新的认知，记录下来也算时一种经验分享。我会从自动和手动两个方面来说明，最后在补充一些使用的测试仪器时候的一些心得吧。  1.对Android源码背光亮度方面的研究公欲善其事，必先利其器。所以首先我们先来看下源码。同样我们也时分为两个部分">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//pwm.png">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//gamma.png">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//gamma-curve.png">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//lcd-backlight-framework.png">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//dev.png">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//%E5%8E%9F%E6%89%8B%E5%8A%A8%E8%83%8C%E5%85%89%E8%B0%83%E8%8A%82.png">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//%E5%8E%9F%E8%87%AA%E5%8A%A8%E8%83%8C%E5%85%89%E8%B0%83%E8%8A%821.png">
-<meta property="og:updated_time" content="2020-08-13T14:47:56.085Z">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/Qjw3lGXpCn4Iadq.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/UYRAVqr2axsEw6g.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/sdK96MOrVJcLybF.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/5xFEd8mrOYjvtkb.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/DTgSO5mzafjdGpF.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/f3qMLmUe54u72pA.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/f3qMLmUe54u72pA.png">
+<meta property="og:updated_time" content="2020-10-27T14:45:37.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android LCD屏幕亮度曲线调整">
 <meta name="twitter:description" content="Android LCD屏幕亮度曲线调整 由于公司项目比较急，我也是刚开始接触源码上修改代码，但是正因如此这次的需求来了之后对Android屏幕亮度曲线调节有了一个新的认知，记录下来也算时一种经验分享。我会从自动和手动两个方面来说明，最后在补充一些使用的测试仪器时候的一些心得吧。  1.对Android源码背光亮度方面的研究公欲善其事，必先利其器。所以首先我们先来看下源码。同样我们也时分为两个部分">
-<meta name="twitter:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg">
+<meta name="twitter:image" content="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg">
 
 <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
 
@@ -160,23 +160,27 @@
                     
                          <a class="tag is-post-tag" href="/tags/LCD-backlight/">LCD backlight</a>
                     
+                         <a class="tag is-post-tag" href="/tags/Android/">Android</a>
+                    
+                         <a class="tag is-post-tag" href="/tags/BSP/">BSP</a>
+                    
                 </div>
             
         </div>
         <div class="content" style="overflow: auto">
-            <p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//android_post_cover.jpg" alt="post-cover"></p>
+            <p><img src="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg" alt="post-cover"></p>
 <h1 id="Android-LCD屏幕亮度曲线调整"><a href="#Android-LCD屏幕亮度曲线调整" class="headerlink" title="Android LCD屏幕亮度曲线调整"></a>Android LCD屏幕亮度曲线调整</h1><hr>
 <p>由于公司项目比较急，我也是刚开始接触源码上修改代码，但是正因如此这次的需求来了之后对Android屏幕亮度曲线调节有了一个新的认知，记录下来也算时一种经验分享。我会从自动和手动两个方面来说明，最后在补充一些使用的测试仪器时候的一些心得吧。</p>
 <hr>
 <h2 id="1-对Android源码背光亮度方面的研究"><a href="#1-对Android源码背光亮度方面的研究" class="headerlink" title="1.对Android源码背光亮度方面的研究"></a>1.对Android源码背光亮度方面的研究</h2><p>公欲善其事，必先利其器。所以首先我们先来看下源码。同样我们也时分为两个部分，手动和自动。至于为啥要分开说，其实研究过源码后，其实就知道了，源码就是通过自动背光的开关，直接把两个部分分开的。因此首先要纠正一个错误的观点，那就是：“手动背光曲线是什么样的，开了自动背光开关后，环境光一定的情况下，滑动亮度调节进度条，这时候的曲线和手动背光时候的曲线是一样的。”这个想法时完完全全错了，手动和自动背光就是分开的，两种情况下的背光曲线没有任何关联，当然定制化的不算，我们仅说源码角度<em>(基于Android7.1)</em>,说起来也奇怪，自动背光这部分的代码在8.0之后又调整了算法，我们暂时不管它，下面讲到的时候再具体说明。</p>
 <h3 id="1-1-基础知识普及"><a href="#1-1-基础知识普及" class="headerlink" title="1.1 基础知识普及"></a>1.1 基础知识普及</h3><p>1.pwm 脉冲宽度调制（占空比），基本原理：控制方式就是对逆变电路开关器件的通断进行控制，使输出端得到一系列幅值相等的脉冲，用这些脉冲来代替正弦波或所需要的波形。也就是在输出波形的半个周期中产生多个脉冲，使各脉冲的等值电压为正弦波形，所获得的输出平滑且低次谐波少。按一定的规则对各脉冲的宽度进行调制，即可改变逆变电路输出电压的大小，也可改变输出频率。</p>
-<p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//pwm.png" alt="pwm"></p>
+<p><img src="https://i.loli.net/2020/10/27/Qjw3lGXpCn4Iadq.png" alt="pwm"></p>
 <p>2.gamma（屏幕灰度），灰度使用黑色调表示物体。 每个灰度对象都具有从 0%(白色)到100%(黑色)的亮度值。 使用黑白或灰度扫描仪生成的图像通常以灰度显示。</p>
-<p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//gamma.png" alt="gamma"></p>
-<p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//gamma-curve.png" alt="人眼感知与gamma值的变化"></p>
+<p><img src="https://i.loli.net/2020/10/27/UYRAVqr2axsEw6g.png" alt="gamma"></p>
+<p><img src="https://i.loli.net/2020/10/27/sdK96MOrVJcLybF.png" alt="人眼感知与gamma值的变化"></p>
 <p>3.屏幕亮度设定（0-255)，这个设定值相当于是与屏幕亮度之间的一个关系，一般当项目流程交给软件工程师来调整曲线时，这个对应关系就是确定的了。当然不同的供应商会对应有不同的对应关系，这个关系也不一定是纯线性的，一般来说会呈现如下图这样的趋势。</p>
 <p>4.Android背光调整架构<br>下图是MTK平台的背光调整架构图从下至上对应硬件到软件层。</p>
-<p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//lcd-backlight-framework.png" alt="Android MTK平台背光调整架构"></p>
+<p><img src="https://i.loli.net/2020/10/27/5xFEd8mrOYjvtkb.png" alt="Android MTK平台背光调整架构"></p>
 <h3 id="1-2-手动背光"><a href="#1-2-手动背光" class="headerlink" title="1.2 手动背光"></a>1.2 手动背光</h3><p>此功能在<code>settings---&gt;display---&gt;brightness</code>下面，可知有自动调节和手动调节背光亮度的功能，其中手动是通过进度条(slider)来调节的，此应用对应的布局文件为<code>\packages\apps\Settings\res\layout\preference_dialog_brightness.xml</code> <em>如果项目有overlay请自行找下对应复写布局</em></p>
 <p>在<code>\frameworks\base\core\res\res\values\config.xml</code>下定义了手动背光亮度的最小值</p>
 <pre><code class="java">    &lt;!-- Minimumscreen brightness allowed by the power manager. --&gt;  
@@ -403,7 +407,7 @@
 <p>我们看到原生是3意味着变化是在1/3次方到3次方之间，这个趋势是符合人眼在低光线亮度时对光线变化相对比较敏感的处理。<br>这里gamma值的调整变化时完全根据进度度条来的，同时通过指数运算放大，然后最后作用于亮度上。</p>
 <hr>
 <h2 id="2如何调整背光曲线"><a href="#2如何调整背光曲线" class="headerlink" title="2如何调整背光曲线"></a>2如何调整背光曲线</h2><p>这里同样我们也是按照手动和自动两个部分来说。</p>
-<p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//dev.png" alt="dev"></p>
+<p><img src="https://i.loli.net/2020/10/27/DTgSO5mzafjdGpF.png" alt="dev"></p>
 <h3 id="1-手动背光调节思路"><a href="#1-手动背光调节思路" class="headerlink" title="1.手动背光调节思路"></a>1.手动背光调节思路</h3><p>上面我们调查源码这部分的时候看到，源码是有个回调机制，因此导致了进度条调节的背光曲线为线性变化，那我们现在需要让这个背光曲线变成指数型曲线或者其他任何自定义的曲线怎么处理呢？</p>
 <h4 id="1-1算法拟合曲线"><a href="#1-1算法拟合曲线" class="headerlink" title="1.1算法拟合曲线"></a>1.1算法拟合曲线</h4><p>其实很简单，就是把最终设置到<code>settings.db</code>数据库中的值给定死，那么屏幕亮度就会按照我们的想法变化。有了这个目标我们就可以找到设置亮度的地方前增加一个算法就可以了，<strong>用这个算法来调整原先线性的曲线变为我们想要的曲线。这个算法的公式可以通过客户给出的具体要求来做曲线拟合。</strong></p>
 <p>至于如何才能拟合曲线，这里给个方法，当然数学好的同学肯定自有高招，我这里只是给个还算比较方便的方法，就是用excel，先在表格中用给定的值记录进去做出表格，然后先做出目标曲线<em>（这里要注意的是，图标做的时候用的不是折线图，而是应该选带平滑线的散点图）</em>，然后在图表中添加趋势线，在编辑中把几种类型都选下看看那种更接近目标。</p>
@@ -412,7 +416,7 @@
 <p>1.在手动设置了亮度后发现进度标识自动跳走的<br>2.进度条百分比显示不再线性<br>3.无法自由滑动进度条<br>4.进度条只能在特定点停下，设置到别的点会自动跳到附近的点<br>5.进度条百分比不再完整</p>
 </blockquote>
 <p>这些问题的出现弄得我一度崩溃，但是还是要慢慢来，首先我们知道了时因为回调机制的原因导致进度条怎么都不能符合我们的要求，那么我们先把它去掉，不再回调。这个时候发现,诶？进度条似乎不再能到255了，只有0-100了，而之前的百分比似乎也不能调到96%以后，就是因为回调设置进去的进度条的值是配置文件中亮度最大值和亮度最小值的差值，并且显示的百分比又是在这个范围内计算的比例。知道了这个我们只要预先直接给进度条设置好总长值，然后回调的时候让其根据我们增加的曲线算法反向计算一次得出目前的屏幕亮度对应0-255的值时多少就好了。这里可能有点绕，我强调下，<strong>我们不仅需要能通过进度条得到对应设置0-255的亮度值，还要能根据这个亮度值反向计算得到对应于进度条上0-255的比例值，然后设置到进度条上，这样才能正确显示进度条。</strong>回调会从settings数据库中得到当前设置的背光亮度值，然后反算完后就得到对应目前进度条上的亮度，再回设置就<br>这样处理后时的确可以解决进度条显示的问题，但是百分比的显示是在settings里面的，并且不止一个地方有监听调用，这样的话真的要把这个东西改成线性就太麻烦了，观察市面上的大部分手机后，建议<strong>直接去除亮度百分比的显示</strong>，其实只要目标曲线不是线性的，那么我们的百分比也就不会是线性的。</p>
-<p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//%E5%8E%9F%E6%89%8B%E5%8A%A8%E8%83%8C%E5%85%89%E8%B0%83%E8%8A%82.png" alt="原手动背光调节"></p>
+<p><img src="https://i.loli.net/2020/10/27/f3qMLmUe54u72pA.png" alt="原手动背光调节"></p>
 <h4 id="1-3其他问题"><a href="#1-3其他问题" class="headerlink" title="1.3其他问题"></a>1.3其他问题</h4><p>除了刚才说的进度条问题我在调试的过程中还发现了几个问题。</p>
 <blockquote>
 <p>1.推出设置中的显示界面，进度条位置就不记录了。<br>这个主要是回调那部分没有改好。</p>
@@ -421,7 +425,7 @@
 <p>2.恢复出厂后手动进度的位置不在原来的50%的位置。<br>这个问题主要是原先时读取的默认102在<code>&lt;integernameintegername=&quot;def_screen_brightness&quot;&gt;102&lt;/integer&gt;</code>但是这个值对应的现在曲线的百分比就不是在50%而是应该按照新算法计算，所以需要改成自己的值。</p>
 </blockquote>
 <h3 id="2-自动背光调节思路"><a href="#2-自动背光调节思路" class="headerlink" title="2.自动背光调节思路"></a>2.自动背光调节思路</h3><p>源码提供了<code>frameworks/base/core/res/res/values/config.xml</code>这个配置中直接更改节点值的方式来修改自动背光曲线，这种方式我们这里不做过多的讨论了。下面来说说自定义的背光曲线怎么弄。</p>
-<p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//%E5%8E%9F%E8%87%AA%E5%8A%A8%E8%83%8C%E5%85%89%E8%B0%83%E8%8A%821.png" alt="原自动背光调节1"></p>
+<p><img src="https://i.loli.net/2020/10/27/f3qMLmUe54u72pA.png" alt="原自动背光调节1"></p>
 <h4 id="2-1-测定0-255亮度值对应屏幕nit亮度"><a href="#2-1-测定0-255亮度值对应屏幕nit亮度" class="headerlink" title="2.1 测定0-255亮度值对应屏幕nit亮度"></a>2.1 测定0-255亮度值对应屏幕nit亮度</h4><p>这个如标题，至于为啥要这么做，主要是在屏幕供应商确定，驱动确定的基础上，这个0-255的亮度值与屏幕nit亮度之间的关系就基本时确定的了。测量出了这个关系，对后面应用亮度时可以提高不少效率。</p>
 <h4 id="2-2-通过算法来匹配自动背光曲线"><a href="#2-2-通过算法来匹配自动背光曲线" class="headerlink" title="2.2 通过算法来匹配自动背光曲线"></a>2.2 通过算法来匹配自动背光曲线</h4><p>我们在匹配的时候可能会遇到需要适配各种不同的情况，比如限定了进度条各位置的背光曲线，这样的话，等于我们有两个输入变量，第一个时环境光，第二个时进度条的位置带来的亮度调整。<br>首先，我们通过算法满足环境光变化时，背光亮度的的曲线。这里要重点说的是，如果定制曲线不仅仅只规定了一条，而是连<strong>调节变化范围的区间也规定了的话，应该考虑直接替换原码的gamma的计算</strong>，毕竟源码是通过定了一条背光曲线后，通过255阶的gamma来调整基于设定配置好的背光曲线的进度条最小或最高的调整。大约是从1/3到3次方的一个变化，因此如果需要定制则建议直接替换自己的定制算法，并且在Android8.0以后已经去掉gamma值的仅算调整这个算法，这里就提一句，主要是替换算法的时候可不要有什么心里负担。</p>
 <h4 id="2-3-自动背光曲线调整进度条不平滑"><a href="#2-3-自动背光曲线调整进度条不平滑" class="headerlink" title="2.3 自动背光曲线调整进度条不平滑"></a>2.3 自动背光曲线调整进度条不平滑</h4><p>在这里要重点讲下这个问题，由于我们考虑的时客户给定了变化范围的定制曲线，我们利用算法框住这个范围的时候会发现，原生算法中进度条的变化范围时-1到1的。我们自己处理这个曲线的时候是很难用出面积来表示的，当然数学好的有办法的除外。我这里就说下，把-1到1这个范围取整后利用曲线取出的数值后怎么办？<br>当我们完成曲线后，会发现由于取整，比如我们有三条曲线，我们会在进度条左右1/3的点时发生亮度突变（当然一边左1/3点亮度相对暗，突变看起来特别明显），这个突变时由于我们的计算结果因取整从相邻的曲线跃迁到目标曲线的一个结果。我们可以通过在增加一个调整算法来将类似的变化调整为线性的。<br>增加的算法直接划出的环境光区间内的计算最低值和最高值的线性条件（这个是斜线）也可以计算区间内环境光最低和最好的两条线性，再以线性条件的平均值来作为区间变化的线性条件，并在总环境光区间内添加多条这样的线性约束后，整体的变化就会类似与面积处理的结果，肉眼就难以看出了。同时我们指导环境光的变化一般时固定的，也不会就算有变化，也没有拖拉进度条这么快，因此每次经过这两次的计算，得到的屏幕亮度基本就可以符合定制要求了。</p>

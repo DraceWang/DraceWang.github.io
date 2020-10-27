@@ -9,19 +9,19 @@
 <title>git 代码管理工具常用命令 | Hexagon</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="git 代码管理工具常用命令首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。 1.git基础配置假设在git服务器上设置的用户名是：gituser1，邮箱是：gituser1@git.com 配置git提交时候的全局">
-<meta name="keywords" content="tools">
+<meta name="keywords" content="tools,Android,git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git 代码管理工具常用命令">
 <meta property="og:url" content="https://dracewang.github.io/2019/02/19/git 代码管理工具常用命令/index.html">
 <meta property="og:site_name" content="Hexagon">
 <meta property="og:description" content="git 代码管理工具常用命令首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。 1.git基础配置假设在git服务器上设置的用户名是：gituser1，邮箱是：gituser1@git.com 配置git提交时候的全局">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//git_post_cover.jpg">
-<meta property="og:updated_time" content="2020-08-13T14:51:39.073Z">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/Qs3Xp2oW8UgFDYZ.jpg">
+<meta property="og:updated_time" content="2020-10-27T14:35:12.564Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 代码管理工具常用命令">
 <meta name="twitter:description" content="git 代码管理工具常用命令首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。 1.git基础配置假设在git服务器上设置的用户名是：gituser1，邮箱是：gituser1@git.com 配置git提交时候的全局">
-<meta name="twitter:image" content="http://qf07uxl4r.hn-bkt.clouddn.com//git_post_cover.jpg">
+<meta name="twitter:image" content="https://i.loli.net/2020/10/27/Qs3Xp2oW8UgFDYZ.jpg">
 
 <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
 
@@ -153,11 +153,15 @@
                     
                          <a class="tag is-post-tag" href="/tags/tools/">tools</a>
                     
+                         <a class="tag is-post-tag" href="/tags/Android/">Android</a>
+                    
+                         <a class="tag is-post-tag" href="/tags/git/">git</a>
+                    
                 </div>
             
         </div>
         <div class="content" style="overflow: auto">
-            <p><img src="http://qf07uxl4r.hn-bkt.clouddn.com//git_post_cover.jpg" alt="post-cover"></p>
+            <p><img src="https://i.loli.net/2020/10/27/Qs3Xp2oW8UgFDYZ.jpg" alt="post-cover"></p>
 <h1 id="git-代码管理工具常用命令"><a href="#git-代码管理工具常用命令" class="headerlink" title="git 代码管理工具常用命令"></a>git 代码管理工具常用命令</h1><p>首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。</p>
 <h3 id="1-git基础配置"><a href="#1-git基础配置" class="headerlink" title="1.git基础配置"></a>1.git基础配置</h3><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:gituser1@git.com" target="_blank" rel="noopener">gituser1@git.com</a></p>
 <h4 id="配置git提交时候的全局用户名"><a href="#配置git提交时候的全局用户名" class="headerlink" title="配置git提交时候的全局用户名"></a>配置git提交时候的全局用户名</h4><pre><code class="git">gitconfig --global user.name gituser1

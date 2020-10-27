@@ -8,18 +8,20 @@
 	
 <title>ldap安装与关联redmine | Hexagon</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="安装LDAPsudo vim /etc/hosts 修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname” sudo apt-get install slapd ldap-utils //安装ldap 测试 sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/">
-<meta name="keywords" content="LDAP">
+<meta name="description" content="安装LDAPsudo vim /etc/hosts 修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname” sudo apt-get install slapd ldap-utils //安装ldap 测试 sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:">
+<meta name="keywords" content="LDAP,redmine">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ldap安装与关联redmine">
 <meta property="og:url" content="https://dracewang.github.io/2018/05/27/ldap安装与关联redmine/index.html">
 <meta property="og:site_name" content="Hexagon">
-<meta property="og:description" content="安装LDAPsudo vim /etc/hosts 修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname” sudo apt-get install slapd ldap-utils //安装ldap 测试 sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/">
+<meta property="og:description" content="安装LDAPsudo vim /etc/hosts 修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname” sudo apt-get install slapd ldap-utils //安装ldap 测试 sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:updated_time" content="2020-08-13T14:53:10.394Z">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg">
+<meta property="og:updated_time" content="2020-10-27T14:34:59.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ldap安装与关联redmine">
-<meta name="twitter:description" content="安装LDAPsudo vim /etc/hosts 修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname” sudo apt-get install slapd ldap-utils //安装ldap 测试 sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/">
+<meta name="twitter:description" content="安装LDAPsudo vim /etc/hosts 修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname” sudo apt-get install slapd ldap-utils //安装ldap 测试 sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:">
+<meta name="twitter:image" content="https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg">
 
 <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
 
@@ -151,11 +153,14 @@
                     
                          <a class="tag is-post-tag" href="/tags/LDAP/">LDAP</a>
                     
+                         <a class="tag is-post-tag" href="/tags/redmine/">redmine</a>
+                    
                 </div>
             
         </div>
         <div class="content" style="overflow: auto">
-            <h3 id="安装LDAP"><a href="#安装LDAP" class="headerlink" title="安装LDAP"></a>安装LDAP</h3><pre><code>sudo vim /etc/hosts
+            <p><img src="https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg" alt="post-cover"></p>
+<h3 id="安装LDAP"><a href="#安装LDAP" class="headerlink" title="安装LDAP"></a>安装LDAP</h3><pre><code>sudo vim /etc/hosts
 </code></pre><p>修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname”</p>
 <pre><code>sudo apt-get install slapd ldap-utils //安装ldap
 </code></pre><p>测试</p>
@@ -173,22 +178,11 @@ sudo vim add_content.ldif   //创建add_content.ldif添加下列文字
 objectClass: organizationalUnit
 
 ou: People
-</code></pre><p>​<br>​<br>    dn: ou=Groups,dc=example,dc=com</p>
-<pre><code>objectClass: organizationalUnit
-
-ou: Groups
-</code></pre><p>​<br>​<br>    dn: cn=miners,ou=Groups,dc=example,dc=com</p>
-<pre><code>objectClass: posixGroup
-
-cn: miners
-
-gidNumber: 5000
-</code></pre><p>​<br>​<br>    dn: uid=john,ou=People,dc=example,dc=com</p>
-<pre><code>objectClass: inetOrgPerson
-
-objectClass: posixAccount
-
-objectClass: shadowAccount
+</code></pre><p>​<br>​<br>​    dn: ou=Groups,dc=example,dc=com<br>​<br>​    objectClass: organizationalUnit<br>​<br>    ou: Groups</p>
+<p>​<br>​<br>​    dn: cn=miners,ou=Groups,dc=example,dc=com<br>​<br>​    objectClass: posixGroup<br>​<br>    cn: miners</p>
+<pre><code>gidNumber: 5000
+</code></pre><p>​<br>​<br>​    dn: uid=john,ou=People,dc=example,dc=com<br>​<br>​    objectClass: inetOrgPerson<br>​<br>    objectClass: posixAccount</p>
+<pre><code>objectClass: shadowAccount
 
 uid: john
 
