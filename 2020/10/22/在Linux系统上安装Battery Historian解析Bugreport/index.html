@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	
+<title>Linux系统上安装Battery Historian解析Bugreport | Hexagon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Linux系统上安装Battery Historian解析Bugreport由于工作需要功耗问题上总是需要使用Battery Historian来解析Bugrepot，这里呢就把这个过程整理下。而根据官网Docker是最方便的方式，但是由于公司网络大多有不少限制，因此我没能用成，只能一步步把运行环境全部搭建起来。 1. 安装运行环境1.1 GO语言首先到GO的官网上下载最新版本的go安装包，至于">
+<meta name="keywords" content="Android,Linux,Battery Historian,Bugreport">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux系统上安装Battery Historian解析Bugreport">
+<meta property="og:url" content="https://dracewang.github.io/2020/10/22/在Linux系统上安装Battery Historian解析Bugreport/index.html">
+<meta property="og:site_name" content="Hexagon">
+<meta property="og:description" content="Linux系统上安装Battery Historian解析Bugreport由于工作需要功耗问题上总是需要使用Battery Historian来解析Bugrepot，这里呢就把这个过程整理下。而根据官网Docker是最方便的方式，但是由于公司网络大多有不少限制，因此我没能用成，只能一步步把运行环境全部搭建起来。 1. 安装运行环境1.1 GO语言首先到GO的官网上下载最新版本的go安装包，至于">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg">
+<meta property="og:updated_time" content="2020-11-02T11:52:59.892Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux系统上安装Battery Historian解析Bugreport">
+<meta name="twitter:description" content="Linux系统上安装Battery Historian解析Bugreport由于工作需要功耗问题上总是需要使用Battery Historian来解析Bugrepot，这里呢就把这个过程整理下。而根据官网Docker是最方便的方式，但是由于公司网络大多有不少限制，因此我没能用成，只能一步步把运行环境全部搭建起来。 1. 安装运行环境1.1 GO语言首先到GO的官网上下载最新版本的go安装包，至于">
+<meta name="twitter:image" content="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg">
+
+<link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
+
+
+<link rel="icon" href="/images/me.jpg">
+
+
+<link rel="stylesheet" href="../../../../css/common.css">
+<link rel="stylesheet" href="../../../../css/nav.css">
+<link rel="stylesheet" href="../../../../css/layout.css">
+<title>Valine - A simple comment system based on Leancloud.</title>
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库:-->
+<script src="//cdn.jsdelivr.net/npm/valine"></script>
+</head>
+
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Drace Wang</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="../../../../index.html">
+                Home
+            </a>
+            
+            <a class="nav-item" href="../../../../archives">
+                Archives
+            </a>
+            
+            <a class="nav-item" href="../../../../tags">
+                Tags
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="../../../../index.html">
+                Home
+            </a>
+            
+            <a class="nav-item flex-1" href="../../../../archives">
+                Archives
+            </a>
+            
+            <a class="nav-item flex-1" href="../../../../tags">
+                Tags
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>Linux系统上安装Battery Historian解析Bugreport</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="/images/me.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> Drace Wang</span>
+                <span class="post-date sub-title">at: 2020-10-22</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/Android/">Android</a>
+                    
+                         <a class="tag is-post-tag" href="/tags/Linux/">Linux</a>
+                    
+                         <a class="tag is-post-tag" href="/tags/Battery-Historian/">Battery Historian</a>
+                    
+                         <a class="tag is-post-tag" href="/tags/Bugreport/">Bugreport</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <p><img src="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg" alt="post-cover"></p>
+<h1 id="Linux系统上安装Battery-Historian解析Bugreport"><a href="#Linux系统上安装Battery-Historian解析Bugreport" class="headerlink" title="Linux系统上安装Battery Historian解析Bugreport"></a>Linux系统上安装Battery Historian解析Bugreport</h1><p>由于工作需要功耗问题上总是需要使用Battery Historian来解析Bugrepot，这里呢就把这个过程整理下。而根据官网Docker是最方便的方式，但是由于公司网络大多有不少限制，因此我没能用成，只能一步步把运行环境全部搭建起来。</p>
+<h2 id="1-安装运行环境"><a href="#1-安装运行环境" class="headerlink" title="1. 安装运行环境"></a>1. 安装运行环境</h2><h3 id="1-1-GO语言"><a href="#1-1-GO语言" class="headerlink" title="1.1 GO语言"></a>1.1 GO语言</h3><p>首先到GO的官网上下载最新版本的go安装包，至于linux如何安装也有文档可以查询。</p>
+<pre><code class="shell">tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+</code></pre>
+<p>在mac上使用官网下载的go语言安装包安装后</p>
+<pre><code class="shell">export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+</code></pre>
+<p>这里注意要设置<code>GOPATH</code>的路径，否则后续编译安装Battery Historian使用到的时候会找不到路径。</p>
+<h3 id="1-2-安装Python2-7"><a href="#1-2-安装Python2-7" class="headerlink" title="1.2 安装Python2.7"></a>1.2 安装Python2.7</h3><p>这个一般linux系统都有，如果是python3的话，记得设置切换到2.7。</p>
+<p>如果没有呢，可以去<a href="https://python.org/downloads官网下载。" target="_blank" rel="noopener">https://python.org/downloads官网下载。</a></p>
+<h3 id="1-3-安装java运行环境"><a href="#1-3-安装java运行环境" class="headerlink" title="1.3 安装java运行环境"></a>1.3 安装java运行环境</h3><p>从官网安装 <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a>.</p>
+<h2 id="2-安装Battery-Historian"><a href="#2-安装Battery-Historian" class="headerlink" title="2. 安装Battery Historian"></a>2. 安装Battery Historian</h2><p>官网上又是很简单的</p>
+<pre><code class="go">go get -d -u github.com/google/battery-historian/...
+</code></pre>
+<p>但是非常不幸，我这里还是因为网络的问题无法安装。不要问我为什么github都不能访问。</p>
+<p>需要安装三个东西</p>
+<ul>
+<li><p><a href="http://github.com/golang/protobuf/proto" target="_blank" rel="noopener">proto</a></p>
+</li>
+<li><p><a href="https://github.com/google/closure-compiler" target="_blank" rel="noopener">closure-compiler</a></p>
+</li>
+<li><p><a href="https://github.com/golang/protobuf" target="_blank" rel="noopener">protobuf</a></p>
+</li>
+</ul>
+<p>安装好之后先运行安装编译：</p>
+<pre><code class="go">cd $GOPATH/src/github.com/google/battery-historian
+go run setup.go
+</code></pre>
+<p>基本应该是没啥问题了，如果还有报错就再看下，是不是少了<code>historian-optimized.js</code>文件<br>下载地址：<code>链接：pan.baidu.com/s/1kFdUVM6ICT_3Uh1ui14J3w 提取码：3fnn</code><br>下载后放到<code>\go\src\github.com\google\battery-historian\compiled</code>目录下</p>
+<p>如果是连接了可以上google的网络，则可以不用单独安装，在<code>go get -d -u github.com/google/battery-historian/...</code>之后就可以直接</p>
+<pre><code class="go">cd $GOPATH/src/github.com/google/battery-historian
+go run setup.go
+</code></pre>
+<p>但是目前（2020-10-21）<code>closure-library</code>有问题，会导致<code>go run setup.go</code>报错，解决办法如下：</p>
+<pre><code class="go">//go run setup.go (this fails)
+cd third_party/closure-library/
+git reset --hard v20170409
+cd -
+go run setup.go //(this passes)
+</code></pre>
+<h2 id="3-运行Battery-Historian"><a href="#3-运行Battery-Historian" class="headerlink" title="3. 运行Battery Historian"></a>3. 运行Battery Historian</h2><pre><code class="go">cd $GOPATH/src/github.com/google/battery-historian
+go run cmd/battery-historian/battery-historian.go [--port &lt;default:9999&gt;]
+</code></pre>
+<p>这个时候大概率是无法运行的，或者是出现等了好久出现了界面，但是选择了需要解析的文件后没有submit提交按钮。</p>
+<p>这个时候需要在<code>$GOPATH\src\github.com\google\battery-historian\templates\base.html</code>中替换js文件的加载地址。</p>
+<p>可以从<a href="https://www.bootcdn.cn/网站上找到对应需要替换的js文件（尽量版本也可以对应）" target="_blank" rel="noopener">https://www.bootcdn.cn/网站上找到对应需要替换的js文件（尽量版本也可以对应）</a></p>
+<p>替换后打开快了吗？不会！！</p>
+<p>浏览器中开发者模式下，你会发现访问了<a href="https://www.google.com/jsapi，这个是用来查询js的google的api，但是由于我们已经替换过了，并且国内无法使用google的域名，怎么办呢？嘿嘿，干掉它，注释掉。或者改为cn域名就可以访问了，但是如果你完全做了替换那也就没啥意义了。" target="_blank" rel="noopener">https://www.google.com/jsapi，这个是用来查询js的google的api，但是由于我们已经替换过了，并且国内无法使用google的域名，怎么办呢？嘿嘿，干掉它，注释掉。或者改为cn域名就可以访问了，但是如果你完全做了替换那也就没啥意义了。</a></p>
+<p>附上<code>base.html</code>的前半部分有修改的地方。</p>
+<pre><code class="html">&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.bootcdn.net/ajax/libs/jqueryui/1.11.4/jquery-ui.css&quot;&gt;
+    &lt;script src=&quot;//cdn.bootcdn.net/ajax/libs/jquery/1.11.2/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;//cdn.bootcdn.net/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js&quot;&gt;&lt;/script&gt;
+
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.bootcdn.net/ajax/libs/select2/3.5.4/select2.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.bootcdn.net/ajax/libs/jquery-contextmenu/1.6.6/jquery.contextMenu.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//cdn.datatables.net/1.10.9/css/jquery.dataTables.css&quot;&gt;
+    &lt;script src=&quot;//cdn.bootcdn.net/ajax/libs/select2/3.5.4/select2.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;//cdn.bootcdn.net/ajax/libs/jquery-contextmenu/1.6.6/jquery.contextMenu.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;//cdn.datatables.net/1.10.9/js/jquery.dataTables.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;//cdn.bootcdn.net/ajax/libs/moment.js/2.13.0/moment.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;//cdn.bootcdn.net/ajax/libs/moment-timezone/0.5.31/moment-timezone-with-data.js&quot;&gt;&lt;/script&gt;
+
+    &lt;!-- &lt;script type=&quot;text/javascript&quot; src=&quot;https://www.google.com/jsapi&quot;&gt;&lt;/script&gt; --&gt;
+    &lt;!-- Loading fonts with https://www.gstatic.com/external_hosted/twitter_bootstrap_css/css/bootstrap.min.css is blocked by CORS policy, which means icons won&#39;t load. --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css&quot;&gt;
+    &lt;script src=&quot;//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script src=&quot;//cdn.bootcdn.net/ajax/libs/flot/0.8.3/jquery.flot.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;third_party/flot-axislabels/jquery.flot.axislabels.js?ver={{.ResVersion}}&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;//www.benjaminbuffet.com/public/js/jquery.flot.orderBars.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;//cdn.bootcdn.net/ajax/libs/flot/0.8.3/jquery.flot.pie.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+    &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;static/stylesheet.css?ver={{.ResVersion}}&quot;&gt;
+    &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;static/historian.css?ver={{.ResVersion}}&quot;&gt;
+    &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;static/histogram.css?ver={{.ResVersion}}&quot;&gt;
+
+    &lt;script src=&quot;//www.gstatic.com/external_hosted/jquery_form/jquery.form.min.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+    &lt;script type=&quot;text/javascript&quot; src=&quot;//cdn.bootcdn.net/ajax/libs/d3/4.9.1/d3.min.js&quot;&gt;&lt;/script&gt;
+    {{ if .IsOptimizedJs }}
+    &lt;script src=&quot;compiled/historian-optimized.js?ver={{.ResVersion}}&quot;&gt;&lt;/script&gt;
+    {{ else }}
+    &lt;!-- Need to load Closure in header. --&gt;
+    &lt;script&gt;CLOSURE_NO_DEPS=true&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;third_party/closure-library/closure/goog/base.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;compiled/historian_deps-runfiles.js&quot;&gt;&lt;/script&gt;
+    {{ end }}
+
+    &lt;title&gt;Battery Historian&lt;/title&gt;
+  &lt;/head&gt;
+</code></pre>
+<p>这个时候再运行就应该很快了。</p>
+<h3 id="3-1-点击error按钮不显示解析报错的问题"><a href="#3-1-点击error按钮不显示解析报错的问题" class="headerlink" title="3.1 点击error按钮不显示解析报错的问题"></a>3.1 点击error按钮不显示解析报错的问题</h3><p>不知道为啥目前可以解析，但是如果读取一个AndroidQ的bugreport会报错，但是点击error按钮却无法显示报错信息。目前在mac上构建的可以正常显示报错信息。后期如果解决了该问题再更新。</p>
+<h2 id="4-解析bugreport"><a href="#4-解析bugreport" class="headerlink" title="4. 解析bugreport"></a>4. 解析bugreport</h2><h3 id="4-1-抓取Bugreport"><a href="#4-1-抓取Bugreport" class="headerlink" title="4.1 抓取Bugreport"></a>4.1 抓取Bugreport</h3><p>由于版本问题不同方式抓取的bugreport会有不同的问题，所以抓取的时候，尽量按照官网的方式抓取，要重置汇总的电池统计信息和历史记录：</p>
+<pre><code>adb shell dumpsys batterystats --reset
+</code></pre><h4 id="唤醒锁分析"><a href="#唤醒锁分析" class="headerlink" title="唤醒锁分析"></a>唤醒锁分析</h4><p>默认情况下，Android不记录特定于应用程序的时间戳，即使在运行的基础上维护了汇总统计信息，用户空间唤醒锁的转换。 如果要Historian显示有关的详细信息，时间轴上的每个唤醒锁，都应启用完整唤醒锁，开始实验之前，请使用以下命令进行报告：</p>
+<pre><code>adb shell dumpsys batterystats --enable full-wake-history
+</code></pre><p>请注意，通过启用完整的唤醒锁报告，电池历史记录日志将在几个小时后溢出。 使用此选项可以进行短时间的测试（3-4小时）。</p>
+<h4 id="内核跟踪日志分析"><a href="#内核跟踪日志分析" class="headerlink" title="内核跟踪日志分析"></a>内核跟踪日志分析</h4><p>生成跟踪文件来记录内核唤醒源和内核唤醒锁活动：</p>
+<p>首先，将设备连接到台式机/笔记本电脑并启用内核跟踪日志记录：</p>
+<pre><code>$ adb root
+$ adb shell
+
+# Set the events to trace.
+$ echo &quot;power:wakeup_source_activate&quot; &gt;&gt; /d/tracing/set_event
+$ echo &quot;power:wakeup_source_deactivate&quot; &gt;&gt; /d/tracing/set_event
+
+# The default trace size for most devices is 1MB, which is relatively low and might cause the logs to overflow.
+# 8MB to 10MB should be a decent size for 5-6 hours of logging.
+
+$ echo 8192 &gt; /d/tracing/buffer_size_kb
+
+$ echo 1 &gt; /d/tracing/tracing_on
+</code></pre><p>然后，将该设备用于预期的测试用例。</p>
+<p>最后，提取日志：</p>
+<pre><code>$ echo 0 &gt; /d/tracing/tracing_on
+$ adb pull /d/tracing/trace &lt;some path&gt;
+
+# Take a bug report at this time.
+$ adb bugreport &gt; bugreport.txt
+</code></pre><p>Note:在输入完<code>adb shell dumpsys batterystats --reset</code>这个命令后bugreport就会清空了之前的信息，并且重新开始记录电量信息，所以在开始测试前就拔掉USB数据线，在测试步骤完成后，重新插上usb数据线，再输入<code>adb bugreport bugreport.zip</code>就会生成到你电脑的当前目录。</p>
+
+        </div>
+        <div class="post-reply">
+            
+            
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+<link rel="stylesheet" href="../../../../css/highlight_rainbow.css">
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+  <div class="comment" style="width:70%; min-height: 80vh;margin: 0 auto;"></div>
+    <script>
+        new Valine({
+            av: AV, 
+            el: '.comment', 
+            app_id: '', 
+            app_key: '',
+            placeholder: '随便写点什么吧~~'
+        });
+    </script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        <!--请您保留作者署名, 主题制作来之不易-->
+        My Theme <a href="https://github.com/DraceWang/hexo-theme-Hexagon/">Hexagon</a>
+        Base on <a href="https://haojen.github.io/Claudia-theme-blog/">Claudia</a> Theme By <a href="https://haojen.github.io/">Haojen Ma</a>
+        <br>
+        Copyright © Drace Wang 2020
+        <br>
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../../../../js/search_core.js"></script>
+<script src="../../../../js/script.js"></script>
+
+  <script type="text/javascript" color=3,232,253   pointColor=3,232,253  opacity=0.8  count=100  src="/js/canvas-nest.js"></script>
+
+
+</body>
+</html>

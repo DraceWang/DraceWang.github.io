@@ -6,12 +6,12 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 	
-<title>Category: ALM开发 | Hexagon</title>
+<title>Tag: Battery Historian | Hexagon</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Hexagon makes the world">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hexagon">
-<meta property="og:url" content="https://dracewang.github.io/categories/ALM开发/index.html">
+<meta property="og:url" content="https://dracewang.github.io/tags/Battery-Historian/index.html">
 <meta property="og:site_name" content="Hexagon">
 <meta property="og:description" content="Hexagon makes the world">
 <meta property="og:locale" content="zh_CN">
@@ -113,7 +113,7 @@
 
 <div class="container tag-cate-wrap">
     <div class="category-title-inner content has-text-centered">
-        <h1><strong style="border-top: 2px solid; border-bottom: 2px solid;">category·ALM开发</strong></h1>
+        <h1><strong style="border-top: 2px solid; border-bottom: 2px solid;">tag·Battery Historian</strong></h1>
     </div>
 
     
@@ -121,103 +121,22 @@
         <div class="box">
             <article class="media">
                 
-                <a href="/2018/05/27/ldap安装与关联redmine/">
+                <a href="/2020/10/22/在Linux系统上安装Battery Historian解析Bugreport/">
                     
                     <div class="media-left">
                         <figure class="image is-128x128">
-                            <img src="https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg" style="height: 100%; width: 100%">
+                            <img src="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg" style="height: 100%; width: 100%">
                         </figure>
                     </div>
                     
                     <div class="media-content">
                         <div class="content">
                             <p>
-                                <strong>ldap安装与关联redmine</strong> <small class="post-date">at: 2018-05-27</small>
+                                <strong>Linux系统上安装Battery Historian解析Bugreport</strong> <small class="post-date">at: 2020-10-22</small>
                                 <br>
                                 
-安装LDAPsudo vim /etc/hosts
-修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname”
-sudo apt-get install slapd ldap-utils //安装ldap
-测试
-sudo ldapsearch -Q -LLL..
-                            </p>
-                            <button class="button is-info">Read</button>
-                        </div>
-                    </div>
-                </a>
-            </article>
-        </div>
-    
-        <div class="box">
-            <article class="media">
-                
-                <a href="/2018/05/27/jenkins+apache+subversion关联LDAP/">
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <p>
-                                <strong>jenkins+apache+subversion关联LDAP</strong> <small class="post-date">at: 2018-05-27</small>
-                                <br>
-                                安装jenkinswget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
-添加以下信息到你的源/etc/apt/sources.list:
-deb http://pkg.jenkins-ci.org/debian binary/
-sudo ..
-                            </p>
-                            <button class="button is-info">Read</button>
-                        </div>
-                    </div>
-                </a>
-            </article>
-        </div>
-    
-        <div class="box">
-            <article class="media">
-                
-                <a href="/2018/02/15/ubuntu14.04 安装redmine2.5.3/">
-                    
-                    <div class="media-left">
-                        <figure class="image is-128x128">
-                            <img src="https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg" style="height: 100%; width: 100%">
-                        </figure>
-                    </div>
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <p>
-                                <strong>ubuntu14.04 安装redmine2.5.3</strong> <small class="post-date">at: 2018-02-15</small>
-                                <br>
-                                
-安装redmine的环境sudo apt-get install -y apache2 php5 libapache2-mod-php5 mysql-server php5-mysql libapache2-mod-perl2 libcurl4-openssl-dev libssl-dev apache2-dev libapr1-dev libapru..
-                            </p>
-                            <button class="button is-info">Read</button>
-                        </div>
-                    </div>
-                </a>
-            </article>
-        </div>
-    
-        <div class="box">
-            <article class="media">
-                
-                <a href="/2018/02/15/ubuntu14.04安装openldapserver/">
-                    
-                    <div class="media-left">
-                        <figure class="image is-128x128">
-                            <img src="https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg" style="height: 100%; width: 100%">
-                        </figure>
-                    </div>
-                    
-                    <div class="media-content">
-                        <div class="content">
-                            <p>
-                                <strong>LDAP安装与关联redmine</strong> <small class="post-date">at: 2018-02-15</small>
-                                <br>
-                                
-LDAP安装与关联redminesudo vim /etc/hosts
-修改 127.0.1.1 hostname.example.com hostname //hostname是本机的hostname不是“hostname”
-sudo apt-get install slapd ldap-utils //安装ldap
-//测试
-sudo ldapse..
+Linux系统上安装Battery Historian解析Bugreport由于工作需要功耗问题上总是需要使用Battery Historian来解析Bugrepot，这里呢就把这个过程整理下。而根据官网Docker是最方便的方式，但是由于公司网络大多有不少限制，因此我没能用成，只能一步步把运行环境全部搭建起来。
+1. 安装运行环境1.1 GO语言首先..
                             </p>
                             <button class="button is-info">Read</button>
                         </div>
