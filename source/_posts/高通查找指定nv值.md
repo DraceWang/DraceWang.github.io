@@ -7,7 +7,7 @@ tags:
 date: 2020-11-05
 ---
 
-![post-cover](https://s2.loli.net/2023/09/21/UswxOvhH9yug4LT.jpg)
+![post-cover](https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg)
 
 # 高通查找指定nv值
 

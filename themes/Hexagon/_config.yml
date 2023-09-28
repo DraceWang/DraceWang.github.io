@@ -62,7 +62,7 @@ valine_appKey: ""
 valine_placeholder: "随便写点什么吧~~"                               #在评论正文显示的hint
 
 # Miscellaneous
-favicon: /images/me.jpg     #展示在标签上的小图标
+favicon: images/me.jpg     #展示在标签上的小图标
 #twitter:
 #google_plus:
 #fb_admins:
