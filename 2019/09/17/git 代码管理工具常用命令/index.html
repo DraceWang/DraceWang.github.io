@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>git 代码管理工具常用命令 | Hexagon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="git 代码管理工具常用命令首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。 1.git基础配置假设在git服务器上设置的用户名是：gituser1，邮箱是：&amp;#x67;&amp;#105;&amp;#116;&amp;#x75;&amp;#115">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 代码管理工具常用命令">
+<meta property="og:url" content="http://dracewang.github.io/2019/09/17/git%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="Hexagon">
+<meta property="og:description" content="git 代码管理工具常用命令首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。 1.git基础配置假设在git服务器上设置的用户名是：gituser1，邮箱是：&amp;#x67;&amp;#105;&amp;#116;&amp;#x75;&amp;#115">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.imgur.com/nUYzQ6Y.jpg">
+<meta property="article:published_time" content="2019-09-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-28T08:06:10.959Z">
+<meta property="article:author" content="Drace Wang">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/nUYzQ6Y.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/me.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+
+
+  <title>Valine - A simple comment system based on Leancloud.</title>
+  <!--Leancloud 操作库:-->
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <!--Valine 的核心代码库:-->
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Drace Wang</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                Home
+            </a>
+            
+            <a class="nav-item" href="/archives">
+                Archives
+            </a>
+            
+            <a class="nav-item" href="/about">
+                About
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                Home
+            </a>
+            
+            <a class="nav-item flex-1" href="/archives">
+                Archives
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                About
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>git 代码管理工具常用命令</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="images/me.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> Drace Wang</span>
+                <span class="post-date sub-title">at: 2019-09-17</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/git/">git</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <p><img src="https://i.imgur.com/nUYzQ6Y.jpg" alt="post-cover"></p>
+<h1 id="git-代码管理工具常用命令"><a href="#git-代码管理工具常用命令" class="headerlink" title="git 代码管理工具常用命令"></a>git 代码管理工具常用命令</h1><p>首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。</p>
+<h3 id="1-git基础配置"><a href="#1-git基础配置" class="headerlink" title="1.git基础配置"></a>1.git基础配置</h3><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#x67;&#105;&#116;&#x75;&#115;&#101;&#x72;&#x31;&#64;&#x67;&#x69;&#116;&#46;&#x63;&#x6f;&#109;">&#x67;&#105;&#116;&#x75;&#115;&#101;&#x72;&#x31;&#64;&#x67;&#x69;&#116;&#46;&#x63;&#x6f;&#109;</a></p>
+<h4 id="配置git提交时候的全局用户名"><a href="#配置git提交时候的全局用户名" class="headerlink" title="配置git提交时候的全局用户名"></a>配置git提交时候的全局用户名</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitconfig --global user.name gituser1</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置git提交时候的全局邮箱"><a href="#配置git提交时候的全局邮箱" class="headerlink" title="配置git提交时候的全局邮箱"></a>配置git提交时候的全局邮箱</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email gituser1@git.com</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置gerrit的review"><a href="#配置gerrit的review" class="headerlink" title="配置gerrit的review"></a>配置gerrit的review</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global review.gerrit.example.com:8081.username yourname</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-常用仓库操作"><a href="#2-常用仓库操作" class="headerlink" title="2.常用仓库操作"></a>2.常用仓库操作</h3><h4 id="创建git库"><a href="#创建git库" class="headerlink" title="创建git库"></a>创建git库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看本地仓库分支"><a href="#查看本地仓库分支" class="headerlink" title="查看本地仓库分支"></a>查看本地仓库分支</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>想要查看对应的远端仓库分支可以用<code>git branch -a</code>来查看</p>
+</blockquote>
+<h4 id="拉去仓库并创建分支"><a href="#拉去仓库并创建分支" class="headerlink" title="拉去仓库并创建分支"></a>拉去仓库并创建分支</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b master master_copy</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>mater对应是远程仓库的分支名，master_copy是我们需要创建的本地仓库的分支名</p>
+</blockquote>
+<h4 id="查看当前git库状态"><a href="#查看当前git库状态" class="headerlink" title="查看当前git库状态"></a>查看当前git库状态</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>显示出红色的文件代表当前仓库中有文件与上一次同步状态不同</p>
+<p>如果没有文件显示，且没有更改，会显示当前分支与远端分支一致，没有需要提交的更改。</p>
+<p>如果显示没有更改，但是当前分支与远端分支不同步，则需要同步远端分支</p>
+</blockquote>
+<p><em>养成良好的习惯提交修改代码前先把本地仓库与远端仓库同步</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+<p>查看当前git仓库对应的远程git仓库</p>
+<h4 id="同步本地仓库与远端仓库"><a href="#同步本地仓库与远端仓库" class="headerlink" title="同步本地仓库与远端仓库"></a>同步本地仓库与远端仓库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+<p>这个时候有可能报错，说明本地仓库之前就已经发生混乱，一般是本地有修改，又去同步，产生文件修改冲突后没有解决，如果确认可以把本地修改重置，则可以使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个命令会把本地仓库换一个基础，可以认为是仓库是需要一个地皮的，rebase的作用就是把仓库换个干净的地皮重新造一个一样的与远程一样的仓库，　这样新的仓库就与远端的仓库完全一致了。</p>
+</blockquote>
+<p>但是还有情况会出现本地仓库领先与远端仓库，而我们又不需要本地的修改，就可以把远端仓库检查校对拷贝过来。比如文件名为temp.log（相当于是把本地改动回退到远端文件版本）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout　temp.log</span><br></pre></td></tr></table></figure>
+<p>将当前文件夹内所有文件都回退到远端git仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout .</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>当修改了名为temp.log的文件后</p>
+<h4 id="对比本地修改文件与本地仓库之间的区别"><a href="#对比本地修改文件与本地仓库之间的区别" class="headerlink" title="对比本地修改文件与本地仓库之间的区别"></a>对比本地修改文件与本地仓库之间的区别</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff temp.log</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>终端会显示出该文件的修改点，对应增删，如果开启了git的高亮显示，会有绿色表示添加，红色表示删除</p>
+<p>可以使用<code>git config --global color.ui true</code>来开启git颜色高亮</p>
+</blockquote>
+<h4 id="添加文件-该文件在当前目录下-到当前git仓库（确切说是添加到了本地仓库的提交暂存区）"><a href="#添加文件-该文件在当前目录下-到当前git仓库（确切说是添加到了本地仓库的提交暂存区）" class="headerlink" title="添加文件(该文件在当前目录下)到当前git仓库（确切说是添加到了本地仓库的提交暂存区）"></a>添加文件(该文件在当前目录下)到当前git仓库（确切说是添加到了本地仓库的提交暂存区）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add temp.log</span><br></pre></td></tr></table></figure>
+
+<p>将当前文件夹内所有文件都添加到当前git仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>将文件添加到当前git仓库后，再使用<code>git status</code>查看状态，会发现文件对应路径会从红色变成绿色。</p>
+</blockquote>
+<h4 id="将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）"><a href="#将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）" class="headerlink" title="将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）"></a>将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit temp.log</span><br></pre></td></tr></table></figure>
+
+<p>&amp;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit .</span><br></pre></td></tr></table></figure>
+
+<p>&amp;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit temp.log -m &quot;comit message(此引号内应填入提交信息)&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提交后可以可以通过<code>git log</code>命令查看这个git仓库的历史记录</p>
+</blockquote>
+<h4 id="查看当前本地仓库的历史提交记录"><a href="#查看当前本地仓库的历史提交记录" class="headerlink" title="查看当前本地仓库的历史提交记录"></a>查看当前本地仓库的历史提交记录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+
+<h4 id="将本地仓库回退到历史记录中史上一次的修改状态"><a href="#将本地仓库回退到历史记录中史上一次的修改状态" class="headerlink" title="将本地仓库回退到历史记录中史上一次的修改状态"></a>将本地仓库回退到历史记录中史上一次的修改状态</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD^</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>解释下这个命令，reset本身可以重置，而HEAD表示分支的头，^表示分支头部的上一个位置，所以是回退到历史记录的上一条，也就是说如果你<code>git pull</code>后本地没有修改，但是这个时候执行了本条命令，那么你当前的本地仓库还是会回到历史记录中的上一个位置（尽管这个提交不是你操作的）</p>
+</blockquote>
+<h4 id="修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）"><a href="#修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）" class="headerlink" title="修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）"></a>修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以使用<code>git reset HEAD^</code>命令使当前仓库回退到历史记录中上次的提交状态，这个时候比如说我们的temp.log已经commit后，使用这个resset命令会让我们的commit失效，文件状态会变成add之前的状态，这个时候我们可以修改temp.log然后使用<code>git commit --amend</code>合并上一次提交。</p>
+</blockquote>
+<h3 id="3-其他git命令（进阶）"><a href="#3-其他git命令（进阶）" class="headerlink" title="3.其他git命令（进阶）"></a>3.其他git命令（进阶）</h3><h4 id="显示上一次提交的日志"><a href="#显示上一次提交的日志" class="headerlink" title="显示上一次提交的日志"></a>显示上一次提交的日志</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show HEAD^</span><br></pre></td></tr></table></figure>
+
+<h4 id="显示某次提交的日志"><a href="#显示某次提交的日志" class="headerlink" title="显示某次提交的日志"></a>显示某次提交的日志</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show dfb02e6e4f2f7b573337763e5c0013802e392818</span><br></pre></td></tr></table></figure>
+
+<h4 id="对比上一次提交的不同"><a href="#对比上一次提交的不同" class="headerlink" title="对比上一次提交的不同"></a>对比上一次提交的不同</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff HEAD^</span><br></pre></td></tr></table></figure>
+
+<h4 id="显示所有已添加index（暂存）但还未commit的变更"><a href="#显示所有已添加index（暂存）但还未commit的变更" class="headerlink" title="显示所有已添加index（暂存）但还未commit的变更"></a>显示所有已添加index（暂存）但还未commit的变更</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff --cached</span><br></pre></td></tr></table></figure>
+
+<h4 id="切换到dev分支（当前不在dev分支）"><a href="#切换到dev分支（当前不在dev分支）" class="headerlink" title="切换到dev分支（当前不在dev分支）"></a>切换到dev分支（当前不在dev分支）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取所有远程分支"><a href="#获取所有远程分支" class="headerlink" title="获取所有远程分支"></a>获取所有远程分支</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除本地分支"><a href="#删除本地分支" class="headerlink" title="删除本地分支"></a>删除本地分支</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d dev</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>强制删除 <code>git branch -D dev</code></p>
+</blockquote>
+<h4 id="图示当前分支历史"><a href="#图示当前分支历史" class="headerlink" title="图示当前分支历史"></a>图示当前分支历史</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show-branch</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>图示所有分支<code>git show-branch -all</code></p>
+</blockquote>
+<h4 id="单独提交到有gerrit系统的代码审核"><a href="#单独提交到有gerrit系统的代码审核" class="headerlink" title="单独提交到有gerrit系统的代码审核"></a>单独提交到有gerrit系统的代码审核</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push [remote_alias] HEAD:refs/for/[branch_name]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>替换<code>[remote_alias]</code>和<code>[branch_name]</code></p>
+<p>remote_alias查看方法： <code>git remote -v</code></p>
+<p><strong>千万不要使用<code>git push  [branch_name]:origin/master</code></strong></p>
+</blockquote>
+<h4 id="查看git仓库中文件某些行代码的最新提交信息"><a href="#查看git仓库中文件某些行代码的最新提交信息" class="headerlink" title="查看git仓库中文件某些行代码的最新提交信息"></a>查看git仓库中文件某些行代码的最新提交信息</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git blame -L 25,+5 xxxx.java</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>  -L 参数表示以行数参数查看，25表示想要查看的行数，+5表示从25行开始看到30行的代码</p>
+</blockquote>
+
+        </div>
+        <div class="post-reply">
+            
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+  <div class="comment" style="width:70%; min-height: 80vh;margin: 0 auto;"></div>
+    <script>
+        new Valine({
+            av: AV, 
+            el: '.comment', 
+            app_id: '', 
+            app_key: '',
+            placeholder: '随便写点什么吧~~'
+        });
+    </script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        <!--请您保留作者署名, 主题制作来之不易-->
+        My Theme <a target="_blank" rel="noopener" href="https://github.com/DraceWang/hexo-theme-Hexagon/">Hexagon</a>
+        Base on <a target="_blank" rel="noopener" href="https://haojen.github.io/Claudia-theme-blog/">Claudia</a> Theme By <a target="_blank" rel="noopener" href="https://haojen.github.io/">Haojen Ma</a>
+        <br>
+        Copyright © Drace Wang 2023
+        <br>
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/search_core.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+  <script type="text/javascript" color=3,232,253   pointColor=3,232,253  opacity=0.85  count=100  src="/js/canvas-nest.js"></script>
+
+</body>
+</html>

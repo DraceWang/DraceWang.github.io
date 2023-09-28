@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>Hexagon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Hexagon makes the world">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexagon">
+<meta property="og:url" content="http://dracewang.github.io/page/2/index.html">
+<meta property="og:site_name" content="Hexagon">
+<meta property="og:description" content="Hexagon makes the world">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Drace Wang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/me.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+
+
+  <title>Valine - A simple comment system based on Leancloud.</title>
+  <!--Leancloud 操作库:-->
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <!--Valine 的核心代码库:-->
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Drace Wang</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                Home
+            </a>
+            
+            <a class="nav-item" href="/archives">
+                Archives
+            </a>
+            
+            <a class="nav-item" href="/about">
+                About
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                Home
+            </a>
+            
+            <a class="nav-item flex-1" href="/archives">
+                Archives
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                About
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <style>
+    .post-hover:hover {
+        box-shadow: inset 0 0 100px #000;
+        transition: box-shadow .2s;
+    }
+
+    .sub-post-container .post-hover:hover h3 {
+        text-decoration: underline gray;
+    }
+
+
+    .primary-item-main {
+        height: 330px;
+        background-size: cover;
+    }
+
+    .primary-container .title,
+    .primary-container .sub-title,
+    .primary-container .post-content-text,
+    .primary-container .date {
+        color: #fff;
+    }
+
+    .post-content-text {
+        color: #f1f1f1!important;
+    }
+
+    .primary-container .post-hover {
+        background: black;
+    }
+
+    .content-bg-mask {
+        background: rgba(0,0,0,.4);
+    }
+
+</style>
+
+<div style="background: #f5f8f9;">
+    <div id="main-container" class="container" style="padding-top: 20px;">
+        <div class="is-flex main-content justify-center">
+            <section class="column is-9">
+                
+<div class="primary-container content-box is-flex-desktop clear-padding bottom-line" style="margin-bottom: 25px;">
+    <div class="column  is-7-desktop">
+        <a href="/2014/12/14/ubuntu14.04 安装redmine2.5.3/">
+            <div class="full-height post-hover"
+                 style="
+                         background-image: url('https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg');
+                         height: 350px;
+                         background-size: cover;
+                         background-repeat: no-repeat;
+                         ">
+                    <div class=" is-flex flex-column center content has-text-centered full-height has-padding content-bg-mask">
+                        <h1 class="title text-shadow" style="margin-bottom: 15px;">
+                            ubuntu14.04 安装redmine2.5.3
+                        </h1>
+                        <div>
+                        
+                            `
+                                <span class="tag is-post-tag">redmine</span>
+                            `
+                                <span class="tag is-post-tag">ubuntu</span>
+                            
+                        
+                        </div>
+                        <p class="post-content-text is-marginless has-padding text-shadow">
+                            
+安装redmine的环境1sudo apt-get install -y apache2 php5 libapache2-mod-php5 mysql-server php5-mysql libapache2-mod-perl2 li..
+                        </p>
+                        <p class="date text-shadow">2014-12-14</p>
+                        <button class="button is-info is-small">Read More</button>
+                    </div>
+            </div>
+        </a>
+    </div>
+    <div class="column is-5 is-hidden-touch" style="padding-left: 0;">
+        <div class="full-height is-flex flex-column justify-space-between" style="min-height: 350px;">
+            
+                
+<a class="post-hover" href="/2014/12/08/jenkins+apache+subversion关联LDAP/" style="height: 48.5%">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('https://s2.loli.net/2023/09/20/qORtrHv9IbkSilh.png')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                jenkins+apache+subversion关联LDAP
+            </h3>
+            
+            
+            <span class="tag is-post-tag">LDAP</span>
+            
+            <span class="tag is-post-tag">jenkins</span>
+            
+            <span class="tag is-post-tag">apache</span>
+            
+            <span class="tag is-post-tag">subversion</span>
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                
+安装jenkins1wget -q -O - http://pkg.jenkins-ci.or..
+            </p>
+            <p class="date text-shadow is-marginless">2014-12-08</p>
+        </div>
+    </div>
+</a>
+            
+            
+                
+<a class="post-hover" href="/2014/12/08/ldap安装与关联redmine/" style="height: 48.5%">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                LDAP安装与关联redmine
+            </h3>
+            
+            
+            <span class="tag is-post-tag">LDAP</span>
+            
+            <span class="tag is-post-tag">redmine</span>
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                
+安装LDAP1sudo vim /etc/hosts
+修改 127.0.1.1 hostnam..
+            </p>
+            <p class="date text-shadow is-marginless">2014-12-08</p>
+        </div>
+    </div>
+</a>
+            
+        </div>
+    </div>
+    <div class="column is-12 is-hidden-desktop">
+        
+        
+<a class="post-hover" href="/2014/12/08/jenkins+apache+subversion关联LDAP/" style="height: 48.5%">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('https://s2.loli.net/2023/09/20/qORtrHv9IbkSilh.png')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                jenkins+apache+subversion关联LDAP
+            </h3>
+            
+            
+            <span class="tag is-post-tag">LDAP</span>
+            
+            <span class="tag is-post-tag">jenkins</span>
+            
+            <span class="tag is-post-tag">apache</span>
+            
+            <span class="tag is-post-tag">subversion</span>
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                
+安装jenkins1wget -q -O - http://pkg.jenkins-ci.or..
+            </p>
+            <p class="date text-shadow is-marginless">2014-12-08</p>
+        </div>
+    </div>
+</a>
+        
+        
+        
+<a class="post-hover" href="/2014/12/08/ldap安装与关联redmine/" style="height: 48.5%">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                LDAP安装与关联redmine
+            </h3>
+            
+            
+            <span class="tag is-post-tag">LDAP</span>
+            
+            <span class="tag is-post-tag">redmine</span>
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                
+安装LDAP1sudo vim /etc/hosts
+修改 127.0.1.1 hostnam..
+            </p>
+            <p class="date text-shadow is-marginless">2014-12-08</p>
+        </div>
+    </div>
+</a>
+        
+    </div>
+</div>
+
+                    
+                    
+                
+                    
+                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2014/12/08/jenkins+apache+subversion关联LDAP/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
+                                         style="margin: 10px; background-size: cover;background-image: url('https://s2.loli.net/2023/09/20/qORtrHv9IbkSilh.png')">
+                                    </div>
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>jenkins+apache+subversion关联LDAP</h3>
+                                        
+                                        <p>
+                                            
+                                                <span class="tag is-post-tag">LDAP</span>
+                                            
+                                                <span class="tag is-post-tag">jenkins</span>
+                                            
+                                                <span class="tag is-post-tag">apache</span>
+                                            
+                                                <span class="tag is-post-tag">subversion</span>
+                                            
+                                        </p>
+                                        <p>
+                                            
+安装jenkins1wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+
+添加以下信息到你的源/etc/apt/sources.list:
+123deb http://pkg.jenkins-ci.org/debian binary/..
+                                        </p>
+                                        <p>2014-12-08</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+                    
+                
+                    
+                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2014/12/08/ldap安装与关联redmine/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
+                                         style="margin: 10px; background-size: cover;background-image: url('https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg')">
+                                    </div>
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>LDAP安装与关联redmine</h3>
+                                        
+                                        <p>
+                                            
+                                                <span class="tag is-post-tag">LDAP</span>
+                                            
+                                                <span class="tag is-post-tag">redmine</span>
+                                            
+                                        </p>
+                                        <p>
+                                            
+安装LDAP1sudo vim /etc/hosts
+修改 127.0.1.1 hostname.example.com hostname &#x2F;&#x2F;hostname是本机的hostname不是“hostname”
+1sudo apt-get install slapd ldap-utils //安装ldap
+测试
+123sudo lda..
+                                        </p>
+                                        <p>2014-12-08</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+                    
+                
+                    
+                        <div class="content-box  " style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2014/12/08/ubuntu14.04 配置openssh/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
+                                         style="margin: 10px; background-size: cover;background-image: url('https://i.loli.net/2020/10/27/DwBuaAUOdTmpXyE.jpg')">
+                                    </div>
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>ubuntu14.04 配置openssh</h3>
+                                        
+                                        <p>
+                                            
+                                                <span class="tag is-post-tag">ubuntu</span>
+                                            
+                                                <span class="tag is-post-tag">openssh</span>
+                                            
+                                        </p>
+                                        <p>
+                                            
+本文对本机内虚拟机上开启SSH服务，没有涉及外网桥接等方法，考虑后续更新。
+安装OpenSSH server1sudo apt-get install openssh-sever
+修改ssh配置文件（没有安装vim的，请自行替换文本编辑器：nano ；gedit；vi）  
+1sudo vim /etc/ssh/ssh_config
+
+修改以下四行（配..
+                                        </p>
+                                        <p>2014-12-08</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+                    
+                
+                    
+                        <div class="content-box  " style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2014/12/08/virtualbox（4.3.16）安装/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
+                                         style="margin: 10px; background-size: cover;background-image: url('https://s2.loli.net/2023/09/21/UswxOvhH9yug4LT.jpg')">
+                                    </div>
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>virtualbox（4.3.16）安装</h3>
+                                        
+                                        <p>
+                                            
+                                                <span class="tag is-post-tag">ubuntu</span>
+                                            
+                                                <span class="tag is-post-tag">virtualbox</span>
+                                            
+                                        </p>
+                                        <p>
+                                            
+virtualbox（4.3.16）安装1234sudo sh -c &#x27;echo &quot;deb http://download.virtualbox.org/virtualbox/debian trusty contrib&quot; &gt;&gt; /etc/apt/sources.list&#x27;wget -q http://..
+                                        </p>
+                                        <p>2014-12-08</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+                    
+                
+                <!--翻頁-->
+                <nav class="pagination is-flex" style="justify-content: flex-end">
+                    
+                        
+                            <a class="pagination-previous" href="/">Previous</a>
+                        
+                        
+                    
+                </nav>
+            </section>
+            
+                <style>
+    /*user info start*/
+    .user-info {
+        padding: 15px 0 0;
+    }
+
+    .user-info .avatar {
+        width: 155px;
+        height: 155px;
+        border-radius: 50%;
+    }
+
+    .sns-container {
+        flex-wrap: wrap;
+    }
+
+    .sns-container a{
+        color: black;
+    }
+    /*user info end*/
+
+    /*Tag start*/
+    #tag_cloud .tags-item{
+        display: inline-block;
+        color: #000;
+        border: 1px solid gray;
+
+        margin: 4px 2px;
+        padding: 0 4px;
+        border-radius: 6px;
+    }
+    /*Tag end*/
+
+    /*Site box start*/
+    .site-box {
+        height: 60px;
+    }
+    /*Site box end*/
+
+    .category-list-item,
+    .archive-list-item {
+        display: flex;
+        margin-bottom: 4px;
+        justify-content: space-between;
+    }
+    .category-list-link,
+    .archive-list-link {
+        color: black;
+    }
+
+    .category-list-count,
+    .archive-list-count {
+        width: 32px;
+        text-align: center;
+        border-radius: 4px;
+        color: #fff;
+        background-color: gray;
+    }
+</style>
+<aside class="column is-hidden-touch is-3" style="max-width: 280px; min-width: 230px">
+    <div class="content-box user-info">
+        <div class="has-padding">
+            <header class="has-text-centered">
+                <img class="avatar" src="images/me.jpg">
+            </header>
+            <section class="has-text-centered">
+                <h3><strong>Drace Wang</strong></h3>
+                <p class="sub-title">一个平凡的码农</p>
+                
+                <p class="is-flex center" style=" color: gray">
+                    <i class="fa fa-map-marker" style="padding: 5px"></i>
+                    China
+                </p>
+                
+            </section>
+        </div>
+        <div class="top-line">
+            <ul class="sns-container justify-center is-flex has-padding">
+                
+
+                
+
+                
+                <li>
+                    <a target="_blank" href="https://www.zhihu.com/people/wang-shun-da-55">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                        </span>
+                    </a>
+                </li>
+                
+
+                
+                <li>
+                    <a target="_blank" href="http://weibo.com/2421168192">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                        </span>
+                    </a>
+                </li>
+                
+
+                
+                <li>
+                    <a target="_blank" href="https://www.facebook.com/100006615107136">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                        </span>
+                    </a>
+                </li>
+                
+
+                
+                <li>
+                    <a target="_blank" href="https://github.com/DraceWang">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                        </span>
+                    </a>
+                </li>
+                
+
+                
+                <li>
+                    <a target="_blank" href="https://www.linkedin.com/in/顺达-王-a8232aa6">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fa fa-circle fa-stack-2x"></i>
+                                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="content-box">
+        <!--post数量和tag category 数量-->
+        <div class="site-box is-flex">
+            <div class="flex-1 is-flex flex-column center full-height right-line">
+                <strong>15</strong>
+                <p>Posts</p>
+            </div>
+            <div class="flex-1 is-flex flex-column center full-height">
+                <strong>27</strong>
+                <p>Tags</p>
+            </div>
+        </div>
+    </div>
+    <div id='tag_cloud' class="content-inner content-box">
+        <div class="has-text-centered">
+            <strong>Tags</strong>
+        </div>
+        <div class="content-inner is-flex flex-wrap justify-space-between">
+            
+                <a class="tags-item" href="tags/brodcast/" title="brodcast" rel="1">
+                    brodcast
+                </a>
+            
+                <a class="tags-item" href="tags/LCD/" title="LCD" rel="1">
+                    LCD
+                </a>
+            
+                <a class="tags-item" href="tags/BSP/" title="BSP" rel="1">
+                    BSP
+                </a>
+            
+                <a class="tags-item" href="tags/service/" title="service" rel="1">
+                    service
+                </a>
+            
+                <a class="tags-item" href="tags/ADB/" title="ADB" rel="1">
+                    ADB
+                </a>
+            
+                <a class="tags-item" href="tags/shell/" title="shell" rel="1">
+                    shell
+                </a>
+            
+                <a class="tags-item" href="tags/linux/" title="linux" rel="2">
+                    linux
+                </a>
+            
+                <a class="tags-item" href="tags/uid/" title="uid" rel="1">
+                    uid
+                </a>
+            
+                <a class="tags-item" href="tags/gid/" title="gid" rel="1">
+                    gid
+                </a>
+            
+                <a class="tags-item" href="tags/selinux/" title="selinux" rel="1">
+                    selinux
+                </a>
+            
+                <a class="tags-item" href="tags/git/" title="git" rel="1">
+                    git
+                </a>
+            
+                <a class="tags-item" href="tags/LDAP/" title="LDAP" rel="2">
+                    LDAP
+                </a>
+            
+                <a class="tags-item" href="tags/jenkins/" title="jenkins" rel="1">
+                    jenkins
+                </a>
+            
+                <a class="tags-item" href="tags/apache/" title="apache" rel="1">
+                    apache
+                </a>
+            
+                <a class="tags-item" href="tags/subversion/" title="subversion" rel="1">
+                    subversion
+                </a>
+            
+                <a class="tags-item" href="tags/redmine/" title="redmine" rel="2">
+                    redmine
+                </a>
+            
+                <a class="tags-item" href="tags/ubuntu/" title="ubuntu" rel="3">
+                    ubuntu
+                </a>
+            
+                <a class="tags-item" href="tags/openssh/" title="openssh" rel="1">
+                    openssh
+                </a>
+            
+                <a class="tags-item" href="tags/virtualbox/" title="virtualbox" rel="1">
+                    virtualbox
+                </a>
+            
+                <a class="tags-item" href="tags/kali/" title="kali" rel="1">
+                    kali
+                </a>
+            
+                <a class="tags-item" href="tags/android/" title="android" rel="2">
+                    android
+                </a>
+            
+                <a class="tags-item" href="tags/battery-historian/" title="battery historian" rel="1">
+                    battery historian
+                </a>
+            
+                <a class="tags-item" href="tags/bugreport/" title="bugreport" rel="1">
+                    bugreport
+                </a>
+            
+                <a class="tags-item" href="tags/archlinux/" title="archlinux" rel="1">
+                    archlinux
+                </a>
+            
+                <a class="tags-item" href="tags/mobile-system/" title="mobile system" rel="1">
+                    mobile system
+                </a>
+            
+                <a class="tags-item" href="tags/nv/" title="nv" rel="1">
+                    nv
+                </a>
+            
+                <a class="tags-item" href="tags/qcom/" title="qcom" rel="1">
+                    qcom
+                </a>
+            
+        </div>
+    </div>
+    <div class="content-inner content-box">
+        <div class="has-text-centered">
+            <strong>Categories</strong>
+        </div>
+        <div class="content-inner">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ALM%E5%BC%80%E5%8F%91/">ALM开发</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li></ul>
+        </div>
+    </div>
+    <div class="content-inner content-box">
+        <div class="has-text-centered">
+            <strong>Archives</strong>
+        </div>
+        <div class="content-inner">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+</aside>
+            
+        </div>
+    </div>
+</div>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        <!--请您保留作者署名, 主题制作来之不易-->
+        My Theme <a target="_blank" rel="noopener" href="https://github.com/DraceWang/hexo-theme-Hexagon/">Hexagon</a>
+        Base on <a target="_blank" rel="noopener" href="https://haojen.github.io/Claudia-theme-blog/">Claudia</a> Theme By <a target="_blank" rel="noopener" href="https://haojen.github.io/">Haojen Ma</a>
+        <br>
+        Copyright © Drace Wang 2023
+        <br>
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/search_core.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+  <script type="text/javascript" color=3,232,253   pointColor=3,232,253  opacity=0.85  count=100  src="/js/canvas-nest.js"></script>
+
+</body>
+</html>

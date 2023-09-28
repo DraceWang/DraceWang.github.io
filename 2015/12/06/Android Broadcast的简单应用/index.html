@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>Android Broadcast的简单应用 | Hexagon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="broadcast静态使用在AndroidManifest.xml中注册123456&lt;receiver        android:name&#x3D;&quot;com.example.testBR&quot;&gt;       &lt;intent-filter&gt;            &lt;action android:name&#x3D;&quot;com.example.test.ACT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Broadcast的简单应用">
+<meta property="og:url" content="http://dracewang.github.io/2015/12/06/Android%20Broadcast%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexagon">
+<meta property="og:description" content="broadcast静态使用在AndroidManifest.xml中注册123456&lt;receiver        android:name&#x3D;&quot;com.example.testBR&quot;&gt;       &lt;intent-filter&gt;            &lt;action android:name&#x3D;&quot;com.example.test.ACT">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg">
+<meta property="article:published_time" content="2015-12-06T02:05:56.000Z">
+<meta property="article:modified_time" content="2018-02-12T16:00:00.000Z">
+<meta property="article:author" content="Drace Wang">
+<meta property="article:tag" content="brodcast">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/me.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+
+
+  <title>Valine - A simple comment system based on Leancloud.</title>
+  <!--Leancloud 操作库:-->
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <!--Valine 的核心代码库:-->
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Drace Wang</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                Home
+            </a>
+            
+            <a class="nav-item" href="/archives">
+                Archives
+            </a>
+            
+            <a class="nav-item" href="/about">
+                About
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                Home
+            </a>
+            
+            <a class="nav-item flex-1" href="/archives">
+                Archives
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                About
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>Android Broadcast的简单应用</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="images/me.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> Drace Wang</span>
+                <span class="post-date sub-title">at: 2015-12-06</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/brodcast/">brodcast</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <p><img src="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg" alt="post-cover"></p>
+<h2 id="broadcast静态使用"><a href="#broadcast静态使用" class="headerlink" title="broadcast静态使用"></a>broadcast静态使用</h2><h3 id="在AndroidManifest-xml中注册"><a href="#在AndroidManifest-xml中注册" class="headerlink" title="在AndroidManifest.xml中注册"></a>在AndroidManifest.xml中注册</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;receiver </span><br><span class="line">       android:name=&quot;com.example.testBR&quot;&gt;</span><br><span class="line">       &lt;intent-filter&gt;</span><br><span class="line">            &lt;action android:name=&quot;com.example.test.ACTION_TEST&quot; /&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line">       &lt;/receiver&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="重写onReceive方法"><a href="#重写onReceive方法" class="headerlink" title="重写onReceive方法"></a>重写onReceive方法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">	public void onReceive(Context context, Intent intent) &#123;</span><br><span class="line">		// TODO Auto-generated method stub	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="broadcast动态注册"><a href="#broadcast动态注册" class="headerlink" title="broadcast动态注册"></a>broadcast动态注册</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">private BroadcastReceiver mReceiver = new BroadcastReceiver()&#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onReceive(Context context, Intent intent) &#123;</span><br><span class="line">        // TODO Auto-generated method stub    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">protected void onPause() &#123;</span><br><span class="line">    super.onPause();</span><br><span class="line">    unregisterReceiver(mReceiver);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">protected void onResume() &#123;</span><br><span class="line">    super.onResume();</span><br><span class="line">    IntentFilter filter = new IntentFilter(&quot;com.example.test.ACTION_TEST&quot;);</span><br><span class="line">    registerReceiver(mReceiver, filter);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="发送广播"><a href="#发送广播" class="headerlink" title="发送广播"></a>发送广播</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sendBroadcast(new Intent(&quot;com.example.test.ACTION_TEST&quot;));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Intent中附加信息"><a href="#Intent中附加信息" class="headerlink" title="Intent中附加信息"></a>Intent中附加信息</h3><h4 id="发送带有附加消息的Intent"><a href="#发送带有附加消息的Intent" class="headerlink" title="发送带有附加消息的Intent"></a>发送带有附加消息的Intent</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent i = new Intent(this, TestService.class);</span><br><span class="line">     i.putExtra(name, value);</span><br><span class="line">     sendBroadcast(new Intent(&quot;com.example.test.ACTION_TEST&quot;));</span><br></pre></td></tr></table></figure>
+<h4 id="接收Intent中的附加消息"><a href="#接收Intent中的附加消息" class="headerlink" title="接收Intent中的附加消息"></a>接收Intent中的附加消息</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onReceive(Context context, Intent intent) &#123;</span><br><span class="line">	intent.getIntExtra(&quot;action&quot;, 0));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="broadcast权限"><a href="#broadcast权限" class="headerlink" title="broadcast权限"></a>broadcast权限</h2><p>如果reeceiver声明在<code>AndroidManifest.xml</code>中，且仅限应用内部使用，则可在标签上添加<code>android:exported=&quot;false&quot;</code>属性<br>这样系统的其他应用就再也无法接触到该receiver。</p>
+<p>另外也可以通过自己创建使用权限，在<code>AndroidManifest.xml</code>中添加标签来完成。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;permission</span><br><span class="line">    android:name=&quot;com.example.test.TestService.PRIVATE&quot;</span><br><span class="line">    android:protectionLevel=&quot;signature&quot;</span><br><span class="line">    &gt;&lt;/permission&gt;</span><br><span class="line"></span><br><span class="line">&lt;uses-permission android:name=&quot;com.example.test.TestService.PRIVATE&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="发送带权限的broadcast"><a href="#发送带权限的broadcast" class="headerlink" title="发送带权限的broadcast"></a>发送带权限的broadcast</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String PREM_PRIVATE = &quot;com.example.test.TestService.PRIVATE&quot;;</span><br><span class="line">sendBroadcast(new Intent(&quot;com.example.test.ACTION_TEST&quot;),PREM_PRIVATE);</span><br></pre></td></tr></table></figure>
+
+<h2 id="通过ADB-shell模拟发送broadcast"><a href="#通过ADB-shell模拟发送broadcast" class="headerlink" title="通过ADB shell模拟发送broadcast"></a>通过ADB shell模拟发送broadcast</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">adb shell am broadcast &lt;option&gt; &lt;INTENT&gt;：</span><br><span class="line"></span><br><span class="line">option:</span><br><span class="line">[-a &lt;ACTION&gt;]</span><br><span class="line">[-d &lt;DATA_URI&gt;]</span><br><span class="line">[-t &lt;MIME_TYPE&gt;] </span><br><span class="line">[-c &lt;CATEGORY&gt; [-c &lt;CATEGORY&gt;] ...] </span><br><span class="line">[-e|--es &lt;EXTRA_KEY&gt; &lt;EXTRA_STRING_VALUE&gt; ...] </span><br><span class="line">[--ez &lt;EXTRA_KEY&gt; &lt;EXTRA_BOOLEAN_VALUE&gt; ...] </span><br><span class="line">[-e|--ei &lt;EXTRA_KEY&gt; &lt;EXTRA_INT_VALUE&gt; ...] </span><br><span class="line">[-n &lt;COMPONENT&gt;]</span><br><span class="line">[-f &lt;FLAGS&gt;] [&lt;URI&gt;]</span><br></pre></td></tr></table></figure>
+
+
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell am broadcast -a com.android.test --es test_string &quot;this is test string&quot; --ei test_int 100 --ez test_boolean true</span><br></pre></td></tr></table></figure>
+        </div>
+        <div class="post-reply">
+            
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+  <div class="comment" style="width:70%; min-height: 80vh;margin: 0 auto;"></div>
+    <script>
+        new Valine({
+            av: AV, 
+            el: '.comment', 
+            app_id: '', 
+            app_key: '',
+            placeholder: '随便写点什么吧~~'
+        });
+    </script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        <!--请您保留作者署名, 主题制作来之不易-->
+        My Theme <a target="_blank" rel="noopener" href="https://github.com/DraceWang/hexo-theme-Hexagon/">Hexagon</a>
+        Base on <a target="_blank" rel="noopener" href="https://haojen.github.io/Claudia-theme-blog/">Claudia</a> Theme By <a target="_blank" rel="noopener" href="https://haojen.github.io/">Haojen Ma</a>
+        <br>
+        Copyright © Drace Wang 2023
+        <br>
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/search_core.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+  <script type="text/javascript" color=3,232,253   pointColor=3,232,253  opacity=0.85  count=100  src="/js/canvas-nest.js"></script>
+
+</body>
+</html>

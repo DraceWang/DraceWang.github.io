@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>jenkins+apache+subversion关联LDAP | Hexagon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="安装jenkins1wget -q -O - http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian&#x2F;jenkins-ci.org.key | sudo apt-key add -  添加以下信息到你的源&#x2F;etc&#x2F;apt&#x2F;sources.list: 123deb http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian binary&#x2F;sudo apt-get updatesud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jenkins+apache+subversion关联LDAP">
+<meta property="og:url" content="http://dracewang.github.io/2014/12/08/jenkins+apache+subversion%E5%85%B3%E8%81%94LDAP/index.html">
+<meta property="og:site_name" content="Hexagon">
+<meta property="og:description" content="安装jenkins1wget -q -O - http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian&#x2F;jenkins-ci.org.key | sudo apt-key add -  添加以下信息到你的源&#x2F;etc&#x2F;apt&#x2F;sources.list: 123deb http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian binary&#x2F;sudo apt-get updatesud">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/09/20/qORtrHv9IbkSilh.png">
+<meta property="article:published_time" content="2014-12-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-28T08:06:10.959Z">
+<meta property="article:author" content="Drace Wang">
+<meta property="article:tag" content="LDAP">
+<meta property="article:tag" content="jenkins">
+<meta property="article:tag" content="apache">
+<meta property="article:tag" content="subversion">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/09/20/qORtrHv9IbkSilh.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/me.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+
+
+  <title>Valine - A simple comment system based on Leancloud.</title>
+  <!--Leancloud 操作库:-->
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <!--Valine 的核心代码库:-->
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">Drace Wang</span>'s Blog
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                Home
+            </a>
+            
+            <a class="nav-item" href="/archives">
+                Archives
+            </a>
+            
+            <a class="nav-item" href="/about">
+                About
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                Home
+            </a>
+            
+            <a class="nav-item flex-1" href="/archives">
+                Archives
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                About
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>jenkins+apache+subversion关联LDAP</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="images/me.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> Drace Wang</span>
+                <span class="post-date sub-title">at: 2014-12-08</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/LDAP/">LDAP</a>
+                    
+                         <a class="tag is-post-tag" href="/tags/jenkins/">jenkins</a>
+                    
+                         <a class="tag is-post-tag" href="/tags/apache/">apache</a>
+                    
+                         <a class="tag is-post-tag" href="/tags/subversion/">subversion</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <p><img src="https://s2.loli.net/2023/09/20/qORtrHv9IbkSilh.png" alt="post-cover"></p>
+<h2 id="安装jenkins"><a href="#安装jenkins" class="headerlink" title="安装jenkins"></a>安装jenkins</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<p>添加以下信息到你的源<code>/etc/apt/sources.list</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deb http://pkg.jenkins-ci.org/debian binary/</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载安装SVN-apache"><a href="#下载安装SVN-apache" class="headerlink" title="下载安装SVN+apache"></a>下载安装SVN+apache</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install subversion libapache2-svn apache2 apache2-utils</span><br><span class="line"></span><br><span class="line">sudo a2enmod ssl</span><br><span class="line"></span><br><span class="line">sudo a2ensite default-ssl</span><br><span class="line"></span><br><span class="line">sudo a2enmod dav_svn</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="设置apache2"><a href="#设置apache2" class="headerlink" title="设置apache2"></a>设置apache2</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
+<p>编辑该文件使之如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line"></span><br><span class="line">DAV svn</span><br><span class="line"></span><br><span class="line">SVNPath /home/svn</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line"></span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">AuthUserFile /etc/apache2/dav_svn.passwd</span><br><span class="line"></span><br><span class="line">Require valid-user</span><br><span class="line"></span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
+<p>更改 <code>/home/svn</code> 到任何你要保存仓库的地址。如果没有的话就新建。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /home/svn</span><br></pre></td></tr></table></figure>
+<h3 id="开启svn服务"><a href="#开启svn服务" class="headerlink" title="开启svn服务"></a>开启svn服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo svnadmin  create /home/svn</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="是APache成为该仓库的所有者。"><a href="#是APache成为该仓库的所有者。" class="headerlink" title="是APache成为该仓库的所有者。"></a>是APache成为该仓库的所有者。</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R www-data /home/svn</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="建立密码文件"><a href="#建立密码文件" class="headerlink" title="建立密码文件"></a>建立密码文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo htpasswd -cm /etc/apache2/dav_svn.passwd admin</span><br></pre></td></tr></table></figure>
+<p>admin是你想使用的用户名，然后输入两次密码。</p>
+<h3 id="重启Apache"><a href="#重启Apache" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restar</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="关联svn和LDAP"><a href="#关联svn和LDAP" class="headerlink" title="关联svn和LDAP"></a>关联svn和LDAP</h2><h2 id="a-pache添加ldap组件-修改apache中的svn配置文件"><a href="#a-pache添加ldap组件-修改apache中的svn配置文件" class="headerlink" title="###a pache添加ldap组件### 修改apache中的svn配置文件"></a>###a pache添加ldap组件<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo a2enmod ldap</span><br><span class="line"></span><br><span class="line">sudo a2enmod authnz_ldap</span><br></pre></td></tr></table></figure><br>### 修改apache中的svn配置文件<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line">DAV svn</span><br><span class="line">SVNParentPath /home/svn/</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">#LDAP</span><br><span class="line">AuthBasicProvider ldap</span><br><span class="line">AuthLDAPBindDN &quot;cn=admin,dc=example,dc=com&quot;</span><br><span class="line">AuthLDAPBindPassword admin</span><br><span class="line">AuthLDAPURL &quot;ldap://localhost:389/dc=example,dc=com?uid?sub?(objectClass=*)&quot;</span><br><span class="line"></span><br><span class="line">AuthzSVNAccessFile /etc/apache2/dav_svn.authz</span><br><span class="line">require valid-user</span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="重启Apache-1"><a href="#重启Apache-1" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
+<h2 id="jenkins关联LDAP"><a href="#jenkins关联LDAP" class="headerlink" title="jenkins关联LDAP"></a>jenkins关联LDAP</h2><p>打开localhost：8080，jenkins默认安装在8080端口上</p>
+<p>依次进入–&gt;系统管理–&gt;Configure Global Security</p>
+<p>启用安全设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LDAP</span><br><span class="line">服务器	     ldap://localhost:389</span><br><span class="line">root DN      dc=example,dc=com</span><br><span class="line">Manager DN	 cn=admin,dc=example,dc=com</span><br><span class="line">管理密码      ****    //这是你之前安装ldap时输入的管理员密码    </span><br></pre></td></tr></table></figure>
+<p>点击保存应用即可</p>
+
+        </div>
+        <div class="post-reply">
+            
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+
+  <div class="comment" style="width:70%; min-height: 80vh;margin: 0 auto;"></div>
+    <script>
+        new Valine({
+            av: AV, 
+            el: '.comment', 
+            app_id: '', 
+            app_key: '',
+            placeholder: '随便写点什么吧~~'
+        });
+    </script>
+
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        <!--请您保留作者署名, 主题制作来之不易-->
+        My Theme <a target="_blank" rel="noopener" href="https://github.com/DraceWang/hexo-theme-Hexagon/">Hexagon</a>
+        Base on <a target="_blank" rel="noopener" href="https://haojen.github.io/Claudia-theme-blog/">Claudia</a> Theme By <a target="_blank" rel="noopener" href="https://haojen.github.io/">Haojen Ma</a>
+        <br>
+        Copyright © Drace Wang 2023
+        <br>
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/search_core.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+  <script type="text/javascript" color=3,232,253   pointColor=3,232,253  opacity=0.85  count=100  src="/js/canvas-nest.js"></script>
+
+</body>
+</html>
