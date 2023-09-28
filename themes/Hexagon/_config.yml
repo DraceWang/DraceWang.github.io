@@ -1,0 +1,75 @@
+# Header
+menu:
+  Home: /
+  Archives: /archives
+  About: /about
+
+rss: /atom.xml
+
+# User Info
+user_name: Drace Wang       #自己的名字
+user_avatar: images/me.jpg     #右侧作者栏的头像
+user_location: China
+user_description: "一个平凡的码农"
+user_contact:     #签名
+user_introduction: 
+github_username: DraceWang
+twitter_username: 
+weibo_username: 2421168192
+zhihu_username: wang-shun-da-55
+facebook_username: 100006615107136
+linkedin_username: 顺达-王-a8232aa6
+
+# Content
+excerpt_link: Read More
+fancybox: true
+#canvas-nest 点线粒子效果
+nest: true                                             #false 可以关闭点线粒子效果
+nest_line_color: "3,232,253 "            #线的颜色使用rgb，如红色（255，0，0）
+nest_point_color: "3,232,253"          #点的颜色使用rgb，如红色（255，0，0），建议与线颜色一致
+nest_opacity: 0.85                                    #透明度，1为不透明
+nest_count: 100                                         #密度
+
+# display widgets at the bottom of index pages (pagination == 2)
+#index_widgets:
+# - category
+# - tagcloud
+# - archive
+
+#### Widgets
+widgets: 
+- category
+- tag
+- links
+- rss
+- tagcloud
+
+#### widget behavior
+archive_type: 'monthly'
+show_count: true
+
+# 评论系统
+# 不要用别人的 uid, 自己去注册一个吧
+use_livere: false
+livere_uid: 
+
+use_disqus: false
+disqus_url: 
+
+use_valine: true
+valine_appId: ""
+valine_appKey: ""
+valine_placeholder: "随便写点什么吧~~"                               #在评论正文显示的hint
+
+# Miscellaneous
+favicon: /images/me.jpg     #展示在标签上的小图标
+#twitter:
+#google_plus:
+#fb_admins:
+#fb_app_id:
+
+# Highlight code
+# do ensure u have closed all the highlight choices in ur root _config.yml
+# currently we provided 6 choices based on highlight script
+# highlight_default, highlight_light, highlight_github, highlight_rainbow, highlight_vs, highlight_atom
+block_highlight: highlight_rainbow
