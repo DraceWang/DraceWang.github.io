@@ -7,7 +7,7 @@ tags:
 date: 2019-02-13
 ---
 
-![post-cover](https://s2.loli.net/2023/09/21/UswxOvhH9yug4LT.jpg)
+![post-cover](https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg)
 
 
 由于公司项目比较急，我也是刚开始接触源码上修改代码，但是正因如此这次的需求来了之后对Android屏幕亮度曲线调节有了一个新的认知，记录下来也算时一种经验分享。我会从自动和手动两个方面来说明，最后在补充一些使用的测试仪器时候的一些心得吧。
