@@ -279,7 +279,6 @@ html.is-animating .trm-swup-animation {
 }
 .trm-scroll-container {
   transition: opacity 0.6s;
-  opacity: 1;
 }
 .c-scrollbar {
   width: 10px;
