@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="在U盘上安装ArchLinux系统其实在U盘上安装Linux系统基本都能装,也有针对U盘设计的系统像puppy之类的,选Arch主要是个人喜好,还有就是它的安装是手动的,不仅能学到不少linux的知识,也能更好的去适配不同的电脑,arch的可定制化程度非常高,所以更加的灵活也能适应更多的人去使用 准备工作U盘要装系统U盘不能太差,我要求比较高,U盘建议16G以上,高速读写不用说最好100m&amp;#x2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在U盘上安装ArchLinux系统">
+<meta property="og:url" content="http://dracewang.github.io/2016/02/04/%E5%9C%A8U%E7%9B%98%E4%B8%8A%E5%AE%89%E8%A3%85ArchLinux%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Hexagon">
+<meta property="og:description" content="在U盘上安装ArchLinux系统其实在U盘上安装Linux系统基本都能装,也有针对U盘设计的系统像puppy之类的,选Arch主要是个人喜好,还有就是它的安装是手动的,不仅能学到不少linux的知识,也能更好的去适配不同的电脑,arch的可定制化程度非常高,所以更加的灵活也能适应更多的人去使用 准备工作U盘要装系统U盘不能太差,我要求比较高,U盘建议16G以上,高速读写不用说最好100m&amp;#x2">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-02-04T04:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-08T01:54:34.230Z">
+<meta property="article:author" content="Drace Wang">
+<meta property="article:tag" content="archlinux">
+<meta property="article:tag" content="mobile system">
+<meta name="twitter:card" content="summary">
+
+
+<title >在U盘上安装ArchLinux系统</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.gif?v=2.1.2' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.gif?v=2.1.2' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+<link rel="stylesheet" href="https://unpkg.com/katex@latest/dist/katex.min.css">
+
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"dracewang.github.io","author":"Drace Wang","root":"/","typed_text":["一个平凡的码农"],"theme_version":"2.1.2","theme":{"switch":true,"default":"style-dark"},"favicon":{"logo":"/img/favicon.gif","icon16":"/img/favicon.gif","icon32":"/img/favicon.gif","appleTouchIcon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","showText":"(/≧▽≦/)回来啦~","hideText":"(●—●)后台ing..."},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":true,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy","tags":"fab fa-tags"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":200},"toc":{"post_title":true},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"preload":true,"path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-10-08 09:54:34"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.1.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+ 
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
+</head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <div class="trm-logo-text">
+            Drace<span>Wang</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    归档
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/tags/" target="">
+                    标签
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://i.loli.net/2020/10/27/ILDuA268Vd9T4Ux.jpg">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            在U盘上安装ArchLinux系统
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2016
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        Drace Wang
+    </h5>
+    
+        <div class="trm-label">
+            
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="/atom.xml" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fas fa-rss"></i>
+        </a>
+    
+        <a href="https://github.com/DraceWang" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/profile.php?id=100006615107136" title="facebook" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-facebook"></i>
+        </a>
+    
+        <a href="https://www.weibo.com/u/2421168192" title="weibo" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-weibo"></i>
+        </a>
+    
+        <a href="https://www.zhihu.com/people/wang-shun-da-55" title="ZhiHu" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-zhihu"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                居住地:
+            </div>
+            <div class="trm-label trm-label-light">
+                中国
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                码龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                7
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:wsdboy007@163.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            2017/08/29
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            20:00
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            Drace Wang
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <p>在U盘上安装ArchLinux系统<br>其实在U盘上安装Linux系统基本都能装,也有针对U盘设计的系统像puppy之类的,选Arch主要是个人喜好,还有就是它的安装是手动的,不仅能学到不少linux的知识,也能更好的去适配不同的电脑,arch的可定制化程度非常高,所以更加的灵活也能适应更多的人去使用</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="U盘"><a href="#U盘" class="headerlink" title="U盘"></a>U盘</h3><p>要装系统U盘不能太差,我要求比较高,U盘建议16G以上,高速读写不用说最好100m&#x2F;s以上,4K性能不能忽略(别问我为什么知道,到时候你发现几百大洋买回的U盘用的很不爽别来找我),SanDisk至尊系列亲测还行,如果你们能买到OWC的envy Pro mini最好,这是我到目前为止看的觉得最好的,但是我没有用过,4k性能不知道</p>
+<h3 id="ArchLinux安装镜像"><a href="#ArchLinux安装镜像" class="headerlink" title="ArchLinux安装镜像"></a>ArchLinux安装镜像</h3><p>ArchLinux官方网站<br>自己下载最新的镜像,以下步骤为2016年1月尝试实践记录,请参考wikiArchLinux官方安装指导自行对比</p>
+<p>ArchLinux的wiki非常丰富,要养成自行查找,解决问题的好习惯(说给自己听的)</p>
+<h3 id="找个安装环境——VMware"><a href="#找个安装环境——VMware" class="headerlink" title="找个安装环境——VMware"></a>找个安装环境——VMware</h3><p>安装到U盘的确可以直接用实体机启动,但是做live盘要多用一个U盘或者cd,还有很大的可能会不小心格错盘,导致追悔莫及,所以利用虚拟机安装方便快捷,VMware的安装教程自行寻找,用VirtualBox的也可以参考</p>
+<h2 id="安装ArchLinux"><a href="#安装ArchLinux" class="headerlink" title="安装ArchLinux"></a>安装ArchLinux</h2><p>新建虚拟机,然后选择ArchLinux安装镜像启动,插上U盘,将U盘挂载到虚拟机中</p>
+<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk</span><br></pre></td></tr></table></figure>
+<p>查看U盘是否挂载上去,不出意外的话,应该会是出现在<code>/dev/sdb</code>检查容量大小是否一致(以下就认为U盘挂载在<code>/dev/sdb</code>)</p>
+<p><a target="_blank" rel="noopener" href="https://tldp.org/HOWTO/Partition/fdisk_partitioning.html">fdisk</a> — Linux 自带的命令行分区工具</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/sdb</span><br><span class="line"><span class="comment">#建立boot区</span></span><br><span class="line"></span><br><span class="line">–&gt;n p 4096 +512M</span><br><span class="line"></span><br><span class="line"><span class="comment">#建立根目录/区</span></span><br><span class="line"></span><br><span class="line">–&gt; n p enter enter</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看分区表</span></span><br><span class="line"></span><br><span class="line">–&gt; p</span><br><span class="line"></span><br><span class="line"><span class="comment">#将分区表写入U盘</span></span><br><span class="line"></span><br><span class="line">–&gt; w</span><br></pre></td></tr></table></figure>
+<p>cfdisk — 使用 ncurses 库编写的具有伪图形界面的命令行分区工具<br><a target="_blank" rel="noopener" href="https://www.kernel.org/">https://www.kernel.org/</a><br>警告: cfdisk 创建的第一个分区起始位置是63扇区而不是通常的2048扇区这将会在 SSD 和使用高级格式化(4k 扇区)的设备上造成性能问题<br>GRUB2 也会受影响GRUB legacy 和 Syslinux不受影响<br>gdisk — GPT 版的 fdisk<br><a target="_blank" rel="noopener" href="http://www.rodsbooks.com/gdisk/">http://www.rodsbooks.com/gdisk/</a><br>cgdisk — GPT 版的 cfdisk<br><a target="_blank" rel="noopener" href="http://www.rodsbooks.com/gdisk/">http://www.rodsbooks.com/gdisk/</a><br>sgdisk — Scriptable version of gdisk.<br><a target="_blank" rel="noopener" href="http://www.rodsbooks.com/gdisk/sgdisk-walkthrough.html">http://www.rodsbooks.com/gdisk/sgdisk-walkthrough.html</a><br>GNU Parted — 命令行分区工具<br><a target="_blank" rel="noopener" href="http://www.gnu.org/software/parted/parted.html">http://www.gnu.org/software/parted/parted.html</a><br>GParted — GTK 图形界面的分区工具<br><a target="_blank" rel="noopener" href="http://gparted.sourceforge.net/">http://gparted.sourceforge.net/</a><br>Partitionmanager — QT 图形界面的分区工具<br><a target="_blank" rel="noopener" href="http://sourceforge.net/projects/partitionman/">http://sourceforge.net/projects/partitionman/</a><br>QtParted — 与 Partitionmanager 类似,在 AUR 中可获取<br><a target="_blank" rel="noopener" href="http://qtparted.sourceforge.net/">http://qtparted.sourceforge.net/</a></p>
+<h3 id="格式化U盘建立文件系统"><a href="#格式化U盘建立文件系统" class="headerlink" title="格式化U盘建立文件系统"></a>格式化U盘建立文件系统</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/sdb1</span><br><span class="line"><span class="comment"># 以ext4格式,格式化sdb1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mkfs.ext4 /dev/sdb2</span><br><span class="line"><span class="comment"># 以ext4格式,格式化sdb2</span></span><br></pre></td></tr></table></figure>
+<h3 id="联网"><a href="#联网" class="headerlink" title="联网"></a>联网</h3><ol>
+<li>首先ping baidu.com如果能ping通说明已经联网了,就跳过这一部分</li>
+<li>ping 8.8.8.8或者ping 114.114.114.114能ping通说明Dns解析服务器有问题编辑这个文件<code>/etc/resolv.conf</code></li>
+<li>以上两步都不行的话,先查服务</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl --<span class="built_in">type</span>=service</span><br></pre></td></tr></table></figure>
+<p>看看有没有fail的项,如果有就需要重启这项服务<br>比如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop dhcpcd@enp2s0.service</span><br></pre></td></tr></table></figure>
+<p>先停止服务再重启</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart dhcpcd@enp2s0.service</span><br></pre></td></tr></table></figure>
+<p>这里失败是会有日志的,你可以<br>4. 一般的话这样就可以了,如果还不行,请换网络配置(例如虚拟机桥接网络的,改成NAT),一般虚拟机模拟出来的网卡之类的,不会有这些问题</p>
+<h3 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h3><p>接下来说说驱动的事,ArchLinux开机会启动udev来检测驱动等,并在启动时自动载入必要的模块</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci</span><br></pre></td></tr></table></figure>
+<p>可以查看所有pci借口上的硬件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci |grep Ethernet</span><br></pre></td></tr></table></figure>
+<p>会输出类似</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">02:00.0 Ethernet controller: Attansic Technology Corp. L1 Gigabit Ethernet Adapter (rev b0)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci -s 02:00.0 -v</span><br></pre></td></tr></table></figure>
+<p>查看02:00.0总线上的详细信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">02:00.0 Ethernet controller: Attansic Technology Corp. L1 Gigabit Ethernet Adapter (rev b0)</span><br><span class="line">…</span><br><span class="line">Kernel driver <span class="keyword">in</span> use: atl1</span><br><span class="line">Kernel modules: atl1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dmesg | grep module_name</span><br></pre></td></tr></table></figure>
+<p>会告诉你是否驱动加载成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ dmesg |grep atl1</span><br><span class="line">…</span><br><span class="line">atl1 0000:02:00.0: eth0 <span class="built_in">link</span> is up 100 Mbps full duplex</span><br></pre></td></tr></table></figure>
+<p>没有驱动当然要装驱动啦,你问我怎么装？我很严肃的告诉你！要联网！这就是为啥用虚拟机装的事了,虚拟机一般虚拟出来的硬件,在ArchLinux的基本驱动都能通用,你要是你的电脑的网卡正好是Atheros AR8161 Gigabit和我一样,恭喜你,你联网一会儿就会断,根本不能好好玩耍,我到现在都没能整明白为啥,但是wiki上这个网卡有收录,告诉你要加载alx模块,可是我编译不通过,这个以后解决这个问题,暂时先跳过</p>
+<h4 id="网络部分的一些小命令"><a href="#网络部分的一些小命令" class="headerlink" title="网络部分的一些小命令"></a>网络部分的一些小命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ip addr 查看现有网络连接及ip地址(这里查出来的会有个自动命名的名字比如enp2s0下面的***就应该用这个名字代替)</span><br><span class="line">ip <span class="built_in">link</span> 查看现有网络连接</span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> *** up 设置***连接网络</span><br><span class="line">ip <span class="built_in">link</span> <span class="built_in">set</span> *** down 设置***断网</span><br><span class="line">dhcpcd *** 使***启动dhcp服务</span><br><span class="line"><span class="built_in">ls</span> /sys/class/net 查看现有网络接口名字</span><br><span class="line">dhcpcd -k 释放dhcp获得的IP地址</span><br><span class="line">systemctl status dhcpcd@enp2s0.service 查看enp2s0的dhcp服务状态</span><br><span class="line">systemctl --<span class="built_in">type</span>=service 查看系统已启动的服务</span><br></pre></td></tr></table></figure>
+<p>目前就学了这些,欢迎补充</p>
+<h3 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb2 /mnt</span><br></pre></td></tr></table></figure>
+<p>(挂载sdb2 到 &#x2F;mnt)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /mnt/boot</span><br></pre></td></tr></table></figure>
+<p>(在mnt目录下创建boot目录)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb1 /mnt/boot</span><br></pre></td></tr></table></figure>
+<p>(挂载sdb1 到 <code>/mnt/boot</code>)</p>
+<p>如果有建立了<code>/home</code>等目录的同理</p>
+<p>如果想要用swap 请参考<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Swap_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">wiki–swap</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在确认联网的情况下,就可以安装了,不过在真正安装前,选择快速的镜像源很重要,国内163和清华的比较快</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/pacman.d/mirrorlist</span><br></pre></td></tr></table></figure>
+<p>按ctrl+K删除整行,去掉别的,就留163的和清华的即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacstrap -i /mnt base base-devel</span><br></pre></td></tr></table></figure>
+<p>安装系统,默认全装</p>
+<p><code>–&gt;enter –&gt;enter –&gt;Y</code></p>
+<p>等待安装完成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genfstab -U -p /mnt &gt;&gt; /mnt/etc/fstab</span><br></pre></td></tr></table></figure>
+<p>生成fstab</p>
+<p>设置新系统</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arch-chroot /mnt</span><br></pre></td></tr></table></figure>
+<p>转入新系统中,这样就在我们新安装好的系统中进行操作了,可以看到<code>root@archiso</code>变为<code>sh4.3</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/locale.gen</span><br></pre></td></tr></table></figure>
+<p>选择文字编码,找到en_US.UTF-8 UTF-8和zh开头的都打开注释</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locale-gen</span><br></pre></td></tr></table></figure>
+<p>更新文字编码系统<br>在 <code>/etc/locale.conf</code> 里设置系统locale偏好；单个用户请设置<code>$HOME/.config/locale.conf</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># echo LANG=zh_CN.UTF8 &gt; /etc/locale.conf</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">ln</span> -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
+<p>对于国内的基本可以用上海时间</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hwclock --systohc</span><br></pre></td></tr></table></figure>
+<p>应该可以同步时间</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> **** &gt; /etc/hostname</span><br></pre></td></tr></table></figure>
+<p>设置主机名****</p>
+<h3 id="设置U盘启动"><a href="#设置U盘启动" class="headerlink" title="设置U盘启动"></a>设置U盘启动</h3><p>这个很重要,为了启动后能首先加载usb</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/mkinitcpio.conf</span><br></pre></td></tr></table></figure>
+<p>在udev 后面加入usb</p>
+<blockquote>
+<p>HOOKS&#x3D;”base udev usb autodetect modconf block filesystems keyboard fsck”</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkinitcpio -p linux</span><br></pre></td></tr></table></figure>
+<p>重新初始化内存盘</p>
+<h3 id="安装引导程序"><a href="#安装引导程序" class="headerlink" title="安装引导程序"></a>安装引导程序</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S syslinux gptfdisk</span><br></pre></td></tr></table></figure>
+<h4 id="安装syslinux"><a href="#安装syslinux" class="headerlink" title="安装syslinux"></a>安装syslinux</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">syslinux-install_update –iam</span><br></pre></td></tr></table></figure>
+<h4 id="安装引导项"><a href="#安装引导项" class="headerlink" title="安装引导项"></a>安装引导项</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blkid</span><br></pre></td></tr></table></figure>
+<p>查看UUID,记录sdb2的UUID 目的是为了用UUID 做标识来启动操作系统,否则换了电脑硬盘标签变化就不能启动了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /boot/syslinux/syslinux.cfg</span><br></pre></td></tr></table></figure>
+<p>修改</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># UI menu.c32 注释掉</span></span><br><span class="line">UI vesamenu.c32 取消注释</span><br></pre></td></tr></table></figure>
+<p>把LABEL arch下面的root改成</p>
+<blockquote>
+<p>root&#x3D;UUID&#x3D;”****************************” rw<br>完成了这步,在你开机选这个U盘启动后应该就能出现syslinux的引导界面了,如果不行,请自行wiki换grub之类的</p>
+</blockquote>
+<h3 id="新建用户"><a href="#新建用户" class="headerlink" title="新建用户"></a>新建用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd </span><br></pre></td></tr></table></figure>
+<p>先设置root用户的密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S zsh</span><br></pre></td></tr></table></figure>
+<h3 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -g <span class="built_in">users</span> -G wheel -s /bin/zsh ****</span><br></pre></td></tr></table></figure>
+<p>创建一个名为****的用户,并使用zsh作默认shell</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd ****</span><br></pre></td></tr></table></figure>
+<p>为****设置密码</p>
+<h3 id="添加root权限"><a href="#添加root权限" class="headerlink" title="添加root权限"></a>添加root权限</h3><p>如果后面使用的时候出现不能sudo,提示is not in the sudoers file. This incident will be reported.<br>以root权限编辑 <code>/etc/sudoers</code>文件,在 <code>root ALL=(ALL) ALL</code>下面 加上 <code>[username] ALL=(ALL) ALL</code></p>
+<p>也可以去掉<code>#%wheel ALL=(ALL) ALL</code>这一行前面的#</p>
+<h3 id="更新系统"><a href="#更新系统" class="headerlink" title="更新系统"></a>更新系统</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman –Syu</span><br></pre></td></tr></table></figure>
+<p>更新系统</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman-db-upgrade</span><br></pre></td></tr></table></figure>
+<p>更新数据库</p>
+<p>基本配置就结束了,下面是锦上添花</p>
+<h3 id="配置WIFI"><a href="#配置WIFI" class="headerlink" title="配置WIFI"></a>配置WIFI</h3><p>把无线也写在这里吧,虚拟机中安装一般只会是有线状态,出问题也基本就是dhcp没获取到ip,手动重启一遍dhcp就会好</p>
+<p>首先应该安装网卡驱动,ArchLinux在安装base-devel的时候一般都带着了,除非你的没有,那就要查一下资料自己装下了</p>
+<p>首先需要安装无线相关的软件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S iw wpa_supplicant wireless_tools dialog networkmanager network-manager-applet</span><br><span class="line"></span><br><span class="line">systemctl <span class="built_in">enable</span> NetworkManager</span><br></pre></td></tr></table></figure>
+<p>这样就能开机自动启动网络配置。</p>
+<h3 id="安装声卡服务"><a href="#安装声卡服务" class="headerlink" title="安装声卡服务"></a>安装声卡服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S alsa-utils</span><br></pre></td></tr></table></figure>
+<p><em>官方说法叫解除静音</em></p>
+<h3 id="安装桌面系统"><a href="#安装桌面系统" class="headerlink" title="安装桌面系统"></a>安装桌面系统</h3><p>请自行根据喜欢的桌面环境去安装配置,先装X</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S xorg xorg-xinit</span><br></pre></td></tr></table></figure>
+<h4 id="安装KDE桌面环境"><a href="#安装KDE桌面环境" class="headerlink" title="安装KDE桌面环境"></a>安装KDE桌面环境</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S plasma</span><br></pre></td></tr></table></figure>
+<p>这就能把最新的plasma5安装上,同时会找到很多依赖包,其中就包括显卡驱动,NVIDIA的显卡请选择开源的驱动,也就是默认选择,不要作死(不要问我为什么知道T_T)</p>
+<p>安装完KDE后,如果你这时候启动X,你会发现怎么没有终端,我们熟悉的终端呢？！对！就是没有,要自己装！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S konsole dolphin</span><br></pre></td></tr></table></figure>
+<h4 id="安装konsole和文件管理器"><a href="#安装konsole和文件管理器" class="headerlink" title="安装konsole和文件管理器"></a>安装konsole和文件管理器</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /etc/X11/xinit/xinitrc ~/.xinitrc</span><br></pre></td></tr></table></figure>
+<p>拷贝X的启动文件到用户目录,针对用户修改</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/.xinitrc</span><br></pre></td></tr></table></figure>
+<p>把exec之前的都注释掉,把exec后面的改为startkde</p>
+<h4 id="安装GNOME桌面环境"><a href="#安装GNOME桌面环境" class="headerlink" title="安装GNOME桌面环境"></a>安装GNOME桌面环境</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S gnome gnome-extra gdm</span><br></pre></td></tr></table></figure>
+<p>将gdm设置为开机自启动，这样开机时会自动载入桌面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> gdm</span><br></pre></td></tr></table></figure>
+<h4 id="美化gnome"><a href="#美化gnome" class="headerlink" title="美化gnome"></a>美化gnome</h4><p>20170826-update</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gnome-tweak-tool</span><br></pre></td></tr></table></figure>
+<p>如果你安装了gnome-extra，那么这个工具已经被安装了，否则的话</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S gnome-tweak-tool</span><br></pre></td></tr></table></figure>
+<h5 id="图标包"><a href="#图标包" class="headerlink" title="图标包"></a>图标包</h5><p>这里我使用的numix-circle图标包，这个图标包在aur里，直接用yaourt即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt -S numix-circle-icon-theme-git</span><br></pre></td></tr></table></figure>
+<p>然后在gnome-tweak-tool里启用主题</p>
+<h5 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h5><p>我们可以到下面这个网站上选自己喜欢的主体，安装方式也可以根据提示步骤来</p>
+<p><a target="_blank" rel="noopener" href="https://www.gnome-look.org/">https://www.gnome-look.org/</a></p>
+<p>然后在gnome-tweak-tool里启用</p>
+<h5 id="gdm背景"><a href="#gdm背景" class="headerlink" title="gdm背景"></a>gdm背景</h5><p>输入以下指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -L -O http://archibold.io/sh/archibold</span><br><span class="line"><span class="built_in">chmod</span> +x archibold</span><br><span class="line">./archibold login-backgroung 你的背景的地址</span><br></pre></td></tr></table></figure>
+<p>重启后gdm就会变成你要的背景</p>
+<h5 id="gnome-shell拓展"><a href="#gnome-shell拓展" class="headerlink" title="gnome-shell拓展"></a>gnome-shell拓展</h5><p>shell拓展请进入<a target="_blank" rel="noopener" href="https://extensions.gnome.org/">https://extensions.gnome.org/</a>自行按照说明安装</p>
+<h5 id="screenfetch"><a href="#screenfetch" class="headerlink" title="screenfetch"></a>screenfetch</h5><p>screenfetch可以在终端里输出你的系统logo和状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S screenfetch</span><br></pre></td></tr></table></figure>
+<p>要让screenfetch在打开终端是自动输出，在<code>~/.zshrc</code>里加入</p>
+<p>最后<br><code>exit</code>然后<code>umount -R /mnt</code>关掉虚拟机,拔下U盘,去嗨吧</p>
+<p>20160423-update</p>
+<h5 id="安装必要字体"><a href="#安装必要字体" class="headerlink" title="安装必要字体"></a>安装必要字体</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S ttf-dejavu wqy-zenhei wqy-microhei</span><br></pre></td></tr></table></figure>
+<h5 id="安装火狐"><a href="#安装火狐" class="headerlink" title="安装火狐"></a>安装火狐</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S firefox</span><br></pre></td></tr></table></figure>
+<h5 id="安装net-tools（包含ifconfig）"><a href="#安装net-tools（包含ifconfig）" class="headerlink" title="安装net-tools（包含ifconfig）"></a>安装net-tools（包含ifconfig）</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S net-tools</span><br></pre></td></tr></table></figure>
+<p>修改<code>/boot/syslinux/syslinux.cfg</code></p>
+<blockquote>
+<p>timeout &#x3D; 0<br>注销所有菜单选项</p>
+</blockquote>
+<h5 id="启动sddm"><a href="#启动sddm" class="headerlink" title="启动sddm"></a>启动sddm</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> sddm.service</span><br></pre></td></tr></table></figure>
+<h5 id="安装wget，git"><a href="#安装wget，git" class="headerlink" title="安装wget，git"></a>安装wget，git</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacamn -S wget git</span><br></pre></td></tr></table></figure>
+<h5 id="安装oh-my-zsh"><a href="#安装oh-my-zsh" class="headerlink" title="安装oh-my-zsh"></a>安装oh-my-zsh</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<h5 id="安装Yaourt"><a href="#安装Yaourt" class="headerlink" title="安装Yaourt"></a>安装Yaourt</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://aur.archlinux.org/package-query.git</span><br><span class="line"><span class="built_in">cd</span> package-query</span><br><span class="line">makepkg -si</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">git <span class="built_in">clone</span> https://aur.archlinux.org/yaourt.git</span><br><span class="line"><span class="built_in">cd</span> yaourt</span><br><span class="line">makepkg -si</span><br><span class="line"><span class="built_in">cd</span> ..</span><br></pre></td></tr></table></figure>
+
+<p>更新yaourt</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt -Syu --devel --aur</span><br></pre></td></tr></table></figure>
+<h5 id="安装搜狗中文输入法"><a href="#安装搜狗中文输入法" class="headerlink" title="安装搜狗中文输入法"></a>安装搜狗中文输入法</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt -S fcitx-sogoupinyin</span><br></pre></td></tr></table></figure>
+<p>由于设置的输出是UTF-8，所以终端中不做设置可能会显示为乱码，我们设置下nano ~&#x2F;.zshrc</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LC_ALL=en_US.UTF-8  </span><br><span class="line"><span class="built_in">export</span> LANG=en_US.UTF-8</span><br></pre></td></tr></table></figure>
+<p>20170826-update</p>
+<h5 id="安装chrome"><a href="#安装chrome" class="headerlink" title="安装chrome"></a>安装chrome</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt -S google-chrome</span><br></pre></td></tr></table></figure>
+<h5 id="解压软件"><a href="#解压软件" class="headerlink" title="解压软件"></a>解压软件</h5><p>需要图形化的解压软件可以这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S p7zip file-roller unrar</span><br></pre></td></tr></table></figure>
+<h5 id="文件系统支持"><a href="#文件系统支持" class="headerlink" title="文件系统支持"></a>文件系统支持</h5><p>要支持制作fat文件系统，安装dosfstools，默认内核只能读取ntfs，要支持ntfs读写，安装ntfs-3g。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S ntfs-3g dosfstools</span><br></pre></td></tr></table></figure>
+<h5 id="无线AP"><a href="#无线AP" class="headerlink" title="无线AP"></a>无线AP</h5><p>需要安装create-ap才能使用gnome3设置里的创建热点选项</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S create_ap</span><br></pre></td></tr></table></figure>
+</article>
+    
+    
+
+<ul class="trm-post-copyright">
+    <li class="trm-post-copyright-author">
+        <strong>本文作者：</strong>
+        Drace Wang
+    </li>
+    <li class="trm-post-copyright-link">
+        <strong>本文链接：</strong>
+        <a id="original-link" href="http://dracewang.github.io/2016/02/04/在U盘上安装ArchLinux系统/" title="在U盘上安装ArchLinux系统">http://dracewang.github.io/2016/02/04/在U盘上安装ArchLinux系统/</a>
+    </li>
+    <li class="trm-post-copyright-license">
+        <strong>版权声明：</strong>
+        本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 ">CC BY-NC-SA 4.0</a> 许可协议。
+    </li>
+</ul>
+
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
+        <div class="trm-older-publication">
+            
+            <a class="trm-op-top trm-anima-link" href="/2019/02/13/Android%20LCD%E5%B1%8F%E5%B9%95%E4%BA%AE%E5%BA%A6%E6%9B%B2%E7%BA%BF%E8%B0%83%E6%95%B4/">
+                <span class="trm-op-cover">
+                    <img alt="cover" class="no-fancybox" src="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg">
+                </span>
+                <h6 class="trm-op-title">Android LCD屏幕亮度曲线调整</h6>
+            </a>
+            <div class="trm-divider trm-mb-15 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>2019/02/13</li>
+                <li>12:13</li>
+                <li>Android</li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
+        <div class="trm-older-publication">
+            
+            <a class="trm-op-top trm-anima-link" href="/2015/12/06/Android%20Broadcast%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/">
+                <span class="trm-op-cover">
+                    <img alt="cover" class="no-fancybox" src="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg">
+                </span>
+                <h6 class="trm-op-title">Android Broadcast的简单应用</h6>
+            </a>
+            <div class="trm-divider trm-mb-15 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>2015/12/06</li>
+                <li>10:05</li>
+                <li>Android</li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+    <div id="giscus-wrap" class="trm-card trm-scroll-animation comment-container"></div>
+<script data-swup-reload-script>
+    function loadGiscus() {
+        let nowTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+        const config = {
+            src: 'https://giscus.app/client.js',
+            "data-repo": 'DraceWang/github-discussion',
+            "data-repo-id": 'R_kgDOKdQ4NQ',
+            "data-category": 'Announcements',
+            "data-category-id": 'DIC_kwDOKdQ4Nc4CZ8W2',
+            "data-mapping": 'pathname',
+            "data-reactions-enabled": '1',
+            "data-emit-metadata": '0',
+            "data-theme": nowTheme,
+            "data-lang": 'zh-CN',
+            crossorigin: "anonymous",
+            async: true
+        }
+        let ele = document.createElement('script')
+        for (let key in config) {
+            ele.setAttribute(key, config[key])
+        }
+        document.getElementById('giscus-wrap').insertAdjacentElement('afterbegin', ele)
+    }
+
+    function changeGiscusTheme() {
+        let theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+
+        function sendMessage(message) {
+            const iframe = document.querySelector('iframe.giscus-frame');
+            if (!iframe) return;
+            iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+
+        sendMessage({
+            setConfig: {
+                theme: theme
+            }
+        });
+    }
+
+    loadGiscus();
+</script>
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.1.2
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item">
+            新博客主题已运行 <span id="since" class="trm-accent-color"></span> 天
+        </div>
+     
+
+     
+</footer>
+
+<script>
+    function show_date_time () {
+        var BirthDay = new Date("10/08/2023 10:00:00");
+        var today = new Date();
+        var timeold = (today.getTime() - BirthDay.getTime());
+        var msPerDay = 24 * 60 * 60 * 1000
+        var day = Math.floor(timeold / msPerDay)
+        since.innerHTML = day
+    }
+    show_date_time()
+</script>
+ 
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2"><a rel="nofollow" class="trm-toc-link" href="#准备工作"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">准备工作</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#U盘"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">U盘</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#ArchLinux安装镜像"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">ArchLinux安装镜像</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#找个安装环境——VMware"><span class="trm-toc-number">1.3.</span> <span class="trm-toc-text">找个安装环境——VMware</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2"><a rel="nofollow" class="trm-toc-link" href="#安装ArchLinux"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">安装ArchLinux</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#分区"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">分区</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#格式化U盘建立文件系统"><span class="trm-toc-number">2.2.</span> <span class="trm-toc-text">格式化U盘建立文件系统</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#联网"><span class="trm-toc-number">2.3.</span> <span class="trm-toc-text">联网</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#驱动"><span class="trm-toc-number">2.4.</span> <span class="trm-toc-text">驱动</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4"><a rel="nofollow" class="trm-toc-link" href="#网络部分的一些小命令"><span class="trm-toc-number">2.4.1.</span> <span class="trm-toc-text">网络部分的一些小命令</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#挂载分区"><span class="trm-toc-number">2.5.</span> <span class="trm-toc-text">挂载分区</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2"><a rel="nofollow" class="trm-toc-link" href="#安装"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">安装</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#设置U盘启动"><span class="trm-toc-number">3.1.</span> <span class="trm-toc-text">设置U盘启动</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#安装引导程序"><span class="trm-toc-number">3.2.</span> <span class="trm-toc-text">安装引导程序</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4"><a rel="nofollow" class="trm-toc-link" href="#安装syslinux"><span class="trm-toc-number">3.2.1.</span> <span class="trm-toc-text">安装syslinux</span></a></li><li class="trm-toc-item trm-toc-level-4"><a rel="nofollow" class="trm-toc-link" href="#安装引导项"><span class="trm-toc-number">3.2.2.</span> <span class="trm-toc-text">安装引导项</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#新建用户"><span class="trm-toc-number">3.3.</span> <span class="trm-toc-text">新建用户</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#安装zsh"><span class="trm-toc-number">3.4.</span> <span class="trm-toc-text">安装zsh</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#添加root权限"><span class="trm-toc-number">3.5.</span> <span class="trm-toc-text">添加root权限</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#更新系统"><span class="trm-toc-number">3.6.</span> <span class="trm-toc-text">更新系统</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#配置WIFI"><span class="trm-toc-number">3.7.</span> <span class="trm-toc-text">配置WIFI</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#安装声卡服务"><span class="trm-toc-number">3.8.</span> <span class="trm-toc-text">安装声卡服务</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#安装桌面系统"><span class="trm-toc-number">3.9.</span> <span class="trm-toc-text">安装桌面系统</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4"><a rel="nofollow" class="trm-toc-link" href="#安装KDE桌面环境"><span class="trm-toc-number">3.9.1.</span> <span class="trm-toc-text">安装KDE桌面环境</span></a></li><li class="trm-toc-item trm-toc-level-4"><a rel="nofollow" class="trm-toc-link" href="#安装konsole和文件管理器"><span class="trm-toc-number">3.9.2.</span> <span class="trm-toc-text">安装konsole和文件管理器</span></a></li><li class="trm-toc-item trm-toc-level-4"><a rel="nofollow" class="trm-toc-link" href="#安装GNOME桌面环境"><span class="trm-toc-number">3.9.3.</span> <span class="trm-toc-text">安装GNOME桌面环境</span></a></li><li class="trm-toc-item trm-toc-level-4"><a rel="nofollow" class="trm-toc-link" href="#美化gnome"><span class="trm-toc-number">3.9.4.</span> <span class="trm-toc-text">美化gnome</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#图标包"><span class="trm-toc-number">3.9.4.1.</span> <span class="trm-toc-text">图标包</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#主题"><span class="trm-toc-number">3.9.4.2.</span> <span class="trm-toc-text">主题</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#gdm背景"><span class="trm-toc-number">3.9.4.3.</span> <span class="trm-toc-text">gdm背景</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#gnome-shell拓展"><span class="trm-toc-number">3.9.4.4.</span> <span class="trm-toc-text">gnome-shell拓展</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#screenfetch"><span class="trm-toc-number">3.9.4.5.</span> <span class="trm-toc-text">screenfetch</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#安装必要字体"><span class="trm-toc-number">3.9.4.6.</span> <span class="trm-toc-text">安装必要字体</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#安装火狐"><span class="trm-toc-number">3.9.4.7.</span> <span class="trm-toc-text">安装火狐</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#安装net-tools（包含ifconfig）"><span class="trm-toc-number">3.9.4.8.</span> <span class="trm-toc-text">安装net-tools（包含ifconfig）</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#启动sddm"><span class="trm-toc-number">3.9.4.9.</span> <span class="trm-toc-text">启动sddm</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#安装wget，git"><span class="trm-toc-number">3.9.4.10.</span> <span class="trm-toc-text">安装wget，git</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#安装oh-my-zsh"><span class="trm-toc-number">3.9.4.11.</span> <span class="trm-toc-text">安装oh-my-zsh</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#安装Yaourt"><span class="trm-toc-number">3.9.4.12.</span> <span class="trm-toc-text">安装Yaourt</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#安装搜狗中文输入法"><span class="trm-toc-number">3.9.4.13.</span> <span class="trm-toc-text">安装搜狗中文输入法</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#安装chrome"><span class="trm-toc-number">3.9.4.14.</span> <span class="trm-toc-text">安装chrome</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#解压软件"><span class="trm-toc-number">3.9.4.15.</span> <span class="trm-toc-text">解压软件</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#文件系统支持"><span class="trm-toc-number">3.9.4.16.</span> <span class="trm-toc-text">文件系统支持</span></a></li><li class="trm-toc-item trm-toc-level-5"><a rel="nofollow" class="trm-toc-link" href="#无线AP"><span class="trm-toc-number">3.9.4.17.</span> <span class="trm-toc-text">无线AP</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+<script src="https://unpkg.com/swup@2.0.19/dist/swup.min.js"></script>
+
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+        <script src="/js/plugins/typing.js?v=2.1.2"></script>
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.1.2"></script>
+    
+
+    <!-- 数学公式 -->
+    
+        
+<script src="https://unpkg.com/katex@latest/dist/katex.min.js" data-swup-reload-script></script>
+
+        
+            
+<script src="https://unpkg.com/katex@latest/dist/contrib/copy-tex.min.js" data-swup-reload-script></script>
+
+        
+        
+<script src="https://unpkg.com/katex@latest/dist/contrib/auto-render.min.js" data-swup-reload-script></script>
+
+        <script data-swup-reload-script>
+              window.renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true },
+                ],
+                ...{},
+            })
+        </script>
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.1.2"></script>
+
+</body>
+
+</html>

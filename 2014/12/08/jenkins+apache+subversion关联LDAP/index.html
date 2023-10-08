@@ -1,282 +1,726 @@
 <!DOCTYPE html>
-<html class="full-height">
+<html lang="zh-Hans">
+
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-  
-  <title>jenkins+apache+subversion关联LDAP | Hexagon</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装jenkins1wget -q -O - http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian&#x2F;jenkins-ci.org.key | sudo apt-key add -  添加以下信息到你的源&#x2F;etc&#x2F;apt&#x2F;sources.list: 123deb http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian binary&#x2F;sudo apt-get updatesud">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="安装jenkins1wget -q -O - http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian&#x2F;jenkins-ci.org.key | sudo apt-key add -  添加以下信息到你的源&#x2F;etc&#x2F;apt&#x2F;sources.list: 123deb http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian binary&#x2F;sudo apt-get updatesudo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jenkins+apache+subversion关联LDAP">
 <meta property="og:url" content="http://dracewang.github.io/2014/12/08/jenkins+apache+subversion%E5%85%B3%E8%81%94LDAP/index.html">
 <meta property="og:site_name" content="Hexagon">
-<meta property="og:description" content="安装jenkins1wget -q -O - http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian&#x2F;jenkins-ci.org.key | sudo apt-key add -  添加以下信息到你的源&#x2F;etc&#x2F;apt&#x2F;sources.list: 123deb http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian binary&#x2F;sudo apt-get updatesud">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/09/20/qORtrHv9IbkSilh.png">
+<meta property="og:description" content="安装jenkins1wget -q -O - http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian&#x2F;jenkins-ci.org.key | sudo apt-key add -  添加以下信息到你的源&#x2F;etc&#x2F;apt&#x2F;sources.list: 123deb http:&#x2F;&#x2F;pkg.jenkins-ci.org&#x2F;debian binary&#x2F;sudo apt-get updatesudo">
+<meta property="og:locale">
 <meta property="article:published_time" content="2014-12-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-07T03:06:09.509Z">
+<meta property="article:modified_time" content="2023-10-08T01:54:34.230Z">
 <meta property="article:author" content="Drace Wang">
 <meta property="article:tag" content="LDAP">
 <meta property="article:tag" content="jenkins">
 <meta property="article:tag" content="apache">
 <meta property="article:tag" content="subversion">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2023/09/20/qORtrHv9IbkSilh.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/images/me.jpg">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/common.css">
-<link rel="stylesheet" href="/css/nav.css">
-<link rel="stylesheet" href="/css/layout.css">
 
 
-  <title>Valine - A simple comment system based on Leancloud.</title>
-  <!--Leancloud 操作库:-->
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <!--Valine 的核心代码库:-->
-  <script src="//cdn.jsdelivr.net/npm/valine"></script>
-<meta name="generator" content="Hexo 6.3.0"></head>
+<title >jenkins+apache+subversion关联LDAP</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.gif?v=2.1.2' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.gif?v=2.1.2' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+<link rel="stylesheet" href="https://unpkg.com/katex@latest/dist/katex.min.css">
+
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"dracewang.github.io","author":"Drace Wang","root":"/","typed_text":["一个平凡的码农"],"theme_version":"2.1.2","theme":{"switch":true,"default":"style-dark"},"favicon":{"logo":"/img/favicon.gif","icon16":"/img/favicon.gif","icon32":"/img/favicon.gif","appleTouchIcon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","showText":"(/≧▽≦/)回来啦~","hideText":"(●—●)后台ing..."},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":true,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy","tags":"fab fa-tags"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":200},"toc":{"post_title":true},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"preload":true,"path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-10-08 09:54:34"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.1.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+ 
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
+</head>
 
 <body>
-  <header id="navbar" class="overflow-hidden">
-  <div class="container">
-    <nav class="nav">
-         <div class="nav-left">
-            <a href="/" class="nav-item" style="font-size: 20px;">
-              <span class="logo">Drace Wang</span>'s Blog
-            </a>
-         </div>
-        <div class="nav-center is-hidden position-relative" id="search_container">
-            <div class="nav-item full-width full-height">
-                <i class="fa fa-search has-padding" aria-hidden="true"></i>
-                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
-                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
-            </div>
-            <div id="search_result"></div>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-        <div class="nav-right nav-menu">
-            <a class="nav-item" id="search">
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </a>
-            
-            <a class="nav-item" href="/">
-                Home
-            </a>
-            
-            <a class="nav-item" href="/archives">
-                Archives
-            </a>
-            
-            <a class="nav-item" href="/about">
-                About
-            </a>
-            
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <div class="trm-logo-text">
+            Drace<span>Wang</span>
         </div>
-        <span class="nav-toggle" id="navMenuDropdown">
-            <span></span>
-            <span></span>
-            <span></span>
-        </span>
-        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
             
-            <a class="nav-item flex-1" href="/">
-                Home
-            </a>
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
             
-            <a class="nav-item flex-1" href="/archives">
-                Archives
-            </a>
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    归档
+                </a>
+                
+            </li>
             
-            <a class="nav-item flex-1" href="/about">
-                About
-            </a>
+            <li class="menu-item-has-children ">
+                <a  href="/tags/" target="">
+                    标签
+                </a>
+                
+            </li>
             
-        </div>
+            <li class="menu-item-has-children ">
+                <a  href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
     </nav>
-  </div>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
 </header>
+            <!-- top bar end -->
 
-  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
-      <div class="main-inner-content">
-          <!--博文页面-->
-
-<style>
-    .header-box {
-        height: 370px;
-        filter: blur(10px);
-        background-size: cover;
-        background-color: lightsteelblue;
-    }
-
-    .post-box {
-        padding: 15px;
-        padding-top: 60px;
-        min-height: 80vh;
-        margin-top: -200px;
-        border-radius: 4px;
-        background-color: rgba(255,255,255,.8);
-    }
-
-    .post-avatar {
-        height: 30px;
-        width: 30px;
-        border-radius: 50%;
-    }
-
-    .flow-chart {
-        text-align: center;
-    }
-
-    img[alt="post-cover"] {
-        display: none;
-    }
-</style>
-<header>
-    <div id="header_box" class="header-box"></div>
-</header>
-<section>
-    <div class="container post-box">
-        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
-            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
-                <strong>jenkins+apache+subversion关联LDAP</strong>
-            </h1>
+            <!-- body -->
             
-            <div class="is-flex align-center">
-                <img class="post-avatar" src="images/me.jpg" alt="favicon">
-                <span style="padding:0 10px;"> <span class="sub-title">By</span> Drace Wang</span>
-                <span class="post-date sub-title">at: 2014-12-08</span>
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="https://s2.loli.net/2023/09/20/qORtrHv9IbkSilh.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            jenkins+apache+subversion关联LDAP
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2014
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
             </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
             
-                <div>
-                    
-                         <a class="tag is-post-tag" href="/tags/LDAP/">LDAP</a>
-                    
-                         <a class="tag is-post-tag" href="/tags/jenkins/">jenkins</a>
-                    
-                         <a class="tag is-post-tag" href="/tags/apache/">apache</a>
-                    
-                         <a class="tag is-post-tag" href="/tags/subversion/">subversion</a>
-                    
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        Drace Wang
+    </h5>
+    
+        <div class="trm-label">
+            
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="/atom.xml" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fas fa-rss"></i>
+        </a>
+    
+        <a href="https://github.com/DraceWang" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/profile.php?id=100006615107136" title="facebook" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-facebook"></i>
+        </a>
+    
+        <a href="https://www.weibo.com/u/2421168192" title="weibo" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-weibo"></i>
+        </a>
+    
+        <a href="https://www.zhihu.com/people/wang-shun-da-55" title="ZhiHu" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-zhihu"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                居住地:
+            </div>
+            <div class="trm-label trm-label-light">
+                中国
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                码龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                7
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:wsdboy007@163.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
                 </div>
             
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            2023/10/08
         </div>
-        <div class="content" style="overflow: auto">
-            <p><img src="https://s2.loli.net/2023/09/20/qORtrHv9IbkSilh.png" alt="post-cover"></p>
-<h2 id="安装jenkins"><a href="#安装jenkins" class="headerlink" title="安装jenkins"></a>安装jenkins</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            09:54
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            Drace Wang
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="安装jenkins"><a href="#安装jenkins" class="headerlink" title="安装jenkins"></a>安装jenkins</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -</span><br></pre></td></tr></table></figure>
 
 <p>添加以下信息到你的源<code>/etc/apt/sources.list</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deb http://pkg.jenkins-ci.org/debian binary/</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deb http://pkg.jenkins-ci.org/debian binary/</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br></pre></td></tr></table></figure>
 
-<h2 id="下载安装SVN-apache"><a href="#下载安装SVN-apache" class="headerlink" title="下载安装SVN+apache"></a>下载安装SVN+apache</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install subversion libapache2-svn apache2 apache2-utils</span><br><span class="line"></span><br><span class="line">sudo a2enmod ssl</span><br><span class="line"></span><br><span class="line">sudo a2ensite default-ssl</span><br><span class="line"></span><br><span class="line">sudo a2enmod dav_svn</span><br></pre></td></tr></table></figure>
+<h2 id="下载安装SVN-apache"><a href="#下载安装SVN-apache" class="headerlink" title="下载安装SVN+apache"></a>下载安装SVN+apache</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install subversion libapache2-svn apache2 apache2-utils</span><br><span class="line"></span><br><span class="line">sudo a2enmod ssl</span><br><span class="line"></span><br><span class="line">sudo a2ensite default-ssl</span><br><span class="line"></span><br><span class="line">sudo a2enmod dav_svn</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="设置apache2"><a href="#设置apache2" class="headerlink" title="设置apache2"></a>设置apache2</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
+<h3 id="设置apache2"><a href="#设置apache2" class="headerlink" title="设置apache2"></a>设置apache2</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
 <p>编辑该文件使之如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line"></span><br><span class="line">DAV svn</span><br><span class="line"></span><br><span class="line">SVNPath /home/svn</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line"></span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">AuthUserFile /etc/apache2/dav_svn.passwd</span><br><span class="line"></span><br><span class="line">Require valid-user</span><br><span class="line"></span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
 <p>更改 <code>/home/svn</code> 到任何你要保存仓库的地址。如果没有的话就新建。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /home/svn</span><br></pre></td></tr></table></figure>
-<h3 id="开启svn服务"><a href="#开启svn服务" class="headerlink" title="开启svn服务"></a>开启svn服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo svnadmin  create /home/svn</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /home/svn</span><br></pre></td></tr></table></figure>
+<h3 id="开启svn服务"><a href="#开启svn服务" class="headerlink" title="开启svn服务"></a>开启svn服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo svnadmin  create /home/svn</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="是APache成为该仓库的所有者。"><a href="#是APache成为该仓库的所有者。" class="headerlink" title="是APache成为该仓库的所有者。"></a>是APache成为该仓库的所有者。</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R www-data /home/svn</span><br></pre></td></tr></table></figure>
+<h3 id="是APache成为该仓库的所有者。"><a href="#是APache成为该仓库的所有者。" class="headerlink" title="是APache成为该仓库的所有者。"></a>是APache成为该仓库的所有者。</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chown</span> -R www-data /home/svn</span><br></pre></td></tr></table></figure>
 
 
-<h3 id="建立密码文件"><a href="#建立密码文件" class="headerlink" title="建立密码文件"></a>建立密码文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo htpasswd -cm /etc/apache2/dav_svn.passwd admin</span><br></pre></td></tr></table></figure>
+<h3 id="建立密码文件"><a href="#建立密码文件" class="headerlink" title="建立密码文件"></a>建立密码文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo htpasswd -cm /etc/apache2/dav_svn.passwd admin</span><br></pre></td></tr></table></figure>
 <p>admin是你想使用的用户名，然后输入两次密码。</p>
-<h3 id="重启Apache"><a href="#重启Apache" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restar</span><br></pre></td></tr></table></figure>
+<h3 id="重启Apache"><a href="#重启Apache" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restar</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="关联svn和LDAP"><a href="#关联svn和LDAP" class="headerlink" title="关联svn和LDAP"></a>关联svn和LDAP</h2><h2 id="a-pache添加ldap组件-修改apache中的svn配置文件"><a href="#a-pache添加ldap组件-修改apache中的svn配置文件" class="headerlink" title="###a pache添加ldap组件### 修改apache中的svn配置文件"></a>###a pache添加ldap组件<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo a2enmod ldap</span><br><span class="line"></span><br><span class="line">sudo a2enmod authnz_ldap</span><br></pre></td></tr></table></figure><br>### 修改apache中的svn配置文件<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line">DAV svn</span><br><span class="line">SVNParentPath /home/svn/</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">#LDAP</span><br><span class="line">AuthBasicProvider ldap</span><br><span class="line">AuthLDAPBindDN &quot;cn=admin,dc=example,dc=com&quot;</span><br><span class="line">AuthLDAPBindPassword admin</span><br><span class="line">AuthLDAPURL &quot;ldap://localhost:389/dc=example,dc=com?uid?sub?(objectClass=*)&quot;</span><br><span class="line"></span><br><span class="line">AuthzSVNAccessFile /etc/apache2/dav_svn.authz</span><br><span class="line">require valid-user</span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="重启Apache-1"><a href="#重启Apache-1" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
+<h2 id="关联svn和LDAP"><a href="#关联svn和LDAP" class="headerlink" title="关联svn和LDAP"></a>关联svn和LDAP</h2><h2 id="a-pache添加ldap组件-修改apache中的svn配置文件"><a href="#a-pache添加ldap组件-修改apache中的svn配置文件" class="headerlink" title="###a pache添加ldap组件### 修改apache中的svn配置文件"></a>###a pache添加ldap组件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo a2enmod ldap</span><br><span class="line"></span><br><span class="line">sudo a2enmod authnz_ldap</span><br></pre></td></tr></table></figure><br>### 修改apache中的svn配置文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line">DAV svn</span><br><span class="line">SVNParentPath /home/svn/</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">#LDAP</span><br><span class="line">AuthBasicProvider ldap</span><br><span class="line">AuthLDAPBindDN &quot;cn=admin,dc=example,dc=com&quot;</span><br><span class="line">AuthLDAPBindPassword admin</span><br><span class="line">AuthLDAPURL &quot;ldap://localhost:389/dc=example,dc=com?uid?sub?(objectClass=*)&quot;</span><br><span class="line"></span><br><span class="line">AuthzSVNAccessFile /etc/apache2/dav_svn.authz</span><br><span class="line">require valid-user</span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="重启Apache-1"><a href="#重启Apache-1" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
 <h2 id="jenkins关联LDAP"><a href="#jenkins关联LDAP" class="headerlink" title="jenkins关联LDAP"></a>jenkins关联LDAP</h2><p>打开localhost：8080，jenkins默认安装在8080端口上</p>
 <p>依次进入–&gt;系统管理–&gt;Configure Global Security</p>
 <p>启用安全设置</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LDAP</span><br><span class="line">服务器	     ldap://localhost:389</span><br><span class="line">root DN      dc=example,dc=com</span><br><span class="line">Manager DN	 cn=admin,dc=example,dc=com</span><br><span class="line">管理密码      ****    //这是你之前安装ldap时输入的管理员密码    </span><br></pre></td></tr></table></figure>
 <p>点击保存应用即可</p>
 
-        </div>
-        <div class="post-reply">
+</article>
+    
+    
+
+<ul class="trm-post-copyright">
+    <li class="trm-post-copyright-author">
+        <strong>本文作者：</strong>
+        Drace Wang
+    </li>
+    <li class="trm-post-copyright-link">
+        <strong>本文链接：</strong>
+        <a id="original-link" href="http://dracewang.github.io/2014/12/08/jenkins+apache+subversion关联LDAP/" title="jenkins+apache+subversion关联LDAP">http://dracewang.github.io/2014/12/08/jenkins+apache+subversion关联LDAP/</a>
+    </li>
+    <li class="trm-post-copyright-license">
+        <strong>版权声明：</strong>
+        本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 ">CC BY-NC-SA 4.0</a> 许可协议。
+    </li>
+</ul>
+
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
+        <div class="trm-older-publication">
             
-            
+            <a class="trm-op-top trm-anima-link" href="/2014/12/09/virtualbox%EF%BC%884.3.16%EF%BC%89%E5%AE%89%E8%A3%85/">
+                <span class="trm-op-cover">
+                    <img alt="cover" class="no-fancybox" src="https://s2.loli.net/2023/09/21/UswxOvhH9yug4LT.jpg">
+                </span>
+                <h6 class="trm-op-title">virtualbox（4.3.16）安装</h6>
+            </a>
+            <div class="trm-divider trm-mb-15 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>2014/12/09</li>
+                <li>12:00</li>
+                <li>Linux</li>
+            </ul>
         </div>
     </div>
-</section>
-<script>
-    // 获取第一张图, 用以当封面背景图
-    var img = document.querySelectorAll('img')[1]
+</div>
+    
+    
+</div>
 
-    if (img) {
-        var header_box = document.querySelector('#header_box')
-        header_box.style.backgroundImage = 'url('+ img.src +')'
+    
+
+    <div id="giscus-wrap" class="trm-card trm-scroll-animation comment-container"></div>
+<script data-swup-reload-script>
+    function loadGiscus() {
+        let nowTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+        const config = {
+            src: 'https://giscus.app/client.js',
+            "data-repo": 'DraceWang/github-discussion',
+            "data-repo-id": 'R_kgDOKdQ4NQ',
+            "data-category": 'Announcements',
+            "data-category-id": 'DIC_kwDOKdQ4Nc4CZ8W2',
+            "data-mapping": 'pathname',
+            "data-reactions-enabled": '1',
+            "data-emit-metadata": '0',
+            "data-theme": nowTheme,
+            "data-lang": 'zh-CN',
+            crossorigin: "anonymous",
+            async: true
+        }
+        let ele = document.createElement('script')
+        for (let key in config) {
+            ele.setAttribute(key, config[key])
+        }
+        document.getElementById('giscus-wrap').insertAdjacentElement('afterbegin', ele)
     }
+
+    function changeGiscusTheme() {
+        let theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+
+        function sendMessage(message) {
+            const iframe = document.querySelector('iframe.giscus-frame');
+            if (!iframe) return;
+            iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+
+        sendMessage({
+            setConfig: {
+                theme: theme
+            }
+        });
+    }
+
+    loadGiscus();
 </script>
 
-<!-- for code block highlight --> 
-<!-- theme.block_highlight -->
-<!-- we do not guarantee the char sequences spell right, usr himself do it -->
 
-<link rel="stylesheet" href="/css/highlight_rainbow.css">
 
-<script src="/js/highlight.min.js"></script>
-<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
+                    <div class="trm-divider footer-divider"></div>
 
-  <div class="comment" style="width:70%; min-height: 80vh;margin: 0 auto;"></div>
-    <script>
-        new Valine({
-            av: AV, 
-            el: '.comment', 
-            app_id: '', 
-            app_key: '',
-            placeholder: '随便写点什么吧~~'
-        });
-    </script>
+                    <!-- footer -->
+                    <footer class="trm-scroll-animation">
 
-      </div>
-  </div>
-  <style>
-  #footer {
-    min-height: 10vh;
-    background: black;
-    color: #fff;
-  }
+    
 
-  #footer a {
-    color: #e1e1e1;
-  }
-</style>
-<footer id="footer" class="has-text-centered is-flex center">
-  <div class="container has-padding">
-    <div>
-      <div>
-        <!--请您保留作者署名, 主题制作来之不易-->
-        My Theme <a target="_blank" rel="noopener" href="https://github.com/DraceWang/hexo-theme-Hexagon/">Hexagon</a>
-        Base on <a target="_blank" rel="noopener" href="https://haojen.github.io/Claudia-theme-blog/">Claudia</a> Theme By <a target="_blank" rel="noopener" href="https://haojen.github.io/">Haojen Ma</a>
-        <br>
-        Copyright © Drace Wang 2023
-        <br>
-        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-      </div>
-    </div>
-  </div>
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.3.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.1.2
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item">
+            新博客主题已运行 <span id="since" class="trm-accent-color"></span> 天
+        </div>
+     
+
+     
 </footer>
 
+<script>
+    function show_date_time () {
+        var BirthDay = new Date("10/08/2023 10:00:00");
+        var today = new Date();
+        var timeold = (today.getTime() - BirthDay.getTime());
+        var msPerDay = 24 * 60 * 60 * 1000
+        var day = Math.floor(timeold / msPerDay)
+        since.innerHTML = day
+    }
+    show_date_time()
+</script>
+ 
+                    <!-- footer end -->
 
-<script src="/js/search_core.js"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2"><a rel="nofollow" class="trm-toc-link" href="#安装jenkins"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">安装jenkins</span></a></li><li class="trm-toc-item trm-toc-level-2"><a rel="nofollow" class="trm-toc-link" href="#下载安装SVN-apache"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">下载安装SVN+apache</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#设置apache2"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">设置apache2</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#开启svn服务"><span class="trm-toc-number">2.2.</span> <span class="trm-toc-text">开启svn服务</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#是APache成为该仓库的所有者。"><span class="trm-toc-number">2.3.</span> <span class="trm-toc-text">是APache成为该仓库的所有者。</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#建立密码文件"><span class="trm-toc-number">2.4.</span> <span class="trm-toc-text">建立密码文件</span></a></li><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#重启Apache"><span class="trm-toc-number">2.5.</span> <span class="trm-toc-text">重启Apache</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2"><a rel="nofollow" class="trm-toc-link" href="#关联svn和LDAP"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">关联svn和LDAP</span></a></li><li class="trm-toc-item trm-toc-level-2"><a rel="nofollow" class="trm-toc-link" href="#a-pache添加ldap组件-修改apache中的svn配置文件"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">###a pache添加ldap组件123sudo a2enmod ldapsudo a2enmod authnz_ldap### 修改apache中的svn配置文件1sudo vim &#x2F;etc&#x2F;apache2&#x2F;mods-enabled&#x2F;dav_svn.conf</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3"><a rel="nofollow" class="trm-toc-link" href="#重启Apache-1"><span class="trm-toc-number">4.1.</span> <span class="trm-toc-text">重启Apache</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2"><a rel="nofollow" class="trm-toc-link" href="#jenkins关联LDAP"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">jenkins关联LDAP</span></a></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
 
 
-<script src="/js/script.js"></script>
 
 
-  <script type="text/javascript" color=3,232,253   pointColor=3,232,253  opacity=0.85  count=100  src="/js/canvas-nest.js"></script>
+    
+<script src="https://unpkg.com/swup@2.0.19/dist/swup.min.js"></script>
+
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+        <script src="/js/plugins/typing.js?v=2.1.2"></script>
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.1.2"></script>
+    
+
+    <!-- 数学公式 -->
+    
+        
+<script src="https://unpkg.com/katex@latest/dist/katex.min.js" data-swup-reload-script></script>
+
+        
+            
+<script src="https://unpkg.com/katex@latest/dist/contrib/copy-tex.min.js" data-swup-reload-script></script>
+
+        
+        
+<script src="https://unpkg.com/katex@latest/dist/contrib/auto-render.min.js" data-swup-reload-script></script>
+
+        <script data-swup-reload-script>
+              window.renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true },
+                ],
+                ...{},
+            })
+        </script>
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.1.2"></script>
 
 </body>
+
 </html>
