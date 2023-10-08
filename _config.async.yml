@@ -1,0 +1,318 @@
+# Open Graph protocol
+open_graph: true
+
+# User info
+user:
+  name: Drace Wang
+  first_name: Wang
+  last_name: Drace
+  email: wsdboy007@163.com
+  domain: https://dracewag.github.ico
+  avatar: /img/avatar.jpg
+  describe: 
+  ruleText: 
+
+# Configure the icon information of the site
+favicon:
+  logo: /img/favicon.gif
+  icon16: /img/favicon.gif
+  icon32: /img/favicon.gif
+  appleTouchIcon: 
+  webmanifest:
+  visibilitychange: true
+  hidden: /failure.ico # Displays an icon when not visible
+  showText: favicon.showText
+  hideText: favicon.hideText
+
+# Theme resource files or plug-ins
+assets:
+  # The cdn configuration of the js inside the theme
+  internal_provider: local
+  # cdn configuration of third-party js
+  third_party_provider: unpkg
+  # The plug-in used by the theme
+  plugin:
+    hexo_theme_async:
+      rowcss: css/plugins/bootstrap.row.css
+      typing: js/plugins/typing.js
+      search: js/plugins/local_search.js
+      main: js/main.js
+  # Icon configuration
+  icons: 
+    type: font # font symbol
+    css:  css/plugins/font-awesome.min.css
+    js:
+
+icons:
+  tags: fab fa-tags
+
+# Top navigation menu
+top_bars:
+  - title: menu.home
+    url: /
+  - title: menu.archives
+    url: /archives/
+  - title: menu.tags
+    url: /tags/
+  - title: menu.about
+    url: /about/
+
+# Banner settings
+banner:
+  use_cover: true
+  default:
+    type: img
+    bgurl: /img/banner.png
+    bannerText: Hi my new friend!
+    position: top
+    fit: cover
+  index:
+    bannerTitle: 江湖险恶，<br>不行就撤。
+    bannerText: Hi my new friend!
+    videoUrl: 
+  archive:
+    bannerTitle: 何以解忧，<br>唯有退休。
+    bannerText: The article archive
+  links:
+    bannerTitle: 莫愁前路无知己，<br>天下谁人不识君。
+    bannerText: A link to a friend's website
+  comment:
+    bannerTitle: 
+    bannerText: The magic tree hole
+  about:
+    bannerTitle: 枯藤老树昏鸦，<br>摸鱼然后回家。
+    bannerText: About me
+
+# Sidebar settings
+sidebar:
+  typedTextPrefix: 
+  typedText: ["一个平凡的码农"]
+  info: 
+    - key: 居住地
+      val: 中国
+    - key: 码龄
+      val: 7
+  social:
+    - icon: fas fa-rss
+      url: atom.xml
+    - name: Github
+      icon: fab fa-github
+      url: https://github.com/DraceWang
+    - name: facebook
+      icon: fab fa-facebook
+      url: https://www.facebook.com/profile.php?id=100006615107136
+    - name: weibo
+      icon: fab fa-weibo
+      url: https://www.weibo.com/u/2421168192
+    # - name: TikTok
+    #   icon: fab fa-tiktok
+    #   url: https://www.douyin.com/user/MS4wLjABAAAAZlb15mIF9FlDvrFG1PBRn0SKg2IRcXXUBzvF8pfIwlk
+    - name: ZhiHu
+      icon: fab fa-zhihu
+      url: https://www.zhihu.com/people/wang-shun-da-55
+    
+
+
+# About page settings
+about:
+  title: 解决问题，你想各种办法，解决一个问题，然后接着解决下一个问题，循环往复，等你解决了足够多的问题，你就可以回家了。</br> You do the math. You solve one problem then you solve the next one. And then the next. And if you solve enough problems, you get to come home.</br><div align="right" >——《火星救援》</div>
+  introduction: 大家好，我是 <strong>Drace Wang</strong>，很高兴您能在浩瀚如烟的互联网世界里发现这个博客，更感谢您能够饶有兴致地浏览这个页面。建立这个 Blog 是出于兴趣爱好，我将在此分会分享一些学习笔记，可能还会分享少许图片、视频以及其他有趣东西的链接。
+  blog: 
+    <ul class="trm-list">
+      <li>程序：Hexo </li>
+      <li>主题：Hexo-theme-async </li>
+    </ul>
+  privacy: 
+    本网站不会追踪访客行为，且不要求访客提供任何敏感信息（比如真实姓名、身份证号码、手机号等），因而也不存在任何隐私泄漏问题。访客参与评论，必须遵守法律法规和基本道德规范，文明礼貌。严禁发布任何有关淫秽、反动、暴力、博彩、恐吓、低俗的内容或违法信息，在尊重言论自由的同时请保持和平与理性。请勿对他人采取不友好的评论或其它过激行为。
+
+# Footer settings
+footer:
+  # Hexo link (Powered by Hexo).
+  powered:
+    enable: true
+  # Beian icp information for Chinese users. In China, every legal website should have a beian icp in website footer.
+  # https://beian.miit.gov.cn/
+  beian:
+    enable: false
+    icp: 
+  # Copyright date
+  copyrightYear:
+  # 
+  live_time:
+    enable: true
+    prefix: footer.tips
+    start_time: 10/08/2023 10:00:00
+  #
+  custom_text:
+
+# Here is a collection of articles related to configuration.
+#### Article configuration start ###
+# Reward (Donate)
+# If enable true, reward would be displayed in every posts and pages by default.
+# You can show or hide reward in a specific page throuth `reward: true | false` in Front Matter.
+reward:
+  enable: false
+  comment: reward.comment
+  # url:
+  methods:
+
+# Article table of contents
+toc:
+  enable: true
+  list_number: true
+  post_title: true
+  max_depth: 6
+  min_depth: 1
+
+# Archive page
+archive:
+  type: more # less more
+
+# Creative Commons 4.0 International License.
+# https://creativecommons.org/licenses/
+# Available values of license: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
+# You can set a language value if you prefer a translated version of CC license.
+# CC licenses are available in 39 languages, where you can find the specific and correct abbreviation you need.
+# Valid values of language: deed.zh, deed.en, deed.ja, etc.
+creative_commons:
+  license: by-nc-sa
+  language: deed.zh
+  post: true
+  clipboard: false
+
+# Customize the cover image
+cover:
+  default: /img/block.jpg
+  type: img # img || date || random
+
+# The previous and the next article
+post_pagination: 
+  enable: true 
+  type: small # large || small
+
+# img loading="lazy"
+lazyload:
+  enable: true
+
+# Displays outdated notice for a post (文章过期提醒)
+notice_outdate:
+  enable: false
+  style: flat # style: simple/flat
+  limit_day: 365 # When will it be shown
+  position: top # position: top/bottom
+#### Article configuration end ###
+
+# Page Visit Statistics
+webAnalytics:  
+  enable: false 
+  baidu:   # Baidu key
+  google:  # Tracking ID for Google statistics
+  tencent: # Tencent statistics
+    sid:
+    cid:
+
+# comment
+comment:
+  bComments:
+    enable: false
+    env: # 腾讯云环境id
+  twikoo:
+    enable: false
+    envId:   # 腾讯云环境id
+  # region: # 环境地域，默认为 ap-shanghai，如果您的环境地域不是上海，需传此参数
+  # option: # 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
+  giscus:
+    enable: true
+    repo: DraceWang/github-discussion
+    repo-id: R_kgDOKdQ4NQ
+    category: Announcements
+    category-id: DIC_kwDOKdQ4Nc4CZ8W2
+    mapping: pathname
+    reactions-enabled: 1
+    emit-metadata: 0
+    lang: zh-CN
+    theme: 
+      light: light
+      dark: dark
+
+# Theme mode 
+theme: 
+  switch: true 
+  default: style-dark # style-light style-dark
+
+# Service Worker
+sw: false
+
+# Post wordcount
+# https://github.com/willin/hexo-wordcount
+wordcount:
+  enable: true
+  count: true
+  time: true
+
+# That is it only render those page which has `katex: true` in Front-matter.
+# math fomula
+# https://katex.org/
+katex:
+  copy_tex: true
+  global: true
+  # Options are for katex rendering options: https://katex.org/docs/options.html
+  # In page katex options are also possible and will be merged
+  options: {}
+
+# Blog search
+search:
+  enable: true
+  type: local #local engine
+  preload: true
+  # href: 'https://www.google.com/search?q=site:'
+  # href: "https://www.baidu.com/s?wd=site:"
+  # href: "https://www.bing.com/search?q=site:"
+  # domain: 'dracewang.github.io'
+
+# Think of swup as being pjax on steroids. The concepts are similar to those used in barba.js or other transition libraries.
+# https://swup.js.org/
+# Whether swup is enabled
+swup: true
+
+# Datetime formatting
+datetime_foramt:
+  post_card:
+    type: date # date || updated
+    date: YYYY/MM/DD
+    time: HH:mm
+    cover_date: DD
+    cover_date2: YYYY/MM
+  post_info:
+    type: update
+    date: YYYY/MM/DD
+    time: HH:mm
+  archive:
+    type: date
+    date: YYYY/MM/DD
+    time: HH:mm
+
+# Home page category card configuration
+categorie_card:
+  enable: true
+  len: 4
+  list:
+
+# Lower right button
+rightside:
+  readmode: true
+  aside: true
+
+# Replace Broken Images 
+error_img:
+  flink: /img/friend_404.gif
+  post_page: /img/404.jpg
+
+# Code highlighting configuration
+highlight:
+  theme: true # 
+  title: default # mac | default
+  copy: true # copy button
+  lang: true # show the code language
+  code_word_wrap: fasle #
+  height_limit: 200 # unit: px

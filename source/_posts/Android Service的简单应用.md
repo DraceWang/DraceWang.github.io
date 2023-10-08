@@ -1,16 +1,16 @@
 ---
 title: Android Service的简单应用
-date: 2015-9-24
-updated: 2015-9-26
+date: 2015-9-24 12:00:00
+update: 2015-9-26 12:00:00
 categories: Android  
 tags: 
 	- service
+cover: https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg
 ---
-![post-cover](https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg)
 
 # Service
 先自己写个类继承service
-```
+```java
 public class TestService extends Service{
 
     @Override
@@ -33,7 +33,7 @@ service的onBind方法必须重写，如果我们不需要绑定Activity就retur
 标志股用来区分是一次重新发送，还是一次从没成功过的发送。每次调用调用`onStartCommand(Intent,int,int)`方法，启动ID都会不同。因此，启动ID
 也可以用来区别不同的命令。
 
-```
+```java
 @Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO Auto-generated method stub
@@ -56,7 +56,7 @@ sticky服务会持续运行，直到外部组件调用Context.stopService(Intent
 ## service的绑定
 
 在需要绑定的Activity或者fragment中添加这样的代码：
-```
+```java
 private ServiceConnection mConn = new ServiceConnection() {
 	
 	@Override
@@ -96,7 +96,7 @@ ServiceConnection是代表服务绑定的一个对象，并负责接收全部绑
 
 同时在之前的service中添加：
 
-```
+```java
 public class MyBinder extends Binder{
 	public TestService getService(){
 		return TestService.this;

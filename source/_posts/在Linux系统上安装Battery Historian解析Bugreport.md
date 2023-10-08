@@ -6,18 +6,16 @@ tags:
   - android 
   - bugreport
   - linux
-date: 2020-06-12
+date: 2020-06-12 12:00:00
+cover: https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg
 ---
-
-![post-cover](https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg)
-
 
 
 由于工作需要功耗问题上总是需要使用Battery Historian来解析Bugrepot，这里呢就把这个过程整理下。而根据官网Docker是最方便的方式，但是由于公司网络大多有不少限制，因此我没能用成，只能一步步把运行环境全部搭建起来。
 
-## 1. 安装运行环境
+## 安装运行环境
 
-### 1.1 GO语言
+### GO语言
 
 首先到GO的官网上下载最新版本的go安装包，至于linux如何安装也有文档可以查询。
 
@@ -34,17 +32,17 @@ export PATH=$PATH:$GOBIN
 
 这里注意要设置`GOPATH`的路径，否则后续编译安装Battery Historian使用到的时候会找不到路径。
 
-### 1.2 安装Python2.7
+### 安装Python2.7
 
 这个一般linux系统都有，如果是python3的话，记得设置切换到2.7。
 
 如果没有呢，可以去https://python.org/downloads官网下载。
 
-### 1.3 安装java运行环境
+### 安装java运行环境
 
 从官网安装 http://www.oracle.com/technetwork/java/javase/downloads/index.html.
 
-## 2. 安装Battery Historian
+## 安装Battery Historian
 
 官网上又是很简单的
 
@@ -84,7 +82,7 @@ git reset --hard v20170409
 cd -
 go run setup.go //(this passes)
 ```
-## 3. 运行Battery Historian
+## 运行Battery Historian
 ```go
 cd $GOPATH/src/github.com/google/battery-historian
 go run cmd/battery-historian/battery-historian.go [--port <default:9999>]
@@ -93,11 +91,11 @@ go run cmd/battery-historian/battery-historian.go [--port <default:9999>]
 
 这个时候需要在`$GOPATH\src\github.com\google\battery-historian\templates\base.html`中替换js文件的加载地址。
 
-可以从https://www.bootcdn.cn/网站上找到对应需要替换的js文件（尽量版本也可以对应）
+可以从[https://www.bootcdn.cn/](https://www.bootcdn.cn/)网站上找到对应需要替换的js文件（尽量版本也可以对应）
 
 替换后打开快了吗？不会！！
 
-浏览器中开发者模式下，你会发现访问了https://www.google.com/jsapi，这个是用来查询js的google的api，但是由于我们已经替换过了，并且国内无法使用google的域名，怎么办呢？嘿嘿，干掉它，注释掉。或者改为cn域名就可以访问了，但是如果你完全做了替换那也就没啥意义了。
+浏览器中开发者模式下，你会发现访问了[https://www.google.com/jsapi](https://www.google.com/jsapi)，这个是用来查询js的google的api，但是由于我们已经替换过了，并且国内无法使用google的域名，怎么办呢？嘿嘿，干掉它，注释掉。或者改为cn域名就可以访问了，但是如果你完全做了替换那也就没啥意义了。
 
 附上`base.html`的前半部分有修改的地方。
 
@@ -149,15 +147,15 @@ go run cmd/battery-historian/battery-historian.go [--port <default:9999>]
 
 这个时候再运行就应该很快了。
 
-### 3.1 点击error按钮不显示解析报错的问题
+### 点击error按钮不显示解析报错的问题
 不知道为啥目前可以解析，但是如果读取一个AndroidQ的bugreport会报错，但是点击error按钮却无法显示报错信息。目前在mac上构建的可以正常显示报错信息。后期如果解决了该问题再更新。
 
-## 4. 解析bugreport
+## 解析bugreport
 
-### 4.1 抓取Bugreport
+### 抓取Bugreport
 由于版本问题不同方式抓取的bugreport会有不同的问题，所以抓取的时候，尽量按照官网的方式抓取，要重置汇总的电池统计信息和历史记录：
 
-```
+```shell
 adb shell dumpsys batterystats --reset
 ```
 
@@ -177,7 +175,7 @@ adb shell dumpsys batterystats --enable full-wake-history
 
 首先，将设备连接到台式机/笔记本电脑并启用内核跟踪日志记录：
 
-```
+```shell
 $ adb root
 $ adb shell
 
@@ -197,7 +195,7 @@ $ echo 1 > /d/tracing/tracing_on
 
 最后，提取日志：
 
-```
+```shell
 $ echo 0 > /d/tracing/tracing_on
 $ adb pull /d/tracing/trace <some path>
 

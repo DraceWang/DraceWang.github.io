@@ -4,20 +4,17 @@ categories: Android
 tags: 
 	- nv 
 	- qcom 
-date: 2020-11-05
+date: 2020-11-05 12:00:00
+cover: https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg
 ---
 
-![post-cover](https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg)
-
-# 高通查找指定nv值
-
-## 1.安装QXDM
+## 安装QXDM
 
 使用高通账号登录[https://createpoint.qti.qualcomm.com/tools/#](https://createpoint.qti.qualcomm.com/tools/#)，然后找到QXDM对应自己系统的安装包，或者先按照Qualcomm Package Manager，然后再安装QXDM。
 
 因为后面查看nv需要，还需要安装Product Configuration Assistant Tool (PCAT)。
 
-## 2.使用QXDM查询指定NV值
+## 使用QXDM查询指定NV值
 
 首先手机通过数据线连接电脑
 

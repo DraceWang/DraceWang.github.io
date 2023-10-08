@@ -1,20 +1,21 @@
 ---
 title: Android系统权限以及selinux权限添加的简单解析
-date: 2015-9-29
-updated: 2016-4-21
+date: 2015-09-29 12:00:00
+update: 2016-04-21 12:00:00
 categories: Android  
 tags: 
     - linux
     - uid
     - gid
     - selinux
+cover: https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg
 ---
-![post-cover](https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg)
+
 
 
 在公司做项目发现/data/misc/dhcp这个目录的文件无法访问，抓log后又没有显示selinux权限报错的avcdeny，但是需求又依赖于dhcp协议的解析，所以一直在寻找这个问题的解决方案。现在系统整理一下并把相关知识记录下来，Android系统来源于Linux系统所以我们先来看linux系统。
 
-## 1.linux系统中uid以及gid权限的学习
+## linux系统中uid以及gid权限的学习
 
 UID：用户id，UserID，简称UID。
 
@@ -29,7 +30,7 @@ GID：用户组id，GroupID，简称GID。
 
 组(GID)又是什么呢？事实上，在Linux下每个用户都至少属于一个组。举个例子：每个学生在学校使用学号来作为标识，而每个学生又都属于某一个班级，这里的学号就相当于UID，而班级就相当于GID。当然了，每个学生可能还会同时参加一些兴趣班，而每个兴趣班也是不同的组。也就是说，每个学生至少属于一个组，也可以同时属于多个组。在Linux下也是一样的道理。
 
-### 1.1 linux账号与用户组权限扩展（euid，egid，fsuid，fsgid，suid，sguid）[^3]
+### linux账号与用户组权限扩展（euid，egid，fsuid，fsgid，suid，sguid）[^3]
 
 每个进程都拥有真实的用户、组（uid、gid），有效的用户、组（euid、egid），保存的设置用户、组（suid、sgid），还有linux中专门用于文件存储存取的用户、组id（fsuid、fsgid对于unix系统没有这两个fields）。现说明进程中每种类型用户的功能：
 
@@ -41,9 +42,9 @@ GID：用户组id，GroupID，简称GID。
 
 + 保存的设置用户、组（suid、sgid）：保存的设置用户、组。进程中该类型的用户、组主要的用处是用于还原有效用户，观察到对于非超级用户用于修改有效用户的各个函数setuid、seteuid、setresuid、setreuid、seteuid普遍有一个前提条件就是如果修改后的有效用户是原先的suid则允许修改，利用这一点，进程可以修改有效用户到一个新用户，然后还原到原来的值（原来的值保存在保存设置的用户）。通过getresuid来获得进程的真实用户、有效用户、保存的设置用户。
 
-### 1.2 suid和sgid详解[^1]
+### suid和sgid详解[^1]
 
-#### 1.2.1 UNIX下关于文件权限的表示方法和解析
+#### UNIX下关于文件权限的表示方法和解析
 
 - SUID 是 Set User ID
 - SGID 是 Set Group ID
@@ -98,7 +99,7 @@ UNIX下可以用`ls -l`命令来看到文件的权限。用ls命令所得到的�
 
 其实在UNIX的实现中，文件权限用12个二进制位表示，如果该位置上的值是1，表示有相应的权限：
 
-```undefined
+```shell
 11 10 9 8 7 6 5 4 3 2 1 0
 
 S  G  T r w x r w x r w x
@@ -131,7 +132,7 @@ chmod g-s filename # 去掉SGID设置
 chmod 0770 filename
 ```
 
-#### 1.2.2 SUID和SGID的详细解析
+#### SUID和SGID的详细解析
 
 由于SUID和SGID是在执行程序（程序的可执行位被设置）时起作用，而可执行位只对普通文件和目录文件有意义，所以设置其他种类文件的SUID和SGID位是没有多大意义的。
 
@@ -158,7 +159,7 @@ UNIX系统有一个/dev/kmem的设备文件，是一个字符设备文件，里�
 
 但ps等程序要读这个文件，而ps的权限设置如下：
 
-```undefined
+```bash
 -r-xr-sr-x 1 bin system 59346 Apr 05 1998 ps
 ```
 
@@ -166,7 +167,7 @@ UNIX系统有一个/dev/kmem的设备文件，是一个字符设备文件，里�
 
 
 
-#### 1.2.3 在Linux系统下suid和sgid的作用机制
+#### 在Linux系统下suid和sgid的作用机制
 
 进程在运行的时候，有一些属性，其中包括 实际用户ID,实际组ID,有效用户ID,有效组ID等。 实际用户ID和实际组ID标识我们是谁，谁在运行这个程序,一般这2个字段在登陆时决定，在一个登陆会话期间， 这些值基本上不改变。
 
@@ -176,7 +177,7 @@ UNIX系统有一个/dev/kmem的设备文件，是一个字符设备文件，里�
 
 当一个程序设置了为SUID位时，内核就知道了运行这个程序的时候，应该认为是文件的所有者在运行这个程序。即该程序运行的时候，有效用户ID是该程序的所有者，SGID也是同理。
 
-### 1.3 Linux系统uid和gid权限总结
+### Linux系统uid和gid权限总结
 
 创建一个文件，系统会根据该用户的uid和gid来设置这个文件的owner以及gid，同时root用户具有最高权限，不受权限管理限制。在系统中我们可以根据`ls -l`显示出的文件权限以及uid和gid来确认文件对应的权限。如果当前用户并不是文件或目录的创建者在linux系统中会根据最后三位`rwx`位的设置来控制是否可以控制该文件，因此为了安全考虑一般会将文件设置为770或者775等等，可以根据文件在场景中的实际需要来设置。当然除此以外也可以让用户加入该文件所在的用户组别，即加入gid，那么即使文件访问权限是770，也可以正常以完整读写执行的权限使用该文件。如果需要让非拥有者用户可以访问该文件可以设置suid以及sgid，鉴于安全考虑建议设置sgid，可以让系统在需要访问该文件时，临时将其他用户设置为该文件拥有者的gid，因此正常访问该文件。
 
@@ -187,9 +188,9 @@ UNIX系统有一个/dev/kmem的设备文件，是一个字符设备文件，里�
 
 ***SUID仅对二进制程序可用，shell脚本不可用，对目录也不可用***
 
-## 2.Android系统的权限管理
+## Android系统的权限管理
 
-### 2.1 Android 系统中的UID、GID、GIDS与PID
+### Android 系统中的UID、GID、GIDS与PID
 
 在 Android 上，一个用户 UID 标示一个应用程序。应用程序在安装时被分配用户 UID，应用程序在设备上的存续期间内，用户 UID 保持不变。对于普通的应用程序，GID即等于UID。
 
@@ -214,7 +215,7 @@ Android 应用程序运行在它们自己的 Linux 进程上，并被分配一�
 >如果文件定义了其他的用户可以访问的权限，可以被任何任何程序访问。
 >任何进程都不可以访问不具有权限的文件。
 
-### 2.2 共享UID（sharedUserId）
+### 共享UID（sharedUserId）
 
 安装在设备中的每一个Android包文件（.apk）都会被分配到一个属于自己的统一的Linux用户ID，并且为它创建一个沙箱，以防止影响其他应用程序（或者其他应用程序影响它）。用户ID 在应用程序安装到设备中时被分配，并且在这个设备中保持它的永久性。
 
@@ -258,9 +259,9 @@ Android 应用程序运行在它们自己的 Linux 进程上，并被分配一�
 
 应用程序的Android.mk中有一个LOCAL_CERTIFICATE字段，由它指定用哪个key签名，未指定的默认用testkey.
 
-### 2.3 Android权限的细节[^2]
+### Android权限的细节[^2]
 
-#### 2.3.1 **system app**
+#### **system app**
 
 首先，什么时systemapp？在PackageManagerService中对是否是system app的判断： 
  **具有`ApplicationInfo.FLAG_SYSTEM`标记的，被视为System app**。
@@ -356,7 +357,7 @@ scanDirLI(PackageParser.PARSE_IS_SYSTEM)
     }
 ```
 
-#### 2.3.2 **privileged app**
+#### **privileged app**
 
 *注：privileged app，在本文中称之为 **特权app**，主要原因是此类特权app可以使用protectionLevel为`signatureOrSystem`或者protectionLevel为`signature|privileged`的权限。*
 
@@ -457,7 +458,7 @@ scanDirLI(PackageParser.PARSE_IS_PRIVILEGED)
     }
 ```
 
-#### 2.3.3 **Android app中的权限是必须先声明后使用吗？**
+#### **Android app中的权限是必须先声明后使用吗？**
 
 *在本文中，**声明权限**是指在AndroidManifest.xml中使用了`<permission>`，**使用权限**是指在AndroidManifest.xml中使用了`<uses-permission>`。**获得权限（或赋予权限）**是指真正的可以通过系统的权限检查，调用到权限保护的方法。*
 
@@ -474,11 +475,11 @@ scanDirLI(PackageParser.PARSE_IS_PRIVILEGED)
      即，**对于相同签名的app来说，不论安装先后，只要是声明了权限，请求该权限的app就会获得该权限。** 
      这也说明了对于具有相同签名的系统app来说，安装过程不会考虑权限依赖的情况。安装系统app时，按照某个顺序（例如名字排序，目录位置排序等）安装即可，等所有app安装完了，所有使用权限的app都会获得权限。
 
-#### 2.3.4 **验证某个app是否获得了某个权限的方法**
+#### **验证某个app是否获得了某个权限的方法**
 
 可以用下面2个命令来验证：
 
-```
+```shell
 adb shell dumpsys package permission <权限名>
 adb shell dumpsys package <包名>
 ```
@@ -490,13 +491,13 @@ adb shell dumpsys package <包名>
 
 通过下面的命令，查看`com.package.a.PermissionA`权限：
 
-```
+```shell
 adb shell dumpsys package permission com.package.a.PermissionA1
 ```
 
 输出结果为：（注：这里只显示关键信息，省略了其他很多信息）
 
-```
+```shell
 Permission [com.package.a.PermissionA] (a2930ef):
     sourcePackage=com.package.a            // 权限的声明者
     uid=10226 gids=null type=0 prot=normal //保护级别为normal
@@ -512,7 +513,7 @@ Packages:
 其中`granted=true`表明App B 获取到了`com.package.a.PermissionA`权限。 
  如果App B没有获取到`com.package.a.PermissionA`权限，则输出结果中只有权限的声明信息，如下：
 
-```
+```shell
 Permission [com.package.a.PermissionA] (a2930ef):
     sourcePackage=com.package.a
     uid=10226 gids=null type=0 prot=normal 保护级别为normal
@@ -524,13 +525,13 @@ Permission [com.package.a.PermissionA] (a2930ef):
 
 查看App B（包名为com.package.b）是否获得了权限`com.package.a.PermissionA`：
 
-```
+```shell
 adb shell dumpsys package com.package.b1
 ```
 
 输出结果为：（注：省略了很多其他信息）
 
-```
+```shell
 Packages:
   Package [com.package.b] (6611d16):
     requested permissions:         // 申请了哪些权限
@@ -542,11 +543,11 @@ Packages:
 上面的输出结果表明，App B获取到了`com.package.a.PermissionA`权限。 
  如果App B没有获取到 `com.package.a.PermissionA` 权限，那么在 `install permissions` 中**不会**出现`com.package.a.PermissionA, granted=true, flags=0x0`。
 
-### 2.4  Android Permission权限控制机制[^4]
+### Android Permission权限控制机制[^4]
 
 基于UID和GID的Android进程隔离机制， 这是利用 Linux 已有的权限管理机制，通过为每一个 Application 分配不同的  uid 和 gid ， 从而使得不同的 Application 之间的私有数据和访问（ native 以及 java 层通过这种 sandbox 机制，都可以）达到隔离的目的 。 与此同时， Android 还 在此基础上进行扩展，提供了 permission  机制，一个GIDS就是一个Permission的集合,它主要是用来对 Application  可以执行的某些具体操作进行权限细分和访问控制，同时提供了 per-URI permission 机制，用来提供对某些特定的数据块进行  ad-hoc 方式的访问.
 
-#### 2.4.1 权限基本信息
+#### 权限基本信息
 
   一个权限主要包含三个方面的信息：权限的名称；属于的权限组；保护级别。一个权限组是指把权限按照功能分成的不同的集合。每一个权限组包含若干具体权限，例如在 android.permission-group.CONTACTS 组中包含  android.permission.WRITE_CONTACTS ，  android.permission.GET_ACCOUNTS，android.permission.READ_CONTANTS 等和联系人相关的权限。可以通过pm list 命令去获取相应的permission信息。也可以通过查看/data/sytem/packages.xml文件来获取。
 
@@ -585,7 +586,7 @@ group:android.permission-group.PHONE
 --snip--
 ```
 
-#### 2.4.2 权限等级
+#### 权限等级
 
  Android权限等级划分为normal,dangerous,signature,signatureOrSystem,system,development，不同的保护级别代表了程序要使用此权限时的认证方式。
 
@@ -593,11 +594,11 @@ normal 的权限只要申请了就可以使用，dangerous  的权限在安装�
 
 android 6.0（api level  23)之后进行了一次权限大升级，其中出现了一个新的protectionLevel叫做"signature|privileged"，signatureOrSystem变成了deprecated。在这之后，系统分成了system app和priviledged  app，其中`/system/app`目录下的应用只有system权限，而`/system/priv-app/`目录下的应用才有privileged  app  权限。而"signature|privileged"的权限等同于android6.0之前的signatureOrSystem。大于等于此时的system权限。
 
-#### 2.4.3 权限管理
+#### 权限管理
 
-Package 的权限信息主要 通过在 AndroidManifest.xml 中通过一些标签来指定。如 <permission>  标签， <permission-group> 标签 <permission-tree> 等标签。如果 package  需要申请使用某个权限，那么需要使用 <use-permission> 标签来指定。
+Package 的权限信息主要 通过在 AndroidManifest.xml 中通过一些标签来指定。如 `<permission>`  标签，` <permission-group>` 标签 `<permission-tree>` 等标签。如果 package  需要申请使用某个权限，那么需要使用 `<use-permission>` 标签来指定。
 
-#### 2.4.4 CheckPermission
+#### CheckPermission
 
 下面这一组接口主要用来检查某个调用（或者是其它 package 或者是自己）是否拥有访问某个 permission 的权限。参数中 pid 和 uid 可以指定，如果没有指定，那么 framework 会通过 Binder 来获取调用者的 uid 和 pid  信息，加以填充。返回值为 PackageManager.PERMISSION_GRANTED 或者  PackageManager.PERMISSION_DENIED 
 
@@ -612,7 +613,7 @@ public int checkCallingOrSelfPermission(String permission) // 检查自己或者
  public void enforceCallingPermission(String permission, String message)
  public void enforceCallingOrSelfPermission(String permission, String message)
 ```
-#### 2.4.5 CheckUriPermission
+#### CheckUriPermission
 
 为某个 package 添加访问 content Uri 的读或者写权限。
 ```java
@@ -635,7 +636,7 @@ public int checkCallingOrSelfPermission(String permission) // 检查自己或者
 ```
 其中check开头的，只做检查，enforce开头的，不单检查，没有权限的还会抛出异常。
 
-#### 2.4.5 权限机制实现分析
+#### 权限机制实现分析
 
 + **CheckPermission**
 
@@ -654,7 +655,7 @@ public int checkCallingOrSelfPermission(String permission) // 检查自己或者
  1. 如果 uid 为 0 ，说明是 root 用户，那么不控制权限。
  2. 否则，在 ActivityManagerService 维护的 mGrantedUriPermissions 这个表中查找这个 uid 是否含有这个权限，如果有再检查其请求的是读还是写权限。
 
-### 2.5 Android下的权限管理解析
+### Android下的权限管理解析
 
 在Android中用户的概念已经被淡化，通常使用的是root用户和shell用户。
 
@@ -705,7 +706,7 @@ Groups: 1004 1007 1011 1015 1028 3001 3002 3003 3006 3009 3011
 
 我们看到Groups里面有gid为1015,1015就是对应sdcard_r。当前进程时shell进程的子进程，当然gids里面就包含了1015.
 
-#### 2.5.1 系统级权限配置文档[^6]
+#### 系统级权限配置文档[^6]
 
 为了控制访问的安全，加入安全机制。alps\frameworks\base\data\etc\platform.xml 存放着一些权限配置，我们可以看到类似
 
@@ -723,9 +724,9 @@ Groups: 1004 1007 1011 1015 1028 3001 3002 3003 3006 3009 3011
 
 这里的配置为读取外部存储卡的权限 以及写入外部存储卡的权限。
 
->   <permission name="android.permission.READ_EXTERNAL_STORAGE" >
+>   `<permission name="android.permission.READ_EXTERNAL_STORAGE" >`
 
-里面的<group gid="sdcard_r" >这里的意义为：如果apk申请读外部存储卡，则会在创建apk时，给此进程增加一个组，组名为sdcard_r，使用的接口为setgid();
+里面的`<group gid="sdcard_r" >`这里的意义为：如果apk申请读外部存储卡，则会在创建apk时，给此进程增加一个组，组名为sdcard_r，使用的接口为setgid();
 
 `android\frameworks\base\core\res`里面的AndroidManifest.xml，这个里面可以看到更多的系统权限配置表。
 
@@ -748,7 +749,7 @@ Groups: 1004 1007 1011 1015 1028 3001 3002 3003 3006 3009 3011
 -   android:label 权限图标
 -   android:description 权限详细描述
 
-#### 2.5.2 Android 自定义权限[^5]
+#### Android 自定义权限[^5]
 
 当b应用启动a应用的组建（可以是Activity，Service，BroadcastReceiver等）时，如果没有设置权限，那么将无法使用。那么就需要给a应用制定的组建设置一个Permission就可以了。
 
@@ -812,7 +813,7 @@ public class MainActivity extends Activity {
 }
 ```
 
-### 2.6 一种暴力的对某个应用提升权限为root的方法[^7]
+### 一种暴力的对某个应用提升权限为root的方法[^7]
 
 ==***首先声明，此方法过于粗暴，不推荐使用。分享出来仅是为了方便特殊情景下调试使用。***==
 
@@ -888,7 +889,7 @@ private static void applyUidSecurityPolicy(Arguments args, Credentials peer,
 
 
 
-## 3.背景问题解决
+## 背景问题解决
 
 首先把背景问题再回顾下，我们在settings应用中写了一个工具类，通过java代码对`/data/misc/dhcp/dnsmasq.leases`文件进行读取(user版本下也需要可以读取，因此用户身份是非root的)，我们这里仅需要读取并不需要写入。但是当我们代码写完后发现以下报错：
 
@@ -914,7 +915,7 @@ drwxrwx--- 2 dhcp         dhcp       3488 2020-10-23 10:41 dhcp
 
 现在有了前面两章的学习和积累，现在回头再来看这个问题就发现其实有多种解决方案，下面就来罗列下吧
 
-###  3.1 添加others组别权限
+###  添加others组别权限
 
 这种方式当然就可以访问，毕竟谁都可以访问了，因此安全性不高，并不太推荐，虽然“绿厂”就是采用这种方式。有两种方式：
 
@@ -931,7 +932,7 @@ mkdir /data/misc/dhcp 0775 dhcp dhcp
 
 再加上个`#ifdef VENDOR_EDIT`之类的宏控制就更加稳妥一下了，也便于后面维护。
 
-### 3.2 为这个目录添加sgid
+### 为这个目录添加sgid
 
 当然这里设置suid也是可以的，不过呢，安全性来说同样都不太好，只要是应用想要访问就可以直接获取到uid，这么做其他的由dhcp这个uid创建的文件也可以获取到访问，因此sgid相对安全，但是这里还不是推荐方案。
 +   直接修改init.rc(`system/core/rootdir/init.rc`)种对这个misc分区目录的创建
@@ -950,7 +951,7 @@ mkdir /data/misc/dhcp 0770 dhcp system
 
 这个方式呢确实可以让systemapp对这个目录有访问权限，也防止了一些非系统应用的调用安全了很多。
 
-### 3.4 将需要的应用设置为privileged app
+### 将需要的应用设置为privileged app
 
 个人认为这种方式最为安全，也是最为稳妥的，不过由于时间关系没有进行尝试，有兴趣的小伙伴可以自己试试，理论上来说应该是可以的，由于我们是在Settings中，Settings本来就是systemapp也是privileged app，那么直接在`frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java`
 
@@ -972,17 +973,17 @@ mSettings.addSharedUserLPw("android.uid.dhcp", DHCP_UID,
 
 同时千万别忘了这个值一定需要和上面`system/core/include/private/android_filesystem_config.h`定义的一致
 
-## 4.SELinux权限
+## SELinux权限
 
 当我们解决了这个目录的访问权限后，接下来就是selinux权限的问题了，selinux一般也只需要按照报错的提示来添加即可，具体的其实就是找出报错的缺少权限的对象，类型，需要添加什么样的权限来就行了。
 
-#### 4.1 概述
+#### 概述
 
 SELinux是Google从android 5.0开始，强制引入的一套非常严格的权限管理机制，主要用于增强系统的安全性。
 
 然而，在开发中，我们经常会遇到由于SELinux造成的各种权限不足，即使拥有“万能的root权限”，也不能获取全部的权限。本文旨在结合具体案例，讲解如何根据log来快速解决90%的SELinux权限问题。
 
-#### 4.2 调试确认SELinux问题
+#### 调试确认SELinux问题
 
 为了澄清是否因为SELinux导致的问题，可先执行：
 
@@ -1008,7 +1009,7 @@ audit(0.0:67): avc: denied { write } for  path="/dev/block/vold/93:96" dev="tmpf
 
 可以看到有avc denied，且最后有permissive=0，表示不允许。
 
-#### 4.3 具体案例分析
+#### 具体案例分析
 
 **解决原则是：缺什么权限补什么，一步一步补到没有avc denied为止。**
 

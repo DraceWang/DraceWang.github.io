@@ -4,13 +4,13 @@ categories: ALM开发
 tags: 
 	- LDAP 
 	- redmine
-date: 2014-12-09
+date: 2014-12-09 12:09:00
+cover: https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg
 ---
 
-![post-cover](https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg)
 ## 安装LDAP
 
-```
+```bash
 	sudo vim /etc/hosts
 ```
  
@@ -18,13 +18,13 @@ date: 2014-12-09
 修改 `127.0.1.1 hostname.example.com `hostname //hostname是本机的hostname不是“hostname”
 
  
-```
+```bash
 	sudo apt-get install slapd ldap-utils //安装ldap
 ```
  
 
 测试
-```
+```bash
 	sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b cn=config dn
 
 	ldapsearch -x -LLL -H ldap:/// -b dc=example,dc=com dn
@@ -34,13 +34,13 @@ date: 2014-12-09
 ---------------------------------------------------------------------------------
 
 添加用户
-```
+```bash
 	cd /etc/ldap
 	
 	sudo vim add_content.ldif   //创建add_content.ldif添加下列文字
 ```
 ---
-```
+```ldif
 	dn: ou=People,dc=example,dc=com
 	
 	objectClass: organizationalUnit
@@ -100,7 +100,7 @@ date: 2014-12-09
 	homeDirectory: /home/john
 ```
 ---
-```
+```ldif
 	ldapadd -x -D cn=admin,dc=example,dc=com -W -f add_content.ldif //添加ldif文件
 	
 	ldapsearch -x -LLL -b dc=example,dc=com 'uid=john' cn gidNumber //查询john
