@@ -1,4 +1,13 @@
-# 利用Hexo博客框架结合Github Page创建自己的博客
+---
+title: 利用Hexo博客框架结合Github Page创建自己的博客
+categories: Blog  
+tags: 
+	- Hexo
+	- GitHub page 
+date: 2023-10-08 16:55:00
+cover: https://s2.loli.net/2023/10/08/DUrpIG1hw3ZEHgP.png
+---
+
 
 ## 前言
 
@@ -62,6 +71,17 @@ npm -v
 根据自己的系统选择对应的32或64bit版本，然后双击运行，一路‘下一步’就完成了，中间建议勾选安装node.js依赖。
 
 安装完成后可以在开始菜单中看到
+![微信截图_20231008133554](https://s2.loli.net/2023/10/08/MeQwHWL2yRasS9F.jpg)
+
+点击打开Node.js会弹出命令行，确认Node.js是否安装成功，且版本是多少
+
+![微信截图_20231008135122](https://s2.loli.net/2023/10/08/1UJ2QLdNXwGIjer.jpg)
+
+#### 安装git
+
+到官网下载git程序包[Git - Downloads (git-scm.com)](https://git-scm.com/downloads)
+
+同样也是一路‘下一步’来安装，建议添加系统环境变量和安装git bash。
 
 ### 安装Hexo
 
@@ -69,22 +89,55 @@ npm -v
 sudo npm install -g hexo-cli
 ```
 
-这里安装程序会创建文件等需要管理员权限。
+~~这里安装程序会创建文件等需要管理员权限。~~
 
-安装以后，可以使用以下两种方式执行 Hexo：
+~~安装以后，可以使用以下两种方式执行 Hexo：~~
 
-1. `npx hexo <command>`
-2. Linux 用户可以将 Hexo 所在的目录下的 `node_modules` 添加到环境变量之中即可直接使用 `hexo <command>`：
+1. ~~`npx hexo <command>`~~
+2. ~~Linux 用户可以将 Hexo 所在的目录下的 `node_modules` 添加到环境变量之中即可直接使用 `hexo <command>`：~~
 
 ```shell
 echo 'PATH="$PATH:./node_modules/.bin"' >> ~/.profile
 ```
 
-然后检查安装
+~~然后检查安装~~
 
 ```shell
 hexo version
 ```
+
+可以使用git bash或者powershell，git bash有右键菜单，可以省的切换目录，我个人觉得比较舒服，所以后面就以这个为例了。
+
+```shell
+npm install hexo
+```
+
+我这边因为之前在kali中进行部署发现hexo版本通过默认命令安装的不是最新的，因此，我就加上了版本号
+
+```shell
+npm install hexo@6.3.0
+```
+
+如果担心后面组件不全，可以直接用官方的
+
+```shell
+npm install -g hexo-cli
+```
+
+然后确认下版本号即可
+
+```shell
+hexo version
+```
+
+如果你是刚装好node.js，git bash中似乎没有办法找到这个hexo的环境变量，使用下面的命令即可
+
+```shell
+npx hexo version
+```
+
+
+
 
 ## 初始化
 
@@ -141,23 +194,54 @@ Hexo 的模板是指在新建的文章文件中默认填充的内容。例如，
 
 ### 主题
 
-我自己建立了一个hexo的主题[hexo-theme-Hexagon](https://github.com/DraceWang/hexo-theme-Hexagon)，是基于[hexo-theme-Claudia](https://haojen.github.io/Claudia-theme-blog/)这个主题修改得来的。因为之前就上传到github了，因此这里直接在`themes`目录下直接
+~~我自己建立了一个hexo的主题[hexo-theme-Hexagon](https://github.com/DraceWang/hexo-theme-Hexagon)，是19年的时候基于[hexo-theme-Claudia](https://haojen.github.io/Claudia-theme-blog/)这个主题修改得来的。因为之前就上传到github了，因此这里直接在`themes`目录下直接~~
 
 ```
 git clone https://github.com/DraceWang/hexo-theme-Hexagon.git
 ```
 
-然后在`_config.yml`中设置主题：
+~~然后在`_config.yml`中设置主题：~~
 
 ```xaml
 theme: hexo-theme-Hexagon
 ```
 
+现在不推荐用这个主题了，因为显示效果等都变化了，无法正确的显示markdown语法了。
+
+我现在找到了一个新的主题，很喜欢，[Hexo-Theme-Async](https://async-docs.imalun.com/)推荐给大家，我就在这个主题基础上添加了一些个性化修改。
+
+后期希望可以进一步为这个主题做出一些贡献：
+
+- [ ] 点线粒子效果
+- [ ] 更新加载动画
+- [ ] 更新fontawsome
+- [ ] 增加tags页面banner定义
+
+#### 安装该主题依赖
+
+```shell
+npm install --save hexo-renderer-less hexo-renderer-ejs hexo-wordcount hexo-generator-feed katex hexo-generator-searchdb swup hexo-generator-category hexo-generator-tag hexo-generator-index
+```
+
+这边我因为几乎把所有功能都开了，因此安装的依赖比较多。**less和ejs是必须的渲染器。**
+
+#### 安装该主题
+
+```shell
+npm i hexo-theme-async@latest
+```
+
+建议安装最新的版本，并且如果不是有无法满足的自定义个性化修改的话，建议就直接只使用原版，并使用该安装版，而**不要去自己clone下来放到`/themes`目录下**。***折腾是由成本的，别问我是怎么知道的😂***
+
+如果你硬要改或者就是要clone，那么请看[原因](# github page部署后，主站仅显示背景)
+
+
+
 ### 博客文章
 
 将之前备份的文章放入`source/_post`目录。
 
-*啊~~，文章缺少目录，还缺少之前的格式，哎，下次完整打包备份吧。*
+*啊~~，文章日期，封面又不匹配了，再改一遍😟*
 
 ## 通过建立本地web服务进行预览
 
@@ -189,9 +273,153 @@ hexo generate
 
 现在的hexo可以使用workflow中的action直接让github自动生成github pages来部署我们的博客，但是这种方式需要把源代码都提交上去，请自行斟酌是否包含**个人敏感信息**。
 
-这边说下我自己遇到的坑，首先是hexo版本与node.js不匹配，其次是hexo官方给的pages的actions里面用的主分支叫main，我这边master
+我这里就选择使用action来自动化部署，这样我自己博客的内容也完全托管在github上省的以后再找版本了。
 
+在你自己的特殊储存库（`<yourname.github.io>`）中建立`.github/workflows/pages.yml`，内容：
+
+```yaml
+name: Pages
+
+on:
+  push:
+    branches:
+      - main # default branch
+
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - name: Cache NPM dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+```
+
+
+
+这里就需要我们之前记录下来的npm的版本号(我这边是18)，并修改到Hexo官方的page生成的action中（也就是上面的pages.yml）：
+
+```diff
+-     - name: Use Node.js 16.x
++     - name: Use Node.js 18.x
+        uses: actions/setup-node@v2
+        with:
+-         node-version: "16"
++         node-version: "18"
+```
+
+
+
+参考官方的doc：[关于 GitHub Pages - GitHub 文档](https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages)
+
+### 老主题hexagon的问题
+
+#### 首先是hexo版本与node.js不匹配
+
+```shell
 npm install hexo@指定版本
+```
 
-https://zhuanlan.zhihu.com/p/491881992
+我们可以参照官方网站来做[hexo - npm (npmjs.com)](https://www.npmjs.com/package/hexo/v/6.3.0)
+
+这个问题我这边参考了这篇[hexo博客网站主页空白或404](https://zhuanlan.zhihu.com/p/491881992)这里面有说如何降级node.js或者升级Hexo。
+
+#### hexo官方给的pages的actions里面用的主分支叫main，我这边master
+
+这个虽然在Hexo的文档中有说，老的仓库是主分支叫master，但是很容易漏掉，总之我们得确认下。
+
+```diff
+on:
+  push:
+    branches:
+-     - main
++     - master
+```
+
+经历了这些后，我的老主题总算是可以显示了，但是发现代码以及markdown的大部分格式都不对，该主题也年久失修的状态了，还是换个主题吧。
+
+---
+
+### 新主题async的部署问题
+
+#### github page部署后，主站仅显示背景
+
+主要就这一个问题，我部署后去主站一看，怎么之后背景，以为是index.html没有内容，但是去gh-pages分支一瞅，这不都在么。就非常奇怪，然后跟着主题doc来来回回走了十多遍，都没有修复。然后去讨论区翻帖子，发现没有人有我这个问题，奇怪了还能成个例了？主要我自己`hexo server`在本地打开时，是好的啊，没有一点问题，不死心的我再去主站上打开开发者模式对比着看，最终发现是有个网页元素是
+
+```html
+<div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+```
+
+这里的`opacity: 0`然后对应的css的样式`source/css/_components/base.less`中
+
+```css
+.trm-scroll-container {
+    transition: opacity .6s;
+}
+```
+
+意思是打开网页后0.6s时间内在这个容器中的内容从全透明变成不透明，emmmmm，但是我这边没有执行啊，啥情况？一阵懵逼之后直接在网页上修改元素
+
+```diff
+- <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
++ <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 1">
+```
+
+网页立马有显示了，但是显示的不全，说明是这个问题，再次尝试了好几次之后还是不行，然后去作者主题讨论区去提了个问题（丢人😳）
+
+一边等作者大大回复，一边写这个过程，结果突然注意到作者大大在doc中有说
+
+> - 通过克隆本仓库安装（不推荐）
+>
+>> **DANGER**
+>> 不推荐直接使用这种方式安装，会导致 bug 版本定位和后续升级比较麻烦。如果您需要自定义样式和页面模块，可以优先使用 [自定义样式](https://async-docs.imalun.com/guide/config.html#自定义样式-style) 和 [自定义模板](https://async-docs.imalun.com/guide/config.html#自定义模板-layout) 配置来个性话您的博客，如果以上方式无法满足您的需求时，且不在需要升级时可选择通过这种方式安装。
+>
+> <details class="details custom-block" open="" style="box-sizing: border-box; border-width: 1px; border-style: solid; border-color: var(--vp-custom-block-details-border); border-image: initial; border-radius: 8px; padding: 16px 16px 8px; line-height: 24px; font-size: var(--vp-custom-block-font-size); color: var(--vp-custom-block-details-text); background-color: var(--vp-custom-block-details-bg); margin: 16px 0px;"><summary style="box-sizing: border-box; touch-action: manipulation; margin: 0px 0px 8px; font-weight: 700; cursor: pointer;">v2.0.0 后版本</summary><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">从 v2.0.0 开始不在支持拉取后直接使用。新版本的脚本使用 TypeScript 进行重构，项目中不在提供打包压缩后的脚本。</p><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">如果您只想修改模板，您可以前往<span>&nbsp;</span><a href="https://github.com/MaLuns/hexo-theme-async/releases" target="_blank" rel="noreferrer" style="box-sizing: border-box; touch-action: manipulation; color: var(--vp-c-brand-1); text-decoration: underline; font-weight: 500; text-underline-offset: 2px; transition: color 0.25s ease 0s, opacity 0.25s ease 0s;">Github Releases</a><span>&nbsp;</span>的 Assets 下载打包文件<span>&nbsp;</span><code style="box-sizing: border-box; font-family: var(--vp-font-family-mono); font-size: var(--vp-code-font-size); color: var(--vp-code-color); border-radius: 4px; padding: 3px 6px; background-color: var(--vp-custom-block-details-code-bg); transition: color 0.25s ease 0s, background-color 0.5s ease 0s;">hexo-theme-async</code><span>&nbsp;</span>。</p><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">如果您仍然想要使用该方式，请 clone 项目后，手动执行 yarn &amp;&amp; yarn run lib:build 以构建压缩后的脚本。</p></details>
+
+这不尴尬了，这么一找果然，作者大大在主题目录下添加了`.gitignore`
+
+```
+# dev esbuild
+source/js/
+source/plugins/
+```
+
+那么在clone下来的主题中执行
+
+```shell
+yarn && yarn run lib:build
+```
+
+把编译生成的js拷贝到自己的仓库对应目录下
+
+```shell
+IIFE ..\hexo-theme-async\source\js\plugins\local_search.js 2.03 KB
+IIFE ..\hexo-theme-async\source\js\main.js                 18.51 KB
+IIFE ..\hexo-theme-async\source\js\plugins\typing.js       583.00 B
+IIFE ⚡️ Build success in 14ms
+Done in 2.05s.
+```
+
+删除.gitignore文件后，重新上传部署，终于网站正常打开了。👏👏👏
+
+
 
