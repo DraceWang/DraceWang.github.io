@@ -273,7 +273,7 @@ search:
 # Think of swup as being pjax on steroids. The concepts are similar to those used in barba.js or other transition libraries.
 # https://swup.js.org/
 # Whether swup is enabled
-swup: false
+swup: true
 
 # Datetime formatting
 datetime_foramt:
