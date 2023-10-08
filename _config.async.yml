@@ -241,7 +241,7 @@ theme:
   default: style-dark # style-light style-dark
 
 # Service Worker
-sw: false
+sw: true
 
 # Post wordcount
 # https://github.com/willin/hexo-wordcount
