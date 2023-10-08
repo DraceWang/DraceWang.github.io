@@ -614,7 +614,7 @@
     <title>git 代码管理工具常用命令</title>
     <url>/2019/09/18/git%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<p>首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。</p>
-<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#103;&#x69;&#x74;&#117;&#115;&#101;&#114;&#49;&#x40;&#x67;&#105;&#116;&#46;&#99;&#111;&#109;">&#103;&#x69;&#x74;&#117;&#115;&#101;&#114;&#49;&#x40;&#x67;&#105;&#116;&#46;&#99;&#111;&#109;</a></p>
+<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#103;&#105;&#x74;&#117;&#115;&#101;&#x72;&#x31;&#x40;&#103;&#105;&#x74;&#46;&#x63;&#x6f;&#109;">&#103;&#105;&#x74;&#117;&#115;&#101;&#x72;&#x31;&#x40;&#103;&#105;&#x74;&#46;&#x63;&#x6f;&#109;</a></p>
 <h3 id="配置git提交时候的全局用户名"><a href="#配置git提交时候的全局用户名" class="headerlink" title="配置git提交时候的全局用户名"></a>配置git提交时候的全局用户名</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gitconfig --global user.name gituser1</span><br></pre></td></tr></table></figure>
 
 <h3 id="配置git提交时候的全局邮箱"><a href="#配置git提交时候的全局邮箱" class="headerlink" title="配置git提交时候的全局邮箱"></a>配置git提交时候的全局邮箱</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email gituser1@git.com</span><br></pre></td></tr></table></figure>
@@ -922,6 +922,91 @@
         <tag>ubuntu</tag>
         <tag>virtualbox</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/10/08/%E5%88%A9%E7%94%A8Hexo%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E7%BB%93%E5%90%88Github%20Page%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1 id="利用Hexo博客框架结合Github-Page创建自己的博客"><a href="#利用Hexo博客框架结合Github-Page创建自己的博客" class="headerlink" title="利用Hexo博客框架结合Github Page创建自己的博客"></a>利用Hexo博客框架结合Github Page创建自己的博客</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实我早在2020年就已经用Hexo搭建了自己的博客，并且使用github page发布了静态的博客。但是中间因为各种原因，差不多就算停更了。现在就是自己再回头记录下，不是说做任何事任何时候开始都不晚么~</p>
+<p>so，那就来记录下吧。</p>
+<p>首先，我这边的目的是记录下Hexo建立博客的过程，之前我都是在windows下弄的，现在想想还是用个虚拟机，系统就Kali 23.2了,主要后面也要常用的。Hexo也更新了好多代了。还记得当时18，19年的时候Hexo1升级到Hexo2，好多组件不兼容，改js改到半夜，也是头秃。不知道现在的Hexo对老版本是否支持，正好也再来把之前做的Hexo主图更新下。而这篇博客就记录下这个过程。</p>
+<p>那就让我们开始把。</p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><h3 id="什么是-Hexo？"><a href="#什么是-Hexo？" class="headerlink" title="什么是 Hexo？"></a>什么是 Hexo？</h3><p>Hexo 是一个快速、简洁且高效的博客框架。<a href="https://hexo.io/zh-cn/">Hexo</a> 使用 <a href="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<p>安装的这部分我也是参考<a href="https://hexo.io/zh-cn/docs/">官方Doc</a>, 不愿意看我废话的，可以自行参考官方Doc。</p>
+<h3 id="系统环境与Hexo依赖软件"><a href="#系统环境与Hexo依赖软件" class="headerlink" title="系统环境与Hexo依赖软件"></a>系统环境与Hexo依赖软件</h3><p><del>由于我是虚拟机部署环境，想着是弄完这一次之后，后面要是长久不用，我也能直接用虚拟机恢复出写博客的环境。（反正想法总是一阵一阵的，就先这样吧）。</del></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <del>Kali Linux 2023.2（有需要的改下国内源）</del></li>
+<li><input disabled="" type="checkbox"> <del><a href="http://nodejs.org/">Node.js</a> (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)</del></li>
+<li><input checked="" disabled="" type="checkbox"> <del><a href="http://git-scm.com/">Git</a></del></li>
+</ul>
+<p><del>这里就不讲虚拟机怎么装Kali系统了，网上太多教程了。</del></p>
+<p>这里可以说是非常的蛋疼，我后面其实已经把kali的环境都搭建好了，但是由于GFW的问题，导致无法再Linux下直接通过ssh上传到github，虽然本着有问题解决问题的态度，但是知道是因为代理导致的，那也就没啥好纠结的了，其次是根据Hexo官方现在都已经使用action来构建和部署github page，那原先想着的打包虚拟机整体环境就没有必要了。</p>
+<p>因此最终决定，抛弃kali环境直接在windows环境下搭建博客环境。</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> windows 10</li>
+<li><input disabled="" type="checkbox"> Node.js</li>
+<li><input disabled="" type="checkbox"> Git</li>
+</ul>
+<h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p><del>请根据你自己的系统版本来，我这边kali是基于debian</del></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &amp;&amp; sudo apt-get install -y nodejs</span><br></pre></td></tr></table></figure>
+
+<p><del>测试安装</del></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/test | bash -</span><br></pre></td></tr></table></figure>
+<p><del>或者</del></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm -v </span><br></pre></td></tr></table></figure>
+
+<p>我们直接到node.js的官网上下载最新版本的安装包（<a href="https://nodejs.org/en/download/current">Download | Node.js (nodejs.org)</a>）</p>
+<p>根据自己的系统选择对应的32或64bit版本，然后双击运行，一路‘下一步’就完成了，中间建议勾选安装node.js依赖。</p>
+<p>安装完成后可以在开始菜单中看到</p>
+<h3 id="安装Hexo-1"><a href="#安装Hexo-1" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>这里安装程序会创建文件等需要管理员权限。</p>
+<p>安装以后，可以使用以下两种方式执行 Hexo：</p>
+<ol>
+<li><code>npx hexo &lt;command&gt;</code></li>
+<li>Linux 用户可以将 Hexo 所在的目录下的 <code>node_modules</code> 添加到环境变量之中即可直接使用 <code>hexo &lt;command&gt;</code>：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &#x27;PATH=&quot;$PATH:./node_modules/.bin&quot;&#x27; &gt;&gt; ~/.profile</span><br></pre></td></tr></table></figure>
+
+<p>然后检查安装</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
+
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>使用hexo的框架创建一个文件夹，用于部署和生成静态网站</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>操作完成之后，可以看到这个文件夹下面结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+
+<h3 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>网站的 <a href="https://hexo.io/zh-cn/docs/configuration">配置</a> 信息，您可以在此配置大部分的参数。</p>
+<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>应用程序的信息。<a href="https://ejs.co/">EJS</a>, <a href="http://learnboost.github.io/stylus/">Stylus</a> 和 <a href="http://daringfireball.net/projects/markdown/">Markdown</a> 渲染引擎 已默认安装，您可以自由移除。</p>
+<h3 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a>scaffolds</h3><p><a href="https://hexo.io/zh-cn/docs/writing#%E6%A8%A1%E7%89%88%EF%BC%88Scaffold%EF%BC%89">模版</a> 文件夹。当您新建文章时，Hexo 会根据 scaffold 来创建文件。</p>
+<p>Hexo 的模板是指在新建的文章文件中默认填充的内容。例如，如果您修改 <code>scaffold/post.md</code> 中的 Front-matter 内容，那么每次新建一篇文章时都会包含这个修改。</p>
+<h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><p>资源文件夹是存放用户资源的地方。除 <code>_posts</code> 文件夹之外，开头命名为 <code>_</code> (下划线)的文件 &#x2F; 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 <code>public</code> 文件夹，而其他文件会被拷贝过去。</p>
+<h3 id="themes"><a href="#themes" class="headerlink" title="themes"></a>themes</h3><p><a href="https://hexo.io/zh-cn/docs/themes">主题</a> 文件夹。Hexo 会根据主题来生成静态页面。</p>
+<h2 id="恢复站点状态使用"><a href="#恢复站点状态使用" class="headerlink" title="恢复站点状态使用"></a>恢复站点状态使用</h2><h3 id="config-yml-1"><a href="#config-yml-1" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>由于我之前已经用过了hexo并且已经建立过站点了，因此现在我可以通过之前备份的主题以及配置文件来恢复，主要是将自己使用的主题放进<code>themes</code>文件夹，并将<code>_config.yml</code>中的参数比对恢复。</p>
+<p><em><strong>这里建议<code>_config.yml</code>中单独恢复把参数对应的值粘贴过来，因为hexo的版本更新，防止出现解析生成静态站的时候出现各种乱七八糟的问题。</strong></em></p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>我自己建立了一个hexo的主题<a href="https://github.com/DraceWang/hexo-theme-Hexagon">hexo-theme-Hexagon</a>，是基于<a href="https://haojen.github.io/Claudia-theme-blog/">hexo-theme-Claudia</a>这个主题修改得来的。因为之前就上传到github了，因此这里直接在<code>themes</code>目录下直接</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/DraceWang/hexo-theme-Hexagon.git</span><br></pre></td></tr></table></figure>
+
+<p>然后在<code>_config.yml</code>中设置主题：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">theme: hexo-theme-Hexagon</span><br></pre></td></tr></table></figure>
+
+<h3 id="博客文章"><a href="#博客文章" class="headerlink" title="博客文章"></a>博客文章</h3><p>将之前备份的文章放入<code>source/_post</code>目录。</p>
+<p><em>啊~~，文章缺少目录，还缺少之前的格式，哎，下次完整打包备份吧。</em></p>
+<h2 id="通过建立本地web服务进行预览"><a href="#通过建立本地web服务进行预览" class="headerlink" title="通过建立本地web服务进行预览"></a>通过建立本地web服务进行预览</h2><p>使用hexo服务器进行本地站的预览，Hexo 3.0 把服务器独立成了个别模块，必须先安装 <a href="https://github.com/hexojs/hexo-server">hexo-server</a> 才能使用。</p>
+<h3 id="安装hexo-server"><a href="#安装hexo-server" class="headerlink" title="安装hexo-server"></a>安装hexo-server</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-server --save</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，输入以下命令以启动服务器，网站会在 <code>http://localhost:4000</code> 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务器。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h2><p>当我们在本地预览完成之后，可以使用hexo的生成器来生成静态页面。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>生成的静态网站会在<code>/public</code>目录下</p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>现在的hexo可以使用workflow中的action直接让github自动生成github pages来部署我们的博客，但是这种方式需要把源代码都提交上去，请自行斟酌是否包含<strong>个人敏感信息</strong>。</p>
+<p>这边说下我自己遇到的坑，首先是hexo版本与node.js不匹配，其次是hexo官方给的pages的actions里面用的主分支叫main，我这边master</p>
+<p>npm install hexo@指定版本</p>
+<p><a href="https://zhuanlan.zhihu.com/p/491881992">https://zhuanlan.zhihu.com/p/491881992</a></p>
+]]></content>
   </entry>
   <entry>
     <title>在Kali上编译Android系统</title>
