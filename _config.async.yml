@@ -241,7 +241,7 @@ theme:
   default: style-dark # style-light style-dark
 
 # Service Worker
-sw: true
+sw: false
 
 # Post wordcount
 # https://github.com/willin/hexo-wordcount
@@ -273,7 +273,7 @@ search:
 # Think of swup as being pjax on steroids. The concepts are similar to those used in barba.js or other transition libraries.
 # https://swup.js.org/
 # Whether swup is enabled
-swup: true
+swup: false
 
 # Datetime formatting
 datetime_foramt:
