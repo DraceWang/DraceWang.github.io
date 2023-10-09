@@ -5,7 +5,7 @@ tags:
 	- Hexo
 	- GitHub page 
 date: 2023-10-08 16:55:00
-cover: https://s2.loli.net/2023/10/08/DUrpIG1hw3ZEHgP.png
+cover: https://s2.loli.net/2023/10/09/WEFNigBfGyDOzdb.png
 ---
 
 

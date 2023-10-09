@@ -67,19 +67,26 @@ banner:
     position: top
     fit: cover
   index:
+    type: video
+    bgurl: /video/banner4index2.mp4
     bannerTitle: 江湖险恶，<br>不行就撤。
     bannerText: Hi my new friend!
     videoUrl: 
   archive:
-    bannerTitle: 何以解忧，<br>唯有退休。
+    bannerTitle: 吾日三省吾身，<br>关吾什么屁事
     bannerText: The article archive
   links:
     bannerTitle: 莫愁前路无知己，<br>天下谁人不识君。
     bannerText: A link to a friend's website
+  tags:
+    bannerTitle: 何以解忧，<br>唯有退休。
+    bannerText: The tags cloud
   comment:
     bannerTitle: 
     bannerText: The magic tree hole
   about:
+    type: video
+    bgurl: /video/banner4about.mp4
     bannerTitle: 枯藤老树昏鸦，<br>摸鱼然后回家。
     bannerText: About me
 
@@ -241,7 +248,7 @@ theme:
   default: style-dark # style-light style-dark
 
 # Service Worker
-sw: false
+sw: true
 
 # Post wordcount
 # https://github.com/willin/hexo-wordcount
