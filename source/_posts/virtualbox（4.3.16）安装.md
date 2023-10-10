@@ -31,15 +31,16 @@ VBoxManage -v //查看版本号
 	sudo vboxmanage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.3.16-95972.vbox-extpack
 ```
 
-> 卸载指定扩展包
-> VBoxManage extpack uninstall <name>
+```bash
+ #卸载指定扩展包
+ VBoxManage extpack uninstall <name>
 
-> 显示已安装的扩展包
-> VBoxManage list extpacks
+ #显示已安装的扩展包
+ VBoxManage list extpacks
 
-> 移除安装扩展包失败或卸载扩展包失败时可能遗留下来的文件和目录
-> VBoxManage extpack cleanup
-
+ #移除安装扩展包失败或卸载扩展包失败时可能遗留下来的文件和目录
+ VBoxManage extpack cleanup
+```
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 ### 创建Ubuntu Server虚拟机

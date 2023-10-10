@@ -33,7 +33,10 @@ cover: https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg
 
 ---------------------------------------------------------------------------------
 
+
 添加用户
+
+
 ```bash
 	cd /etc/ldap
 	
@@ -106,15 +109,20 @@ cover: https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg
 	ldapsearch -x -LLL -b dc=example,dc=com 'uid=john' cn gidNumber //查询john
 ```
  
+{% note tip%}
+ -x:“简单”绑定;不使用默认SASL方法
 
-> -x:“简单”绑定;不使用默认SASL方法
 
-> -LLL:禁用打印无关的信息
+ -LLL:禁用打印无关的信息
 
-> uid =john:一个“过滤器”找到john用户
 
-> cn gidNumber:请求某些特定属性的显示(默认是显示所有属性)
+ uid =john:一个“过滤器”找到john用户
 
+
+ cn gidNumber:请求某些特定属性的显示(默认是显示所有属性)
+
+ 
+{% endnote %}
  
 
  

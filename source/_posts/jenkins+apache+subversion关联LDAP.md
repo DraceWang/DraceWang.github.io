@@ -85,8 +85,13 @@ admin是你想使用的用户名，然后输入两次密码。
 ```
 ***
 
+
 ## 关联svn和LDAP
-###a pache添加ldap组件
+
+
+### a pache添加ldap组件
+
+
 ```bash
 	sudo a2enmod ldap
 	

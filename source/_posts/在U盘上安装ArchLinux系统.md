@@ -249,7 +249,8 @@ nano /etc/mkinitcpio.conf
 ```
 在udev 后面加入usb
 
-> HOOKS=”base udev usb autodetect modconf block filesystems keyboard fsck”
+<p style="border-radius:4px; border:1px; margin:20px 2px; background-color:#65909090; padding:12px 20px; color: #F8F8FF;">HOOKS=”base udev usb autodetect modconf block filesystems keyboard fsck”</p>
+
 
 ```bash
 mkinitcpio -p linux
@@ -283,8 +284,10 @@ UI vesamenu.c32 取消注释
 ```
 把LABEL arch下面的root改成
 
+<p style="border-radius:4px; border:1px; margin:20px 2px; background-color:#65909090; padding:12px 20px; color: #F8F8FF;">root=UUID="****************************" rw</p>
 
-> root=UUID="****************************" rw
+
+
 完成了这步,在你开机选这个U盘启动后应该就能出现syslinux的引导界面了,如果不行,请自行wiki换grub之类的
 
 ### 新建用户
@@ -446,6 +449,8 @@ sudo pacman -S screenfetch
 最后
 `exit`然后`umount -R /mnt`关掉虚拟机,拔下U盘,去嗨吧
 
+---
+
 20160423-update
 
 ##### 安装必要字体
@@ -453,11 +458,13 @@ sudo pacman -S screenfetch
 ```bash
 pacman -S ttf-dejavu wqy-zenhei wqy-microhei
 ```
+
 ##### 安装火狐
 
 ```bash
 pacman -S firefox
 ```
+
 ##### 安装net-tools（包含ifconfig）
 
 ```bash
@@ -465,7 +472,10 @@ pacman -S net-tools
 ```
 修改`/boot/syslinux/syslinux.cfg`
 
-> timeout = 0
+
+<p style="border-radius:4px; border:1px; margin:20px 2px; background-color:#65909090; padding:12px 20px; color: #F8F8FF;">timeout = 0</p>
+
+
 注销所有菜单选项
 
 ##### 启动sddm
@@ -473,11 +483,13 @@ pacman -S net-tools
 ```bash
 systemctl enable sddm.service
 ```
+
 ##### 安装wget，git
 
 ```bash
 pacamn -S wget git
 ```
+
 ##### 安装oh-my-zsh
 
 ```bash
@@ -510,6 +522,9 @@ yaourt -S fcitx-sogoupinyin
 export LC_ALL=en_US.UTF-8  
 export LANG=en_US.UTF-8
 ```
+
+---
+
 20170826-update
 
 ##### 安装chrome

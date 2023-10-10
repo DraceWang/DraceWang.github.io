@@ -68,7 +68,7 @@ banner:
     fit: cover
   index:
     type: video
-    bgurl: /video/banner4index2.mp4
+    bgurl: /video/banner4index4.mp4
     bannerTitle: 江湖险恶，<br>不行就撤。
     bannerText: Hi my new friend!
     videoUrl: 
@@ -291,7 +291,7 @@ datetime_foramt:
     cover_date: DD
     cover_date2: YYYY/MM
   post_info:
-    type: update
+    type: date
     date: YYYY/MM/DD
     time: HH:mm
   archive:

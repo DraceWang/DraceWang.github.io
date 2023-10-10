@@ -17,8 +17,10 @@ cover: https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg
 ```bash
 	sudo apt-get -y install ruby2.0 ruby2.0-dev ruby1.9.1-dev 
 ```
+{% note tip%}
+安装过程中数据库的管理员密码为：admin
+{% endnote %}
 
-> 安装过程中数据库的管理员密码为：admin
 ```sql
 	mysql -u root -p
 ```
