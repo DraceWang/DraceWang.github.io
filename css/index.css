@@ -14,8 +14,8 @@
   --primary-30: rgba(175, 180, 43, 0.3);
   --primary-weak: #c0ca33;
   --primary-weak-50: rgba(192, 202, 51, 0.5);
-  --body-color: #7B7B7D;
-  --body-color-5: rgba(123, 123, 125, 0.05);
+  --body-color: #5d5d5e;
+  --body-color-5: rgba(93, 93, 94, 0.05);
   --body-bg-color: #00151f;
   --theme-color: #00283a;
   --theme-bg-color: #fcfcfe;
@@ -59,8 +59,8 @@
   --primary-30: rgba(175, 180, 43, 0.3);
   --primary-weak: #c0ca33;
   --primary-weak-50: rgba(192, 202, 51, 0.5);
-  --body-color: #cccdcfb3;
-  --body-color-5: rgba(204, 205, 207, 0.05);
+  --body-color: #d1d9e9b3;
+  --body-color-5: rgba(209, 217, 233, 0.05);
   --body-bg-color: #00151f;
   --theme-color: #dedee0;
   --theme-bg-color: #00283a;
@@ -2573,10 +2573,6 @@ footer .footer-separator::before {
 .trm-publication {
   word-break: break-all;
 }
-.trm-publication > p:first-of-type {
-  color: var(--theme-color, #00283a) !important;
-  opacity: 1 !important;
-}
 .trm-publication p {
   margin-bottom: 20px;
 }
@@ -2670,7 +2666,8 @@ footer .footer-separator::before {
 .trm-publication h2,
 .trm-publication h3,
 .trm-publication h4,
-.trm-publication h5 {
+.trm-publication h5,
+.trm-publication h6 {
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: bold;
@@ -2683,7 +2680,8 @@ footer .footer-separator::before {
 .trm-publication h2 .trm-toc-icon,
 .trm-publication h3 .trm-toc-icon,
 .trm-publication h4 .trm-toc-icon,
-.trm-publication h5 .trm-toc-icon {
+.trm-publication h5 .trm-toc-icon,
+.trm-publication h6 .trm-toc-icon {
   display: inline-block;
   opacity: 0;
   font-size: 16px;
@@ -2697,18 +2695,12 @@ footer .footer-separator::before {
   .trm-publication h2:hover .trm-toc-icon,
   .trm-publication h3:hover .trm-toc-icon,
   .trm-publication h4:hover .trm-toc-icon,
-  .trm-publication h5:hover .trm-toc-icon {
+  .trm-publication h5:hover .trm-toc-icon,
+  .trm-publication h6:hover .trm-toc-icon {
     opacity: 1;
     transform: translateX(0);
     pointer-events: all;
   }
-}
-.trm-publication h4:before,
-.trm-publication h5:before,
-.trm-publication h6:before {
-  display: inline-block;
-  width: 1em;
-  content: '#';
 }
 .trm-publication h1 {
   font-size: 2.5em;
@@ -2889,6 +2881,7 @@ footer .footer-separator::before {
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   max-width: calc(100vw - 30px - 8rem);
+  padding-left: 0.5em;
 }
 .trm-post-toc-content .trm-toc .trm-toc-level-1 {
   list-style: none;
