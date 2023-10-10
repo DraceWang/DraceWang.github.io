@@ -17,7 +17,7 @@
 <meta property="og:image" content="http://dracewang.github.io/img/404.jpg">
 <meta property="og:image" content="http://dracewang.github.io/img/404.jpg">
 <meta property="article:published_time" content="2015-09-29T04:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-09T03:27:17.688Z">
+<meta property="article:modified_time" content="2023-10-10T04:55:36.813Z">
 <meta property="article:author" content="Drace Wang">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="uid">
@@ -68,7 +68,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"dracewang.github.io","author":"Drace Wang","root":"/","typed_text":["一个平凡的码农"],"theme_version":"2.1.2","theme":{"switch":true,"default":"style-dark"},"favicon":{"logo":"/img/favicon.gif","icon16":"/img/favicon.gif","icon32":"/img/favicon.gif","appleTouchIcon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","showText":"(/≧▽≦/)回来啦~","hideText":"(●—●)后台ing..."},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":true,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy","tags":"fab fa-tags"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":200},"toc":{"post_title":true},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"preload":true,"path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-10-09 11:27:17"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-10-10 12:55:36"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.1.2" id="trm-switch-style">
@@ -366,13 +366,13 @@
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
-            2016/04/21
+            2015/09/29
         </div>
     </div>
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-clock trm-icon"></i><br>
-            20:00
+            12:00
         </div>
     </div>
     <div class="col-sm-4">
@@ -443,10 +443,9 @@
 <p>第11位为SUID位，第10位为SGID位，第9位为sticky位，第8-0位对应于上面的三组rwx位。</p>
 <p>上面的<code>-rwsr-xr-x</code>的值为： <code>1 0 0 1 1 1 1 0 1 1 0 1</code></p>
 <p><code>-rw-r-Sr--</code>的值为： <code>0 1 0 1 1 0 1 0 0 1 0 0</code></p>
-<blockquote>
-<p>  同样的，rwx可以对应我们熟知的数值：2，4，1。</p>
-<p>  那么suid和sgid也是可以对应数值的（隐藏权限：SUID（4）、SGID（2）、SBIT（1）），不过是在原先的位置前，因为suid和sgid属于隐藏权限。</p>
-</blockquote>
+<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>同样的，rwx可以对应我们熟知的数值：2，4，1。<br>那么suid和sgid也是可以对应数值的（隐藏权限：SUID（4）、SGID（2）、SBIT（1）），不过是在原先的位置前，因为suid和sgid属于隐藏权限。</p>
+</div>
+
 <p>给文件加SUID和SUID的命令如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> u+s  filename  <span class="comment"># 设置SUID位</span></span><br><span class="line"><span class="built_in">chmod</span> 4770 filename</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> u-s filename  <span class="comment"># 去掉SUID设置</span></span><br><span class="line"><span class="built_in">chmod</span> 0770 filename</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> g+s filename <span class="comment"># 设置SGID位</span></span><br><span class="line"><span class="built_in">chmod</span> 2770 filename</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> g-s filename <span class="comment"># 去掉SGID设置</span></span><br><span class="line"><span class="built_in">chmod</span> 0770 filename</span><br></pre></td></tr></table></figure>
 
@@ -487,9 +486,9 @@
 <p>不同的应用程序可以运行在相同的进程中。对于此方法，首先必须使用相同的私钥签署这些应用程序，然后必须使用 manifest 文件给它们分配相同的  Linux 用户 ID，这通过用相同的值&#x2F;名定义 manifest 属性 <code>android:sharedUserId</code>  来做到，从而共享对其数据和代码的访问。</p>
 <p><img src="https://i.loli.net/2020/11/02/yZOkHGCpRKzc6Ld.gif" alt="same UID" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p>基于用户id的安全机制，其实使用的是标准的Linux的权限控制的机制，本用户、本组的和其他用户各自有读、写、执行3中权限。系统在这方面的控制主要有：</p>
-<blockquote>
-<p>文件系统的各个文件具有Uid和Gid，并指定权限。<br>每个进行具有自己的Uid和Gid，并指定它属于哪些组。<br>每个进程可以根据本用户规则访问其Uid可以访问的文件。<br>每个进程可以根据组规则访问其所属的所有组(Groups)可以访问的文件。<br>如果文件定义了其他的用户可以访问的权限，可以被任何任何程序访问。<br>任何进程都不可以访问不具有权限的文件。</p>
-</blockquote>
+<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>文件系统的各个文件具有Uid和Gid，并指定权限。<br>每个进行具有自己的Uid和Gid，并指定它属于哪些组。<br>每个进程可以根据本用户规则访问其Uid可以访问的文件。<br>每个进程可以根据组规则访问其所属的所有组(Groups)可以访问的文件。<br>如果文件定义了其他的用户可以访问的权限，可以被任何任何程序访问。<br>任何进程都不可以访问不具有权限的文件。</p>
+</div>
+
 <h3 id="共享UID（sharedUserId）"><a href="#共享UID（sharedUserId）" class="headerlink" title="共享UID（sharedUserId）"></a>共享UID（sharedUserId）</h3><p>安装在设备中的每一个Android包文件（.apk）都会被分配到一个属于自己的统一的Linux用户ID，并且为它创建一个沙箱，以防止影响其他应用程序（或者其他应用程序影响它）。用户ID 在应用程序安装到设备中时被分配，并且在这个设备中保持它的永久性。</p>
 <p>通过Shared User id,拥有同一个User id的多个APK可以配置成运行在同一个进程中.所以默认就是可以互相访问任意数据. 也可以配置成运行成不同的进程, 同时可以访问其他APK的数据目录下的数据库和文件.就像访问本程序的数据一样.</p>
 <p>对于一个APK来说，如果要使用某个共享UID的话，必须做三步：</p>
@@ -657,9 +656,8 @@
 
 <p>的权限配置。</p>
 <p>这里的配置为读取外部存储卡的权限 以及写入外部存储卡的权限。</p>
-<blockquote>
-<p>  <code>&lt;permission name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot; &gt;</code></p>
-</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">permission</span> <span class="attr">name</span>=<span class="string">&quot;android.permission.READ_EXTERNAL_STORAGE&quot;</span> &gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>里面的<code>&lt;group gid=&quot;sdcard_r&quot; &gt;</code>这里的意义为：如果apk申请读外部存储卡，则会在创建apk时，给此进程增加一个组，组名为sdcard_r，使用的接口为setgid();</p>
 <p><code>android\frameworks\base\core\res</code>里面的AndroidManifest.xml，这个里面可以看到更多的系统权限配置表。</p>
 <p>我们来看下这个配置里面的详细信息：</p>
@@ -762,14 +760,20 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">01-01 00:03:30.889 W/ndroid.settings( 3759): type=1400 audit(0.0:584): avc: denied &#123; search &#125; for name=&quot;dhcp&quot; dev=&quot;mmcblk0p54&quot; ino=49 scontext=u:r:system_app:s0 tcontext=u:object_r:dhcp_data_file:s0 tclass=dir permissive=0</span><br></pre></td></tr></table></figure>
 
 <p>解决权限问题需要修改的权限文件如下位置，以.te结尾。一般来说需要找到自己项目对应的覆盖文件，不会需要改系统原本的，你可以修改<code>device/qcom/sepolicy/vendor/common/system_app.te</code></p>
-<blockquote>
-<p>  分析过程：</p>
-<p>  缺少什么权限：   { <strong>search</strong> }权限，</p>
-<p>  谁缺少权限：     scontext&#x3D;u:r:<strong>system_app</strong>:s0</p>
-<p>  对哪个文件缺少权限：tcontext&#x3D;u:object_r:<strong>dhcp_data_file</strong>:s0</p>
-<p>  什么类型的文件：   tclass&#x3D;<strong>dirdir</strong></p>
-<p>  完整的意思： system_app进程对dir类型的dhcp_data_file缺少search权限。</p>
-</blockquote>
+<div class="trm-note info"><div class="trm-note-title">分析过程：</div><ul>
+<li><p>缺少什么权限：   { <strong>search</strong> }权限，</p>
+</li>
+<li><p>谁缺少权限：     scontext&#x3D;u:r:<strong>system_app</strong>:s0</p>
+</li>
+<li><p>对哪个文件缺少权限：tcontext&#x3D;u:object_r:<strong>dhcp_data_file</strong>:s0</p>
+</li>
+<li><p>什么类型的文件：   tclass&#x3D;<strong>dirdir</strong></p>
+</li>
+<li><p>完整的意思： system_app进程对dir类型的dhcp_data_file缺少search权限。</p>
+</li>
+</ul>
+</div>
+
 <p><strong>解决方法</strong>：修改<code>device/qcom/sepolicy/vendor/common/system_app.te</code>，加入以下内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">allow  system_app   dhcp_data_file:dir  search;</span><br></pre></td></tr></table></figure>
 <p>重新编译，刷机才会生效。</p>
@@ -780,7 +784,8 @@
 <p>这里再举一个avc报错的例子，然后下面是一条添加多个权限的示例</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">allow  system_app   dhcp_data_file:file  &#123; read getattr open &#125;;</span><br></pre></td></tr></table></figure>
 
-<p>当然selinux权限还有很多可以研究的，但是目前掌握了这些已经基本够用了。Hava a nice day~</p>
+<p>当然selinux权限还有很多可以研究的，但是目前掌握了这些已经基本够用了。</p>
+<p>Hava a nice day~</p>
 <p>[^1]: 转自<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/71acd8dad454" title="《linux：SUID、SGID详解》 崔玉和">linux：SUID、SGID详解</a><br>[^2]: 转自<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013553529/article/details/53167072" title="《Android 权限的一些细节》 爱博客大伯">Android权限的一些细节</a><br>[^3]: 转自<a target="_blank" rel="noopener" href="https://blog.csdn.net/vshuang/article/details/43639211?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param" title="《Android安全机制（1）uid，gid与pid》 黄舒颖 咸丫蛋">Android安全机制（1）uid，gid与pid</a><br>[^4]: 转自<a target="_blank" rel="noopener" href="https://blog.csdn.net/vshuang/article/details/44001661?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.channel_param" title="《Android 权限的一些细节》 黄舒颖 咸丫蛋">Android安全机制（2）AndroidPermission权限控制机制</a><br>[^5]: 转自<a target="_blank" rel="noopener" href="https://blog.csdn.net/flykozhang/article/details/50376065" title="《Android 自定义Permission;permission-tree;permission-group自定义（权限，权限组，权限树）》 FlykoZhang">Android自定义Permission;permission-tree;permission-group自定义（权限，权限组，权限树）</a><br>[^6]: 转自<a target="_blank" rel="noopener" href="https://blog.csdn.net/a332324956/article/details/17452749?utm_source=blogxgwz0&utm_medium=distribute.pc_relevant.none-task-blog-title-6&spm=1001.2101.3001.4242" title="《android权限代码分析(二)》 明哥的江湖">android权限代码分析(二)</a><br>[^7]: 转自<a target="_blank" rel="noopener" href="https://blog.csdn.net/muhuacat/article/details/55259204" title="《android 设置app root权限简单方法》 muhuacat">android 设置app root权限简单方法</a><br>[^8]: 转自<a target="_blank" rel="noopener" href="https://blog.csdn.net/tung214/article/details/72734086" title="《Android SELinux avc dennied权限问题解决方法》 缥缈孤鸿影_love">Android SELinuxavcdennied权限问题解决方法</a></p>
 
 </article>

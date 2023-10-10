@@ -15,7 +15,7 @@
 <meta property="og:description" content="在U盘上安装ArchLinux系统其实在U盘上安装Linux系统基本都能装,也有针对U盘设计的系统像puppy之类的,选Arch主要是个人喜好,还有就是它的安装是手动的,不仅能学到不少linux的知识,也能更好的去适配不同的电脑,arch的可定制化程度非常高,所以更加的灵活也能适应更多的人去使用 准备工作U盘要装系统U盘不能太差,我要求比较高,U盘建议16G以上,高速读写不用说最好100m&amp;#x2">
 <meta property="og:locale">
 <meta property="article:published_time" content="2016-02-04T04:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-09T03:27:17.688Z">
+<meta property="article:modified_time" content="2023-10-10T04:55:36.813Z">
 <meta property="article:author" content="Drace Wang">
 <meta property="article:tag" content="archlinux">
 <meta property="article:tag" content="mobile system">
@@ -63,7 +63,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"dracewang.github.io","author":"Drace Wang","root":"/","typed_text":["一个平凡的码农"],"theme_version":"2.1.2","theme":{"switch":true,"default":"style-dark"},"favicon":{"logo":"/img/favicon.gif","icon16":"/img/favicon.gif","icon32":"/img/favicon.gif","appleTouchIcon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","showText":"(/≧▽≦/)回来啦~","hideText":"(●—●)后台ing..."},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":true,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy","tags":"fab fa-tags"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":200},"toc":{"post_title":true},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"preload":true,"path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-10-09 11:27:17"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-10-10 12:55:36"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.1.2" id="trm-switch-style">
@@ -361,13 +361,13 @@
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
-            2017/08/29
+            2016/02/04
         </div>
     </div>
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-clock trm-icon"></i><br>
-            20:00
+            12:00
         </div>
     </div>
     <div class="col-sm-4">
@@ -450,9 +450,9 @@
 <h3 id="设置U盘启动"><a href="#设置U盘启动" class="headerlink" title="设置U盘启动"></a>设置U盘启动</h3><p>这个很重要,为了启动后能首先加载usb</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/mkinitcpio.conf</span><br></pre></td></tr></table></figure>
 <p>在udev 后面加入usb</p>
-<blockquote>
-<p>HOOKS&#x3D;”base udev usb autodetect modconf block filesystems keyboard fsck”</p>
-</blockquote>
+<p style="border-radius:4px; border:1px; margin:20px 2px; background-color:#65909090; padding:12px 20px; color: #F8F8FF;">HOOKS=”base udev usb autodetect modconf block filesystems keyboard fsck”</p>
+
+
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkinitcpio -p linux</span><br></pre></td></tr></table></figure>
 <p>重新初始化内存盘</p>
 <h3 id="安装引导程序"><a href="#安装引导程序" class="headerlink" title="安装引导程序"></a>安装引导程序</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S syslinux gptfdisk</span><br></pre></td></tr></table></figure>
@@ -463,9 +463,11 @@
 <p>修改</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># UI menu.c32 注释掉</span></span><br><span class="line">UI vesamenu.c32 取消注释</span><br></pre></td></tr></table></figure>
 <p>把LABEL arch下面的root改成</p>
-<blockquote>
-<p>root&#x3D;UUID&#x3D;”****************************” rw<br>完成了这步,在你开机选这个U盘启动后应该就能出现syslinux的引导界面了,如果不行,请自行wiki换grub之类的</p>
-</blockquote>
+<p style="border-radius:4px; border:1px; margin:20px 2px; background-color:#65909090; padding:12px 20px; color: #F8F8FF;">root=UUID="****************************" rw</p>
+
+
+
+<p>完成了这步,在你开机选这个U盘启动后应该就能出现syslinux的引导界面了,如果不行,请自行wiki换grub之类的</p>
 <h3 id="新建用户"><a href="#新建用户" class="headerlink" title="新建用户"></a>新建用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd </span><br></pre></td></tr></table></figure>
 <p>先设置root用户的密码</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S zsh</span><br></pre></td></tr></table></figure>
@@ -518,16 +520,22 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S screenfetch</span><br></pre></td></tr></table></figure>
 <p>要让screenfetch在打开终端是自动输出，在<code>~/.zshrc</code>里加入</p>
 <p>最后<br><code>exit</code>然后<code>umount -R /mnt</code>关掉虚拟机,拔下U盘,去嗨吧</p>
+<hr>
 <p>20160423-update</p>
 <h5 id="安装必要字体"><a href="#安装必要字体" class="headerlink" title="安装必要字体"></a>安装必要字体</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S ttf-dejavu wqy-zenhei wqy-microhei</span><br></pre></td></tr></table></figure>
+
 <h5 id="安装火狐"><a href="#安装火狐" class="headerlink" title="安装火狐"></a>安装火狐</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S firefox</span><br></pre></td></tr></table></figure>
+
 <h5 id="安装net-tools（包含ifconfig）"><a href="#安装net-tools（包含ifconfig）" class="headerlink" title="安装net-tools（包含ifconfig）"></a>安装net-tools（包含ifconfig）</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S net-tools</span><br></pre></td></tr></table></figure>
 <p>修改<code>/boot/syslinux/syslinux.cfg</code></p>
-<blockquote>
-<p>timeout &#x3D; 0<br>注销所有菜单选项</p>
-</blockquote>
+<p style="border-radius:4px; border:1px; margin:20px 2px; background-color:#65909090; padding:12px 20px; color: #F8F8FF;">timeout = 0</p>
+
+
+<p>注销所有菜单选项</p>
 <h5 id="启动sddm"><a href="#启动sddm" class="headerlink" title="启动sddm"></a>启动sddm</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> sddm.service</span><br></pre></td></tr></table></figure>
+
 <h5 id="安装wget，git"><a href="#安装wget，git" class="headerlink" title="安装wget，git"></a>安装wget，git</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacamn -S wget git</span><br></pre></td></tr></table></figure>
+
 <h5 id="安装oh-my-zsh"><a href="#安装oh-my-zsh" class="headerlink" title="安装oh-my-zsh"></a>安装oh-my-zsh</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
 <h5 id="安装Yaourt"><a href="#安装Yaourt" class="headerlink" title="安装Yaourt"></a>安装Yaourt</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://aur.archlinux.org/package-query.git</span><br><span class="line"><span class="built_in">cd</span> package-query</span><br><span class="line">makepkg -si</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">git <span class="built_in">clone</span> https://aur.archlinux.org/yaourt.git</span><br><span class="line"><span class="built_in">cd</span> yaourt</span><br><span class="line">makepkg -si</span><br><span class="line"><span class="built_in">cd</span> ..</span><br></pre></td></tr></table></figure>
 
@@ -536,6 +544,8 @@
 <h5 id="安装搜狗中文输入法"><a href="#安装搜狗中文输入法" class="headerlink" title="安装搜狗中文输入法"></a>安装搜狗中文输入法</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt -S fcitx-sogoupinyin</span><br></pre></td></tr></table></figure>
 <p>由于设置的输出是UTF-8，所以终端中不做设置可能会显示为乱码，我们设置下nano ~&#x2F;.zshrc</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LC_ALL=en_US.UTF-8  </span><br><span class="line"><span class="built_in">export</span> LANG=en_US.UTF-8</span><br></pre></td></tr></table></figure>
+
+<hr>
 <p>20170826-update</p>
 <h5 id="安装chrome"><a href="#安装chrome" class="headerlink" title="安装chrome"></a>安装chrome</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt -S google-chrome</span><br></pre></td></tr></table></figure>
 <h5 id="解压软件"><a href="#解压软件" class="headerlink" title="解压软件"></a>解压软件</h5><p>需要图形化的解压软件可以这样：</p>

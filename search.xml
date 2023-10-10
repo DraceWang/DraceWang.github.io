@@ -61,7 +61,7 @@
 <p>刚才我们找到了布局，所以我们看下<code>/frameworks/base/packages/SystemUI/src/com/android/systemui/settings/BrightnessController.java</code>中覆写的进度条onchanged方法：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onChanged</span><span class="params">(ToggleSlider toggleSlider, <span class="type">boolean</span> tracking, <span class="type">boolean</span> automatic, <span class="type">int</span> value, <span class="type">boolean</span> stopTracking)</span> &#123;</span><br><span class="line">    updateIcon(mAutomatic);</span><br><span class="line">    <span class="keyword">if</span> (mExternalChange) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mSliderAnimator != <span class="literal">null</span>) &#123;</span><br><span class="line">        mSliderAnimator.cancel();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> min;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> max;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> metric;</span><br><span class="line">    <span class="keyword">final</span> String setting;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mIsVrModeEnabled) &#123;</span><br><span class="line">        metric = MetricsEvent.ACTION_BRIGHTNESS_FOR_VR;</span><br><span class="line">        min = mMinimumBacklightForVr;</span><br><span class="line">        max = mMaximumBacklightForVr;</span><br><span class="line">        setting = Settings.System.SCREEN_BRIGHTNESS_FOR_VR;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        metric = mAutomatic</span><br><span class="line">                ? MetricsEvent.ACTION_BRIGHTNESS_AUTO</span><br><span class="line">                : MetricsEvent.ACTION_BRIGHTNESS;</span><br><span class="line">        min = mMinimumBacklight;</span><br><span class="line">        max = mMaximumBacklight;</span><br><span class="line">        setting = Settings.System.SCREEN_BRIGHTNESS;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">val</span> <span class="operator">=</span> convertGammaToLinear(value, min, max);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (stopTracking) &#123;</span><br><span class="line">        MetricsLogger.action(mContext, metric, val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    setBrightness(val);</span><br><span class="line">    <span class="keyword">if</span> (!tracking) &#123;</span><br><span class="line">        AsyncTask.execute(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">                <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                    Settings.System.putIntForUser(mContext.getContentResolver(),</span><br><span class="line">                            setting, val, UserHandle.USER_CURRENT);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (BrightnessStateChangeCallback cb : mChangeCallbacks) &#123;</span><br><span class="line">        cb.onBrightnessLevelChanged();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>主要的就是这个setBrightness(val);的方法，它最后是在PowerManager中去设置了settings.db数据库中的值，原理和<code>Settings.System.putIntForUser(mContext.getContentResolver(),setting, val, UserHandle.USER_CURRENT);</code>这个代码基本时一致，当然这个代码生效需要系统签名。<br>这里给出一个与可以adb shell下修改这个背光亮度值的一个方法：<br>获取当前背光亮度值（0-255）<code>cat sys/class/leds/lcd-backlight/brightness</code><br>设置背光亮度（0-255）<code>echo 102 &gt; sys/class/leds/lcd-backlight/brightness</code><br>当然这里的方法可以看到在BrightnessController.java类中定义了一个内部类BrightnessObserver，这个类的功能时时监听settings.db数据库中背光亮度的变化，发生变化后会再通过hanlder去更新进度条，将自定义的ToggleSlider设置进度条的总长和当前进度位置。因此基于这个机制我们可以认为源码的进度条调节机制是线性曲线。</p>
-<h3 id="自动背光亮度"><a href="#自动背光亮度" class="headerlink" title="自动背光亮度"></a>自动背光亮度</h3><p>这里有一篇博客[Android7.1 亮度自动调节][1]写的不错的，可以直接看下，我下就拿其中重点的提下就行了。<br>[1]: <a href="https://blog.csdn.net/kitty_landon/article/details/64128140">https://blog.csdn.net/kitty_landon/article/details/64128140</a></p>
+<h3 id="自动背光亮度"><a href="#自动背光亮度" class="headerlink" title="自动背光亮度"></a>自动背光亮度</h3><p>这里有一篇博客<a href="https://blog.csdn.net/kitty_landon/article/details/64128140">Android7.1 亮度自动调节</a>写的不错的，可以直接看下，我下就拿其中重点的提下就行了。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">updateAutoBrightness</span><span class="params">(<span class="type">boolean</span> sendUpdate)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!mAmbientLuxValid) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> <span class="variable">value</span> <span class="operator">=</span> mScreenAutoBrightnessSpline.interpolate(mAmbientLux);<span class="comment">//从mScreenAutoBrightnessSpline中获取到当前环境光照mAmbientLux对应的屏幕亮度值与255的比值value。</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">gamma</span> <span class="operator">=</span> <span class="number">1.0f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (USE_SCREEN_AUTO_BRIGHTNESS_ADJUSTMENT</span><br><span class="line">            &amp;&amp; mScreenAutoBrightnessAdjustment != <span class="number">0.0f</span>) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">float</span> <span class="variable">adjGamma</span> <span class="operator">=</span> MathUtils.pow(mScreenAutoBrightnessAdjustmentMaxGamma,</span><br><span class="line">                Math.min(<span class="number">1.0f</span>, Math.max(-<span class="number">1.0f</span>, -mScreenAutoBrightnessAdjustment)));<span class="comment">//pow(x,y)求x的y次方。</span></span><br><span class="line">        gamma *= adjGamma;<span class="comment">//计算gamma值，</span></span><br><span class="line">        <span class="keyword">if</span> (DEBUG) &#123;</span><br><span class="line">            Slog.d(TAG, <span class="string">&quot;updateAutoBrightness: adjGamma=&quot;</span> + adjGamma);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mUseTwilight) &#123;</span><br><span class="line">        <span class="type">TwilightState</span> <span class="variable">state</span> <span class="operator">=</span> mTwilight.getLastTwilightState();</span><br><span class="line">        <span class="keyword">if</span> (state != <span class="literal">null</span> &amp;&amp; state.isNight()) &#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="type">long</span> <span class="variable">duration</span> <span class="operator">=</span> state.sunriseTimeMillis() - state.sunsetTimeMillis();</span><br><span class="line">            <span class="keyword">final</span> <span class="type">long</span> <span class="variable">progress</span> <span class="operator">=</span> System.currentTimeMillis() - state.sunsetTimeMillis();</span><br><span class="line">            <span class="keyword">final</span> <span class="type">float</span> <span class="variable">amount</span> <span class="operator">=</span> (<span class="type">float</span>) Math.pow(<span class="number">2.0</span> * progress / duration - <span class="number">1.0</span>, <span class="number">2.0</span>);</span><br><span class="line">            gamma *= <span class="number">1</span> + amount * TWILIGHT_ADJUSTMENT_MAX_GAMMA;</span><br><span class="line">            <span class="keyword">if</span> (DEBUG) &#123;</span><br><span class="line">                Slog.d(TAG, <span class="string">&quot;updateAutoBrightness: twilight amount=&quot;</span> + amount);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (gamma != <span class="number">1.0f</span>) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">float</span> <span class="variable">in</span> <span class="operator">=</span> value;</span><br><span class="line">        value = MathUtils.pow(value, gamma);</span><br><span class="line">        <span class="keyword">if</span> (DEBUG) &#123;</span><br><span class="line">            Slog.d(TAG, <span class="string">&quot;updateAutoBrightness: gamma=&quot;</span> + gamma</span><br><span class="line">                    + <span class="string">&quot;, in=&quot;</span> + in + <span class="string">&quot;, out=&quot;</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">newScreenAutoBrightness</span> <span class="operator">=</span></span><br><span class="line">            clampScreenBrightness(Math.round(value * PowerManager.BRIGHTNESS_ON));<span class="comment">//round()四舍五入，计算当前环境光照实际亮度值</span></span><br><span class="line">    <span class="keyword">if</span> (mScreenAutoBrightness != newScreenAutoBrightness) &#123;</span><br><span class="line">        <span class="keyword">if</span> (DEBUG) &#123;</span><br><span class="line">            Slog.d(TAG, <span class="string">&quot;updateAutoBrightness: mScreenAutoBrightness=&quot;</span></span><br><span class="line">                    + mScreenAutoBrightness + <span class="string">&quot;, newScreenAutoBrightness=&quot;</span></span><br><span class="line">                    + newScreenAutoBrightness);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mScreenAutoBrightness = newScreenAutoBrightness;</span><br><span class="line">        mLastScreenAutoBrightnessGamma = gamma;</span><br><span class="line">        <span class="keyword">if</span> (sendUpdate) &#123;</span><br><span class="line">            mCallbacks.updateBrightness();<span class="comment">//回调到DisplayPowerController中更新亮度。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这是的自动背光的主要算法，这个时候可能对<code>mScreenAutoBrightnessSpline.interpolate(mAmbientLux)</code>这个方法觉得很没有头脑，我这里就不po源码了，太多了，还是一个算法，感兴趣朋友可以去看下，我本人不喜欢算法就不多研究了，大致就是从两个端点上取出一个直线来获取对应输入端的输出。我们现不做展开，后面再说这个。</p>
 <p>通过上面代码的可以发现，与最终背光亮度有关的其实有两个变量，一个是从spline中算出的值，一个是gamma值。那我们来剖析下。</p>
@@ -81,25 +81,24 @@
 <h3 id="算法拟合曲线"><a href="#算法拟合曲线" class="headerlink" title="算法拟合曲线"></a>算法拟合曲线</h3><p>其实很简单，就是把最终设置到settings.db数据库中的值给定死，那么屏幕亮度就会按照我们的想法变化。有了这个目标我们就可以找到设置亮度的地方前增加一个算法就可以了，用这个算法来调整原先线性的曲线变为我们想要的曲线。这个算法的公式可以通过客户给出的具体要求来做曲线拟合。</p>
 <p>至于如何才能拟合曲线，这里给个方法，当然数学好的同学肯定自有高招，我这里只是给个还算比较方便的方法，就是用excel，先在表格中用给定的值记录进去做出表格，然后先做出目标曲线（这里要注意的是，图标做的时候用的不是折线图，而是应该选带平滑线的散点图），然后在图表中添加趋势线，在编辑中把几种类型都选下看看那种更接近目标。</p>
 <h3 id="修复进度条问题"><a href="#修复进度条问题" class="headerlink" title="修复进度条问题"></a>修复进度条问题</h3><p>但是算法有了就万事大吉了吗？并不是！源码的时候发现改写后的背光亮度设置进去后，会出发回调重新设置进度条的最大值和当前进度，这个事情就比较麻烦了。首先我们会发现我们增加的算法会影响进度条的调整，在我尝试改动的时候就发现以下的问题:</p>
-<blockquote>
-<p>  1.在手动设置了亮度后发现进度标识自动跳走的<br>  2.进度条百分比显示不再线性<br>  3.无法自由滑动进度条<br>  4.进度条只能在特定点停下，设置到别的点会自动跳到附近的点<br>  5.进度条百分比不再完整</p>
-</blockquote>
-<p>这些问题的出现弄得我一度崩溃，但是还是要慢慢来，首先我们知道了时因为回调机制的原因导致进度条怎么都不能符合我们的要求，那么我们先把它去掉，不再回调。这个时候发现,诶？进度条似乎不再能到255了，只有0-100了，而之前的百分比似乎也不能调到96%以后，就是因为回调设置进去的进度条的值是配置文件中亮度最大值和亮度最小值的差值，并且显示的百分比又是在这个范围内计算的比例。知道了这个我们只要预先直接给进度条设置好总长值，然后回调的时候让其根据我们增加的曲线算法反向计算一次得出目前的屏幕亮度对应0-255的值时多少就好了。这里可能有点绕，我强调下，<strong>我们不仅需要能通过进度条得到对应设置0-255的亮度值，还要能根据这个亮度值反向计算得到对应于进度条上0-255的比例值，然后设置到进度条上，这样才能正确显示进度条。</strong>回调会从settings数据库中得到当前设置的背光亮度值，然后反算完后就得到对应目前进度条上的亮度，再回设置就<br>这样处理后时的确可以解决进度条显示的问题，但是百分比的显示是在settings里面的，并且不止一个地方有监听调用，这样的话真的要把这个东西改成线性就太麻烦了，观察市面上的大部分手机后，<strong>建议直接去除亮度百分比的显示</strong>，其实只要目标曲线不是线性的，那么我们的百分比也就不会是线性的。</p>
+<ol>
+<li>在手动设置了亮度后发现进度标识自动跳走的</li>
+<li>进度条百分比显示不再线性</li>
+<li>无法自由滑动进度条</li>
+<li>进度条只能在特定点停下，设置到别的点会自动跳到附近的点</li>
+<li>进度条百分比不再完整</li>
+</ol>
+<p>这些问题的出现弄得我一度崩溃，但是还是要慢慢来，首先我们知道了时因为回调机制的原因导致进度条怎么都不能符合我们的要求，那么我们先把它去掉，不再回调。这个时候发现,诶？进度条似乎不再能到255了，只有0-100了，而之前的百分比似乎也不能调到96%以后，就是因为回调设置进去的进度条的值是配置文件中亮度最大值和亮度最小值的差值，并且显示的百分比又是在这个范围内计算的比例。知道了这个我们只要预先直接给进度条设置好总长值，然后回调的时候让其根据我们增加的曲线算法反向计算一次得出目前的屏幕亮度对应0-255的值时多少就好了。这里可能有点绕，我强调下，<em><strong>我们不仅需要能通过进度条得到对应设置0-255的亮度值，还要能根据这个亮度值反向计算得到对应于进度条上0-255的比例值，然后设置到进度条上，这样才能正确显示进度条。</strong></em>回调会从settings数据库中得到当前设置的背光亮度值，然后反算完后就得到对应目前进度条上的亮度，再回设置就<br>这样处理后时的确可以解决进度条显示的问题，但是百分比的显示是在settings里面的，并且不止一个地方有监听调用，这样的话真的要把这个东西改成线性就太麻烦了，观察市面上的大部分手机后，<em><strong>建议直接去除亮度百分比的显示</strong></em>，其实只要目标曲线不是线性的，那么我们的百分比也就不会是线性的。</p>
 <p><img src="https://i.loli.net/2020/10/27/Uu1iZRAKCg5xmJL.png" alt="原手动背光调节.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <h3 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h3><p>除了刚才说的进度条问题我在调试的过程中还发现了几个问题。</p>
-<blockquote>
-<p>  1.推出设置中的显示界面，进度条位置就不记录了。</p>
-<blockquote>
-<p>  这个主要是回调那部分没有改好。</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>  2.恢复出厂后手动进度的位置不在原来的50%的位置。</p>
-<blockquote>
-<p>  这个问题主要是原先时读取的默认102在<code>&lt;integernameintegername=&quot;def_screen_brightness&quot;&gt;102&lt;/integer&gt;</code>但是这个值对应的现在曲线的百分比就不是在50%而是应该按照新算法计算，所以需要改成自己的值。</p>
-</blockquote>
-</blockquote>
-<h3 id="自动背光调节思路"><a href="#自动背光调节思路" class="headerlink" title="自动背光调节思路"></a>自动背光调节思路</h3><p>源码提供了frameworks&#x2F;base&#x2F;core&#x2F;res&#x2F;res&#x2F;values&#x2F;config.xml这个配置中直接更改节点值的方式来修改自动背光曲线，这种方式我们这里不做过多的讨论了。下面来说说自定义的背光曲线怎么弄。</p>
+<div class="trm-note tip"><div class="trm-note-title">推出设置中的显示界面，进度条位置就不记录了</div><p>A:这个主要是回调那部分没有改好。</p>
+</div>
+
+<div class="trm-note tip"><div class="trm-note-title">恢复出厂后手动进度的位置不在原来的50%的位置。</div><p>A:这个问题主要是原先时读取的默认102在</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;integernameintegername=&quot;def_screen_brightness&quot;&gt;102<span class="tag">&lt;/<span class="name">integer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但是这个值对应的现在曲线的百分比就不是在50%而是应该按照新算法计算，所以需要改成自己的值。</p>
+</div>
+<h3 id="自动背光调节思路"><a href="#自动背光调节思路" class="headerlink" title="自动背光调节思路"></a>自动背光调节思路</h3><p>源码提供了<code>frameworks/base/core/res/res/values/config.xml</code>这个配置中直接更改节点值的方式来修改自动背光曲线，这种方式我们这里不做过多的讨论了。下面来说说自定义的背光曲线怎么弄。</p>
 <p><img src="https://i.loli.net/2020/10/27/f3qMLmUe54u72pA.png" alt="原自动背光调节1.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <h3 id="测定0-255亮度值对应屏幕nit亮度"><a href="#测定0-255亮度值对应屏幕nit亮度" class="headerlink" title="测定0-255亮度值对应屏幕nit亮度"></a>测定0-255亮度值对应屏幕nit亮度</h3><p>这个如标题，至于为啥要这么做，主要是在屏幕供应商确定，驱动确定的基础上，这个0-255的亮度值与屏幕nit亮度之间的关系就基本时确定的了。测量出了这个关系，对后面应用亮度时可以提高不少效率。</p>
 <h3 id="通过算法来匹配自动背光曲线"><a href="#通过算法来匹配自动背光曲线" class="headerlink" title="通过算法来匹配自动背光曲线"></a>通过算法来匹配自动背光曲线</h3><p>我们在匹配的时候可能会遇到需要适配各种不同的情况，比如限定了进度条各位置的背光曲线，这样的话，等于我们有两个输入变量，第一个时环境光，第二个时进度条的位置带来的亮度调整。<br>首先，我们通过算法满足环境光变化时，背光亮度的的曲线。这里要重点说的是，如果定制曲线不仅仅只规定了一条，而是连调节变化范围的区间也规定了的话，应该考虑直接替换原码的gamma的计算，毕竟源码是通过定了一条背光曲线后，通过255阶的gamma来调整基于设定配置好的背光曲线的进度条最小或最高的调整。大约是从1&#x2F;3到3次方的一个变化，因此如果需要定制则建议直接替换自己的定制算法，并且在Android8.0以后已经去掉gamma值的仅算调整这个算法，这里就提一句，主要是替换算法的时候可不要有什么心里负担。</p>
@@ -260,10 +259,9 @@
 <p>第11位为SUID位，第10位为SGID位，第9位为sticky位，第8-0位对应于上面的三组rwx位。</p>
 <p>上面的<code>-rwsr-xr-x</code>的值为： <code>1 0 0 1 1 1 1 0 1 1 0 1</code></p>
 <p><code>-rw-r-Sr--</code>的值为： <code>0 1 0 1 1 0 1 0 0 1 0 0</code></p>
-<blockquote>
-<p>  同样的，rwx可以对应我们熟知的数值：2，4，1。</p>
-<p>  那么suid和sgid也是可以对应数值的（隐藏权限：SUID（4）、SGID（2）、SBIT（1）），不过是在原先的位置前，因为suid和sgid属于隐藏权限。</p>
-</blockquote>
+<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>同样的，rwx可以对应我们熟知的数值：2，4，1。<br>那么suid和sgid也是可以对应数值的（隐藏权限：SUID（4）、SGID（2）、SBIT（1）），不过是在原先的位置前，因为suid和sgid属于隐藏权限。</p>
+</div>
+
 <p>给文件加SUID和SUID的命令如下：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> u+s  filename  <span class="comment"># 设置SUID位</span></span><br><span class="line"><span class="built_in">chmod</span> 4770 filename</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> u-s filename  <span class="comment"># 去掉SUID设置</span></span><br><span class="line"><span class="built_in">chmod</span> 0770 filename</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> g+s filename <span class="comment"># 设置SGID位</span></span><br><span class="line"><span class="built_in">chmod</span> 2770 filename</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> g-s filename <span class="comment"># 去掉SGID设置</span></span><br><span class="line"><span class="built_in">chmod</span> 0770 filename</span><br></pre></td></tr></table></figure>
 
@@ -304,9 +302,9 @@
 <p>不同的应用程序可以运行在相同的进程中。对于此方法，首先必须使用相同的私钥签署这些应用程序，然后必须使用 manifest 文件给它们分配相同的  Linux 用户 ID，这通过用相同的值&#x2F;名定义 manifest 属性 <code>android:sharedUserId</code>  来做到，从而共享对其数据和代码的访问。</p>
 <p><img src="https://i.loli.net/2020/11/02/yZOkHGCpRKzc6Ld.gif" alt="same UID" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p>基于用户id的安全机制，其实使用的是标准的Linux的权限控制的机制，本用户、本组的和其他用户各自有读、写、执行3中权限。系统在这方面的控制主要有：</p>
-<blockquote>
-<p>文件系统的各个文件具有Uid和Gid，并指定权限。<br>每个进行具有自己的Uid和Gid，并指定它属于哪些组。<br>每个进程可以根据本用户规则访问其Uid可以访问的文件。<br>每个进程可以根据组规则访问其所属的所有组(Groups)可以访问的文件。<br>如果文件定义了其他的用户可以访问的权限，可以被任何任何程序访问。<br>任何进程都不可以访问不具有权限的文件。</p>
-</blockquote>
+<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>文件系统的各个文件具有Uid和Gid，并指定权限。<br>每个进行具有自己的Uid和Gid，并指定它属于哪些组。<br>每个进程可以根据本用户规则访问其Uid可以访问的文件。<br>每个进程可以根据组规则访问其所属的所有组(Groups)可以访问的文件。<br>如果文件定义了其他的用户可以访问的权限，可以被任何任何程序访问。<br>任何进程都不可以访问不具有权限的文件。</p>
+</div>
+
 <h3 id="共享UID（sharedUserId）"><a href="#共享UID（sharedUserId）" class="headerlink" title="共享UID（sharedUserId）"></a>共享UID（sharedUserId）</h3><p>安装在设备中的每一个Android包文件（.apk）都会被分配到一个属于自己的统一的Linux用户ID，并且为它创建一个沙箱，以防止影响其他应用程序（或者其他应用程序影响它）。用户ID 在应用程序安装到设备中时被分配，并且在这个设备中保持它的永久性。</p>
 <p>通过Shared User id,拥有同一个User id的多个APK可以配置成运行在同一个进程中.所以默认就是可以互相访问任意数据. 也可以配置成运行成不同的进程, 同时可以访问其他APK的数据目录下的数据库和文件.就像访问本程序的数据一样.</p>
 <p>对于一个APK来说，如果要使用某个共享UID的话，必须做三步：</p>
@@ -474,9 +472,8 @@
 
 <p>的权限配置。</p>
 <p>这里的配置为读取外部存储卡的权限 以及写入外部存储卡的权限。</p>
-<blockquote>
-<p>  <code>&lt;permission name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot; &gt;</code></p>
-</blockquote>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">permission</span> <span class="attr">name</span>=<span class="string">&quot;android.permission.READ_EXTERNAL_STORAGE&quot;</span> &gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>里面的<code>&lt;group gid=&quot;sdcard_r&quot; &gt;</code>这里的意义为：如果apk申请读外部存储卡，则会在创建apk时，给此进程增加一个组，组名为sdcard_r，使用的接口为setgid();</p>
 <p><code>android\frameworks\base\core\res</code>里面的AndroidManifest.xml，这个里面可以看到更多的系统权限配置表。</p>
 <p>我们来看下这个配置里面的详细信息：</p>
@@ -579,14 +576,20 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">01-01 00:03:30.889 W/ndroid.settings( 3759): type=1400 audit(0.0:584): avc: denied &#123; search &#125; for name=&quot;dhcp&quot; dev=&quot;mmcblk0p54&quot; ino=49 scontext=u:r:system_app:s0 tcontext=u:object_r:dhcp_data_file:s0 tclass=dir permissive=0</span><br></pre></td></tr></table></figure>
 
 <p>解决权限问题需要修改的权限文件如下位置，以.te结尾。一般来说需要找到自己项目对应的覆盖文件，不会需要改系统原本的，你可以修改<code>device/qcom/sepolicy/vendor/common/system_app.te</code></p>
-<blockquote>
-<p>  分析过程：</p>
-<p>  缺少什么权限：   { <strong>search</strong> }权限，</p>
-<p>  谁缺少权限：     scontext&#x3D;u:r:<strong>system_app</strong>:s0</p>
-<p>  对哪个文件缺少权限：tcontext&#x3D;u:object_r:<strong>dhcp_data_file</strong>:s0</p>
-<p>  什么类型的文件：   tclass&#x3D;<strong>dirdir</strong></p>
-<p>  完整的意思： system_app进程对dir类型的dhcp_data_file缺少search权限。</p>
-</blockquote>
+<div class="trm-note info"><div class="trm-note-title">分析过程：</div><ul>
+<li><p>缺少什么权限：   { <strong>search</strong> }权限，</p>
+</li>
+<li><p>谁缺少权限：     scontext&#x3D;u:r:<strong>system_app</strong>:s0</p>
+</li>
+<li><p>对哪个文件缺少权限：tcontext&#x3D;u:object_r:<strong>dhcp_data_file</strong>:s0</p>
+</li>
+<li><p>什么类型的文件：   tclass&#x3D;<strong>dirdir</strong></p>
+</li>
+<li><p>完整的意思： system_app进程对dir类型的dhcp_data_file缺少search权限。</p>
+</li>
+</ul>
+</div>
+
 <p><strong>解决方法</strong>：修改<code>device/qcom/sepolicy/vendor/common/system_app.te</code>，加入以下内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">allow  system_app   dhcp_data_file:dir  search;</span><br></pre></td></tr></table></figure>
 <p>重新编译，刷机才会生效。</p>
@@ -597,7 +600,8 @@
 <p>这里再举一个avc报错的例子，然后下面是一条添加多个权限的示例</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">allow  system_app   dhcp_data_file:file  &#123; read getattr open &#125;;</span><br></pre></td></tr></table></figure>
 
-<p>当然selinux权限还有很多可以研究的，但是目前掌握了这些已经基本够用了。Hava a nice day~</p>
+<p>当然selinux权限还有很多可以研究的，但是目前掌握了这些已经基本够用了。</p>
+<p>Hava a nice day~</p>
 <p>[^1]: 转自<a href="https://www.jianshu.com/p/71acd8dad454" title="《linux：SUID、SGID详解》 崔玉和">linux：SUID、SGID详解</a><br>[^2]: 转自<a href="https://blog.csdn.net/u013553529/article/details/53167072" title="《Android 权限的一些细节》 爱博客大伯">Android权限的一些细节</a><br>[^3]: 转自<a href="https://blog.csdn.net/vshuang/article/details/43639211?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param" title="《Android安全机制（1）uid，gid与pid》 黄舒颖 咸丫蛋">Android安全机制（1）uid，gid与pid</a><br>[^4]: 转自<a href="https://blog.csdn.net/vshuang/article/details/44001661?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.channel_param" title="《Android 权限的一些细节》 黄舒颖 咸丫蛋">Android安全机制（2）AndroidPermission权限控制机制</a><br>[^5]: 转自<a href="https://blog.csdn.net/flykozhang/article/details/50376065" title="《Android 自定义Permission;permission-tree;permission-group自定义（权限，权限组，权限树）》 FlykoZhang">Android自定义Permission;permission-tree;permission-group自定义（权限，权限组，权限树）</a><br>[^6]: 转自<a href="https://blog.csdn.net/a332324956/article/details/17452749?utm_source=blogxgwz0&utm_medium=distribute.pc_relevant.none-task-blog-title-6&spm=1001.2101.3001.4242" title="《android权限代码分析(二)》 明哥的江湖">android权限代码分析(二)</a><br>[^7]: 转自<a href="https://blog.csdn.net/muhuacat/article/details/55259204" title="《android 设置app root权限简单方法》 muhuacat">android 设置app root权限简单方法</a><br>[^8]: 转自<a href="https://blog.csdn.net/tung214/article/details/72734086" title="《Android SELinux avc dennied权限问题解决方法》 缥缈孤鸿影_love">Android SELinuxavcdennied权限问题解决方法</a></p>
 ]]></content>
       <categories>
@@ -614,7 +618,7 @@
     <title>git 代码管理工具常用命令</title>
     <url>/2019/09/18/git%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<p>首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。</p>
-<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#103;&#105;&#x74;&#117;&#x73;&#x65;&#114;&#x31;&#64;&#103;&#x69;&#x74;&#x2e;&#99;&#111;&#109;">&#103;&#105;&#x74;&#117;&#x73;&#x65;&#114;&#x31;&#64;&#103;&#x69;&#x74;&#x2e;&#99;&#111;&#109;</a></p>
+<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#x67;&#105;&#116;&#x75;&#115;&#x65;&#114;&#x31;&#64;&#x67;&#x69;&#116;&#x2e;&#x63;&#111;&#109;">&#x67;&#105;&#116;&#x75;&#115;&#x65;&#114;&#x31;&#64;&#x67;&#x69;&#116;&#x2e;&#x63;&#111;&#109;</a></p>
 <h3 id="配置git提交时候的全局用户名"><a href="#配置git提交时候的全局用户名" class="headerlink" title="配置git提交时候的全局用户名"></a>配置git提交时候的全局用户名</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gitconfig --global user.name gituser1</span><br></pre></td></tr></table></figure>
 
 <h3 id="配置git提交时候的全局邮箱"><a href="#配置git提交时候的全局邮箱" class="headerlink" title="配置git提交时候的全局邮箱"></a>配置git提交时候的全局邮箱</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email gituser1@git.com</span><br></pre></td></tr></table></figure>
@@ -737,7 +741,10 @@
 <p>admin是你想使用的用户名，然后输入两次密码。</p>
 <h3 id="重启Apache"><a href="#重启Apache" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restar</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="关联svn和LDAP"><a href="#关联svn和LDAP" class="headerlink" title="关联svn和LDAP"></a>关联svn和LDAP</h2><h2 id="a-pache添加ldap组件-修改apache中的svn配置文件"><a href="#a-pache添加ldap组件-修改apache中的svn配置文件" class="headerlink" title="###a pache添加ldap组件### 修改apache中的svn配置文件"></a>###a pache添加ldap组件<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo a2enmod ldap</span><br><span class="line"></span><br><span class="line">sudo a2enmod authnz_ldap</span><br></pre></td></tr></table></figure><br>### 修改apache中的svn配置文件<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure></h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line">DAV svn</span><br><span class="line">SVNParentPath /home/svn/</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">#LDAP</span><br><span class="line">AuthBasicProvider ldap</span><br><span class="line">AuthLDAPBindDN &quot;cn=admin,dc=example,dc=com&quot;</span><br><span class="line">AuthLDAPBindPassword admin</span><br><span class="line">AuthLDAPURL &quot;ldap://localhost:389/dc=example,dc=com?uid?sub?(objectClass=*)&quot;</span><br><span class="line"></span><br><span class="line">AuthzSVNAccessFile /etc/apache2/dav_svn.authz</span><br><span class="line">require valid-user</span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="关联svn和LDAP"><a href="#关联svn和LDAP" class="headerlink" title="关联svn和LDAP"></a>关联svn和LDAP</h2><h3 id="a-pache添加ldap组件"><a href="#a-pache添加ldap组件" class="headerlink" title="a pache添加ldap组件"></a>a pache添加ldap组件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo a2enmod ldap</span><br><span class="line"></span><br><span class="line">sudo a2enmod authnz_ldap</span><br></pre></td></tr></table></figure>
+<h3 id="修改apache中的svn配置文件"><a href="#修改apache中的svn配置文件" class="headerlink" title="修改apache中的svn配置文件"></a>修改apache中的svn配置文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line">DAV svn</span><br><span class="line">SVNParentPath /home/svn/</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">#LDAP</span><br><span class="line">AuthBasicProvider ldap</span><br><span class="line">AuthLDAPBindDN &quot;cn=admin,dc=example,dc=com&quot;</span><br><span class="line">AuthLDAPBindPassword admin</span><br><span class="line">AuthLDAPURL &quot;ldap://localhost:389/dc=example,dc=com?uid?sub?(objectClass=*)&quot;</span><br><span class="line"></span><br><span class="line">AuthzSVNAccessFile /etc/apache2/dav_svn.authz</span><br><span class="line">require valid-user</span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="重启Apache-1"><a href="#重启Apache-1" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
 <h2 id="jenkins关联LDAP"><a href="#jenkins关联LDAP" class="headerlink" title="jenkins关联LDAP"></a>jenkins关联LDAP</h2><p>打开localhost：8080，jenkins默认安装在8080端口上</p>
 <p>依次进入–&gt;系统管理–&gt;Configure Global Security</p>
@@ -764,21 +771,17 @@
 <p>测试</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b cn=config dn</span><br><span class="line"></span><br><span class="line">ldapsearch -x -LLL -H ldap:/// -b dc=example,dc=com dn</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/ldap</span><br><span class="line"></span><br><span class="line">sudo vim add_content.ldif   //创建add_content.ldif添加下列文字</span><br></pre></td></tr></table></figure></h2><figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line"><span class="attribute">dn</span>: ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: People</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: Groups</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: cn=miners,ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixGroup</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: miners</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: uid=john,ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: inetOrgPerson</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: shadowAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">uid</span>: john</span><br><span class="line"></span><br><span class="line"><span class="attribute">sn</span>: Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">givenName</span>: John</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">mail</span>: 385691567@qq.com</span><br><span class="line"></span><br><span class="line"><span class="attribute">displayName</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">uidNumber</span>: 10000</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"><span class="attribute">userPassword</span>: johnldap</span><br><span class="line"></span><br><span class="line"><span class="attribute">gecos</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">loginShell</span>: /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="attribute">homeDirectory</span>: /home/john</span><br></pre></td></tr></table></figure>
+<p>添加用户</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/ldap</span><br><span class="line"></span><br><span class="line">sudo vim add_content.ldif   //创建add_content.ldif添加下列文字</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line"><span class="attribute">dn</span>: ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: People</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: Groups</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: cn=miners,ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixGroup</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: miners</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: uid=john,ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: inetOrgPerson</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: shadowAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">uid</span>: john</span><br><span class="line"></span><br><span class="line"><span class="attribute">sn</span>: Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">givenName</span>: John</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">mail</span>: 385691567@qq.com</span><br><span class="line"></span><br><span class="line"><span class="attribute">displayName</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">uidNumber</span>: 10000</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"><span class="attribute">userPassword</span>: johnldap</span><br><span class="line"></span><br><span class="line"><span class="attribute">gecos</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">loginShell</span>: /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="attribute">homeDirectory</span>: /home/john</span><br></pre></td></tr></table></figure>
 <hr>
 <figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line">ldapadd -x -D cn=admin,dc=example,dc=com -W -f add_content.ldif //添加ldif文件</span><br><span class="line"></span><br><span class="line">ldapsearch -x -LLL -b dc=example,dc=com &#x27;uid=john&#x27; cn gidNumber //查询john</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>-x:“简单”绑定;不使用默认SASL方法</p>
-</blockquote>
-<blockquote>
+<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>-x:“简单”绑定;不使用默认SASL方法</p>
 <p>-LLL:禁用打印无关的信息</p>
-</blockquote>
-<blockquote>
 <p>uid &#x3D;john:一个“过滤器”找到john用户</p>
-</blockquote>
-<blockquote>
 <p>cn gidNumber:请求某些特定属性的显示(默认是显示所有属性)</p>
-</blockquote>
+</div>
 <h2 id="redmine设置"><a href="#redmine设置" class="headerlink" title="redmine设置"></a>redmine设置</h2><hr>
 <p>认证模式（LDAP）</p>
 <p>名称：（随便填）</p>
@@ -809,10 +812,9 @@
     <url>/2014/12/15/ubuntu14.04%20%E5%AE%89%E8%A3%85redmine2.5.3/</url>
     <content><![CDATA[<h2 id="安装redmine的环境"><a href="#安装redmine的环境" class="headerlink" title="安装redmine的环境"></a>安装redmine的环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install -y apache2 php5 libapache2-mod-php5 mysql-server php5-mysql libapache2-mod-perl2 libcurl4-openssl-dev libssl-dev apache2-dev libapr1-dev libaprutil1-dev libmysqlclient-dev libmagickcore-dev libmagickwand-dev curl git-core patch build-essential bison zlib1g-dev libssl-dev libxml2-dev libxml2-dev sqlite3 libsqlite3-dev autotools-dev libxslt1-dev libyaml-0-2 autoconf automake libreadline6-dev libyaml-dev libtool imagemagick apache2-utils vim </span><br></pre></td></tr></table></figure>
 <h2 id="安装ruby"><a href="#安装ruby" class="headerlink" title="安装ruby"></a>安装ruby</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get -y install ruby2.0 ruby2.0-dev ruby1.9.1-dev </span><br></pre></td></tr></table></figure>
+<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>安装过程中数据库的管理员密码为：admin</p>
+</div>
 
-<blockquote>
-<p>安装过程中数据库的管理员密码为：admin</p>
-</blockquote>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p</span><br></pre></td></tr></table></figure>
 <h3 id="创建空的数据库"><a href="#创建空的数据库" class="headerlink" title="创建空的数据库"></a>创建空的数据库</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE redmine <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;redmine&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;my_password&#x27;</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> redmine.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;redmine&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
@@ -876,15 +878,8 @@
 <h3 id="Oracle-VM-VirtualBox-Extension-Pack安装"><a href="#Oracle-VM-VirtualBox-Extension-Pack安装" class="headerlink" title="Oracle_VM_VirtualBox_Extension_Pack安装"></a>Oracle_VM_VirtualBox_Extension_Pack安装</h3><p><a href="http://download.virtualbox.org/virtualbox">http://download.virtualbox.org/virtualbox</a>查看对应版本</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> ~/ISO</span><br><span class="line"><span class="built_in">cd</span> ISO</span><br><span class="line">wget http://download.virtualbox.org/virtualbox/4.3.16/Oracle_VM_VirtualBox_Extension_Pack-4.3.16-95972.vbox-extpack</span><br><span class="line">sudo vboxmanage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.3.16-95972.vbox-extpack</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>卸载指定扩展包<br>VBoxManage extpack uninstall <name></p>
-</blockquote>
-<blockquote>
-<p>显示已安装的扩展包<br>VBoxManage list extpacks</p>
-</blockquote>
-<blockquote>
-<p>移除安装扩展包失败或卸载扩展包失败时可能遗留下来的文件和目录<br>VBoxManage extpack cleanup</p>
-</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#卸载指定扩展包</span></span><br><span class="line">VBoxManage extpack uninstall &lt;name&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#显示已安装的扩展包</span></span><br><span class="line">VBoxManage list extpacks</span><br><span class="line"></span><br><span class="line"><span class="comment">#移除安装扩展包失败或卸载扩展包失败时可能遗留下来的文件和目录</span></span><br><span class="line">VBoxManage extpack cleanup</span><br></pre></td></tr></table></figure>
+
 <hr>
 <h3 id="创建Ubuntu-Server虚拟机"><a href="#创建Ubuntu-Server虚拟机" class="headerlink" title="创建Ubuntu Server虚拟机"></a>创建Ubuntu Server虚拟机</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vboxmanage createvm --name <span class="string">&quot;ubuntuserver&quot;</span> --ostype Ubuntu_64 --register //创建并注册一个虚拟机取名为“ubuntuserver”操作系统类型改为Ubuntu_64</span><br></pre></td></tr></table></figure>
 <p>Settings file: ‘&#x2F;home&#x2F;stack&#x2F;VirtualBox VMs&#x2F;ubuntuserver&#x2F;ubuntuserver.vbox’            </p>
@@ -1324,9 +1319,9 @@
 <h3 id="设置U盘启动"><a href="#设置U盘启动" class="headerlink" title="设置U盘启动"></a>设置U盘启动</h3><p>这个很重要,为了启动后能首先加载usb</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nano /etc/mkinitcpio.conf</span><br></pre></td></tr></table></figure>
 <p>在udev 后面加入usb</p>
-<blockquote>
-<p>HOOKS&#x3D;”base udev usb autodetect modconf block filesystems keyboard fsck”</p>
-</blockquote>
+<p style="border-radius:4px; border:1px; margin:20px 2px; background-color:#65909090; padding:12px 20px; color: #F8F8FF;">HOOKS=”base udev usb autodetect modconf block filesystems keyboard fsck”</p>
+
+
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkinitcpio -p linux</span><br></pre></td></tr></table></figure>
 <p>重新初始化内存盘</p>
 <h3 id="安装引导程序"><a href="#安装引导程序" class="headerlink" title="安装引导程序"></a>安装引导程序</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pacman -S syslinux gptfdisk</span><br></pre></td></tr></table></figure>
@@ -1337,9 +1332,11 @@
 <p>修改</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># UI menu.c32 注释掉</span></span><br><span class="line">UI vesamenu.c32 取消注释</span><br></pre></td></tr></table></figure>
 <p>把LABEL arch下面的root改成</p>
-<blockquote>
-<p>root&#x3D;UUID&#x3D;”****************************” rw<br>完成了这步,在你开机选这个U盘启动后应该就能出现syslinux的引导界面了,如果不行,请自行wiki换grub之类的</p>
-</blockquote>
+<p style="border-radius:4px; border:1px; margin:20px 2px; background-color:#65909090; padding:12px 20px; color: #F8F8FF;">root=UUID="****************************" rw</p>
+
+
+
+<p>完成了这步,在你开机选这个U盘启动后应该就能出现syslinux的引导界面了,如果不行,请自行wiki换grub之类的</p>
 <h3 id="新建用户"><a href="#新建用户" class="headerlink" title="新建用户"></a>新建用户</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">passwd </span><br></pre></td></tr></table></figure>
 <p>先设置root用户的密码</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pacman -S zsh</span><br></pre></td></tr></table></figure>
@@ -1392,16 +1389,22 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo pacman -S screenfetch</span><br></pre></td></tr></table></figure>
 <p>要让screenfetch在打开终端是自动输出，在<code>~/.zshrc</code>里加入</p>
 <p>最后<br><code>exit</code>然后<code>umount -R /mnt</code>关掉虚拟机,拔下U盘,去嗨吧</p>
+<hr>
 <p>20160423-update</p>
 <h5 id="安装必要字体"><a href="#安装必要字体" class="headerlink" title="安装必要字体"></a>安装必要字体</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pacman -S ttf-dejavu wqy-zenhei wqy-microhei</span><br></pre></td></tr></table></figure>
+
 <h5 id="安装火狐"><a href="#安装火狐" class="headerlink" title="安装火狐"></a>安装火狐</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pacman -S firefox</span><br></pre></td></tr></table></figure>
+
 <h5 id="安装net-tools（包含ifconfig）"><a href="#安装net-tools（包含ifconfig）" class="headerlink" title="安装net-tools（包含ifconfig）"></a>安装net-tools（包含ifconfig）</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pacman -S net-tools</span><br></pre></td></tr></table></figure>
 <p>修改<code>/boot/syslinux/syslinux.cfg</code></p>
-<blockquote>
-<p>timeout &#x3D; 0<br>注销所有菜单选项</p>
-</blockquote>
+<p style="border-radius:4px; border:1px; margin:20px 2px; background-color:#65909090; padding:12px 20px; color: #F8F8FF;">timeout = 0</p>
+
+
+<p>注销所有菜单选项</p>
 <h5 id="启动sddm"><a href="#启动sddm" class="headerlink" title="启动sddm"></a>启动sddm</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> sddm.service</span><br></pre></td></tr></table></figure>
+
 <h5 id="安装wget，git"><a href="#安装wget，git" class="headerlink" title="安装wget，git"></a>安装wget，git</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pacamn -S wget git</span><br></pre></td></tr></table></figure>
+
 <h5 id="安装oh-my-zsh"><a href="#安装oh-my-zsh" class="headerlink" title="安装oh-my-zsh"></a>安装oh-my-zsh</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
 <h5 id="安装Yaourt"><a href="#安装Yaourt" class="headerlink" title="安装Yaourt"></a>安装Yaourt</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://aur.archlinux.org/package-query.git</span><br><span class="line"><span class="built_in">cd</span> package-query</span><br><span class="line">makepkg -si</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">git <span class="built_in">clone</span> https://aur.archlinux.org/yaourt.git</span><br><span class="line"><span class="built_in">cd</span> yaourt</span><br><span class="line">makepkg -si</span><br><span class="line"><span class="built_in">cd</span> ..</span><br></pre></td></tr></table></figure>
 
@@ -1410,6 +1413,8 @@
 <h5 id="安装搜狗中文输入法"><a href="#安装搜狗中文输入法" class="headerlink" title="安装搜狗中文输入法"></a>安装搜狗中文输入法</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yaourt -S fcitx-sogoupinyin</span><br></pre></td></tr></table></figure>
 <p>由于设置的输出是UTF-8，所以终端中不做设置可能会显示为乱码，我们设置下nano ~&#x2F;.zshrc</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> LC_ALL=en_US.UTF-8  </span><br><span class="line"><span class="built_in">export</span> LANG=en_US.UTF-8</span><br></pre></td></tr></table></figure>
+
+<hr>
 <p>20170826-update</p>
 <h5 id="安装chrome"><a href="#安装chrome" class="headerlink" title="安装chrome"></a>安装chrome</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yaourt -S google-chrome</span><br></pre></td></tr></table></figure>
 <h5 id="解压软件"><a href="#解压软件" class="headerlink" title="解压软件"></a>解压软件</h5><p>需要图形化的解压软件可以这样：</p>
