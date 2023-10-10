@@ -1,10 +1,6 @@
 .trm-publication {
     word-break: break-all;
-
-    >p:first-of-type {
-        color  : var(--theme-color, #00283a) !important;
-        opacity: 1 !important;
-    }
+    // color     : var(--theme-color, #00283a);
 
     p {
         margin-bottom: 20px;
@@ -122,7 +118,8 @@
     h2,
     h3,
     h4,
-    h5 {
+    h5,
+    h6 {
         margin-top   : 2rem;
         margin-bottom: 1rem;
         font-weight  : bold;
@@ -150,14 +147,6 @@
                 }
             }
         }
-    }
-
-    h4:before,
-    h5:before,
-    h6:before {
-        display: inline-block;
-        width  : 1em;
-        content: '#';
     }
 
     h1 {
