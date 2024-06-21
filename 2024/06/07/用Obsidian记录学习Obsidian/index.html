@@ -15,7 +15,7 @@
 <meta property="og:description" content="需求以及笔记软件的比较首先markdown语法真的好用，我也是typora的付费用户，typora用来写一些文档确实不错，渲染效果各方面都好，就是不适合作为一个笔记软件，或者说，我其实更希望能有一个all in one的软件来对我自己的日常事物进行管理，类似于第二大脑，我也浅浅的用了下notion，很方便，但是没有类似于滴答清单的提醒功能，而滴答清单的日历视图是收费，所以我就找到了obsidian">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-06-07T05:29:00.000Z">
-<meta property="article:modified_time" content="2024-06-17T08:28:08.531Z">
+<meta property="article:modified_time" content="2024-06-21T06:14:04.915Z">
 <meta property="article:author" content="Drace Wang">
 <meta property="article:tag" content="note">
 <meta property="article:tag" content="blog">
@@ -64,7 +64,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"dracewang.github.io","author":"Drace Wang","root":"/","typed_text":["一个平凡的码农"],"theme_version":"0.0.0","theme":{"switch":true,"default":"style-dark"},"favicon":{"logo":"/img/favicon.gif","icon16":"/img/favicon.gif","icon32":"/img/favicon.gif","appleTouchIcon":null,"webmanifest":null,"visibilitychange":true,"hidden":"/failure.ico","showText":"(/≧▽≦/)回来啦~","hideText":"(●—●)后台ing..."},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":true,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy","tags":"fab fa-tags"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":200},"toc":{"post_title":true},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"preload":true,"path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-06-17 16:28:08"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-06-21 14:14:04"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=0.0.0" id="trm-switch-style">
@@ -425,12 +425,8 @@
 <td align="center">官方自带</td>
 <td align="center">官方付费，可以联动hexo</td>
 </tr>
-<tr>
-<td align="center">暂时想到这些，后续想到再加吧。总的来看，notion更加的完善是一个相对完善完整的产品，而obsidian就好像还在进化，同时因为其开源以及三方插件（管中窥豹）的开放和自由，因此似乎其更能完成复杂需求，也就是潜力高。后面看看我能给它整成啥样吧。</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
 </tbody></table>
+<p>暂时想到这些，后续想到再加吧。总的来看，notion更加的完善是一个相对完善完整的产品，而obsidian就好像还在进化，同时因为其开源以及三方插件（管中窥豹）的开放和自由，因此似乎其更能完成复杂需求，也就是潜力高。后面看看我能给它整成啥样吧。</p>
 <p>ok，来整理下我的需求：</p>
 <ul>
 <li>日历视图</li>
@@ -463,8 +459,9 @@
 <p>2024-06-12<br>安装了excalidraw和typewritescoll插件<br>安装了fileExpolercount和various-complements插件</p>
 <p>2024-06-13<br>安装了remotely save插件，想着iphone手机上通过群晖的webdav来实现远程同步，既能保障本地化以及实时备份同步，又能有不输云服务的同步性能。<br>    在这一趴中遇到了几个小问题，先是ios11之后就禁止app使用http不安全的api，只能使用https，虽然群晖套件中的webdav可以开https，但是又有个新的问题就是ssl证书的问题，群晖自己的证书不是公有的，并不授信，所以，我先用阿里云申请了一个3个月的免费ssl证书测试了下，测试成功。同步的时候还需要设置成相同的根目录；好吧，总的来说，还是成功了。<br>那么 </p>
 <ul>
-<li><input checked="" disabled="" type="checkbox"> 测试一下reminder是否可以在iphone上调用系统提醒功能 📅 2024-06-14 ✅ 2024-06-14 需要手机开着obsidian，似乎只能在obsidian中提示没有系统提醒。<br>安装了kanban和emoji表情👍<br>安装了auto link title和editing toolbar<br>floating Toc因为官方有了大纲，暂时就不装了<br>安装了callout manager<br>wow~，<a target="_blank" rel="noopener" href="https://pkmer.cn/products/widget/widgetMarket/">PKMer_挂件集市</a>这个可以哦🤩</li>
+<li><input checked="" disabled="" type="checkbox"> 测试一下reminder是否可以在iphone上调用系统提醒功能 📅 2024-06-14<br>✅ 2024-06-14 需要手机开着obsidian，似乎只能在obsidian中提示没有系统提醒。</li>
 </ul>
+<p>安装了kanban和emoji表情👍<br>安装了auto link title和editing toolbar<br>floating Toc因为官方有了大纲，暂时就不装了<br>安装了callout manager<br>wow~，<a target="_blank" rel="noopener" href="https://pkmer.cn/products/widget/widgetMarket/">PKMer_挂件集市</a>这个可以哦🤩</p>
 <p>2024-06-14<br>pkmer的教程看的差不多了，暂时就通过下载插件来完善obsidian功能，首先是日历视图，下载了一堆插件：</p>
 <ul>
 <li>full calendar ❌</li>
@@ -482,7 +479,7 @@
 <li>使用笔记文章中使用todo格式（好像也能调用快捷键创建task模板来添加）来直接设置代办事项，很适合学习或者做事的时候突然想到要做个什么事情。</li>
 </ol>
 <p>来看下联动hexo发布博客<br><a target="_blank" rel="noopener" href="https://forum-zh.obsidian.md/t/topic/32180">基于obsidian插件、hexo和github action的博客方案 - 经验分享 - Obsidian 中文论坛</a><br>这篇文章主要在说本地部署预览然后上传的方式，去年我折腾的时候hexo已经改用action来生成github page了，所以没多大用。<br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000042111566">Hexo + Obsidian + Git 完美的博客部署与编辑方案</a><br>这篇文章相对我来说更有价值一些，利用git插件上传github仓库，然后action会自动生成，似乎更合适，那么开始实践。<br>把这篇文章上传到github仓库，并显示到自己的博客上。试试看~<br><em>这个git只是能在obsidian中调用git，并进行一个显示，主体还是需要用git来操作的，怎么说能便捷化一些。</em></p>
-<p>那我可能有两条路子走：<br>1.直接在obsidian仓库下面使用git来做远程仓库，然后写好的文章直接push到github上<br>2.借用文件同步软件，把写好的文章放到obsidian中指定的文件夹，然后单向同步到github在本机电脑中clone下来的仓库，然后用git push到远端github库上。<br>两种方式都试试吧。<br>git部分操作参考了<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_55688821/article/details/133849556">Obsidian +Obsidian Git插件 + Gitee 自动同步笔记-CSDN博客</a></p>
+<p>那我可能有两条路子走：<br><del>1.直接在obsidian仓库下面使用git来做远程仓库，然后写好的文章直接push到github上</del>❌<br>2.借用文件同步软件，把写好的文章放到obsidian中指定的文件夹，然后单向同步到github在本机电脑中clone下来的仓库，然后用git push到远端github库上。<br>两种方式都试试吧。<br>git部分操作参考了<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_55688821/article/details/133849556">Obsidian +Obsidian Git插件 + Gitee 自动同步笔记-CSDN博客</a></p>
 <p>2024-06-16<br>今天安装了file tree alternative和iconize插件，前者可以聚焦文件夹，后者可以添加图标，美化一下，明天操作下。</p>
 <p>2024-06-17<br>今天把File tree设置下，设置完成之后确实就影响不大了，到时候直接复制到<code>_post</code>文件夹下，git push就好。<br>然后下载了几个图标，设置了下，但是貌似file tree不能显示自定义图标，有点尴尬。</p>
 <p>对了，因为每次打开有视频链接的文章都会自动播放，有点烦人，试了下网上说的修改<code>&lt;iframe&gt;</code>标签为<code>&lt;vedio&gt;</code>标签，实测没有效果，增加<code>sandbox=&quot;&quot;</code>也不行。最后算了，世上无难事，只要肯放弃~😜</p>
@@ -547,6 +544,26 @@
             <span data-number="02"></span>
         </h5>
     </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
+        <div class="trm-older-publication">
+            
+            <a class="trm-op-top trm-anima-link" href="/2024/06/19/%E5%90%84%E7%A7%8D%E4%B8%AA%E4%BA%BA%E6%97%A5%E7%A8%8B%E7%AE%A1%E7%90%86GTD%E5%AF%B9%E6%AF%94/">
+                <span class="trm-op-cover">
+                    <img alt="cover" class="no-fancybox" src="https://s2.loli.net/2024/06/19/EnplCtj9aL5wWQx.png">
+                </span>
+                <h6 class="trm-op-title">各种个人日程管理GTD对比</h6>
+            </a>
+            <div class="trm-divider trm-mb-15 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>2024/06/19</li>
+                <li>13:42</li>
+                <li>日程管理</li>
+            </ul>
+        </div>
+    </div>
+</div>
     
     
         <div class="col-lg-6">
