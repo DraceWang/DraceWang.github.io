@@ -1,102 +1,37 @@
-# Open Graph protocol
-open_graph: true
-
-# User info
-user:
-  name: Drace Wang
-  first_name: Wang
-  last_name: Drace
-  email: wsdboy007@163.com
-  domain: https://dracewag.github.ico
-  avatar: /img/avatar.jpg
-  describe: 
-  ruleText: 
-
-# Configure the icon information of the site
+# logo
 favicon:
-  logo: /img/favicon.gif
-  icon16: /img/favicon.gif
-  icon32: /img/favicon.gif
-  appleTouchIcon: 
-  webmanifest:
+  logo: 
+  icon16: 
+  icon32: 
+  apple_touch_icon: 
+  webmanifest: 
   visibilitychange: true
-  hidden: /failure.ico # Displays an icon when not visible
-  showText: favicon.showText
-  hideText: favicon.hideText
+  hidden: failure.ico
+  show_text: 回来啦~
+  hide_text: (●—●)看不见我！
 
-# Theme resource files or plug-ins
-assets:
-  # The cdn configuration of the js inside the theme
-  internal_provider: local
-  # cdn configuration of third-party js
-  third_party_provider: unpkg
-  # The plug-in used by the theme
-  plugin:
-    hexo_theme_async:
-      rowcss: css/plugins/bootstrap.row.css
-      typing: js/plugins/typing.js
-      search: js/plugins/local_search.js
-      main: js/main.js
-  # Icon configuration
-  icons: 
-    type: font # font symbol
-    css:  css/plugins/font-awesome.min.css
-    js:
-
-icons:
-  tags: fab fa-tags
-
-# Top navigation menu
 top_bars:
   - title: menu.home
     url: /
   - title: menu.archives
     url: /archives/
-  - title: menu.tags
-    url: /tags/
+    children:
+      - title: 标签
+        url: /tags/
+      - title: 分类
+        url: /categories/
+  - title: menu.links
+    url: /links/
   - title: menu.about
     url: /about/
+		noswup: true
 
-# Banner settings
-banner:
-  use_cover: true
-  default:
-    type: img
-    bgurl: /img/banner.png
-    bannerText: Hi my new friend!
-    position: top
-    fit: cover
-  index:
-    type: video
-    bgurl: /video/banner4index4.mp4
-    bannerTitle: 江湖险恶，<br>不行就撤。
-    bannerText: Hi my new friend!
-    videoUrl: 
-  archive:
-    bannerTitle: 吾日三省吾身，<br>关吾什么屁事
-    bannerText: The article archive
-  links:
-    bannerTitle: 莫愁前路无知己，<br>天下谁人不识君。
-    bannerText: A link to a friend's website
-  tags:
-    bannerTitle: 何以解忧，<br>唯有退休。
-    bannerText: The tags cloud
-  comment:
-    bannerTitle: 
-    bannerText: The magic tree hole
-  about:
-    type: video
-    bgurl: /video/banner4about.mp4
-    bannerTitle: 枯藤老树昏鸦，<br>摸鱼然后回家。
-    bannerText: About me
-
-# Sidebar settings
 sidebar:
-  typedTextPrefix: 
-  typedText: ["一个平凡的码农"]
+  typedTextPrefix: 一个  
+  typedText: [ '平凡的码农' ]
   info: 
     - key: 居住地
-      val: 中国
+      val: 无锡
     - key: 码龄
       val: 7
   social:
@@ -111,14 +46,165 @@ sidebar:
     - name: weibo
       icon: fab fa-weibo
       url: https://www.weibo.com/u/2421168192
-    # - name: TikTok
-    #   icon: fab fa-tiktok
-    #   url: https://www.douyin.com/user/MS4wLjABAAAAZlb15mIF9FlDvrFG1PBRn0SKg2IRcXXUBzvF8pfIwlk
     - name: ZhiHu
       icon: fab fa-zhihu
       url: https://www.zhihu.com/people/wang-shun-da-55
-    
 
+footer:
+  powered:
+    enable: true
+  beian:
+    enable: false
+    icp: 
+  copyright_year: 2022
+  live_time:
+    enable: true
+    prefix: footer.tips
+    start_time: 10/08/2023 10:00:00
+  custom_text:
+
+search:
+  enable: true
+  type: local
+  preload: true
+  trigger: auto
+
+baidu_push: true
+
+reward:
+  enable: false
+  methods:
+    - name: 微信
+      path: https://mp-8b005489-7724-4f8c-afdd-30192ff4f7ae.cdn.bspapp.com/cloudstorage/61a57135-2e65-4d51-8be1-03b8bd1c595e.jpg
+    - name: 支付宝
+      path: https://mp-8b005489-7724-4f8c-afdd-30192ff4f7ae.cdn.bspapp.com/cloudstorage/a21e9954-22f2-43fe-b3b0-3dba1fdde3ed.jpg
+    - name: QQ
+      path: https://mp-8b005489-7724-4f8c-afdd-30192ff4f7ae.cdn.bspapp.com/cloudstorage/69fb1903-d0dc-4169-9a02-1e76ec8e7761.jpg
+
+creative_commons:
+  license: by-nc-sa
+  language: deed.zh
+  post: true
+  clipboard: true
+
+swup: true
+
+toc:
+  enable: true
+  list_number: true
+  max_depth: 6
+  min_depth: 1
+
+rightside:
+  readmode: true
+  aside: true
+
+post_pagination: 
+  enable: true 
+  type: small
+
+cdn:
+  js:
+    head:
+    base: [demo.js]
+
+assets:
+  third_party_provider: unpkg
+
+highlight:
+  title: default
+  height_limit: 200
+
+theme: 
+  switch: true
+  default: auto
+
+cover:
+  default: 
+    - /img/block.jpg
+    - https://img2.wallspic.com/previews/7/6/8/1/7/171867/171867-wu_kong-chao_ji_sai_ya_ren-sai_ya_ren-zamasu-long_zhu-500x.jpg
+    - https://img3.wallspic.com/previews/2/0/1/8/6/168102/168102-yi_shu-ka_tong-mian_bu_biao_qing-kuai_le_de-ji_qie-500x.jpg
+    - https://img2.wallspic.com/previews/2/6/4/3/7/173462/173462-qi_fen-zi_se_de-zi_ran_jing_guan-yu_hui-de_ping_xian-500x.jpg
+    - https://img2.wallspic.com/previews/3/3/9/1/3/131933/131933-mo_xing-xiao_jie-huang_se_de-nu_hai-fa_xing-500x.jpg
+    - https://img1.wallspic.com/previews/8/3/4/6/2/126438/126438-wei_lai_zhu_yi-shu_ma_yi_shu-jie_duan-zi_ben_shi-yi_shu-500x.jpg
+    - https://img2.wallspic.com/previews/0/1/5/0/7/170510/170510-guang-azure-zi_se_de-zi_ran_huan_jing-zi_ran_jing_guan-500x.jpg
+    - https://img2.wallspic.com/previews/3/6/9/6/5/156963/156963-yi_shu-qi_fen-yu_hui-shou_shi-ren_men_zai_zi_ran_jie-500x.jpg
+    - https://img1.wallspic.com/previews/0/9/3/5/6/165390/165390-qi_fen-zi_se_de-zi_ran_huan_jing-zi_ran_jing_guan-tian_wen_xue_dui_xiang-500x.jpg
+    - https://img3.wallspic.com/previews/2/8/6/1/7/171682/171682-yi_kuai-xing_zhi-ye_ti-yi_shu-shui_xia-500x.jpg
+    - https://img1.wallspic.com/previews/7/1/9/9/89917/89917-bo_xi_ta_nuo-an_zhuang_de_feng_jing-cheng_shi-suo_lun_tuo-shan_zhan-500x.jpg  
+    - https://img1.wallspic.com/previews/6/2/3/5/6/165326/165326-pang_ke2077-pang_ke-qi_fen-xing_zhi-zi_se_de-500x.jpg
+    - https://img2.wallspic.com/previews/8/9/4/5/6/165498/165498-ka_tong-tao-pin_hong_se-zhang_zhang_de_tou_fa-ji_qie-500x.jpg
+    - https://img3.wallspic.com/previews/5/7/4/2/7/172475/172475-yi_shu-tao-tou_fa-ka_tong-500x.jpg  
+    - https://img2.wallspic.com/previews/5/0/9/0/70905/70905-hai_yang-ma_er_dai_fu-tian_kong-du_jia_cun-huan_jiao-500x.jpg  
+    - https://img3.wallspic.com/previews/4/3/4/8/6/168434/168434-xing_zhi-zi_ran_jing_guan-dan_huang-shui_dao-zhi_bei-500x.jpg
+    - https://img2.wallspic.com/previews/6/5/4/5/6/165456/165456-giy_fu_gang-e_mo_sha_shoukimetsu_no_yaiba-shan_zi_de_yi_shu-zi_se_de-dian_lan_se_de-500x.jpg
+    - https://img1.wallspic.com/previews/5/4/0/4/7/174045/174045-jian_ying-qi_fen-ren_men_zai_zi_ran_jie-tian_wen_xue_dui_xiang-yi_shu-500x.jpg
+    - https://img1.wallspic.com/previews/9/3/1/6/5/156139/156139-feng_jing_hua-yi_shu-shu_ma_yi_shu-qi_fen-sheng_tai_qu-500x.jpg
+    - https://img2.wallspic.com/previews/7/6/4/5/7/175467/175467-wo_de_xue_shu_jie_de_ying_xiong-tao-yi_shu-ka_tong-azure-500x.jpg
+    - https://img1.wallspic.com/previews/3/7/0/0/7/170073/170073-liang_ge_ling-ka_tong-shou_shi-chuang_zao_xing_de_yi_shu-hong_se_de-500x.jpg
+    - https://img1.wallspic.com/previews/1/8/3/6/6/166381/166381-shi_zi-xin_ba-bai_se_shi_zi-hu_xu-mao_ke-500x.jpg
+    - https://img3.wallspic.com/previews/4/2/2/3/7/173224/173224-ri_luo-shui_zi_yuan-qi_fen-yu_hui-zi_se_de-500x.jpg
+    - https://img1.wallspic.com/previews/7/5/7/9/6/169757/169757-ji_bo_li_de_bo_wu_guan-zi_ran_jing_guan-yi_shu-ji_yun-500x.jpg  
+    - https://img1.wallspic.com/previews/5/2/0/6/7/176025/176025-qi_fen-tian_wen_xue_dui_xiang-yi_shu-dian_lan_se_de-yuan_quan-500x.jpg
+    - https://img3.wallspic.com/previews/6/5/8/1/4/141856/141856-hen_ku_de-hui_hua-yu_yan_jing_tou-zhai_nan-tu_xing_she_ji-500x.jpg
+    - https://img1.wallspic.com/previews/2/1/6/5/6/165612/165612-kimetsu_no_yaiba-e_mo_sha_shoukimetsu_no_yaiba-tao-tou_fa-wai_tao-500x.jpg
+    - https://img3.wallspic.com/previews/5/1/0/2/4/142015/142015-feng_ge-ka_ka_xi_qi_mu-huo_ying_ren_zhe-tu_xing_she_ji-shi_jue_yi_shu-500x.jpg
+    - https://img1.wallspic.com/previews/8/8/7/8/5/158788/158788-e_mo_sha_shoukimetsu_no_yaiba-shnen_man_hua-tao-ka_tong-azure-500x.jpg
+  type: random
+
+# layout:
+#   footer: async/footer
+#   page_loading: async/page-loading
+#   post_card: async/post-card
+#   fixed_btn: async/fixed-btn
+#   header_search: async/empty
+
+banner:
+	danmu: 
+		enable: false
+		avatar: false
+		delayRange: 5000
+		speed: 80
+  default:
+    type: img
+    bgurl: /img/banner.png
+    banner_text: Hi my new friend!
+    position: top
+    fit: cover
+  index:
+    type: video
+    bgurl: /video/banner4index4.mp4
+    banner_title: 江湖险恶，<br>不行就撤。
+    banner_text: Hi my new friend!
+    videoUrl: 
+  archive:
+    banner_title: 吾日三省吾身，<br>关吾什么屁事
+    banner_text: The article archive
+  links:
+    banner_title: 莫愁前路无知己，<br>天下谁人不识君。
+    banner_text: A link to a friend's website
+  tags:
+    banner_title: 何以解忧，<br>唯有退休。
+    banner_text: The tags cloud
+  comment:
+    banner_title: 
+    banner_text: The magic tree hole
+  about:
+    type: video
+    bgurl: /video/banner4about.mp4
+    banner_title: 枯藤老树昏鸦，<br>摸鱼然后回家。
+    banner_text: About me
+
+# User info
+user:
+  name: Drace Wang
+  first_name: Wang
+  last_name: Drace
+  email: wsdboy007@163.com
+  domain: https://dracewag.github.ico
+  avatar: /img/avatar.jpg
+  describe: 
+  rule_text: 暂不接受个人博客以外的友链申请，确保您的网站内容积极向上，文章至少30篇，原创70%以上，部署HTTPS。
 
 # About page settings
 about:
@@ -130,196 +216,4 @@ about:
       <li>主题：Hexo-theme-async </li>
     </ul>
   privacy: 
-    本网站不会追踪访客行为，且不要求访客提供任何敏感信息（比如真实姓名、身份证号码、手机号等），因而也不存在任何隐私泄漏问题。访客参与评论，必须遵守法律法规和基本道德规范，文明礼貌。严禁发布任何有关淫秽、反动、暴力、博彩、恐吓、低俗的内容或违法信息，在尊重言论自由的同时请保持和平与理性。请勿对他人采取不友好的评论或其它过激行为。
-
-# Footer settings
-footer:
-  # Hexo link (Powered by Hexo).
-  powered:
-    enable: true
-  # Beian icp information for Chinese users. In China, every legal website should have a beian icp in website footer.
-  # https://beian.miit.gov.cn/
-  beian:
-    enable: false
-    icp: 
-  # Copyright date
-  copyrightYear:
-  # 
-  live_time:
-    enable: true
-    prefix: footer.tips
-    start_time: 10/08/2023 10:00:00
-  #
-  custom_text:
-
-# Here is a collection of articles related to configuration.
-#### Article configuration start ###
-# Reward (Donate)
-# If enable true, reward would be displayed in every posts and pages by default.
-# You can show or hide reward in a specific page throuth `reward: true | false` in Front Matter.
-reward:
-  enable: false
-  comment: reward.comment
-  # url:
-  methods:
-
-# Article table of contents
-toc:
-  enable: true
-  list_number: true
-  post_title: true
-  max_depth: 6
-  min_depth: 1
-
-# Archive page
-archive:
-  type: more # less more
-
-# Creative Commons 4.0 International License.
-# https://creativecommons.org/licenses/
-# Available values of license: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
-# You can set a language value if you prefer a translated version of CC license.
-# CC licenses are available in 39 languages, where you can find the specific and correct abbreviation you need.
-# Valid values of language: deed.zh, deed.en, deed.ja, etc.
-creative_commons:
-  license: by-nc-sa
-  language: deed.zh
-  post: true
-  clipboard: false
-
-# Customize the cover image
-cover:
-  default: /img/block.jpg
-  type: img # img || date || random
-
-# The previous and the next article
-post_pagination: 
-  enable: true 
-  type: small # large || small
-
-# img loading="lazy"
-lazyload:
-  enable: true
-
-# Displays outdated notice for a post (文章过期提醒)
-notice_outdate:
-  enable: false
-  style: flat # style: simple/flat
-  limit_day: 365 # When will it be shown
-  position: top # position: top/bottom
-#### Article configuration end ###
-
-# Page Visit Statistics
-webAnalytics:  
-  enable: false 
-  baidu:   # Baidu key
-  google:  # Tracking ID for Google statistics
-  tencent: # Tencent statistics
-    sid:
-    cid:
-
-# comment
-comment:
-  bComments:
-    enable: false
-    env: # 腾讯云环境id
-  twikoo:
-    enable: false
-    envId:   # 腾讯云环境id
-  # region: # 环境地域，默认为 ap-shanghai，如果您的环境地域不是上海，需传此参数
-  # option: # 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
-  giscus:
-    enable: true
-    repo: DraceWang/github-discussion
-    repo-id: R_kgDOKdQ4NQ
-    category: Announcements
-    category-id: DIC_kwDOKdQ4Nc4CZ8W2
-    mapping: pathname
-    reactions-enabled: 1
-    emit-metadata: 0
-    lang: zh-CN
-    theme: 
-      light: light
-      dark: dark
-
-# Theme mode 
-theme: 
-  switch: true 
-  default: style-dark # style-light style-dark
-
-# Service Worker
-sw: true
-
-# Post wordcount
-# https://github.com/willin/hexo-wordcount
-wordcount:
-  enable: true
-  count: true
-  time: true
-
-# That is it only render those page which has `katex: true` in Front-matter.
-# math fomula
-# https://katex.org/
-katex:
-  copy_tex: true
-  global: true
-  # Options are for katex rendering options: https://katex.org/docs/options.html
-  # In page katex options are also possible and will be merged
-  options: {}
-
-# Blog search
-search:
-  enable: true
-  type: local #local engine
-  preload: true
-  # href: 'https://www.google.com/search?q=site:'
-  # href: "https://www.baidu.com/s?wd=site:"
-  # href: "https://www.bing.com/search?q=site:"
-  # domain: 'dracewang.github.io'
-
-# Think of swup as being pjax on steroids. The concepts are similar to those used in barba.js or other transition libraries.
-# https://swup.js.org/
-# Whether swup is enabled
-swup: true
-
-# Datetime formatting
-datetime_foramt:
-  post_card:
-    type: date # date || updated
-    date: YYYY/MM/DD
-    time: HH:mm
-    cover_date: DD
-    cover_date2: YYYY/MM
-  post_info:
-    type: date
-    date: YYYY/MM/DD
-    time: HH:mm
-  archive:
-    type: date
-    date: YYYY/MM/DD
-    time: HH:mm
-
-# Home page category card configuration
-categorie_card:
-  enable: true
-  len: 4
-  list:
-
-# Lower right button
-rightside:
-  readmode: true
-  aside: true
-
-# Replace Broken Images 
-error_img:
-  flink: /img/friend_404.gif
-  post_page: /img/404.jpg
-
-# Code highlighting configuration
-highlight:
-  theme: true # 
-  title: default # mac | default
-  copy: true # copy button
-  lang: true # show the code language
-  code_word_wrap: fasle #
-  height_limit: 200 # unit: px
+   
