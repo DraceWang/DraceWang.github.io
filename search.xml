@@ -37,19 +37,19 @@
 <h3 id="基础知识普及"><a href="#基础知识普及" class="headerlink" title="基础知识普及"></a>基础知识普及</h3><ol>
 <li>pwm 脉冲宽度调制（占空比），基本原理：控制方式就是对逆变电路开关器件的通断进行控制，使输出端得到一系列幅值相等的脉冲，用这些脉冲来代替正弦波或所需要的波形。也就是在输出波形的半个周期中产生多个脉冲，使各脉冲的等值电压为正弦波形，所获得的输出平滑且低次谐波少。按一定的规则对各脉冲的宽度进行调制，即可改变逆变电路输出电压的大小，也可改变输出频率。</li>
 </ol>
-<p><img src="https://i.loli.net/2020/10/27/Qjw3lGXpCn4Iadq.png" alt="pwm" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://i.loli.net/2020/10/27/Qjw3lGXpCn4Iadq.png" alt="pwm"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <ol start="2">
 <li>gamma（屏幕灰度），灰度使用黑色调表示物体。 每个灰度对象都具有从 0%(白色)到100%(黑色)的亮度值。 使用黑白或灰度扫描仪生成的图像通常以灰度显示。</li>
 </ol>
-<p><img src="https://i.loli.net/2020/10/27/UYRAVqr2axsEw6g.png" alt="gamma" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p><img src="https://i.loli.net/2020/10/27/sdK96MOrVJcLybF.png" alt="人眼感知与gamma值的变化" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://i.loli.net/2020/10/27/UYRAVqr2axsEw6g.png" alt="gamma"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://i.loli.net/2020/10/27/sdK96MOrVJcLybF.png" alt="人眼感知与gamma值的变化"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <ol start="3">
 <li><p>屏幕亮度设定（0-255)，这个设定值相当于是与屏幕亮度之间的一个关系，一般当项目流程交给软件工程师来调整曲线时，这个对应关系就是确定的了。当然不同的供应商会对应有不同的对应关系，这个关系也不一定是纯线性的，一般来说会呈现如下图这样的趋势。</p>
 </li>
 <li><p>Android背光调整架构<br>下图是MTK平台的背光调整架构图从下至上对应硬件到软件层。</p>
 </li>
 </ol>
-<p><img src="https://i.loli.net/2020/10/27/5xFEd8mrOYjvtkb.png" alt="Android MTK平台背光调整架构" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://i.loli.net/2020/10/27/5xFEd8mrOYjvtkb.png" alt="Android MTK平台背光调整架构"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <h3 id="手动背光"><a href="#手动背光" class="headerlink" title="手动背光"></a>手动背光</h3><p>此功能在<code>settings---&gt;display---&gt;brightness</code>下面，可知有自动调节和手动调节背光亮度的功能，其中手动是通过进度条(slider)来调节的，此应用对应的布局文件为<code>\packages\apps\Settings\res\layout\preference_dialog_brightness.xml </code>如果项目有overlay请自行找下对应复写布局</p>
 <p>在<code>\frameworks\base\core\res\res\values\config.xml</code>下定义了手动背光亮度的最小值</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Minimumscreen brightness allowed by the power manager. --&gt;</span>  </span><br><span class="line">&lt;integernameintegername=&quot;config_screenBrightnessDim&quot;&gt;20<span class="tag">&lt;/<span class="name">integer</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -76,7 +76,7 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- The maximum range of gamma adjustment possible using the screen</span><br><span class="line">         auto-brightness adjustment setting. --&gt;</span><br><span class="line">    &lt;fraction name=&quot;config_autoBrightnessAdjustmentMaxGamma&quot;&gt;300%&lt;/fraction&gt;</span><br></pre></td></tr></table></figure>
 <p>我们看到原生是3意味着变化是在1&#x2F;3次方到3次方之间，这个趋势是符合人眼在低光线亮度时对光线变化相对比较敏感的处理。<br>这里gamma值的调整变化时完全根据进度度条来的，同时通过指数运算放大，然后最后作用于亮度上。</p>
 <h2 id="如何调整背光曲线"><a href="#如何调整背光曲线" class="headerlink" title="如何调整背光曲线"></a>如何调整背光曲线</h2><p>这里同样我们也是按照手动和自动两个部分来说。</p>
-<p><img src="https://i.loli.net/2020/10/27/DTgSO5mzafjdGpF.png" alt="dev.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://i.loli.net/2020/10/27/DTgSO5mzafjdGpF.png" alt="dev.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <h3 id="手动背光调节思路"><a href="#手动背光调节思路" class="headerlink" title="手动背光调节思路"></a>手动背光调节思路</h3><p>上面我们调查源码这部分的时候看到，源码是有个回调机制，因此导致了进度条调节的背光曲线为线性变化，那我们现在需要让这个背光曲线变成指数型曲线或者其他任何自定义的曲线怎么处理呢？</p>
 <h3 id="算法拟合曲线"><a href="#算法拟合曲线" class="headerlink" title="算法拟合曲线"></a>算法拟合曲线</h3><p>其实很简单，就是把最终设置到settings.db数据库中的值给定死，那么屏幕亮度就会按照我们的想法变化。有了这个目标我们就可以找到设置亮度的地方前增加一个算法就可以了，用这个算法来调整原先线性的曲线变为我们想要的曲线。这个算法的公式可以通过客户给出的具体要求来做曲线拟合。</p>
 <p>至于如何才能拟合曲线，这里给个方法，当然数学好的同学肯定自有高招，我这里只是给个还算比较方便的方法，就是用excel，先在表格中用给定的值记录进去做出表格，然后先做出目标曲线（这里要注意的是，图标做的时候用的不是折线图，而是应该选带平滑线的散点图），然后在图表中添加趋势线，在编辑中把几种类型都选下看看那种更接近目标。</p>
@@ -89,7 +89,7 @@
 <li>进度条百分比不再完整</li>
 </ol>
 <p>这些问题的出现弄得我一度崩溃，但是还是要慢慢来，首先我们知道了时因为回调机制的原因导致进度条怎么都不能符合我们的要求，那么我们先把它去掉，不再回调。这个时候发现,诶？进度条似乎不再能到255了，只有0-100了，而之前的百分比似乎也不能调到96%以后，就是因为回调设置进去的进度条的值是配置文件中亮度最大值和亮度最小值的差值，并且显示的百分比又是在这个范围内计算的比例。知道了这个我们只要预先直接给进度条设置好总长值，然后回调的时候让其根据我们增加的曲线算法反向计算一次得出目前的屏幕亮度对应0-255的值时多少就好了。这里可能有点绕，我强调下，<em><strong>我们不仅需要能通过进度条得到对应设置0-255的亮度值，还要能根据这个亮度值反向计算得到对应于进度条上0-255的比例值，然后设置到进度条上，这样才能正确显示进度条。</strong></em>回调会从settings数据库中得到当前设置的背光亮度值，然后反算完后就得到对应目前进度条上的亮度，再回设置就<br>这样处理后时的确可以解决进度条显示的问题，但是百分比的显示是在settings里面的，并且不止一个地方有监听调用，这样的话真的要把这个东西改成线性就太麻烦了，观察市面上的大部分手机后，<em><strong>建议直接去除亮度百分比的显示</strong></em>，其实只要目标曲线不是线性的，那么我们的百分比也就不会是线性的。</p>
-<p><img src="https://i.loli.net/2020/10/27/Uu1iZRAKCg5xmJL.png" alt="原手动背光调节.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://i.loli.net/2020/10/27/Uu1iZRAKCg5xmJL.png" alt="原手动背光调节.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <h3 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h3><p>除了刚才说的进度条问题我在调试的过程中还发现了几个问题。</p>
 <div class="trm-note tip"><div class="trm-note-title">推出设置中的显示界面，进度条位置就不记录了</div><p>A:这个主要是回调那部分没有改好。</p>
 </div>
@@ -99,7 +99,7 @@
 <p>但是这个值对应的现在曲线的百分比就不是在50%而是应该按照新算法计算，所以需要改成自己的值。</p>
 </div>
 <h3 id="自动背光调节思路"><a href="#自动背光调节思路" class="headerlink" title="自动背光调节思路"></a>自动背光调节思路</h3><p>源码提供了<code>frameworks/base/core/res/res/values/config.xml</code>这个配置中直接更改节点值的方式来修改自动背光曲线，这种方式我们这里不做过多的讨论了。下面来说说自定义的背光曲线怎么弄。</p>
-<p><img src="https://i.loli.net/2020/10/27/f3qMLmUe54u72pA.png" alt="原自动背光调节1.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://i.loli.net/2020/10/27/f3qMLmUe54u72pA.png" alt="原自动背光调节1.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <h3 id="测定0-255亮度值对应屏幕nit亮度"><a href="#测定0-255亮度值对应屏幕nit亮度" class="headerlink" title="测定0-255亮度值对应屏幕nit亮度"></a>测定0-255亮度值对应屏幕nit亮度</h3><p>这个如标题，至于为啥要这么做，主要是在屏幕供应商确定，驱动确定的基础上，这个0-255的亮度值与屏幕nit亮度之间的关系就基本时确定的了。测量出了这个关系，对后面应用亮度时可以提高不少效率。</p>
 <h3 id="通过算法来匹配自动背光曲线"><a href="#通过算法来匹配自动背光曲线" class="headerlink" title="通过算法来匹配自动背光曲线"></a>通过算法来匹配自动背光曲线</h3><p>我们在匹配的时候可能会遇到需要适配各种不同的情况，比如限定了进度条各位置的背光曲线，这样的话，等于我们有两个输入变量，第一个时环境光，第二个时进度条的位置带来的亮度调整。<br>首先，我们通过算法满足环境光变化时，背光亮度的的曲线。这里要重点说的是，如果定制曲线不仅仅只规定了一条，而是连调节变化范围的区间也规定了的话，应该考虑直接替换原码的gamma的计算，毕竟源码是通过定了一条背光曲线后，通过255阶的gamma来调整基于设定配置好的背光曲线的进度条最小或最高的调整。大约是从1&#x2F;3到3次方的一个变化，因此如果需要定制则建议直接替换自己的定制算法，并且在Android8.0以后已经去掉gamma值的仅算调整这个算法，这里就提一句，主要是替换算法的时候可不要有什么心里负担。</p>
 <h3 id="自动背光曲线调整进度条不平滑"><a href="#自动背光曲线调整进度条不平滑" class="headerlink" title="自动背光曲线调整进度条不平滑"></a>自动背光曲线调整进度条不平滑</h3><p>在这里要重点讲下这个问题，由于我们考虑的时客户给定了变化范围的定制曲线，我们利用算法框住这个范围的时候会发现，原生算法中进度条的变化范围时-1到1的。我们自己处理这个曲线的时候是很难用出面积来表示的，当然数学好的有办法的除外。我这里就说下，把-1到1这个范围取整后利用曲线取出的数值后怎么办？<br>当我们完成曲线后，会发现由于取整，比如我们有三条曲线，我们会在进度条左右1&#x2F;3的点时发生亮度突变（当然一边左1&#x2F;3点亮度相对暗，突变看起来特别明显），这个突变时由于我们的计算结果因取整从相邻的曲线跃迁到目标曲线的一个结果。我们可以通过在增加一个调整算法来将类似的变化调整为线性的。<br>增加的算法直接划出的环境光区间内的计算最低值和最高值的线性条件（这个是斜线）也可以计算区间内环境光最低和最好的两条线性，再以线性条件的平均值来作为区间变化的线性条件，并在总环境光区间内添加多条这样的线性约束后，整体的变化就会类似与面积处理的结果，肉眼就难以看出了。同时我们指导环境光的变化一般时固定的，也不会就算有变化，也没有拖拉进度条这么快，因此每次经过这两次的计算，得到的屏幕亮度基本就可以符合定制要求了。</p>
@@ -120,7 +120,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestService</span> <span class="keyword">extends</span> <span class="title class_">Service</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> IBinder <span class="title function_">onBind</span><span class="params">(Intent intent)</span> &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>service的onBind方法必须重写，如果我们不需要绑定Activity就return null.</p>
 <p>别忘了在<code>AndroidManifest.xml</code>中添加</p>
-<h2 id="service的生命周期"><a href="#service的生命周期" class="headerlink" title="service的生命周期"></a>service的生命周期</h2><p><img src="https://i.loli.net/2020/10/27/zxXN85ULYKt9VyA.png" alt="service的生命周期" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="service的生命周期"><a href="#service的生命周期" class="headerlink" title="service的生命周期"></a>service的生命周期</h2><p><img src="https://i.loli.net/2020/10/27/zxXN85ULYKt9VyA.png" alt="service的生命周期"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p>每一次组件通过<code>startService(Intent)</code>方法启动service时都会调用<code>onStartCommand(Intent,int,int)</code>两个整型参数，一个是标识符，一个是启动ID。<br>标志股用来区分是一次重新发送，还是一次从没成功过的发送。每次调用调用<code>onStartCommand(Intent,int,int)</code>方法，启动ID都会不同。因此，启动ID<br>也可以用来区别不同的命令。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">onStartCommand</span><span class="params">(Intent intent, <span class="type">int</span> flags, <span class="type">int</span> startId)</span> &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">super</span>.onStartCommand(intent, flags, startId);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="non-sticky服务"><a href="#non-sticky服务" class="headerlink" title="non-sticky服务"></a>non-sticky服务</h3><p>IntentService是一种non-sticky服务。non-sticky服务在服务自己认为已经完成任务时停止。为了获得non-sticky服务，应该返回<code>START_NOT_STICKY</code>或<code>START_RELATIVE_INTENT</code>。</p>
@@ -201,7 +201,7 @@
     <title>git 代码管理工具常用命令</title>
     <url>/2019/09/18/git%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<p>首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。</p>
-<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#x67;&#105;&#116;&#x75;&#x73;&#101;&#114;&#x31;&#64;&#x67;&#x69;&#x74;&#46;&#x63;&#x6f;&#109;">&#x67;&#105;&#116;&#x75;&#x73;&#101;&#114;&#x31;&#64;&#x67;&#x69;&#x74;&#46;&#x63;&#x6f;&#109;</a></p>
+<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#x67;&#105;&#x74;&#117;&#x73;&#101;&#x72;&#49;&#x40;&#103;&#x69;&#116;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#117;&#x73;&#101;&#x72;&#49;&#x40;&#103;&#x69;&#116;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
 <h3 id="配置git提交时候的全局用户名"><a href="#配置git提交时候的全局用户名" class="headerlink" title="配置git提交时候的全局用户名"></a>配置git提交时候的全局用户名</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gitconfig --global user.name gituser1</span><br></pre></td></tr></table></figure>
 
 <h3 id="配置git提交时候的全局邮箱"><a href="#配置git提交时候的全局邮箱" class="headerlink" title="配置git提交时候的全局邮箱"></a>配置git提交时候的全局邮箱</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email gituser1@git.com</span><br></pre></td></tr></table></figure>
@@ -346,51 +346,6 @@
       </tags>
   </entry>
   <entry>
-    <title>LDAP安装与关联redmine</title>
-    <url>/2014/12/09/ldap%E5%AE%89%E8%A3%85%E4%B8%8E%E5%85%B3%E8%81%94redmine/</url>
-    <content><![CDATA[<h2 id="安装LDAP"><a href="#安装LDAP" class="headerlink" title="安装LDAP"></a>安装LDAP</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
-<p>修改 <code>127.0.1.1 hostname.example.com </code>hostname &#x2F;&#x2F;hostname是本机的hostname不是“hostname”</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install slapd ldap-utils //安装ldap</span><br></pre></td></tr></table></figure>
-<p>测试</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b cn=config dn</span><br><span class="line"></span><br><span class="line">ldapsearch -x -LLL -H ldap:/// -b dc=example,dc=com dn</span><br></pre></td></tr></table></figure>
-<hr>
-<p>添加用户</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/ldap</span><br><span class="line"></span><br><span class="line">sudo vim add_content.ldif   //创建add_content.ldif添加下列文字</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line"><span class="attribute">dn</span>: ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: People</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: Groups</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: cn=miners,ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixGroup</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: miners</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: uid=john,ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: inetOrgPerson</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: shadowAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">uid</span>: john</span><br><span class="line"></span><br><span class="line"><span class="attribute">sn</span>: Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">givenName</span>: John</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">mail</span>: 385691567@qq.com</span><br><span class="line"></span><br><span class="line"><span class="attribute">displayName</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">uidNumber</span>: 10000</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"><span class="attribute">userPassword</span>: johnldap</span><br><span class="line"></span><br><span class="line"><span class="attribute">gecos</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">loginShell</span>: /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="attribute">homeDirectory</span>: /home/john</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line">ldapadd -x -D cn=admin,dc=example,dc=com -W -f add_content.ldif //添加ldif文件</span><br><span class="line"></span><br><span class="line">ldapsearch -x -LLL -b dc=example,dc=com &#x27;uid=john&#x27; cn gidNumber //查询john</span><br></pre></td></tr></table></figure>
-<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>-x:“简单”绑定;不使用默认SASL方法</p>
-<p>-LLL:禁用打印无关的信息</p>
-<p>uid &#x3D;john:一个“过滤器”找到john用户</p>
-<p>cn gidNumber:请求某些特定属性的显示(默认是显示所有属性)</p>
-</div>
-<h2 id="redmine设置"><a href="#redmine设置" class="headerlink" title="redmine设置"></a>redmine设置</h2><hr>
-<p>认证模式（LDAP）</p>
-<p>名称：（随便填）</p>
-<p>主机： ldap服务器IP</p>
-<p>端口： 默认389</p>
-<p>账号： cn&#x3D;admin,dc&#x3D;example,dc&#x3D;com</p>
-<p>密码： admin</p>
-<p>Base DN: dc&#x3D;example,dc&#x3D;com</p>
-<p>LDAP过滤器：</p>
-<p>超时（秒）：</p>
-<p>即时用户生成：打勾</p>
-<p>登录名属性：uid</p>
-<p>名字属性：sn</p>
-<p>姓氏属性：givenName</p>
-<p>邮件属性：mail</p>
-<hr>
-]]></content>
-      <categories>
-        <category>ALM开发</category>
-      </categories>
-      <tags>
-        <tag>LDAP</tag>
-        <tag>redmine</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Android系统权限以及selinux权限添加的简单解析</title>
     <url>/2015/09/29/Android%E7%B3%BB%E7%BB%9Fuid&amp;gid%E6%9D%83%E9%99%90%E4%BB%A5%E5%8F%8Aselinux%E6%9D%83%E9%99%90%E6%B7%BB%E5%8A%A0%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[<p>在公司做项目发现&#x2F;data&#x2F;misc&#x2F;dhcp这个目录的文件无法访问，抓log后又没有显示selinux权限报错的avcdeny，但是需求又依赖于dhcp协议的解析，所以一直在寻找这个问题的解决方案。现在系统整理一下并把相关知识记录下来，Android系统来源于Linux系统所以我们先来看linux系统。</p>
@@ -489,11 +444,11 @@
 <p><em><strong>SUID仅对二进制程序可用，shell脚本不可用，对目录也不可用</strong></em></p>
 <h2 id="Android系统的权限管理"><a href="#Android系统的权限管理" class="headerlink" title="Android系统的权限管理"></a>Android系统的权限管理</h2><h3 id="Android-系统中的UID、GID、GIDS与PID"><a href="#Android-系统中的UID、GID、GIDS与PID" class="headerlink" title="Android 系统中的UID、GID、GIDS与PID"></a>Android 系统中的UID、GID、GIDS与PID</h3><p>在 Android 上，一个用户 UID 标示一个应用程序。应用程序在安装时被分配用户 UID，应用程序在设备上的存续期间内，用户 UID 保持不变。对于普通的应用程序，GID即等于UID。</p>
 <p>GIDS 是由框架在 Application 安装过程中生成，与 Application 申请的具体权限相关。 如果  Application 申请的相应的 permission 被 granted ，而且有对应的GIDS， 那么 这个Application 的  gids 中将 包含这个 gids。记住权限(GIDS)是关于允许或限制应用程序（而不是用户）访问设备资源。</p>
-<p><img src="https://i.loli.net/2020/11/02/xW5mITbqjucnHEh.gif" alt="sandbox_model" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://i.loli.net/2020/11/02/xW5mITbqjucnHEh.gif" alt="sandbox_model"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p>Android  使用沙箱的概念来实现应用程序之间的分离和权限，以允许或拒绝一个应用程序访问设备的资源，比如说文件和目录、网络、传感器和  API。为此，Android 使用一些 Linux 实用工具（比如说进程级别的安全性、与应用程序相关的用户和组  ID，以及权限），来实现应用程序被允许执行的操作。</p>
 <p>Android 应用程序运行在它们自己的 Linux 进程上，并被分配一个惟一的用户  ID。默认情况下，运行在基本沙箱进程中的应用程序没有被分配权限，因而此类应用程序访问系统或资源受到限制，Android  应用程序只能通过应用程序的 manifest 文件请求权限。</p>
 <p>不同的应用程序可以运行在相同的进程中。对于此方法，首先必须使用相同的私钥签署这些应用程序，然后必须使用 manifest 文件给它们分配相同的  Linux 用户 ID，这通过用相同的值&#x2F;名定义 manifest 属性 <code>android:sharedUserId</code>  来做到，从而共享对其数据和代码的访问。</p>
-<p><img src="https://i.loli.net/2020/11/02/yZOkHGCpRKzc6Ld.gif" alt="same UID" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://i.loli.net/2020/11/02/yZOkHGCpRKzc6Ld.gif" alt="same UID"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p>基于用户id的安全机制，其实使用的是标准的Linux的权限控制的机制，本用户、本组的和其他用户各自有读、写、执行3中权限。系统在这方面的控制主要有：</p>
 <div class="trm-note tip"><div class="trm-note-title">TIP</div><p>文件系统的各个文件具有Uid和Gid，并指定权限。<br>每个进行具有自己的Uid和Gid，并指定它属于哪些组。<br>每个进程可以根据本用户规则访问其Uid可以访问的文件。<br>每个进程可以根据组规则访问其所属的所有组(Groups)可以访问的文件。<br>如果文件定义了其他的用户可以访问的权限，可以被任何任何程序访问。<br>任何进程都不可以访问不具有权限的文件。</p>
 </div>
@@ -808,6 +763,51 @@
       </tags>
   </entry>
   <entry>
+    <title>LDAP安装与关联redmine</title>
+    <url>/2014/12/09/ldap%E5%AE%89%E8%A3%85%E4%B8%8E%E5%85%B3%E8%81%94redmine/</url>
+    <content><![CDATA[<h2 id="安装LDAP"><a href="#安装LDAP" class="headerlink" title="安装LDAP"></a>安装LDAP</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
+<p>修改 <code>127.0.1.1 hostname.example.com </code>hostname &#x2F;&#x2F;hostname是本机的hostname不是“hostname”</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install slapd ldap-utils //安装ldap</span><br></pre></td></tr></table></figure>
+<p>测试</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b cn=config dn</span><br><span class="line"></span><br><span class="line">ldapsearch -x -LLL -H ldap:/// -b dc=example,dc=com dn</span><br></pre></td></tr></table></figure>
+<hr>
+<p>添加用户</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/ldap</span><br><span class="line"></span><br><span class="line">sudo vim add_content.ldif   //创建add_content.ldif添加下列文字</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line"><span class="attribute">dn</span>: ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: People</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: Groups</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: cn=miners,ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixGroup</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: miners</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: uid=john,ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: inetOrgPerson</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: shadowAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">uid</span>: john</span><br><span class="line"></span><br><span class="line"><span class="attribute">sn</span>: Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">givenName</span>: John</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">mail</span>: 385691567@qq.com</span><br><span class="line"></span><br><span class="line"><span class="attribute">displayName</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">uidNumber</span>: 10000</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"><span class="attribute">userPassword</span>: johnldap</span><br><span class="line"></span><br><span class="line"><span class="attribute">gecos</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">loginShell</span>: /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="attribute">homeDirectory</span>: /home/john</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line">ldapadd -x -D cn=admin,dc=example,dc=com -W -f add_content.ldif //添加ldif文件</span><br><span class="line"></span><br><span class="line">ldapsearch -x -LLL -b dc=example,dc=com &#x27;uid=john&#x27; cn gidNumber //查询john</span><br></pre></td></tr></table></figure>
+<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>-x:“简单”绑定;不使用默认SASL方法</p>
+<p>-LLL:禁用打印无关的信息</p>
+<p>uid &#x3D;john:一个“过滤器”找到john用户</p>
+<p>cn gidNumber:请求某些特定属性的显示(默认是显示所有属性)</p>
+</div>
+<h2 id="redmine设置"><a href="#redmine设置" class="headerlink" title="redmine设置"></a>redmine设置</h2><hr>
+<p>认证模式（LDAP）</p>
+<p>名称：（随便填）</p>
+<p>主机： ldap服务器IP</p>
+<p>端口： 默认389</p>
+<p>账号： cn&#x3D;admin,dc&#x3D;example,dc&#x3D;com</p>
+<p>密码： admin</p>
+<p>Base DN: dc&#x3D;example,dc&#x3D;com</p>
+<p>LDAP过滤器：</p>
+<p>超时（秒）：</p>
+<p>即时用户生成：打勾</p>
+<p>登录名属性：uid</p>
+<p>名字属性：sn</p>
+<p>姓氏属性：givenName</p>
+<p>邮件属性：mail</p>
+<hr>
+]]></content>
+      <categories>
+        <category>ALM开发</category>
+      </categories>
+      <tags>
+        <tag>LDAP</tag>
+        <tag>redmine</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ubuntu14.04 安装redmine2.5.3</title>
     <url>/2014/12/15/ubuntu14.04%20%E5%AE%89%E8%A3%85redmine2.5.3/</url>
     <content><![CDATA[<h2 id="安装redmine的环境"><a href="#安装redmine的环境" class="headerlink" title="安装redmine的环境"></a>安装redmine的环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install -y apache2 php5 libapache2-mod-php5 mysql-server php5-mysql libapache2-mod-perl2 libcurl4-openssl-dev libssl-dev apache2-dev libapr1-dev libaprutil1-dev libmysqlclient-dev libmagickcore-dev libmagickwand-dev curl git-core patch build-essential bison zlib1g-dev libssl-dev libxml2-dev libxml2-dev sqlite3 libsqlite3-dev autotools-dev libxslt1-dev libyaml-0-2 autoconf automake libreadline6-dev libyaml-dev libtool imagemagick apache2-utils vim </span><br></pre></td></tr></table></figure>
@@ -870,55 +870,6 @@
       </tags>
   </entry>
   <entry>
-    <title>virtualbox（4.3.16）安装</title>
-    <url>/2014/12/09/virtualbox%EF%BC%884.3.16%EF%BC%89%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h2 id="virtualbox（4-3-16）安装"><a href="#virtualbox（4-3-16）安装" class="headerlink" title="virtualbox（4.3.16）安装"></a>virtualbox（4.3.16）安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo sh -c <span class="string">&#x27;echo &quot;deb http://download.virtualbox.org/virtualbox/debian trusty contrib&quot; &gt;&gt; /etc/apt/sources.list&#x27;</span></span><br><span class="line">wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install virtualbox-4.3</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VBoxManage -v //查看版本号</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="Oracle-VM-VirtualBox-Extension-Pack安装"><a href="#Oracle-VM-VirtualBox-Extension-Pack安装" class="headerlink" title="Oracle_VM_VirtualBox_Extension_Pack安装"></a>Oracle_VM_VirtualBox_Extension_Pack安装</h3><p><a href="http://download.virtualbox.org/virtualbox">http://download.virtualbox.org/virtualbox</a>查看对应版本</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> ~/ISO</span><br><span class="line"><span class="built_in">cd</span> ISO</span><br><span class="line">wget http://download.virtualbox.org/virtualbox/4.3.16/Oracle_VM_VirtualBox_Extension_Pack-4.3.16-95972.vbox-extpack</span><br><span class="line">sudo vboxmanage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.3.16-95972.vbox-extpack</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#卸载指定扩展包</span></span><br><span class="line">VBoxManage extpack uninstall &lt;name&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#显示已安装的扩展包</span></span><br><span class="line">VBoxManage list extpacks</span><br><span class="line"></span><br><span class="line"><span class="comment">#移除安装扩展包失败或卸载扩展包失败时可能遗留下来的文件和目录</span></span><br><span class="line">VBoxManage extpack cleanup</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="创建Ubuntu-Server虚拟机"><a href="#创建Ubuntu-Server虚拟机" class="headerlink" title="创建Ubuntu Server虚拟机"></a>创建Ubuntu Server虚拟机</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vboxmanage createvm --name <span class="string">&quot;ubuntuserver&quot;</span> --ostype Ubuntu_64 --register //创建并注册一个虚拟机取名为“ubuntuserver”操作系统类型改为Ubuntu_64</span><br></pre></td></tr></table></figure>
-<p>Settings file: ‘&#x2F;home&#x2F;stack&#x2F;VirtualBox VMs&#x2F;ubuntuserver&#x2F;ubuntuserver.vbox’            </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/VirtualBox\ VMs/ubuntuserver/</span><br></pre></td></tr></table></figure>
-<p>VirtualBox会自动创建一个名叫”VirtualBox VMs”的子目录，所有的虚拟机都会保存在这个目录内。进入对应于ubuntuserver的子目录。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --memory 2048 --acpi on --boot1 dvd --boot2 disk</span><br></pre></td></tr></table></figure>
-<p>指定ubunutserver使用2G内存、使用ACPI、启动顺序为先光盘再硬盘</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage createhd --filename ubuntuserver.vdi --size 50000</span><br></pre></td></tr></table></figure>
-<p>创建一个虚拟硬盘，最大容量50G（实际用量将随着文件增加而增加，上限为50G）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage storagectl <span class="string">&quot;ubuntuserver&quot;</span> --name <span class="string">&quot;SCSI Controller&quot;</span> --add scsi</span><br><span class="line">sudo vboxmanage storageattach <span class="string">&quot;ubuntuserver&quot;</span> --storagectl <span class="string">&quot;SCSI Controller&quot;</span> --port 0 --device 0 --<span class="built_in">type</span> hdd --medium ubuntuserver.vdi</span><br></pre></td></tr></table></figure>
-<p>创建虚拟硬盘控制器，使用SCSI接口，并将刚刚创建的虚拟硬盘连接到这个控制器</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage storagectl <span class="string">&quot;ubuntuserver&quot;</span> --name <span class="string">&quot;IDE Controller&quot;</span> --add ide</span><br><span class="line">sudo vboxmanage storageattach <span class="string">&quot;ubuntuserver&quot;</span> --storagectl <span class="string">&quot;IDE Controller&quot;</span> --port 0 --device 0 --<span class="built_in">type</span> dvddrive --medium ~/ISO/ubuntu*</span><br></pre></td></tr></table></figure>
-<p>创建虚拟硬盘控制器，使用IDE接口，并把ISO文件连接到这个接口（虚拟光驱）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --nic1 bridged </span><br></pre></td></tr></table></figure>
-<p>配置网卡1为桥接模式</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --bridgeadapter1 em1 //具体查询本机网卡  </span><br></pre></td></tr></table></figure>
-<p>绑定桥接到物理网卡</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --vrde on  </span><br><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --vrdeport 5000                    //监听5000端口  </span><br><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --vrdeaddress 192.168.2.200        //监听地址  </span><br><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --vrdeauthtype external            //认证类型  </span><br><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --vrdeauthlibrary default          //使用默认的认证库，也就是使用server的用户名和密码登陆  </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage startvm <span class="string">&quot;ubuntuserver&quot;</span> --<span class="built_in">type</span> headless                //10.10.3.16</span><br><span class="line">//sudo VBoxManage controlvm <span class="string">&quot;ubuntuserver&quot;</span> poweroff //关闭虚拟机 </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意–type headless参数，这个是必须的，因为我们是在Ubuntu服务器的命令行环境下启动虚拟机，无法使用图形界面。<br>通过VRDE虚拟桌面来安装虚拟机上的操作系统。</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VBoxManage snapshot <span class="string">&quot;ubuntuserver&quot;</span> take <span class="string">&quot;backup0918&quot;</span> </span><br></pre></td></tr></table></figure>
-<p>为ubuntuserver建立快照取名</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VBoxManage snapshot <span class="string">&quot;ubuntuserver&quot;</span> restore <span class="string">&quot;backup0918base&quot;</span></span><br></pre></td></tr></table></figure>
-<p>恢复到快照名为xx的快照</p>
-<hr>
-<p>虚拟机快照管理命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VBoxManage snapshot         &lt;uuid&gt;|&lt;name&gt; 为指定的虚拟机拍快照</span><br><span class="line">                            take &lt;name&gt; 为快照取名</span><br><span class="line">                        [-desc &lt;desc&gt;]| 给快照添加描述</span><br><span class="line">                        delete &lt;uuid&gt;|&lt;name&gt; | 丢弃指定的快照                  </span><br><span class="line">                     restore &lt;uuid|snapname&gt; | 恢复到快照名为xx的快照</span><br><span class="line">                              restorecurrent | 恢复到最近的快照</span><br><span class="line">                        edit &lt;uuid&gt;|&lt;name&gt;| 编辑指定的快照</span><br><span class="line">                                   -current 编辑当前快照</span><br><span class="line">                          [-newname &lt;name&gt;] 修改快照名称</span><br><span class="line">                          [-newdesc &lt;desc&gt;] 修改快照描述</span><br><span class="line">                        showvminfo &lt;uuid&gt;|&lt;name&gt; 显示快照的虚拟机信息</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>virtualbox</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>利用Hexo博客框架结合Github Page创建自己的博客</title>
     <url>/2023/10/08/%E5%88%A9%E7%94%A8Hexo%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E7%BB%93%E5%90%88Github%20Page%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实我早在2020年就已经用Hexo搭建了自己的博客，并且使用github page发布了静态的博客。但是中间因为各种原因，差不多就算停更了。现在就是自己再回头记录下，不是说做任何事任何时候开始都不晚么~</p>
@@ -951,9 +902,9 @@
 
 <p>我们直接到node.js的官网上下载最新版本的安装包（<a href="https://nodejs.org/en/download/current">Download | Node.js (nodejs.org)</a>）</p>
 <p>根据自己的系统选择对应的32或64bit版本，然后双击运行，一路‘下一步’就完成了，中间建议勾选安装node.js依赖。</p>
-<p>安装完成后可以在开始菜单中看到<br><img src="https://s2.loli.net/2023/10/08/MeQwHWL2yRasS9F.jpg" alt="微信截图_20231008133554" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>安装完成后可以在开始菜单中看到<br><img src="https://s2.loli.net/2023/10/08/MeQwHWL2yRasS9F.jpg" alt="微信截图_20231008133554"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p>点击打开Node.js会弹出命令行，确认Node.js是否安装成功，且版本是多少</p>
-<p><img src="https://s2.loli.net/2023/10/08/1UJ2QLdNXwGIjer.jpg" alt="微信截图_20231008135122" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="https://s2.loli.net/2023/10/08/1UJ2QLdNXwGIjer.jpg" alt="微信截图_20231008135122"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><p>到官网下载git程序包<a href="https://git-scm.com/downloads">Git - Downloads (git-scm.com)</a></p>
 <p>同样也是一路‘下一步’来安装，建议添加系统环境变量和安装git bash。</p>
 <h3 id="安装Hexo-1"><a href="#安装Hexo-1" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
@@ -1094,6 +1045,55 @@
       <tags>
         <tag>Hexo</tag>
         <tag>GitHub page</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>virtualbox（4.3.16）安装</title>
+    <url>/2014/12/09/virtualbox%EF%BC%884.3.16%EF%BC%89%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h2 id="virtualbox（4-3-16）安装"><a href="#virtualbox（4-3-16）安装" class="headerlink" title="virtualbox（4.3.16）安装"></a>virtualbox（4.3.16）安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo sh -c <span class="string">&#x27;echo &quot;deb http://download.virtualbox.org/virtualbox/debian trusty contrib&quot; &gt;&gt; /etc/apt/sources.list&#x27;</span></span><br><span class="line">wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install virtualbox-4.3</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VBoxManage -v //查看版本号</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Oracle-VM-VirtualBox-Extension-Pack安装"><a href="#Oracle-VM-VirtualBox-Extension-Pack安装" class="headerlink" title="Oracle_VM_VirtualBox_Extension_Pack安装"></a>Oracle_VM_VirtualBox_Extension_Pack安装</h3><p><a href="http://download.virtualbox.org/virtualbox">http://download.virtualbox.org/virtualbox</a>查看对应版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> ~/ISO</span><br><span class="line"><span class="built_in">cd</span> ISO</span><br><span class="line">wget http://download.virtualbox.org/virtualbox/4.3.16/Oracle_VM_VirtualBox_Extension_Pack-4.3.16-95972.vbox-extpack</span><br><span class="line">sudo vboxmanage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.3.16-95972.vbox-extpack</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#卸载指定扩展包</span></span><br><span class="line">VBoxManage extpack uninstall &lt;name&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#显示已安装的扩展包</span></span><br><span class="line">VBoxManage list extpacks</span><br><span class="line"></span><br><span class="line"><span class="comment">#移除安装扩展包失败或卸载扩展包失败时可能遗留下来的文件和目录</span></span><br><span class="line">VBoxManage extpack cleanup</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="创建Ubuntu-Server虚拟机"><a href="#创建Ubuntu-Server虚拟机" class="headerlink" title="创建Ubuntu Server虚拟机"></a>创建Ubuntu Server虚拟机</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vboxmanage createvm --name <span class="string">&quot;ubuntuserver&quot;</span> --ostype Ubuntu_64 --register //创建并注册一个虚拟机取名为“ubuntuserver”操作系统类型改为Ubuntu_64</span><br></pre></td></tr></table></figure>
+<p>Settings file: ‘&#x2F;home&#x2F;stack&#x2F;VirtualBox VMs&#x2F;ubuntuserver&#x2F;ubuntuserver.vbox’            </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/VirtualBox\ VMs/ubuntuserver/</span><br></pre></td></tr></table></figure>
+<p>VirtualBox会自动创建一个名叫”VirtualBox VMs”的子目录，所有的虚拟机都会保存在这个目录内。进入对应于ubuntuserver的子目录。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --memory 2048 --acpi on --boot1 dvd --boot2 disk</span><br></pre></td></tr></table></figure>
+<p>指定ubunutserver使用2G内存、使用ACPI、启动顺序为先光盘再硬盘</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage createhd --filename ubuntuserver.vdi --size 50000</span><br></pre></td></tr></table></figure>
+<p>创建一个虚拟硬盘，最大容量50G（实际用量将随着文件增加而增加，上限为50G）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage storagectl <span class="string">&quot;ubuntuserver&quot;</span> --name <span class="string">&quot;SCSI Controller&quot;</span> --add scsi</span><br><span class="line">sudo vboxmanage storageattach <span class="string">&quot;ubuntuserver&quot;</span> --storagectl <span class="string">&quot;SCSI Controller&quot;</span> --port 0 --device 0 --<span class="built_in">type</span> hdd --medium ubuntuserver.vdi</span><br></pre></td></tr></table></figure>
+<p>创建虚拟硬盘控制器，使用SCSI接口，并将刚刚创建的虚拟硬盘连接到这个控制器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage storagectl <span class="string">&quot;ubuntuserver&quot;</span> --name <span class="string">&quot;IDE Controller&quot;</span> --add ide</span><br><span class="line">sudo vboxmanage storageattach <span class="string">&quot;ubuntuserver&quot;</span> --storagectl <span class="string">&quot;IDE Controller&quot;</span> --port 0 --device 0 --<span class="built_in">type</span> dvddrive --medium ~/ISO/ubuntu*</span><br></pre></td></tr></table></figure>
+<p>创建虚拟硬盘控制器，使用IDE接口，并把ISO文件连接到这个接口（虚拟光驱）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --nic1 bridged </span><br></pre></td></tr></table></figure>
+<p>配置网卡1为桥接模式</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --bridgeadapter1 em1 //具体查询本机网卡  </span><br></pre></td></tr></table></figure>
+<p>绑定桥接到物理网卡</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --vrde on  </span><br><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --vrdeport 5000                    //监听5000端口  </span><br><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --vrdeaddress 192.168.2.200        //监听地址  </span><br><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --vrdeauthtype external            //认证类型  </span><br><span class="line">sudo vboxmanage modifyvm <span class="string">&quot;ubuntuserver&quot;</span> --vrdeauthlibrary default          //使用默认的认证库，也就是使用server的用户名和密码登陆  </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vboxmanage startvm <span class="string">&quot;ubuntuserver&quot;</span> --<span class="built_in">type</span> headless                //10.10.3.16</span><br><span class="line">//sudo VBoxManage controlvm <span class="string">&quot;ubuntuserver&quot;</span> poweroff //关闭虚拟机 </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意–type headless参数，这个是必须的，因为我们是在Ubuntu服务器的命令行环境下启动虚拟机，无法使用图形界面。<br>通过VRDE虚拟桌面来安装虚拟机上的操作系统。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VBoxManage snapshot <span class="string">&quot;ubuntuserver&quot;</span> take <span class="string">&quot;backup0918&quot;</span> </span><br></pre></td></tr></table></figure>
+<p>为ubuntuserver建立快照取名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VBoxManage snapshot <span class="string">&quot;ubuntuserver&quot;</span> restore <span class="string">&quot;backup0918base&quot;</span></span><br></pre></td></tr></table></figure>
+<p>恢复到快照名为xx的快照</p>
+<hr>
+<p>虚拟机快照管理命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">VBoxManage snapshot         &lt;uuid&gt;|&lt;name&gt; 为指定的虚拟机拍快照</span><br><span class="line">                            take &lt;name&gt; 为快照取名</span><br><span class="line">                        [-desc &lt;desc&gt;]| 给快照添加描述</span><br><span class="line">                        delete &lt;uuid&gt;|&lt;name&gt; | 丢弃指定的快照                  </span><br><span class="line">                     restore &lt;uuid|snapname&gt; | 恢复到快照名为xx的快照</span><br><span class="line">                              restorecurrent | 恢复到最近的快照</span><br><span class="line">                        edit &lt;uuid&gt;|&lt;name&gt;| 编辑指定的快照</span><br><span class="line">                                   -current 编辑当前快照</span><br><span class="line">                          [-newname &lt;name&gt;] 修改快照名称</span><br><span class="line">                          [-newdesc &lt;desc&gt;] 修改快照描述</span><br><span class="line">                        showvminfo &lt;uuid&gt;|&lt;name&gt; 显示快照的虚拟机信息</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>virtualbox</tag>
       </tags>
   </entry>
   <entry>
@@ -1427,20 +1427,20 @@
 </tr>
 <tr>
 <td>预览</td>
-<td><img src="https://s2.loli.net/2024/06/20/pRSOXgDnPfqb3Yv.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/20/tXQu1UvefVhZICo.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/20/8RNOHPx2zbgpCAI.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/20/vSrZRo8K9IQuXHk.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/20/W21IJxcYOlESkem.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/20/qCVW76o9ilgE1vR.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/20/HiQtyYbNPfj34wL.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/20/Eg1vfolthn2HJ3V.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/20/fFL4awA5JyCEUYb.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/20/fZEBxhumAipKM86.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/21/kw1UHi5YZ4JK2Vn.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/21/S4szQOXtxglPaGE.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/21/8DQsjto2LakBxwI.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
-<td><img src="https://s2.loli.net/2024/06/21/MmAPTuoSa7Nrg1Q.gif" alt="|160" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/20/pRSOXgDnPfqb3Yv.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/20/tXQu1UvefVhZICo.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/20/8RNOHPx2zbgpCAI.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/20/vSrZRo8K9IQuXHk.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/20/W21IJxcYOlESkem.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/20/qCVW76o9ilgE1vR.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/20/HiQtyYbNPfj34wL.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/20/Eg1vfolthn2HJ3V.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/20/fFL4awA5JyCEUYb.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/20/fZEBxhumAipKM86.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/21/kw1UHi5YZ4JK2Vn.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/21/S4szQOXtxglPaGE.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/21/8DQsjto2LakBxwI.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
+<td><img src="https://s2.loli.net/2024/06/21/MmAPTuoSa7Nrg1Q.gif" alt="|160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></td>
 <td></td>
 <td></td>
 </tr>
@@ -1806,8 +1806,8 @@
 <li>使用custom frames插件把web版的滴答直接加载进来，这个应该效果会不错。<a href="https://github.com/Ellpeck/ObsidianCustomFrames">GitHub - Ellpeck&#x2F;ObsidianCustomFrames: An Obsidian plugin that turns web apps into panes using iframes with custom styling. Also comes with presets for Google Keep, Todoist and more.</a></li>
 <li>使用obsidian-dida-sync插件把滴答清单同步进obsidian中。<a href="https://github.com/eightHundreds/obsidian-dida-sync">GitHub - eightHundreds&#x2F;obsidian-dida-sync: 滴答清单同步到obsidian(ticktick sync to obsidian)</a><br>那么就都来尝试下看看。</li>
 </ul>
-<p>首先是obsidian-dida-sync插件，按照作者的说明测试了下，这个效果emmmm，怎么说呢，直接看图吧<br><img src="https://s2.loli.net/2024/06/21/HcIDTOzjZ4Uqidh.png" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>只能说，我还是试下custom frames吧，按照文档测试<br><img src="https://s2.loli.net/2024/06/21/RJTylLosVXONxZb.png" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>这个效果是真不错，那么可以把之前在obsidian中task相关的费劲的管理都删除了。</p>
+<p>首先是obsidian-dida-sync插件，按照作者的说明测试了下，这个效果emmmm，怎么说呢，直接看图吧<br><img src="https://s2.loli.net/2024/06/21/HcIDTOzjZ4Uqidh.png" alt="image.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>只能说，我还是试下custom frames吧，按照文档测试<br><img src="https://s2.loli.net/2024/06/21/RJTylLosVXONxZb.png" alt="image.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>这个效果是真不错，那么可以把之前在obsidian中task相关的费劲的管理都删除了。</p>
 ]]></content>
       <categories>
         <category>日程管理</category>
@@ -1818,39 +1818,6 @@
         <tag>日历</tag>
         <tag>obsidian</tag>
         <tag>滴答清单</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android高通平台查找指定nv值</title>
-    <url>/2020/11/05/%E9%AB%98%E9%80%9A%E6%9F%A5%E6%89%BE%E6%8C%87%E5%AE%9Anv%E5%80%BC/</url>
-    <content><![CDATA[<h2 id="安装QXDM"><a href="#安装QXDM" class="headerlink" title="安装QXDM"></a>安装QXDM</h2><p>使用高通账号登录<a href="https://createpoint.qti.qualcomm.com/tools/#">https://createpoint.qti.qualcomm.com/tools/#</a>，然后找到QXDM对应自己系统的安装包，或者先按照Qualcomm Package Manager，然后再安装QXDM。</p>
-<p>因为后面查看nv需要，还需要安装Product Configuration Assistant Tool (PCAT)。</p>
-<h2 id="使用QXDM查询指定NV值"><a href="#使用QXDM查询指定NV值" class="headerlink" title="使用QXDM查询指定NV值"></a>使用QXDM查询指定NV值</h2><p>首先手机通过数据线连接电脑</p>
-<p><img src="https://i.loli.net/2020/11/24/Go1EcFA7HQswnhN.png" alt="image-20201105163743538" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>如果没有的话，可以通过ADB命令来设置diag口：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell setprop sys.usb.config diag,serial_cdev,rmnet,adb</span><br><span class="line">adb shell setprop persist.usb.config diag,serial_cdev,rmnet,adb</span><br></pre></td></tr></table></figure>
-
-<p>然后打开QSDM，点击连接：</p>
-<p><img src="https://i.loli.net/2020/11/24/jz83uQTWXGhRgCF.png" alt="image-20201105164946696" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>选择刚才看到的diag的com端口：</p>
-<p><img src="https://i.loli.net/2020/11/24/zYRA8gqsEQdZTca.png" alt="image-20201105165022146" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>选中后点击右侧的connect按钮，连接成功后软件后面会有数据显示，关闭这个对话框，软件主窗口上选择“show nv browser”：</p>
-<p><img src="https://i.loli.net/2020/11/24/lmHtJ4F8uNMPD75.png" alt="image-20201105170321383" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>如果已经安装，就会自动打开界面并读取：</p>
-<p><img src="https://i.loli.net/2020/11/24/lIoFrwWiH7OSnhG.png" alt="image-20201105171342367" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>读取完成后就会可以在id中输入需要查询的nvid，来查看：</p>
-<p><img src="https://i.loli.net/2020/11/24/jmLkZNP5zIbtiXh.png" alt="image-20201105171543336" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>选中需要读取的项，点击read，如果失败则如下图：</p>
-<p><img src="https://i.loli.net/2020/11/24/Cu7GMUKjP6gbdXa.png" alt="image-20201105171727278" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>如果成功则会提示success。</p>
-<p>当然如果需要临时修改也可在input中输入你需要修改为的值，然后点击write，同样下面会有对应操作的提示：</p>
-<p><img src="https://i.loli.net/2020/11/24/oOcMxuhUyBV7NYJ.png" alt="image-20201105171910420" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>nv</tag>
-        <tag>qcom</tag>
       </tags>
   </entry>
   <entry>
@@ -1998,6 +1965,39 @@
         <tag>obsidian</tag>
         <tag>note</tag>
         <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android高通平台查找指定nv值</title>
+    <url>/2020/11/05/%E9%AB%98%E9%80%9A%E6%9F%A5%E6%89%BE%E6%8C%87%E5%AE%9Anv%E5%80%BC/</url>
+    <content><![CDATA[<h2 id="安装QXDM"><a href="#安装QXDM" class="headerlink" title="安装QXDM"></a>安装QXDM</h2><p>使用高通账号登录<a href="https://createpoint.qti.qualcomm.com/tools/#">https://createpoint.qti.qualcomm.com/tools/#</a>，然后找到QXDM对应自己系统的安装包，或者先按照Qualcomm Package Manager，然后再安装QXDM。</p>
+<p>因为后面查看nv需要，还需要安装Product Configuration Assistant Tool (PCAT)。</p>
+<h2 id="使用QXDM查询指定NV值"><a href="#使用QXDM查询指定NV值" class="headerlink" title="使用QXDM查询指定NV值"></a>使用QXDM查询指定NV值</h2><p>首先手机通过数据线连接电脑</p>
+<p><img src="https://i.loli.net/2020/11/24/Go1EcFA7HQswnhN.png" alt="image-20201105163743538"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>如果没有的话，可以通过ADB命令来设置diag口：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell setprop sys.usb.config diag,serial_cdev,rmnet,adb</span><br><span class="line">adb shell setprop persist.usb.config diag,serial_cdev,rmnet,adb</span><br></pre></td></tr></table></figure>
+
+<p>然后打开QSDM，点击连接：</p>
+<p><img src="https://i.loli.net/2020/11/24/jz83uQTWXGhRgCF.png" alt="image-20201105164946696"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>选择刚才看到的diag的com端口：</p>
+<p><img src="https://i.loli.net/2020/11/24/zYRA8gqsEQdZTca.png" alt="image-20201105165022146"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>选中后点击右侧的connect按钮，连接成功后软件后面会有数据显示，关闭这个对话框，软件主窗口上选择“show nv browser”：</p>
+<p><img src="https://i.loli.net/2020/11/24/lmHtJ4F8uNMPD75.png" alt="image-20201105170321383"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>如果已经安装，就会自动打开界面并读取：</p>
+<p><img src="https://i.loli.net/2020/11/24/lIoFrwWiH7OSnhG.png" alt="image-20201105171342367"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>读取完成后就会可以在id中输入需要查询的nvid，来查看：</p>
+<p><img src="https://i.loli.net/2020/11/24/jmLkZNP5zIbtiXh.png" alt="image-20201105171543336"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>选中需要读取的项，点击read，如果失败则如下图：</p>
+<p><img src="https://i.loli.net/2020/11/24/Cu7GMUKjP6gbdXa.png" alt="image-20201105171727278"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>如果成功则会提示success。</p>
+<p>当然如果需要临时修改也可在input中输入你需要修改为的值，然后点击write，同样下面会有对应操作的提示：</p>
+<p><img src="https://i.loli.net/2020/11/24/oOcMxuhUyBV7NYJ.png" alt="image-20201105171910420"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>nv</tag>
+        <tag>qcom</tag>
       </tags>
   </entry>
 </search>
