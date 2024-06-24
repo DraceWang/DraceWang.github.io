@@ -2,10 +2,11 @@
 title: 利用Hexo博客框架结合Github Page创建自己的博客
 categories: Blog  
 tags: 
-	- Hexo
-	- GitHub page 
-date: 2023-10-08 16:55:00
+    - Hexo
+    - GitHub page 
+date: 2024-06-14 17:00
 cover: https://s2.loli.net/2023/10/09/WEFNigBfGyDOzdb.png
+update: 2024-06-24 10:02
 ---
 
 
@@ -27,7 +28,7 @@ Hexo 是一个快速、简洁且高效的博客框架。[Hexo](https://hexo.io/z
 
 安装的这部分我也是参考[官方Doc](https://hexo.io/zh-cn/docs/), 不愿意看我废话的，可以自行参考官方Doc。
 
-### 系统环境与Hexo依赖软件
+### 系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)
 
 ~~由于我是虚拟机部署环境，想着是弄完这一次之后，后面要是长久不用，我也能直接用虚拟机恢复出写博客的环境。（反正想法总是一阵一阵的，就先这样吧）。~~
 
@@ -48,23 +49,6 @@ Hexo 是一个快速、简洁且高效的博客框架。[Hexo](https://hexo.io/z
 - [ ] Git
 
 #### 安装Node.js
-
-~~请根据你自己的系统版本来，我这边kali是基于debian~~
-
-```shell
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt-get install -y nodejs
-```
-
-~~测试安装~~
-
-```shell
-curl -fsSL https://deb.nodesource.com/test | bash -
-```
-~~或者~~
-
-```shell
-npm -v 
-```
 
 我们直接到node.js的官网上下载最新版本的安装包（[Download | Node.js (nodejs.org)](https://nodejs.org/en/download/current)）
 
@@ -89,19 +73,6 @@ npm -v
 sudo npm install -g hexo-cli
 ```
 
-~~这里安装程序会创建文件等需要管理员权限。~~
-
-~~安装以后，可以使用以下两种方式执行 Hexo：~~
-
-1. ~~`npx hexo <command>`~~
-2. ~~Linux 用户可以将 Hexo 所在的目录下的 `node_modules` 添加到环境变量之中即可直接使用 `hexo <command>`：~~
-
-```shell
-echo 'PATH="$PATH:./node_modules/.bin"' >> ~/.profile
-```
-
-~~然后检查安装~~
-
 ```shell
 hexo version
 ```
@@ -117,6 +88,11 @@ npm install hexo
 ```shell
 npm install hexo@6.3.0
 ```
+2024-06-24
+```bash
+npm install hexo@laster
+```
+---
 
 如果担心后面组件不全，可以直接用官方的
 
@@ -136,7 +112,26 @@ hexo version
 npx hexo version
 ```
 
+2024-06-23
+这次安装发现版本查看不出来，我最后是到`C:\Users\<your name>\node_modules\hexo`下`package.json`中确认的
+```
+{
+  "name": "hexo",
+  "version": "7.2.0",
+  "description": "A fast, simple & powerful blog framework, powered by Node.js.",
+  "main": "dist/hexo",
+  "bin": {
+    "hexo": "./bin/hexo"
+  },
+```
 
+然后使用
+```shell
+npm install hexo
+```
+现在可以安装到最新的hexo
+
+---
 
 
 ## 初始化
@@ -194,28 +189,13 @@ Hexo 的模板是指在新建的文章文件中默认填充的内容。例如，
 
 ### 主题
 
-~~我自己建立了一个hexo的主题[hexo-theme-Hexagon](https://github.com/DraceWang/hexo-theme-Hexagon)，是19年的时候基于[hexo-theme-Claudia](https://haojen.github.io/Claudia-theme-blog/)这个主题修改得来的。因为之前就上传到github了，因此这里直接在`themes`目录下直接~~
-
-```
-git clone https://github.com/DraceWang/hexo-theme-Hexagon.git
-```
-
-~~然后在`_config.yml`中设置主题：~~
-
-```xaml
-theme: hexo-theme-Hexagon
-```
-
-现在不推荐用这个主题了，因为显示效果等都变化了，无法正确的显示markdown语法了。
-
 我现在找到了一个新的主题，很喜欢，[Hexo-Theme-Async](https://async-docs.imalun.com/)推荐给大家，我就在这个主题基础上添加了一些个性化修改。
 
-后期希望可以进一步为这个主题做出一些贡献：
+~~后期希望可以进一步为这个主题做出一些贡献：~~
+2024-06-24
+贡献不了一点，作者更新速度也好，修改都很快也很好，算了，我这个web外行就不要瞎掺和了。
 
-- [ ] 点线粒子效果
-- [ ] 更新加载动画
-- [ ] 更新fontawsome
-- [ ] 增加tags页面banner定义
+---
 
 #### 安装该主题依赖
 
@@ -230,13 +210,20 @@ npm install --save hexo-renderer-less hexo-renderer-ejs hexo-wordcount hexo-gene
 ```shell
 npm i hexo-theme-async@latest
 ```
-
+#### 启用主题
+修改 Hexo 站点配置文件 `_config.yml`。
+```yml
+# 将主题设置为 hexo-theme-async 
+theme: async
+```
 建议安装最新的版本，并且如果不是有无法满足的自定义个性化修改的话，建议就直接只使用原版，并使用该安装版，而**不要去自己clone下来放到`/themes`目录下**。***折腾是由成本的，别问我是怎么知道的😂***
 
 如果你硬要改或者就是要clone，那么请看[原因](# github page部署后，主站仅显示背景)
 
+2024-06-24
+可以说目前作者提供的自定义以及个性化修改已经非常足够了，可以参照作者大大写好的文档[主题配置 | Hexo-Theme-Async](https://hexo-theme-async.imalun.com/guide/config.html)
 
-
+---
 ### 博客文章
 
 将之前备份的文章放入`source/_post`目录。
@@ -259,15 +246,11 @@ npm install hexo-server --save
 hexo server
 ```
 
-## 生成
+## ~~生成~~
+2024-06-24
+在现在使用github pages来生成我们的博客网站的情况下，已经不需要再使用静态生成了。
 
-当我们在本地预览完成之后，可以使用hexo的生成器来生成静态页面。
-
-```
-hexo generate
-```
-
-生成的静态网站会在`/public`目录下
+---
 
 ## 部署
 
@@ -361,6 +344,10 @@ on:
 
 ### 新主题async的部署问题
 
+2024-06-24
+如果上面是按照`npm i hexo-theme-async@latest`方式使用主题的，那大概率是不会遇到这样的问题的。我这边的做法是先用hexo新版本新建一个本地目录，在本地目录中使用新主题，然后复制`_config.async.yml`过来，使用`hexo server`检查没有问题后，复制到对应`xxx.github.io`的仓库下，然后在这个仓库下用`hexo server`检查渲染等没有问题，然后`commit` 再`push`到远端，等待github pages的action动作完成，检查网页渲染。
+
+---
 #### github page部署后，主站仅显示背景
 
 主要就这一个问题，我部署后去主站一看，怎么之后背景，以为是index.html没有内容，但是去gh-pages分支一瞅，这不都在么。就非常奇怪，然后跟着主题doc来来回回走了十多遍，都没有修复。然后去讨论区翻帖子，发现没有人有我这个问题，奇怪了还能成个例了？主要我自己`hexo server`在本地打开时，是好的啊，没有一点问题，不死心的我再去主站上打开开发者模式对比着看，最终发现是有个网页元素是
@@ -420,6 +407,5 @@ Done in 2.05s.
 ```
 
 删除.gitignore文件后，重新上传部署，终于网站正常打开了。👏👏👏
-
 
 

@@ -3,10 +3,10 @@ title: jenkins+apache+subversion关联LDAP
 date: 2014-12-09
 categories: ALM开发  
 tags: 
-	- LDAP 
-	- jenkins 
-	- apache 
-	- subversion  
+    - LDAP 
+    - jenkins 
+    - apache 
+    - subversion  
 cover: https://s2.loli.net/2023/09/20/qORtrHv9IbkSilh.png
 ---
 

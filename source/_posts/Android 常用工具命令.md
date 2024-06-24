@@ -4,8 +4,8 @@ date: 2015-9-29 09:29:00
 update: 2016-4-21 09:29:00
 categories: Android  
 tags: 
-	- ADB
-	- shell
+    - ADB
+    - shell
 cover: https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg
 ---
 

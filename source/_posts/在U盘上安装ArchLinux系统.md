@@ -2,8 +2,8 @@
 title: 在U盘上安装ArchLinux系统   
 categories: Linux  
 tags: 
-	- archlinux 
-	- mobile system 
+    - archlinux 
+    - mobile system 
 date: 2016-02-04 12:00:00
 update: 2017-08-29 12:00:00
 cover: https://i.loli.net/2020/10/27/ILDuA268Vd9T4Ux.jpg

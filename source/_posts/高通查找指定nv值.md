@@ -2,10 +2,11 @@
 title: Android高通平台查找指定nv值   
 categories: Android  
 tags: 
-	- nv 
-	- qcom 
-date: 2020-11-05 12:00:00
+    - nv 
+    - qcom 
+date: 2024-06-14 17:00
 cover: https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg
+update: 2024-06-24 10:05
 ---
 
 ## 安装QXDM

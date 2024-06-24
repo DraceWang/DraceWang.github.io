@@ -2,8 +2,8 @@
 title: ubuntu14.04 安装redmine2.5.3  
 categories: ALM开发  
 tags: 
-	- redmine 
-	- ubuntu 
+    - redmine 
+    - ubuntu 
 date: 2014-12-15 12:15:00
 cover: https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg
 ---

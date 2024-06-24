@@ -2,8 +2,8 @@
 title: ubuntu14.04 配置openssh  
 categories: Linux  
 tags: 
-	- ubuntu 
-	- openssh
+    - ubuntu 
+    - openssh
 date: 2014-12-09 12:00:00
 cover: https://i.loli.net/2020/10/27/DwBuaAUOdTmpXyE.jpg
 ---

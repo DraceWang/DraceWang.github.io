@@ -2,8 +2,8 @@
 title: 在Kali上编译Android系统    
 categories: Android   
 tags: 
-	- kali 
-	- android 
+    - kali 
+    - android 
 date: 2020-06-12 12:00:00
 cover: https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg
 ---

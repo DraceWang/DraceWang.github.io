@@ -2,8 +2,8 @@
 title: Android LCD屏幕亮度曲线调整   
 categories: Android  
 tags: 
-	- LCD 
-	- BSP 
+    - LCD 
+    - BSP 
 date: 2019-02-13 12:13:00
 cover: https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg
 ---

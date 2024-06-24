@@ -2,8 +2,8 @@
 title: LDAP安装与关联redmine  
 categories: ALM开发 
 tags: 
-	- LDAP 
-	- redmine
+    - LDAP 
+    - redmine
 date: 2014-12-09 12:09:00
 cover: https://i.loli.net/2020/10/27/Nv37KteIuWEq961.jpg
 ---

@@ -2,8 +2,8 @@
 title: virtualbox（4.3.16）安装    
 categories: Linux  
 tags: 
-	- ubuntu 
-	- virtualbox 
+    - ubuntu 
+    - virtualbox 
 date: 2014-12-09 12:00:00
 cover: https://s2.loli.net/2023/09/21/UswxOvhH9yug4LT.jpg
 ---
