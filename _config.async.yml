@@ -217,3 +217,13 @@ about:
     </ul>
   privacy: 
    
+# Post wordcount
+# https://github.com/willin/hexo-wordcount
+wordcount:
+  enable: true
+  count: true
+  time: true
+
+web_analytics:  
+  enable: true 
+  google: G-T84GJPQD33
