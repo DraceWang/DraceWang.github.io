@@ -226,4 +226,5 @@ wordcount:
 
 web_analytics:  
   enable: true 
+  baidu: 16cea90ac06537b0a37ea52df3d2ede6
   google: G-T84GJPQD33
