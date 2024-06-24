@@ -10,14 +10,14 @@
 <meta name="description" content="前言其实我早在2020年就已经用Hexo搭建了自己的博客，并且使用github page发布了静态的博客。但是中间因为各种原因，差不多就算停更了。现在就是自己再回头记录下，不是说做任何事任何时候开始都不晚么~ so，那就来记录下吧。 首先，我这边的目的是记录下Hexo建立博客的过程，之前我都是在windows下弄的，现在想想还是用个虚拟机，系统就Kali 23.2了,主要后面也要常用的。Hexo也">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Hexo博客框架结合Github Page创建自己的博客">
-<meta property="og:url" content="http://dracewang.github.io/2023/10/08/%E5%88%A9%E7%94%A8Hexo%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E7%BB%93%E5%90%88Github%20Page%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:url" content="http://dracewang.github.io/2024/06/14/%E5%88%A9%E7%94%A8Hexo%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E7%BB%93%E5%90%88Github%20Page%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="Hexagon">
 <meta property="og:description" content="前言其实我早在2020年就已经用Hexo搭建了自己的博客，并且使用github page发布了静态的博客。但是中间因为各种原因，差不多就算停更了。现在就是自己再回头记录下，不是说做任何事任何时候开始都不晚么~ so，那就来记录下吧。 首先，我这边的目的是记录下Hexo建立博客的过程，之前我都是在windows下弄的，现在想想还是用个虚拟机，系统就Kali 23.2了,主要后面也要常用的。Hexo也">
 <meta property="og:locale">
 <meta property="og:image" content="http://dracewang.github.io/img/404.jpg">
 <meta property="og:image" content="http://dracewang.github.io/img/404.jpg">
-<meta property="article:published_time" content="2023-10-08T08:55:00.000Z">
-<meta property="article:modified_time" content="2024-06-23T09:09:35.505Z">
+<meta property="article:published_time" content="2024-06-14T09:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-24T02:15:45.607Z">
 <meta property="article:author" content="Drace Wang">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="GitHub page">
@@ -60,7 +60,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"dracewang.github.io","author":"Drace Wang","root":"/","typed_text":["平凡的码农"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"failure.ico","show_text":"回来啦~","hide_text":"(●—●)看不见我！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":true,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":200},"toc":{"post_title":true},"live_time":{"start_time":"10/08/2023 10:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner","avatar":false,"delayRange":5000,"speed":80},"covers":["/img/block.jpg","https://img2.wallspic.com/previews/7/6/8/1/7/171867/171867-wu_kong-chao_ji_sai_ya_ren-sai_ya_ren-zamasu-long_zhu-500x.jpg","https://img3.wallspic.com/previews/2/0/1/8/6/168102/168102-yi_shu-ka_tong-mian_bu_biao_qing-kuai_le_de-ji_qie-500x.jpg","https://img2.wallspic.com/previews/2/6/4/3/7/173462/173462-qi_fen-zi_se_de-zi_ran_jing_guan-yu_hui-de_ping_xian-500x.jpg","https://img2.wallspic.com/previews/3/3/9/1/3/131933/131933-mo_xing-xiao_jie-huang_se_de-nu_hai-fa_xing-500x.jpg","https://img1.wallspic.com/previews/8/3/4/6/2/126438/126438-wei_lai_zhu_yi-shu_ma_yi_shu-jie_duan-zi_ben_shi-yi_shu-500x.jpg","https://img2.wallspic.com/previews/0/1/5/0/7/170510/170510-guang-azure-zi_se_de-zi_ran_huan_jing-zi_ran_jing_guan-500x.jpg","https://img2.wallspic.com/previews/3/6/9/6/5/156963/156963-yi_shu-qi_fen-yu_hui-shou_shi-ren_men_zai_zi_ran_jie-500x.jpg","https://img1.wallspic.com/previews/0/9/3/5/6/165390/165390-qi_fen-zi_se_de-zi_ran_huan_jing-zi_ran_jing_guan-tian_wen_xue_dui_xiang-500x.jpg","https://img3.wallspic.com/previews/2/8/6/1/7/171682/171682-yi_kuai-xing_zhi-ye_ti-yi_shu-shui_xia-500x.jpg","https://img1.wallspic.com/previews/7/1/9/9/89917/89917-bo_xi_ta_nuo-an_zhuang_de_feng_jing-cheng_shi-suo_lun_tuo-shan_zhan-500x.jpg","https://img1.wallspic.com/previews/6/2/3/5/6/165326/165326-pang_ke2077-pang_ke-qi_fen-xing_zhi-zi_se_de-500x.jpg","https://img2.wallspic.com/previews/8/9/4/5/6/165498/165498-ka_tong-tao-pin_hong_se-zhang_zhang_de_tou_fa-ji_qie-500x.jpg","https://img3.wallspic.com/previews/5/7/4/2/7/172475/172475-yi_shu-tao-tou_fa-ka_tong-500x.jpg","https://img2.wallspic.com/previews/5/0/9/0/70905/70905-hai_yang-ma_er_dai_fu-tian_kong-du_jia_cun-huan_jiao-500x.jpg","https://img3.wallspic.com/previews/4/3/4/8/6/168434/168434-xing_zhi-zi_ran_jing_guan-dan_huang-shui_dao-zhi_bei-500x.jpg","https://img2.wallspic.com/previews/6/5/4/5/6/165456/165456-giy_fu_gang-e_mo_sha_shoukimetsu_no_yaiba-shan_zi_de_yi_shu-zi_se_de-dian_lan_se_de-500x.jpg","https://img1.wallspic.com/previews/5/4/0/4/7/174045/174045-jian_ying-qi_fen-ren_men_zai_zi_ran_jie-tian_wen_xue_dui_xiang-yi_shu-500x.jpg","https://img1.wallspic.com/previews/9/3/1/6/5/156139/156139-feng_jing_hua-yi_shu-shu_ma_yi_shu-qi_fen-sheng_tai_qu-500x.jpg","https://img2.wallspic.com/previews/7/6/4/5/7/175467/175467-wo_de_xue_shu_jie_de_ying_xiong-tao-yi_shu-ka_tong-azure-500x.jpg","https://img1.wallspic.com/previews/3/7/0/0/7/170073/170073-liang_ge_ling-ka_tong-shou_shi-chuang_zao_xing_de_yi_shu-hong_se_de-500x.jpg","https://img1.wallspic.com/previews/1/8/3/6/6/166381/166381-shi_zi-xin_ba-bai_se_shi_zi-hu_xu-mao_ke-500x.jpg","https://img3.wallspic.com/previews/4/2/2/3/7/173224/173224-ri_luo-shui_zi_yuan-qi_fen-yu_hui-zi_se_de-500x.jpg","https://img1.wallspic.com/previews/7/5/7/9/6/169757/169757-ji_bo_li_de_bo_wu_guan-zi_ran_jing_guan-yi_shu-ji_yun-500x.jpg","https://img1.wallspic.com/previews/5/2/0/6/7/176025/176025-qi_fen-tian_wen_xue_dui_xiang-yi_shu-dian_lan_se_de-yuan_quan-500x.jpg","https://img3.wallspic.com/previews/6/5/8/1/4/141856/141856-hen_ku_de-hui_hua-yu_yan_jing_tou-zhai_nan-tu_xing_she_ji-500x.jpg","https://img1.wallspic.com/previews/2/1/6/5/6/165612/165612-kimetsu_no_yaiba-e_mo_sha_shoukimetsu_no_yaiba-tao-tou_fa-wai_tao-500x.jpg","https://img3.wallspic.com/previews/5/1/0/2/4/142015/142015-feng_ge-ka_ka_xi_qi_mu-huo_ying_ren_zhe-tu_xing_she_ji-shi_jue_yi_shu-500x.jpg","https://img1.wallspic.com/previews/8/8/7/8/5/158788/158788-e_mo_sha_shoukimetsu_no_yaiba-shnen_man_hua-tao-ka_tong-azure-500x.jpg"],"creative_commons":{"license":"by-nc-sa","language":"deed.zh"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"preload":true,"trigger":"auto","path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-06-23 17:09:35"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-06-24 10:15:45"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
@@ -254,7 +254,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        2023
+                                        2024
                                     </span>
                                 </li>
                             </ul>
@@ -376,13 +376,13 @@
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
-            10/08
+            06/14
         </div>
     </div>
     <div class="col-sm-4">
         <div class="trm-card trm-label trm-label-light text-center">
             <i class="iconfont far fa-clock trm-icon"></i><br>
-            16:55
+            17:00
         </div>
     </div>
     <div class="col-sm-4">
@@ -400,7 +400,7 @@
 <p>那就让我们开始把。</p>
 <h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><h3 id="什么是-Hexo？"><a href="#什么是-Hexo？" class="headerlink" title="什么是 Hexo？"></a>什么是 Hexo？</h3><p>Hexo 是一个快速、简洁且高效的博客框架。<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a> 使用 <a target="_blank" rel="noopener" href="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
 <p>安装的这部分我也是参考<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">官方Doc</a>, 不愿意看我废话的，可以自行参考官方Doc。</p>
-<h3 id="系统环境与Hexo依赖软件"><a href="#系统环境与Hexo依赖软件" class="headerlink" title="系统环境与Hexo依赖软件"></a>系统环境与Hexo依赖软件</h3><p><del>由于我是虚拟机部署环境，想着是弄完这一次之后，后面要是长久不用，我也能直接用虚拟机恢复出写博客的环境。（反正想法总是一阵一阵的，就先这样吧）。</del></p>
+<h3 id="系统环境与Hexo依赖软件-删除kali部分，后续还是windows系统更新博客"><a href="#系统环境与Hexo依赖软件-删除kali部分，后续还是windows系统更新博客" class="headerlink" title="系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)"></a>系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)</h3><p><del>由于我是虚拟机部署环境，想着是弄完这一次之后，后面要是长久不用，我也能直接用虚拟机恢复出写博客的环境。（反正想法总是一阵一阵的，就先这样吧）。</del></p>
 <ul>
 <li><input checked="" disabled="" type="checkbox"> <del>Kali Linux 2023.2（有需要的改下国内源）</del></li>
 <li><input disabled="" type="checkbox"> <del><a target="_blank" rel="noopener" href="http://nodejs.org/">Node.js</a> (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)</del></li>
@@ -414,15 +414,7 @@
 <li><input disabled="" type="checkbox"> Node.js</li>
 <li><input disabled="" type="checkbox"> Git</li>
 </ul>
-<h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p><del>请根据你自己的系统版本来，我这边kali是基于debian</del></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &amp;&amp; sudo apt-get install -y nodejs</span><br></pre></td></tr></table></figure>
-
-<p><del>测试安装</del></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/test | bash -</span><br></pre></td></tr></table></figure>
-<p><del>或者</del></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v </span><br></pre></td></tr></table></figure>
-
-<p>我们直接到node.js的官网上下载最新版本的安装包（<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/current">Download | Node.js (nodejs.org)</a>）</p>
+<h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>我们直接到node.js的官网上下载最新版本的安装包（<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/current">Download | Node.js (nodejs.org)</a>）</p>
 <p>根据自己的系统选择对应的32或64bit版本，然后双击运行，一路‘下一步’就完成了，中间建议勾选安装node.js依赖。</p>
 <p>安装完成后可以在开始菜单中看到<br><img src="https://s2.loli.net/2023/10/08/MeQwHWL2yRasS9F.jpg" alt="微信截图_20231008133554"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 <p>点击打开Node.js会弹出命令行，确认Node.js是否安装成功，且版本是多少</p>
@@ -431,15 +423,6 @@
 <p>同样也是一路‘下一步’来安装，建议添加系统环境变量和安装git bash。</p>
 <h3 id="安装Hexo-1"><a href="#安装Hexo-1" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
-<p><del>这里安装程序会创建文件等需要管理员权限。</del></p>
-<p><del>安装以后，可以使用以下两种方式执行 Hexo：</del></p>
-<ol>
-<li><del><code>npx hexo &lt;command&gt;</code></del></li>
-<li><del>Linux 用户可以将 Hexo 所在的目录下的 <code>node_modules</code> 添加到环境变量之中即可直接使用 <code>hexo &lt;command&gt;</code>：</del></li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;PATH=&quot;$PATH:./node_modules/.bin&quot;&#x27; &gt;&gt; ~/.profile</span><br></pre></td></tr></table></figure>
-
-<p><del>然后检查安装</del></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
 
 <p>可以使用git bash或者powershell，git bash有右键菜单，可以省的切换目录，我个人觉得比较舒服，所以后面就以这个为例了。</p>
@@ -447,8 +430,7 @@
 
 <p>我这边因为之前在kali中进行部署发现hexo版本通过默认命令安装的不是最新的，因此，我就加上了版本号</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo@6.3.0</span><br></pre></td></tr></table></figure>
-
-<p>如果担心后面组件不全，可以直接用官方的</p>
+<h2 id="2024-06-24"><a href="#2024-06-24" class="headerlink" title="2024-06-24"></a>2024-06-24<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo@laster</span><br></pre></td></tr></table></figure></h2><p>如果担心后面组件不全，可以直接用官方的</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
 <p>然后确认下版本号即可</p>
@@ -457,9 +439,13 @@
 <p>如果你是刚装好node.js，git bash中似乎没有办法找到这个hexo的环境变量，使用下面的命令即可</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx hexo version</span><br></pre></td></tr></table></figure>
 
+<p>2024-06-23<br>这次安装发现版本查看不出来，我最后是到<code>C:\Users\&lt;your name&gt;\node_modules\hexo</code>下<code>package.json</code>中确认的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;hexo&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;7.2.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;A fast, simple &amp; powerful blog framework, powered by Node.js.&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;dist/hexo&quot;,</span><br><span class="line">  &quot;bin&quot;: &#123;</span><br><span class="line">    &quot;hexo&quot;: &quot;./bin/hexo&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
 
-
-
+<p>然后使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
+<p>现在可以安装到最新的hexo</p>
+<hr>
 <h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>使用hexo的框架创建一个文件夹，用于部署和生成静态网站</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
 
@@ -474,28 +460,19 @@
 <h3 id="themes"><a href="#themes" class="headerlink" title="themes"></a>themes</h3><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/themes">主题</a> 文件夹。Hexo 会根据主题来生成静态页面。</p>
 <h2 id="恢复站点状态使用"><a href="#恢复站点状态使用" class="headerlink" title="恢复站点状态使用"></a>恢复站点状态使用</h2><h3 id="config-yml-1"><a href="#config-yml-1" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>由于我之前已经用过了hexo并且已经建立过站点了，因此现在我可以通过之前备份的主题以及配置文件来恢复，主要是将自己使用的主题放进<code>themes</code>文件夹，并将<code>_config.yml</code>中的参数比对恢复。</p>
 <p><em><strong>这里建议<code>_config.yml</code>中单独恢复把参数对应的值粘贴过来，因为hexo的版本更新，防止出现解析生成静态站的时候出现各种乱七八糟的问题。</strong></em></p>
-<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p><del>我自己建立了一个hexo的主题<a target="_blank" rel="noopener" href="https://github.com/DraceWang/hexo-theme-Hexagon">hexo-theme-Hexagon</a>，是19年的时候基于<a target="_blank" rel="noopener" href="https://haojen.github.io/Claudia-theme-blog/">hexo-theme-Claudia</a>这个主题修改得来的。因为之前就上传到github了，因此这里直接在<code>themes</code>目录下直接</del></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/DraceWang/hexo-theme-Hexagon.git</span><br></pre></td></tr></table></figure>
-
-<p><del>然后在<code>_config.yml</code>中设置主题：</del></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: hexo-theme-Hexagon</span><br></pre></td></tr></table></figure>
-
-<p>现在不推荐用这个主题了，因为显示效果等都变化了，无法正确的显示markdown语法了。</p>
-<p>我现在找到了一个新的主题，很喜欢，<a target="_blank" rel="noopener" href="https://async-docs.imalun.com/">Hexo-Theme-Async</a>推荐给大家，我就在这个主题基础上添加了一些个性化修改。</p>
-<p>后期希望可以进一步为这个主题做出一些贡献：</p>
-<ul>
-<li><input disabled="" type="checkbox"> 点线粒子效果</li>
-<li><input disabled="" type="checkbox"> 更新加载动画</li>
-<li><input disabled="" type="checkbox"> 更新fontawsome</li>
-<li><input disabled="" type="checkbox"> 增加tags页面banner定义</li>
-</ul>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>我现在找到了一个新的主题，很喜欢，<a target="_blank" rel="noopener" href="https://async-docs.imalun.com/">Hexo-Theme-Async</a>推荐给大家，我就在这个主题基础上添加了一些个性化修改。</p>
+<p><del>后期希望可以进一步为这个主题做出一些贡献：</del><br>2024-06-24<br>贡献不了一点，作者更新速度也好，修改都很快也很好，算了，我这个web外行就不要瞎掺和了。</p>
+<hr>
 <h4 id="安装该主题依赖"><a href="#安装该主题依赖" class="headerlink" title="安装该主题依赖"></a>安装该主题依赖</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-renderer-less hexo-renderer-ejs hexo-wordcount hexo-generator-feed katex hexo-generator-searchdb swup hexo-generator-category hexo-generator-tag hexo-generator-index</span><br></pre></td></tr></table></figure>
 
 <p>这边我因为几乎把所有功能都开了，因此安装的依赖比较多。<strong>less和ejs是必须的渲染器。</strong></p>
 <h4 id="安装该主题"><a href="#安装该主题" class="headerlink" title="安装该主题"></a>安装该主题</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-theme-async@latest</span><br></pre></td></tr></table></figure>
-
+<h4 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h4><p>修改 Hexo 站点配置文件 <code>_config.yml</code>。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将主题设置为 hexo-theme-async </span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">async</span></span><br></pre></td></tr></table></figure>
 <p>建议安装最新的版本，并且如果不是有无法满足的自定义个性化修改的话，建议就直接只使用原版，并使用该安装版，而<strong>不要去自己clone下来放到<code>/themes</code>目录下</strong>。<em><strong>折腾是由成本的，别问我是怎么知道的😂</strong></em></p>
 <p>如果你硬要改或者就是要clone，那么请看[原因](# github page部署后，主站仅显示背景)</p>
+<p>2024-06-24<br>可以说目前作者提供的自定义以及个性化修改已经非常足够了，可以参照作者大大写好的文档<a target="_blank" rel="noopener" href="https://hexo-theme-async.imalun.com/guide/config.html">主题配置 | Hexo-Theme-Async</a></p>
+<hr>
 <h3 id="博客文章"><a href="#博客文章" class="headerlink" title="博客文章"></a>博客文章</h3><p>将之前备份的文章放入<code>source/_post</code>目录。</p>
 <p><em>啊~~，文章日期，封面又不匹配了，再改一遍😟</em></p>
 <h2 id="通过建立本地web服务进行预览"><a href="#通过建立本地web服务进行预览" class="headerlink" title="通过建立本地web服务进行预览"></a>通过建立本地web服务进行预览</h2><p>使用hexo服务器进行本地站的预览，Hexo 3.0 把服务器独立成了个别模块，必须先安装 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-server">hexo-server</a> 才能使用。</p>
@@ -504,10 +481,8 @@
 <p>安装完成后，输入以下命令以启动服务器，网站会在 <code>http://localhost:4000</code> 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务器。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
 
-<h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h2><p>当我们在本地预览完成之后，可以使用hexo的生成器来生成静态页面。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>生成的静态网站会在<code>/public</code>目录下</p>
+<h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a><del>生成</del></h2><p>2024-06-24<br>在现在使用github pages来生成我们的博客网站的情况下，已经不需要再使用静态生成了。</p>
+<hr>
 <h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>现在的hexo可以使用workflow中的action直接让github自动生成github pages来部署我们的博客，但是这种方式需要把源代码都提交上去，请自行斟酌是否包含<strong>个人敏感信息</strong>。</p>
 <p>我这里就选择使用action来自动化部署，这样我自己博客的内容也完全托管在github上省的以后再找版本了。</p>
 <p>在你自己的特殊储存库（<code>&lt;yourname.github.io&gt;</code>）中建立<code>.github/workflows/pages.yml</code>，内容：</p>
@@ -530,7 +505,9 @@
 
 <p>经历了这些后，我的老主题总算是可以显示了，但是发现代码以及markdown的大部分格式都不对，该主题也年久失修的状态了，还是换个主题吧。</p>
 <hr>
-<h3 id="新主题async的部署问题"><a href="#新主题async的部署问题" class="headerlink" title="新主题async的部署问题"></a>新主题async的部署问题</h3><h4 id="github-page部署后，主站仅显示背景"><a href="#github-page部署后，主站仅显示背景" class="headerlink" title="github page部署后，主站仅显示背景"></a>github page部署后，主站仅显示背景</h4><p>主要就这一个问题，我部署后去主站一看，怎么之后背景，以为是index.html没有内容，但是去gh-pages分支一瞅，这不都在么。就非常奇怪，然后跟着主题doc来来回回走了十多遍，都没有修复。然后去讨论区翻帖子，发现没有人有我这个问题，奇怪了还能成个例了？主要我自己<code>hexo server</code>在本地打开时，是好的啊，没有一点问题，不死心的我再去主站上打开开发者模式对比着看，最终发现是有个网页元素是</p>
+<h3 id="新主题async的部署问题"><a href="#新主题async的部署问题" class="headerlink" title="新主题async的部署问题"></a>新主题async的部署问题</h3><p>2024-06-24<br>如果上面是按照<code>npm i hexo-theme-async@latest</code>方式使用主题的，那大概率是不会遇到这样的问题的。我这边的做法是先用hexo新版本新建一个本地目录，在本地目录中使用新主题，然后复制<code>_config.async.yml</code>过来，使用<code>hexo server</code>检查没有问题后，复制到对应<code>xxx.github.io</code>的仓库下，然后在这个仓库下用<code>hexo server</code>检查渲染等没有问题，然后<code>commit</code> 再<code>push</code>到远端，等待github pages的action动作完成，检查网页渲染。</p>
+<hr>
+<h4 id="github-page部署后，主站仅显示背景"><a href="#github-page部署后，主站仅显示背景" class="headerlink" title="github page部署后，主站仅显示背景"></a>github page部署后，主站仅显示背景</h4><p>主要就这一个问题，我部署后去主站一看，怎么之后背景，以为是index.html没有内容，但是去gh-pages分支一瞅，这不都在么。就非常奇怪，然后跟着主题doc来来回回走了十多遍，都没有修复。然后去讨论区翻帖子，发现没有人有我这个问题，奇怪了还能成个例了？主要我自己<code>hexo server</code>在本地打开时，是好的啊，没有一点问题，不死心的我再去主站上打开开发者模式对比着看，最终发现是有个网页元素是</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;trm-scroll-container&quot;</span> <span class="attr">class</span>=<span class="string">&quot;trm-scroll-container&quot;</span> <span class="attr">style</span>=<span class="string">&quot;opacity: 0&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>这里的<code>opacity: 0</code>然后对应的css的样式<code>source/css/_components/base.less</code>中</p>
@@ -572,7 +549,7 @@
     </li>
     <li class="trm-post-copyright-link">
         <strong>本文链接：</strong>
-        <a id="original-link" href="http://dracewang.github.io/2023/10/08/利用Hexo博客框架结合Github Page创建自己的博客/" title="利用Hexo博客框架结合Github Page创建自己的博客">http://dracewang.github.io/2023/10/08/利用Hexo博客框架结合Github Page创建自己的博客/</a>
+        <a id="original-link" href="http://dracewang.github.io/2024/06/14/利用Hexo博客框架结合Github Page创建自己的博客/" title="利用Hexo博客框架结合Github Page创建自己的博客">http://dracewang.github.io/2024/06/14/利用Hexo博客框架结合Github Page创建自己的博客/</a>
     </li>
     <li class="trm-post-copyright-license">
         <strong>版权声明：</strong>
@@ -595,17 +572,17 @@
     <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
         <div class="trm-older-publication">
             
-            <a class="trm-op-top trm-anima-link" href="/2024/06/07/%E7%94%A8Obsidian%E8%AE%B0%E5%BD%95%E5%AD%A6%E4%B9%A0Obsidian/">
+            <a class="trm-op-top trm-anima-link" href="/2024/06/19/%E5%90%84%E7%A7%8D%E4%B8%AA%E4%BA%BA%E6%97%A5%E7%A8%8B%E7%AE%A1%E7%90%86GTD%E5%AF%B9%E6%AF%94/">
                 <span class="trm-op-cover">
-                    <img alt="cover" class="no-fancybox" src="https://s2.loli.net/2024/06/11/So9CcKAa5djMvQz.png">
+                    <img alt="cover" class="no-fancybox" src="https://s2.loli.net/2024/06/19/EnplCtj9aL5wWQx.png">
                 </span>
-                <h6 class="trm-op-title">用Obsidian记录学习Obsidian</h6>
+                <h6 class="trm-op-title">各种个人日程管理GTD对比</h6>
             </a>
             <div class="trm-divider trm-mb-15 trm-mt-20"></div>
             <ul class="trm-card-data trm-label">
-                <li>24/06/07</li>
-                <li>13:29</li>
-                <li>Learn</li>
+                <li>24/06/19</li>
+                <li>13:42</li>
+                <li>日程管理</li>
             </ul>
         </div>
     </div>
@@ -616,7 +593,7 @@
     <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
         <div class="trm-older-publication">
             
-            <a class="trm-op-top trm-anima-link" href="/2020/11/05/%E9%AB%98%E9%80%9A%E6%9F%A5%E6%89%BE%E6%8C%87%E5%AE%9Anv%E5%80%BC/">
+            <a class="trm-op-top trm-anima-link" href="/2024/06/14/%E9%AB%98%E9%80%9A%E6%9F%A5%E6%89%BE%E6%8C%87%E5%AE%9Anv%E5%80%BC/">
                 <span class="trm-op-cover">
                     <img alt="cover" class="no-fancybox" src="https://i.loli.net/2020/10/27/ogxvylKmiRqLtPQ.jpg">
                 </span>
@@ -624,8 +601,8 @@
             </a>
             <div class="trm-divider trm-mb-15 trm-mt-20"></div>
             <ul class="trm-card-data trm-label">
-                <li>20/11/05</li>
-                <li>12:00</li>
+                <li>24/06/14</li>
+                <li>17:00</li>
                 <li>Android</li>
             </ul>
         </div>
@@ -692,7 +669,7 @@
 				</span>
       </div>
       <div class="trm-post-toc-content">
-        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="前言"><a rel="nofollow" class="trm-toc-link" href="#前言"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">前言</span></a></li><li class="trm-toc-item trm-toc-level-2" title="安装Hexo"><a rel="nofollow" class="trm-toc-link" href="#安装Hexo"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">安装Hexo</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="什么是 Hexo？"><a rel="nofollow" class="trm-toc-link" href="#什么是-Hexo？"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">什么是 Hexo？</span></a></li><li class="trm-toc-item trm-toc-level-3" title="系统环境与Hexo依赖软件"><a rel="nofollow" class="trm-toc-link" href="#系统环境与Hexo依赖软件"><span class="trm-toc-number">2.2.</span> <span class="trm-toc-text">系统环境与Hexo依赖软件</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="安装Node.js"><a rel="nofollow" class="trm-toc-link" href="#安装Node-js"><span class="trm-toc-number">2.2.1.</span> <span class="trm-toc-text">安装Node.js</span></a></li><li class="trm-toc-item trm-toc-level-4" title="安装git"><a rel="nofollow" class="trm-toc-link" href="#安装git"><span class="trm-toc-number">2.2.2.</span> <span class="trm-toc-text">安装git</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="安装Hexo"><a rel="nofollow" class="trm-toc-link" href="#安装Hexo-1"><span class="trm-toc-number">2.3.</span> <span class="trm-toc-text">安装Hexo</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="初始化"><a rel="nofollow" class="trm-toc-link" href="#初始化"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">初始化</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="_config.yml"><a rel="nofollow" class="trm-toc-link" href="#config-yml"><span class="trm-toc-number">3.1.</span> <span class="trm-toc-text">_config.yml</span></a></li><li class="trm-toc-item trm-toc-level-3" title="package.json"><a rel="nofollow" class="trm-toc-link" href="#package-json"><span class="trm-toc-number">3.2.</span> <span class="trm-toc-text">package.json</span></a></li><li class="trm-toc-item trm-toc-level-3" title="scaffolds"><a rel="nofollow" class="trm-toc-link" href="#scaffolds"><span class="trm-toc-number">3.3.</span> <span class="trm-toc-text">scaffolds</span></a></li><li class="trm-toc-item trm-toc-level-3" title="source"><a rel="nofollow" class="trm-toc-link" href="#source"><span class="trm-toc-number">3.4.</span> <span class="trm-toc-text">source</span></a></li><li class="trm-toc-item trm-toc-level-3" title="themes"><a rel="nofollow" class="trm-toc-link" href="#themes"><span class="trm-toc-number">3.5.</span> <span class="trm-toc-text">themes</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="恢复站点状态使用"><a rel="nofollow" class="trm-toc-link" href="#恢复站点状态使用"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">恢复站点状态使用</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="_config.yml"><a rel="nofollow" class="trm-toc-link" href="#config-yml-1"><span class="trm-toc-number">4.1.</span> <span class="trm-toc-text">_config.yml</span></a></li><li class="trm-toc-item trm-toc-level-3" title="主题"><a rel="nofollow" class="trm-toc-link" href="#主题"><span class="trm-toc-number">4.2.</span> <span class="trm-toc-text">主题</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="安装该主题依赖"><a rel="nofollow" class="trm-toc-link" href="#安装该主题依赖"><span class="trm-toc-number">4.2.1.</span> <span class="trm-toc-text">安装该主题依赖</span></a></li><li class="trm-toc-item trm-toc-level-4" title="安装该主题"><a rel="nofollow" class="trm-toc-link" href="#安装该主题"><span class="trm-toc-number">4.2.2.</span> <span class="trm-toc-text">安装该主题</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="博客文章"><a rel="nofollow" class="trm-toc-link" href="#博客文章"><span class="trm-toc-number">4.3.</span> <span class="trm-toc-text">博客文章</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="通过建立本地web服务进行预览"><a rel="nofollow" class="trm-toc-link" href="#通过建立本地web服务进行预览"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">通过建立本地web服务进行预览</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="安装hexo-server"><a rel="nofollow" class="trm-toc-link" href="#安装hexo-server"><span class="trm-toc-number">5.1.</span> <span class="trm-toc-text">安装hexo-server</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="生成"><a rel="nofollow" class="trm-toc-link" href="#生成"><span class="trm-toc-number">6.</span> <span class="trm-toc-text">生成</span></a></li><li class="trm-toc-item trm-toc-level-2" title="部署"><a rel="nofollow" class="trm-toc-link" href="#部署"><span class="trm-toc-number">7.</span> <span class="trm-toc-text">部署</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="老主题hexagon的问题"><a rel="nofollow" class="trm-toc-link" href="#老主题hexagon的问题"><span class="trm-toc-number">7.1.</span> <span class="trm-toc-text">老主题hexagon的问题</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="首先是hexo版本与node.js不匹配"><a rel="nofollow" class="trm-toc-link" href="#首先是hexo版本与node-js不匹配"><span class="trm-toc-number">7.1.1.</span> <span class="trm-toc-text">首先是hexo版本与node.js不匹配</span></a></li><li class="trm-toc-item trm-toc-level-4" title="hexo官方给的pages的actions里面用的主分支叫main，我这边master"><a rel="nofollow" class="trm-toc-link" href="#hexo官方给的pages的actions里面用的主分支叫main，我这边master"><span class="trm-toc-number">7.1.2.</span> <span class="trm-toc-text">hexo官方给的pages的actions里面用的主分支叫main，我这边master</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="新主题async的部署问题"><a rel="nofollow" class="trm-toc-link" href="#新主题async的部署问题"><span class="trm-toc-number">7.2.</span> <span class="trm-toc-text">新主题async的部署问题</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="github page部署后，主站仅显示背景"><a rel="nofollow" class="trm-toc-link" href="#github-page部署后，主站仅显示背景"><span class="trm-toc-number">7.2.1.</span> <span class="trm-toc-text">github page部署后，主站仅显示背景</span></a></li></ol></li></ol></li></ol>
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="前言"><a rel="nofollow" class="trm-toc-link" href="#前言"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">前言</span></a></li><li class="trm-toc-item trm-toc-level-2" title="安装Hexo"><a rel="nofollow" class="trm-toc-link" href="#安装Hexo"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">安装Hexo</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="什么是 Hexo？"><a rel="nofollow" class="trm-toc-link" href="#什么是-Hexo？"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">什么是 Hexo？</span></a></li><li class="trm-toc-item trm-toc-level-3" title="系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)"><a rel="nofollow" class="trm-toc-link" href="#系统环境与Hexo依赖软件-删除kali部分，后续还是windows系统更新博客"><span class="trm-toc-number">2.2.</span> <span class="trm-toc-text">系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="安装Node.js"><a rel="nofollow" class="trm-toc-link" href="#安装Node-js"><span class="trm-toc-number">2.2.1.</span> <span class="trm-toc-text">安装Node.js</span></a></li><li class="trm-toc-item trm-toc-level-4" title="安装git"><a rel="nofollow" class="trm-toc-link" href="#安装git"><span class="trm-toc-number">2.2.2.</span> <span class="trm-toc-text">安装git</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="安装Hexo"><a rel="nofollow" class="trm-toc-link" href="#安装Hexo-1"><span class="trm-toc-number">2.3.</span> <span class="trm-toc-text">安装Hexo</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="2024-06-241npm install hexo@laster"><a rel="nofollow" class="trm-toc-link" href="#2024-06-24"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">2024-06-241npm install hexo@laster</span></a></li><li class="trm-toc-item trm-toc-level-2" title="初始化"><a rel="nofollow" class="trm-toc-link" href="#初始化"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">初始化</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="_config.yml"><a rel="nofollow" class="trm-toc-link" href="#config-yml"><span class="trm-toc-number">4.1.</span> <span class="trm-toc-text">_config.yml</span></a></li><li class="trm-toc-item trm-toc-level-3" title="package.json"><a rel="nofollow" class="trm-toc-link" href="#package-json"><span class="trm-toc-number">4.2.</span> <span class="trm-toc-text">package.json</span></a></li><li class="trm-toc-item trm-toc-level-3" title="scaffolds"><a rel="nofollow" class="trm-toc-link" href="#scaffolds"><span class="trm-toc-number">4.3.</span> <span class="trm-toc-text">scaffolds</span></a></li><li class="trm-toc-item trm-toc-level-3" title="source"><a rel="nofollow" class="trm-toc-link" href="#source"><span class="trm-toc-number">4.4.</span> <span class="trm-toc-text">source</span></a></li><li class="trm-toc-item trm-toc-level-3" title="themes"><a rel="nofollow" class="trm-toc-link" href="#themes"><span class="trm-toc-number">4.5.</span> <span class="trm-toc-text">themes</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="恢复站点状态使用"><a rel="nofollow" class="trm-toc-link" href="#恢复站点状态使用"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">恢复站点状态使用</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="_config.yml"><a rel="nofollow" class="trm-toc-link" href="#config-yml-1"><span class="trm-toc-number">5.1.</span> <span class="trm-toc-text">_config.yml</span></a></li><li class="trm-toc-item trm-toc-level-3" title="主题"><a rel="nofollow" class="trm-toc-link" href="#主题"><span class="trm-toc-number">5.2.</span> <span class="trm-toc-text">主题</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="安装该主题依赖"><a rel="nofollow" class="trm-toc-link" href="#安装该主题依赖"><span class="trm-toc-number">5.2.1.</span> <span class="trm-toc-text">安装该主题依赖</span></a></li><li class="trm-toc-item trm-toc-level-4" title="安装该主题"><a rel="nofollow" class="trm-toc-link" href="#安装该主题"><span class="trm-toc-number">5.2.2.</span> <span class="trm-toc-text">安装该主题</span></a></li><li class="trm-toc-item trm-toc-level-4" title="启用主题"><a rel="nofollow" class="trm-toc-link" href="#启用主题"><span class="trm-toc-number">5.2.3.</span> <span class="trm-toc-text">启用主题</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="博客文章"><a rel="nofollow" class="trm-toc-link" href="#博客文章"><span class="trm-toc-number">5.3.</span> <span class="trm-toc-text">博客文章</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="通过建立本地web服务进行预览"><a rel="nofollow" class="trm-toc-link" href="#通过建立本地web服务进行预览"><span class="trm-toc-number">6.</span> <span class="trm-toc-text">通过建立本地web服务进行预览</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="安装hexo-server"><a rel="nofollow" class="trm-toc-link" href="#安装hexo-server"><span class="trm-toc-number">6.1.</span> <span class="trm-toc-text">安装hexo-server</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="生成"><a rel="nofollow" class="trm-toc-link" href="#生成"><span class="trm-toc-number">7.</span> <span class="trm-toc-text">生成</span></a></li><li class="trm-toc-item trm-toc-level-2" title="部署"><a rel="nofollow" class="trm-toc-link" href="#部署"><span class="trm-toc-number">8.</span> <span class="trm-toc-text">部署</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="老主题hexagon的问题"><a rel="nofollow" class="trm-toc-link" href="#老主题hexagon的问题"><span class="trm-toc-number">8.1.</span> <span class="trm-toc-text">老主题hexagon的问题</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="首先是hexo版本与node.js不匹配"><a rel="nofollow" class="trm-toc-link" href="#首先是hexo版本与node-js不匹配"><span class="trm-toc-number">8.1.1.</span> <span class="trm-toc-text">首先是hexo版本与node.js不匹配</span></a></li><li class="trm-toc-item trm-toc-level-4" title="hexo官方给的pages的actions里面用的主分支叫main，我这边master"><a rel="nofollow" class="trm-toc-link" href="#hexo官方给的pages的actions里面用的主分支叫main，我这边master"><span class="trm-toc-number">8.1.2.</span> <span class="trm-toc-text">hexo官方给的pages的actions里面用的主分支叫main，我这边master</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="新主题async的部署问题"><a rel="nofollow" class="trm-toc-link" href="#新主题async的部署问题"><span class="trm-toc-number">8.2.</span> <span class="trm-toc-text">新主题async的部署问题</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="github page部署后，主站仅显示背景"><a rel="nofollow" class="trm-toc-link" href="#github-page部署后，主站仅显示背景"><span class="trm-toc-number">8.2.1.</span> <span class="trm-toc-text">github page部署后，主站仅显示背景</span></a></li></ol></li></ol></li></ol>
       </div>
     </div>
 
