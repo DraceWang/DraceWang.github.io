@@ -198,154 +198,6 @@
       </tags>
   </entry>
   <entry>
-    <title>git 代码管理工具常用命令</title>
-    <url>/2019/09/18/git%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<p>首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。</p>
-<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#103;&#x69;&#116;&#117;&#115;&#x65;&#x72;&#49;&#x40;&#x67;&#x69;&#x74;&#46;&#x63;&#111;&#109;">&#103;&#x69;&#116;&#117;&#115;&#x65;&#x72;&#49;&#x40;&#x67;&#x69;&#x74;&#46;&#x63;&#111;&#109;</a></p>
-<h3 id="配置git提交时候的全局用户名"><a href="#配置git提交时候的全局用户名" class="headerlink" title="配置git提交时候的全局用户名"></a>配置git提交时候的全局用户名</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gitconfig --global user.name gituser1</span><br></pre></td></tr></table></figure>
-
-<h3 id="配置git提交时候的全局邮箱"><a href="#配置git提交时候的全局邮箱" class="headerlink" title="配置git提交时候的全局邮箱"></a>配置git提交时候的全局邮箱</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email gituser1@git.com</span><br></pre></td></tr></table></figure>
-
-<h3 id="配置gerrit的review"><a href="#配置gerrit的review" class="headerlink" title="配置gerrit的review"></a>配置gerrit的review</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global review.gerrit.example.com:8081.username yourname</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="常用仓库操作"><a href="#常用仓库操作" class="headerlink" title="常用仓库操作"></a>常用仓库操作</h2><h3 id="创建git库"><a href="#创建git库" class="headerlink" title="创建git库"></a>创建git库</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-
-<h3 id="查看本地仓库分支"><a href="#查看本地仓库分支" class="headerlink" title="查看本地仓库分支"></a>查看本地仓库分支</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
-
-<p>想要查看对应的远端仓库分支可以用<code>git branch -a</code>来查看</p>
-<h3 id="拉去仓库并创建分支"><a href="#拉去仓库并创建分支" class="headerlink" title="拉去仓库并创建分支"></a>拉去仓库并创建分支</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -b master master_copy</span><br></pre></td></tr></table></figure>
-
-<p>mater对应是远程仓库的分支名，master_copy是我们需要创建的本地仓库的分支名</p>
-<h3 id="查看当前git库状态"><a href="#查看当前git库状态" class="headerlink" title="查看当前git库状态"></a>查看当前git库状态</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
-
-<p>显示出红色的文件代表当前仓库中有文件与上一次同步状态不同<br>如果没有文件显示，且没有更改，会显示当前分支与远端分支一致，没有需要提交的更改。<br>如果显示没有更改，但是当前分支与远端分支不同步，则需要同步远端分支</p>
-<p><em>养成良好的习惯提交修改代码前先把本地仓库与远端仓库同步</em></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
-<p>查看当前git仓库对应的远程git仓库</p>
-<h3 id="同步本地仓库与远端仓库"><a href="#同步本地仓库与远端仓库" class="headerlink" title="同步本地仓库与远端仓库"></a>同步本地仓库与远端仓库</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
-
-<p>这个时候有可能报错，说明本地仓库之前就已经发生混乱，一般是本地有修改，又去同步，产生文件修改冲突后没有解决，如果确认可以把本地修改重置，则可以使用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git pull --rebase</span><br></pre></td></tr></table></figure>
-
-<p> 这个命令会把本地仓库换一个基础，可以认为是仓库是需要一个地皮的，rebase的作用就是把仓库换个干净的地皮重新造一个一样的与远程一样的仓库，　这样新的仓库就与远端的仓库完全一致了。</p>
-<p>但是还有情况会出现本地仓库领先与远端仓库，而我们又不需要本地的修改，就可以把远端仓库检查校对拷贝过来。比如文件名为temp.log（相当于是把本地改动回退到远端文件版本）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout　temp.log</span><br></pre></td></tr></table></figure>
-<p>将当前文件夹内所有文件都回退到远端git仓库</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout .</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>当修改了名为temp.log的文件后</p>
-<h3 id="对比本地修改文件与本地仓库之间的区别"><a href="#对比本地修改文件与本地仓库之间的区别" class="headerlink" title="对比本地修改文件与本地仓库之间的区别"></a>对比本地修改文件与本地仓库之间的区别</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git diff temp.log</span><br></pre></td></tr></table></figure>
-
-<p> 终端会显示出该文件的修改点，对应增删，如果开启了git的高亮显示，会有绿色表示添加，红色表示删除</p>
-<p> 可以使用<code>git config --global color.ui true</code>来开启git颜色高亮</p>
-<h3 id="添加文件-该文件在当前目录下-到当前git仓库（确切说是添加到了本地仓库的提交暂存区）"><a href="#添加文件-该文件在当前目录下-到当前git仓库（确切说是添加到了本地仓库的提交暂存区）" class="headerlink" title="添加文件(该文件在当前目录下)到当前git仓库（确切说是添加到了本地仓库的提交暂存区）"></a>添加文件(该文件在当前目录下)到当前git仓库（确切说是添加到了本地仓库的提交暂存区）</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add temp.log</span><br></pre></td></tr></table></figure>
-
-<p>将当前文件夹内所有文件都添加到当前git仓库</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
-
-<p> 将文件添加到当前git仓库后，再使用<code>git status</code>查看状态，会发现文件对应路径会从红色变成绿色。</p>
-<h3 id="将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）"><a href="#将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）" class="headerlink" title="将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）"></a>将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit temp.log</span><br></pre></td></tr></table></figure>
-
-<p>&amp;</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit .</span><br></pre></td></tr></table></figure>
-
-<p>&amp;</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit temp.log -m &quot;comit message(此引号内应填入提交信息)&quot;</span><br></pre></td></tr></table></figure>
-
-<p> 提交后可以可以通过<code>git log</code>命令查看这个git仓库的历史记录</p>
-<h3 id="查看当前本地仓库的历史提交记录"><a href="#查看当前本地仓库的历史提交记录" class="headerlink" title="查看当前本地仓库的历史提交记录"></a>查看当前本地仓库的历史提交记录</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-
-<h3 id="将本地仓库回退到历史记录中史上一次的修改状态"><a href="#将本地仓库回退到历史记录中史上一次的修改状态" class="headerlink" title="将本地仓库回退到历史记录中史上一次的修改状态"></a>将本地仓库回退到历史记录中史上一次的修改状态</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset HEAD^</span><br></pre></td></tr></table></figure>
-
-<p> 解释下这个命令，reset本身可以重置，而HEAD表示分支的头，^表示分支头部的上一个位置，所以是回退到历史记录的上一条，也就是说如果你<code>git pull</code>后本地没有修改，但是这个时候执行了本条命令，那么你当前的本地仓库还是会回到历史记录中的上一个位置（尽管这个提交不是你操作的）</p>
-<h3 id="修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）"><a href="#修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）" class="headerlink" title="修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）"></a>修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
-
-<p>可以使用<code>git reset HEAD^</code>命令使当前仓库回退到历史记录中上次的提交状态，这个时候比如说我们的temp.log已经commit后，使用这个resset命令会让我们的commit失效，文件状态会变成add之前的状态，这个时候我们可以修改temp.log然后使用<code>git commit --amend</code>合并上一次提交。</p>
-<h2 id="其他git命令（进阶）"><a href="#其他git命令（进阶）" class="headerlink" title="其他git命令（进阶）"></a>其他git命令（进阶）</h2><h3 id="显示上一次提交的日志"><a href="#显示上一次提交的日志" class="headerlink" title="显示上一次提交的日志"></a>显示上一次提交的日志</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git show HEAD^</span><br></pre></td></tr></table></figure>
-
-<h3 id="显示某次提交的日志"><a href="#显示某次提交的日志" class="headerlink" title="显示某次提交的日志"></a>显示某次提交的日志</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git show dfb02e6e4f2f7b573337763e5c0013802e392818</span><br></pre></td></tr></table></figure>
-
-<h3 id="对比上一次提交的不同"><a href="#对比上一次提交的不同" class="headerlink" title="对比上一次提交的不同"></a>对比上一次提交的不同</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git diff HEAD^</span><br></pre></td></tr></table></figure>
-
-<h3 id="显示所有已添加index（暂存）但还未commit的变更"><a href="#显示所有已添加index（暂存）但还未commit的变更" class="headerlink" title="显示所有已添加index（暂存）但还未commit的变更"></a>显示所有已添加index（暂存）但还未commit的变更</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git diff --cached</span><br></pre></td></tr></table></figure>
-
-<h3 id="切换到dev分支（当前不在dev分支）"><a href="#切换到dev分支（当前不在dev分支）" class="headerlink" title="切换到dev分支（当前不在dev分支）"></a>切换到dev分支（当前不在dev分支）</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout dev</span><br></pre></td></tr></table></figure>
-
-<h3 id="获取所有远程分支"><a href="#获取所有远程分支" class="headerlink" title="获取所有远程分支"></a>获取所有远程分支</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git fetch</span><br></pre></td></tr></table></figure>
-
-<h3 id="删除本地分支"><a href="#删除本地分支" class="headerlink" title="删除本地分支"></a>删除本地分支</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch -d dev</span><br></pre></td></tr></table></figure>
-
-<p>强制删除 <code>git branch -D dev</code></p>
-<h3 id="图示当前分支历史"><a href="#图示当前分支历史" class="headerlink" title="图示当前分支历史"></a>图示当前分支历史</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git show-branch</span><br></pre></td></tr></table></figure>
-
-<p>图示所有分支<code>git show-branch -all</code></p>
-<h3 id="单独提交到有gerrit系统的代码审核"><a href="#单独提交到有gerrit系统的代码审核" class="headerlink" title="单独提交到有gerrit系统的代码审核"></a>单独提交到有gerrit系统的代码审核</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push [remote_alias] HEAD:refs/for/[branch_name]</span><br></pre></td></tr></table></figure>
-
-<p>替换<code>[remote_alias]</code>和<code>[branch_name]</code></p>
-<p> remote_alias查看方法： <code>git remote -v</code></p>
-<p> <strong>千万不要使用<code>git push  [branch_name]:origin/master</code></strong></p>
-<h3 id="查看git仓库中文件某些行代码的最新提交信息"><a href="#查看git仓库中文件某些行代码的最新提交信息" class="headerlink" title="查看git仓库中文件某些行代码的最新提交信息"></a>查看git仓库中文件某些行代码的最新提交信息</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git blame -L 25,+5 xxxx.java</span><br></pre></td></tr></table></figure>
-
-<p>   -L 参数表示以行数参数查看，25表示想要查看的行数，+5表示从25行开始看到30行的代码</p>
-]]></content>
-      <categories>
-        <category>Tools</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>jenkins+apache+subversion关联LDAP</title>
-    <url>/2014/12/08/jenkins+apache+subversion%E5%85%B3%E8%81%94LDAP/</url>
-    <content><![CDATA[<h2 id="安装jenkins"><a href="#安装jenkins" class="headerlink" title="安装jenkins"></a>安装jenkins</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -</span><br></pre></td></tr></table></figure>
-
-<p>添加以下信息到你的源<code>/etc/apt/sources.list</code>:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deb http://pkg.jenkins-ci.org/debian binary/</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br></pre></td></tr></table></figure>
-
-<h2 id="下载安装SVN-apache"><a href="#下载安装SVN-apache" class="headerlink" title="下载安装SVN+apache"></a>下载安装SVN+apache</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install subversion libapache2-svn apache2 apache2-utils</span><br><span class="line"></span><br><span class="line">sudo a2enmod ssl</span><br><span class="line"></span><br><span class="line">sudo a2ensite default-ssl</span><br><span class="line"></span><br><span class="line">sudo a2enmod dav_svn</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="设置apache2"><a href="#设置apache2" class="headerlink" title="设置apache2"></a>设置apache2</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
-<p>编辑该文件使之如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line"></span><br><span class="line">DAV svn</span><br><span class="line"></span><br><span class="line">SVNPath /home/svn</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line"></span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">AuthUserFile /etc/apache2/dav_svn.passwd</span><br><span class="line"></span><br><span class="line">Require valid-user</span><br><span class="line"></span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
-<p>更改 <code>/home/svn</code> 到任何你要保存仓库的地址。如果没有的话就新建。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /home/svn</span><br></pre></td></tr></table></figure>
-<h3 id="开启svn服务"><a href="#开启svn服务" class="headerlink" title="开启svn服务"></a>开启svn服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo svnadmin  create /home/svn</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="是APache成为该仓库的所有者。"><a href="#是APache成为该仓库的所有者。" class="headerlink" title="是APache成为该仓库的所有者。"></a>是APache成为该仓库的所有者。</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">chown</span> -R www-data /home/svn</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="建立密码文件"><a href="#建立密码文件" class="headerlink" title="建立密码文件"></a>建立密码文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo htpasswd -cm /etc/apache2/dav_svn.passwd admin</span><br></pre></td></tr></table></figure>
-<p>admin是你想使用的用户名，然后输入两次密码。</p>
-<h3 id="重启Apache"><a href="#重启Apache" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restar</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="关联svn和LDAP"><a href="#关联svn和LDAP" class="headerlink" title="关联svn和LDAP"></a>关联svn和LDAP</h2><h3 id="a-pache添加ldap组件"><a href="#a-pache添加ldap组件" class="headerlink" title="a pache添加ldap组件"></a>a pache添加ldap组件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo a2enmod ldap</span><br><span class="line"></span><br><span class="line">sudo a2enmod authnz_ldap</span><br></pre></td></tr></table></figure>
-<h3 id="修改apache中的svn配置文件"><a href="#修改apache中的svn配置文件" class="headerlink" title="修改apache中的svn配置文件"></a>修改apache中的svn配置文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line">DAV svn</span><br><span class="line">SVNParentPath /home/svn/</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">#LDAP</span><br><span class="line">AuthBasicProvider ldap</span><br><span class="line">AuthLDAPBindDN &quot;cn=admin,dc=example,dc=com&quot;</span><br><span class="line">AuthLDAPBindPassword admin</span><br><span class="line">AuthLDAPURL &quot;ldap://localhost:389/dc=example,dc=com?uid?sub?(objectClass=*)&quot;</span><br><span class="line"></span><br><span class="line">AuthzSVNAccessFile /etc/apache2/dav_svn.authz</span><br><span class="line">require valid-user</span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="重启Apache-1"><a href="#重启Apache-1" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
-<h2 id="jenkins关联LDAP"><a href="#jenkins关联LDAP" class="headerlink" title="jenkins关联LDAP"></a>jenkins关联LDAP</h2><p>打开localhost：8080，jenkins默认安装在8080端口上</p>
-<p>依次进入–&gt;系统管理–&gt;Configure Global Security</p>
-<p>启用安全设置</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LDAP</span><br><span class="line">服务器	     ldap://localhost:389</span><br><span class="line">root DN      dc=example,dc=com</span><br><span class="line">Manager DN	 cn=admin,dc=example,dc=com</span><br><span class="line">管理密码      ****    //这是你之前安装ldap时输入的管理员密码    </span><br></pre></td></tr></table></figure>
-<p>点击保存应用即可</p>
-]]></content>
-      <categories>
-        <category>ALM开发</category>
-      </categories>
-      <tags>
-        <tag>LDAP</tag>
-        <tag>jenkins</tag>
-        <tag>apache</tag>
-        <tag>subversion</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Android系统权限以及selinux权限添加的简单解析</title>
     <url>/2015/09/29/Android%E7%B3%BB%E7%BB%9Fuid&amp;gid%E6%9D%83%E9%99%90%E4%BB%A5%E5%8F%8Aselinux%E6%9D%83%E9%99%90%E6%B7%BB%E5%8A%A0%E7%9A%84%E7%AE%80%E5%8D%95%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[<p>在公司做项目发现&#x2F;data&#x2F;misc&#x2F;dhcp这个目录的文件无法访问，抓log后又没有显示selinux权限报错的avcdeny，但是需求又依赖于dhcp协议的解析，所以一直在寻找这个问题的解决方案。现在系统整理一下并把相关知识记录下来，Android系统来源于Linux系统所以我们先来看linux系统。</p>
@@ -760,6 +612,154 @@
         <tag>uid</tag>
         <tag>gid</tag>
         <tag>selinux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git 代码管理工具常用命令</title>
+    <url>/2019/09/18/git%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<p>首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。</p>
+<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#x67;&#105;&#116;&#117;&#115;&#x65;&#114;&#x31;&#64;&#x67;&#105;&#x74;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#116;&#117;&#115;&#x65;&#114;&#x31;&#64;&#x67;&#105;&#x74;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<h3 id="配置git提交时候的全局用户名"><a href="#配置git提交时候的全局用户名" class="headerlink" title="配置git提交时候的全局用户名"></a>配置git提交时候的全局用户名</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gitconfig --global user.name gituser1</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置git提交时候的全局邮箱"><a href="#配置git提交时候的全局邮箱" class="headerlink" title="配置git提交时候的全局邮箱"></a>配置git提交时候的全局邮箱</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email gituser1@git.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置gerrit的review"><a href="#配置gerrit的review" class="headerlink" title="配置gerrit的review"></a>配置gerrit的review</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global review.gerrit.example.com:8081.username yourname</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="常用仓库操作"><a href="#常用仓库操作" class="headerlink" title="常用仓库操作"></a>常用仓库操作</h2><h3 id="创建git库"><a href="#创建git库" class="headerlink" title="创建git库"></a>创建git库</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看本地仓库分支"><a href="#查看本地仓库分支" class="headerlink" title="查看本地仓库分支"></a>查看本地仓库分支</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
+
+<p>想要查看对应的远端仓库分支可以用<code>git branch -a</code>来查看</p>
+<h3 id="拉去仓库并创建分支"><a href="#拉去仓库并创建分支" class="headerlink" title="拉去仓库并创建分支"></a>拉去仓库并创建分支</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout -b master master_copy</span><br></pre></td></tr></table></figure>
+
+<p>mater对应是远程仓库的分支名，master_copy是我们需要创建的本地仓库的分支名</p>
+<h3 id="查看当前git库状态"><a href="#查看当前git库状态" class="headerlink" title="查看当前git库状态"></a>查看当前git库状态</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<p>显示出红色的文件代表当前仓库中有文件与上一次同步状态不同<br>如果没有文件显示，且没有更改，会显示当前分支与远端分支一致，没有需要提交的更改。<br>如果显示没有更改，但是当前分支与远端分支不同步，则需要同步远端分支</p>
+<p><em>养成良好的习惯提交修改代码前先把本地仓库与远端仓库同步</em></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+<p>查看当前git仓库对应的远程git仓库</p>
+<h3 id="同步本地仓库与远端仓库"><a href="#同步本地仓库与远端仓库" class="headerlink" title="同步本地仓库与远端仓库"></a>同步本地仓库与远端仓库</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+<p>这个时候有可能报错，说明本地仓库之前就已经发生混乱，一般是本地有修改，又去同步，产生文件修改冲突后没有解决，如果确认可以把本地修改重置，则可以使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git pull --rebase</span><br></pre></td></tr></table></figure>
+
+<p> 这个命令会把本地仓库换一个基础，可以认为是仓库是需要一个地皮的，rebase的作用就是把仓库换个干净的地皮重新造一个一样的与远程一样的仓库，　这样新的仓库就与远端的仓库完全一致了。</p>
+<p>但是还有情况会出现本地仓库领先与远端仓库，而我们又不需要本地的修改，就可以把远端仓库检查校对拷贝过来。比如文件名为temp.log（相当于是把本地改动回退到远端文件版本）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout　temp.log</span><br></pre></td></tr></table></figure>
+<p>将当前文件夹内所有文件都回退到远端git仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout .</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>当修改了名为temp.log的文件后</p>
+<h3 id="对比本地修改文件与本地仓库之间的区别"><a href="#对比本地修改文件与本地仓库之间的区别" class="headerlink" title="对比本地修改文件与本地仓库之间的区别"></a>对比本地修改文件与本地仓库之间的区别</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git diff temp.log</span><br></pre></td></tr></table></figure>
+
+<p> 终端会显示出该文件的修改点，对应增删，如果开启了git的高亮显示，会有绿色表示添加，红色表示删除</p>
+<p> 可以使用<code>git config --global color.ui true</code>来开启git颜色高亮</p>
+<h3 id="添加文件-该文件在当前目录下-到当前git仓库（确切说是添加到了本地仓库的提交暂存区）"><a href="#添加文件-该文件在当前目录下-到当前git仓库（确切说是添加到了本地仓库的提交暂存区）" class="headerlink" title="添加文件(该文件在当前目录下)到当前git仓库（确切说是添加到了本地仓库的提交暂存区）"></a>添加文件(该文件在当前目录下)到当前git仓库（确切说是添加到了本地仓库的提交暂存区）</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add temp.log</span><br></pre></td></tr></table></figure>
+
+<p>将当前文件夹内所有文件都添加到当前git仓库</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+<p> 将文件添加到当前git仓库后，再使用<code>git status</code>查看状态，会发现文件对应路径会从红色变成绿色。</p>
+<h3 id="将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）"><a href="#将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）" class="headerlink" title="将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）"></a>将添加到本地仓库的文件提交到本地仓库（从暂存区真正提交到仓库，会从暂存区移除改文件）</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit temp.log</span><br></pre></td></tr></table></figure>
+
+<p>&amp;</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit .</span><br></pre></td></tr></table></figure>
+
+<p>&amp;</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit temp.log -m &quot;comit message(此引号内应填入提交信息)&quot;</span><br></pre></td></tr></table></figure>
+
+<p> 提交后可以可以通过<code>git log</code>命令查看这个git仓库的历史记录</p>
+<h3 id="查看当前本地仓库的历史提交记录"><a href="#查看当前本地仓库的历史提交记录" class="headerlink" title="查看当前本地仓库的历史提交记录"></a>查看当前本地仓库的历史提交记录</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+
+<h3 id="将本地仓库回退到历史记录中史上一次的修改状态"><a href="#将本地仓库回退到历史记录中史上一次的修改状态" class="headerlink" title="将本地仓库回退到历史记录中史上一次的修改状态"></a>将本地仓库回退到历史记录中史上一次的修改状态</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git reset HEAD^</span><br></pre></td></tr></table></figure>
+
+<p> 解释下这个命令，reset本身可以重置，而HEAD表示分支的头，^表示分支头部的上一个位置，所以是回退到历史记录的上一条，也就是说如果你<code>git pull</code>后本地没有修改，但是这个时候执行了本条命令，那么你当前的本地仓库还是会回到历史记录中的上一个位置（尽管这个提交不是你操作的）</p>
+<h3 id="修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）"><a href="#修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）" class="headerlink" title="修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）"></a>修改本地仓库的历史记录中上一次的提交信息（实际是合并上一次的提交）</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+
+<p>可以使用<code>git reset HEAD^</code>命令使当前仓库回退到历史记录中上次的提交状态，这个时候比如说我们的temp.log已经commit后，使用这个resset命令会让我们的commit失效，文件状态会变成add之前的状态，这个时候我们可以修改temp.log然后使用<code>git commit --amend</code>合并上一次提交。</p>
+<h2 id="其他git命令（进阶）"><a href="#其他git命令（进阶）" class="headerlink" title="其他git命令（进阶）"></a>其他git命令（进阶）</h2><h3 id="显示上一次提交的日志"><a href="#显示上一次提交的日志" class="headerlink" title="显示上一次提交的日志"></a>显示上一次提交的日志</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git show HEAD^</span><br></pre></td></tr></table></figure>
+
+<h3 id="显示某次提交的日志"><a href="#显示某次提交的日志" class="headerlink" title="显示某次提交的日志"></a>显示某次提交的日志</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git show dfb02e6e4f2f7b573337763e5c0013802e392818</span><br></pre></td></tr></table></figure>
+
+<h3 id="对比上一次提交的不同"><a href="#对比上一次提交的不同" class="headerlink" title="对比上一次提交的不同"></a>对比上一次提交的不同</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git diff HEAD^</span><br></pre></td></tr></table></figure>
+
+<h3 id="显示所有已添加index（暂存）但还未commit的变更"><a href="#显示所有已添加index（暂存）但还未commit的变更" class="headerlink" title="显示所有已添加index（暂存）但还未commit的变更"></a>显示所有已添加index（暂存）但还未commit的变更</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git diff --cached</span><br></pre></td></tr></table></figure>
+
+<h3 id="切换到dev分支（当前不在dev分支）"><a href="#切换到dev分支（当前不在dev分支）" class="headerlink" title="切换到dev分支（当前不在dev分支）"></a>切换到dev分支（当前不在dev分支）</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout dev</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取所有远程分支"><a href="#获取所有远程分支" class="headerlink" title="获取所有远程分支"></a>获取所有远程分支</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git fetch</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除本地分支"><a href="#删除本地分支" class="headerlink" title="删除本地分支"></a>删除本地分支</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch -d dev</span><br></pre></td></tr></table></figure>
+
+<p>强制删除 <code>git branch -D dev</code></p>
+<h3 id="图示当前分支历史"><a href="#图示当前分支历史" class="headerlink" title="图示当前分支历史"></a>图示当前分支历史</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git show-branch</span><br></pre></td></tr></table></figure>
+
+<p>图示所有分支<code>git show-branch -all</code></p>
+<h3 id="单独提交到有gerrit系统的代码审核"><a href="#单独提交到有gerrit系统的代码审核" class="headerlink" title="单独提交到有gerrit系统的代码审核"></a>单独提交到有gerrit系统的代码审核</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push [remote_alias] HEAD:refs/for/[branch_name]</span><br></pre></td></tr></table></figure>
+
+<p>替换<code>[remote_alias]</code>和<code>[branch_name]</code></p>
+<p> remote_alias查看方法： <code>git remote -v</code></p>
+<p> <strong>千万不要使用<code>git push  [branch_name]:origin/master</code></strong></p>
+<h3 id="查看git仓库中文件某些行代码的最新提交信息"><a href="#查看git仓库中文件某些行代码的最新提交信息" class="headerlink" title="查看git仓库中文件某些行代码的最新提交信息"></a>查看git仓库中文件某些行代码的最新提交信息</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git blame -L 25,+5 xxxx.java</span><br></pre></td></tr></table></figure>
+
+<p>   -L 参数表示以行数参数查看，25表示想要查看的行数，+5表示从25行开始看到30行的代码</p>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jenkins+apache+subversion关联LDAP</title>
+    <url>/2014/12/08/jenkins+apache+subversion%E5%85%B3%E8%81%94LDAP/</url>
+    <content><![CDATA[<h2 id="安装jenkins"><a href="#安装jenkins" class="headerlink" title="安装jenkins"></a>安装jenkins</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<p>添加以下信息到你的源<code>/etc/apt/sources.list</code>:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deb http://pkg.jenkins-ci.org/debian binary/</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载安装SVN-apache"><a href="#下载安装SVN-apache" class="headerlink" title="下载安装SVN+apache"></a>下载安装SVN+apache</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install subversion libapache2-svn apache2 apache2-utils</span><br><span class="line"></span><br><span class="line">sudo a2enmod ssl</span><br><span class="line"></span><br><span class="line">sudo a2ensite default-ssl</span><br><span class="line"></span><br><span class="line">sudo a2enmod dav_svn</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="设置apache2"><a href="#设置apache2" class="headerlink" title="设置apache2"></a>设置apache2</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
+<p>编辑该文件使之如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line"></span><br><span class="line">DAV svn</span><br><span class="line"></span><br><span class="line">SVNPath /home/svn</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line"></span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">AuthUserFile /etc/apache2/dav_svn.passwd</span><br><span class="line"></span><br><span class="line">Require valid-user</span><br><span class="line"></span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
+<p>更改 <code>/home/svn</code> 到任何你要保存仓库的地址。如果没有的话就新建。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /home/svn</span><br></pre></td></tr></table></figure>
+<h3 id="开启svn服务"><a href="#开启svn服务" class="headerlink" title="开启svn服务"></a>开启svn服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo svnadmin  create /home/svn</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="是APache成为该仓库的所有者。"><a href="#是APache成为该仓库的所有者。" class="headerlink" title="是APache成为该仓库的所有者。"></a>是APache成为该仓库的所有者。</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">chown</span> -R www-data /home/svn</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="建立密码文件"><a href="#建立密码文件" class="headerlink" title="建立密码文件"></a>建立密码文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo htpasswd -cm /etc/apache2/dav_svn.passwd admin</span><br></pre></td></tr></table></figure>
+<p>admin是你想使用的用户名，然后输入两次密码。</p>
+<h3 id="重启Apache"><a href="#重启Apache" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restar</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="关联svn和LDAP"><a href="#关联svn和LDAP" class="headerlink" title="关联svn和LDAP"></a>关联svn和LDAP</h2><h3 id="a-pache添加ldap组件"><a href="#a-pache添加ldap组件" class="headerlink" title="a pache添加ldap组件"></a>a pache添加ldap组件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo a2enmod ldap</span><br><span class="line"></span><br><span class="line">sudo a2enmod authnz_ldap</span><br></pre></td></tr></table></figure>
+<h3 id="修改apache中的svn配置文件"><a href="#修改apache中的svn配置文件" class="headerlink" title="修改apache中的svn配置文件"></a>修改apache中的svn配置文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line">DAV svn</span><br><span class="line">SVNParentPath /home/svn/</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">#LDAP</span><br><span class="line">AuthBasicProvider ldap</span><br><span class="line">AuthLDAPBindDN &quot;cn=admin,dc=example,dc=com&quot;</span><br><span class="line">AuthLDAPBindPassword admin</span><br><span class="line">AuthLDAPURL &quot;ldap://localhost:389/dc=example,dc=com?uid?sub?(objectClass=*)&quot;</span><br><span class="line"></span><br><span class="line">AuthzSVNAccessFile /etc/apache2/dav_svn.authz</span><br><span class="line">require valid-user</span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="重启Apache-1"><a href="#重启Apache-1" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
+<h2 id="jenkins关联LDAP"><a href="#jenkins关联LDAP" class="headerlink" title="jenkins关联LDAP"></a>jenkins关联LDAP</h2><p>打开localhost：8080，jenkins默认安装在8080端口上</p>
+<p>依次进入–&gt;系统管理–&gt;Configure Global Security</p>
+<p>启用安全设置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LDAP</span><br><span class="line">服务器	     ldap://localhost:389</span><br><span class="line">root DN      dc=example,dc=com</span><br><span class="line">Manager DN	 cn=admin,dc=example,dc=com</span><br><span class="line">管理密码      ****    //这是你之前安装ldap时输入的管理员密码    </span><br></pre></td></tr></table></figure>
+<p>点击保存应用即可</p>
+]]></content>
+      <categories>
+        <category>ALM开发</category>
+      </categories>
+      <tags>
+        <tag>LDAP</tag>
+        <tag>jenkins</tag>
+        <tag>apache</tag>
+        <tag>subversion</tag>
       </tags>
   </entry>
   <entry>
@@ -1942,6 +1942,98 @@
         <tag>obsidian</tag>
         <tag>note</tag>
         <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>群晖Docker安装Gitlab</title>
+    <url>/2024/06/23/%E7%BE%A4%E6%99%96Docker%E5%AE%89%E8%A3%85Gitlab/</url>
+    <content><![CDATA[<h1 id="群晖Docker安装Gitlab"><a href="#群晖Docker安装Gitlab" class="headerlink" title="群晖Docker安装Gitlab"></a>群晖Docker安装Gitlab</h1><p>其实也没有什么特别的想法，就是突然觉得要是自己有个像gitlab或者github的私有服务还蛮酷的，于是，就有了这次的折腾。</p>
+<p>首先声明这篇文章借鉴了<a href="https://www.zhihu.com/people/geescan">涂启标</a>的<a href="https://zhuanlan.zhihu.com/p/109834567">Nas码农篇：群晖Docker安装Gitlab</a>如果对原作者造成了侵权或者困扰，请联系我，我会第一时间删除，并且致以我最真诚的歉意。</p>
+<p>同时由于安装完成后找不到管理员用户的密码，最后在官方doc上找到了，因此这里也把官方doc地址贴上<a href="https://docs.gitlab.com/ee/install/docker.html">GitLab Docker images</a></p>
+<p>那么话不多说，就来说说我自己的折腾经历。</p>
+<h2 id="1-安装gitlab的前提"><a href="#1-安装gitlab的前提" class="headerlink" title="1.安装gitlab的前提"></a>1.安装gitlab的前提</h2><p>先说下我自己的群晖型号DS918+，扩展4G内存，使用两个nvme接口的ssd做了缓存，4块8T的硬盘组了raid10，系统目前已经升级了DSM7.0。</p>
+<p>群晖上安装gitlab有两种方式：</p>
+<ul>
+<li>一种是直接安装套件中心的gitlab。<em><strong>（这种方式我在DSM7.0的套件中心中没有找到）</strong></em></li>
+<li>另一种是在docker中自定义安装。</li>
+</ul>
+<p>因为DSM7.0的套件中心中找不到gitlab，因此我们选择后者据说可以安装最新版本的gitlab。</p>
+<p>注意前提条件：</p>
+<ul>
+<li><p>群晖必须是plus型号，这样才能支持docker。（我的是DS918+，所以没有问题）</p>
+</li>
+<li><p>已经安装Docker套件。（没有安装的就自己在套件中心中搜索docker，安装下就可以了）</p>
+</li>
+<li><p>Gitlab官方推荐内存4G及以上，这里建议8G以上，因为gitlab很容易就会占用掉4g左右的内存。（我安装完成后确实稳定在4.72G左右）</p>
+</li>
+</ul>
+<h2 id="2-安装gitlab"><a href="#2-安装gitlab" class="headerlink" title="2.安装gitlab"></a>2.安装gitlab</h2><p>官方的都是在一个linux完整系统下的docker操作，基本都是命令行，我们这里由于是群晖的DSM系统下的docker，因此大部分都是图形界面，与官方还是有些不同的。但是我这里的方法是21年10月操作的，亲测可以正常安装运行，如果后期有问题请先查询官方doc，同时欢迎留言评论。</p>
+<p>1.在套件中先安装Docker套件。</p>
+<p>2.在docker中，注册页签下，搜索：gitlab，双击下载，选latest</p>
+<p>3.下载完成后，在映像页签下，双击gitlab-ce镜像进行安装。</p>
+<p><em>3.3 【可选】设置环境变量（官方推荐，但是我实际没有操作）</em></p>
+<p><em>Before setting everything else, configure a new environment variable <code>$GITLAB_HOME</code> pointing to the directory where the configuration, logs, and data files will reside. Ensure that the directory exists and appropriate permission have been granted.</em></p>
+<p><em>For Linux users, set the path to <code>/srv/gitlab</code>:</em></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export GITLAB_HOME=/srv/gitlab</span><br></pre></td></tr></table></figure>
+
+<p>4.点击高级设置，在弹出的高级选项中，切换到卷页签，按照下面截图，设置目录。</p>
+<p>这里需要添加对应的文件夹到docker目录下，可以使用filestation在docker目录下，创建gitlab目录，然后在gitlab目录下，分别创建logs，config，data来存储日志、配置和数据信息文件。装载路径手动填写。</p>
+<table>
+<thead>
+<tr>
+<th>Local location</th>
+<th>Container location</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$GITLAB_HOME/data</code></td>
+<td><code>/var/opt/gitlab</code></td>
+<td>For storing application data.</td>
+</tr>
+<tr>
+<td><code>$GITLAB_HOME/logs</code></td>
+<td><code>/var/log/gitlab</code></td>
+<td>For storing logs.</td>
+</tr>
+<tr>
+<td><code>$GITLAB_HOME/config</code></td>
+<td><code>/etc/gitlab</code></td>
+<td>For storing the GitLab configuration files.</td>
+</tr>
+</tbody></table>
+<p>5.切换端口设置页签，设置一个本地端口，这里指定80容器端口对应本地端口1080。当然也建议将其他本地端口的[自动]改为指定的端口，比如22端口对应的本地端口改为7022之类的，因为后续还要修改配置文件，让克隆地址可以正常显示端口，同时也避免自动获取而带来端口变化而导致的访问问题。</p>
+<p><img src="https://i.loli.net/2021/10/20/pEnGutOlVqZL48m.png" alt="image-20211019170521317"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>这个端口就根据自己的爱好来设置了，注意不要与你已有的服务冲突了就行。比如ssh（22）和web服务（80）。</p>
+<p>6.其他的暂时不用改，直接点击应用，并启动这个docker。正常需要等待一段启动时间，内存飙升到一个比较稳定的数值时，正常就可以访问gitlab的页面了。</p>
+<p><img src="https://i.loli.net/2021/10/20/u5GdVZ3nFBc62eg.png" alt="image-20211019171048060"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>7.浏览器输入nas的ip地址+刚才配置的本地端口号，比如192.168.100.110:8080，这样来访问gitlab，如果此时出现502错误，但是看到了gitlab的图标，这表示服务还没起来，可以再等等。</p>
+<p>8.首次登录，这里我遇到了一个小坑，直接附上官方doc的信息：</p>
+<p>Visit the GitLab URL, and log in with username <code>root</code> and the password from the following command:</p>
+<p>当我们首次访问了我们自己部署的gitlab的服务地址，就会要求我们登录，这时用户名请使用<code>root</code>，密码则使用下面的命令获取：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker exec -it gitlab grep &#x27;Password:&#x27; /etc/gitlab/initial_root_password</span><br></pre></td></tr></table></figure>
+<p>我在尝试使用了这个密码之后发现并不可行，因为我们DSM虽说也是linux系统，但是并不能识别docker，exec命令。<br>因此，我们需要现在群晖中设置开启ssh访问：</p>
+<p><img src="https://i.loli.net/2021/10/20/TUkWFMa5lAh2vVe.png" alt="image-20211019171941845"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后再局域网内使用电脑的终端，比如windows的powershell或者cmd都可以通过ssh连接到群晖：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh 你群晖上的用户名@你自己的群晖的ip -p 你ssh的端口</span><br></pre></td></tr></table></figure>
+<p>如果询问是否建立连接，请输入yes<br>然后输入自己群晖用户名对应的密码（你自己要是不是群晖nas的管理员就别折腾了）<br>通过<code>sudo -i</code>命令获取root权限，再次输入密码<br>然后通过下面的方法获取这个密码文件内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /etc/gitlab/initial_root_password</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>The password file will be automatically deleted in the first reconfigure run after 24 hours.</p>
+<p>这个初始化的密码会在首次配置启动后的24小时之后删除。</p>
+</blockquote>
+<p>9.设置好root密码后，可以使用root账号登录。一般情况下，这就能正常登录到gitlab后台了。</p>
+<p><img src="https://i.loli.net/2021/10/20/LlqcmxTIAjKn6NX.png" alt="image-20211019173058249"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>看到这里就大功告成了，已经可以去玩耍了。</p>
+]]></content>
+      <categories>
+        <category>Synology</category>
+      </categories>
+      <tags>
+        <tag>Synology</tag>
+        <tag>Docker</tag>
+        <tag>Gitlab</tag>
       </tags>
   </entry>
   <entry>

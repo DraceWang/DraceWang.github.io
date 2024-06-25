@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="群晖Docker安装Gitlab其实也没有什么特别的想法，就是突然觉得要是自己有个像gitlab或者github的私有服务还蛮酷的，于是，就有了这次的折腾。 首先声明这篇文章借鉴了涂启标的Nas码农篇：群晖Docker安装Gitlab如果对原作者造成了侵权或者困扰，请联系我，我会第一时间删除，并且致以我最真诚的歉意。 同时由于安装完成后找不到管理员用户的密码，最后在官方doc上找到了，因此这里也把">
+<meta property="og:type" content="article">
+<meta property="og:title" content="群晖Docker安装Gitlab">
+<meta property="og:url" content="http://dracewang.github.io/2024/06/23/%E7%BE%A4%E6%99%96Docker%E5%AE%89%E8%A3%85Gitlab/index.html">
+<meta property="og:site_name" content="Hexagon">
+<meta property="og:description" content="群晖Docker安装Gitlab其实也没有什么特别的想法，就是突然觉得要是自己有个像gitlab或者github的私有服务还蛮酷的，于是，就有了这次的折腾。 首先声明这篇文章借鉴了涂启标的Nas码农篇：群晖Docker安装Gitlab如果对原作者造成了侵权或者困扰，请联系我，我会第一时间删除，并且致以我最真诚的歉意。 同时由于安装完成后找不到管理员用户的密码，最后在官方doc上找到了，因此这里也把">
+<meta property="og:locale">
+<meta property="og:image" content="http://dracewang.github.io/img/404.jpg">
+<meta property="og:image" content="http://dracewang.github.io/img/404.jpg">
+<meta property="og:image" content="http://dracewang.github.io/img/404.jpg">
+<meta property="og:image" content="http://dracewang.github.io/img/404.jpg">
+<meta property="article:published_time" content="2024-06-23T03:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-25T00:10:50.494Z">
+<meta property="article:author" content="Drace Wang">
+<meta property="article:tag" content="Synology">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Gitlab">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dracewang.github.io/img/404.jpg">
+
+
+<title >群晖Docker安装Gitlab</title>
+
+<!-- Favicon -->
+
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"dracewang.github.io","author":"Drace Wang","root":"/","typed_text":["平凡的码农"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"failure.ico","show_text":"回来啦~","hide_text":"(●—●)看不见我！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":true,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":200},"toc":{"post_title":true},"live_time":{"start_time":"10/08/2023 10:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner","avatar":false,"delayRange":5000,"speed":80},"covers":["/img/block.jpg","https://img2.wallspic.com/previews/7/6/8/1/7/171867/171867-wu_kong-chao_ji_sai_ya_ren-sai_ya_ren-zamasu-long_zhu-500x.jpg","https://img3.wallspic.com/previews/2/0/1/8/6/168102/168102-yi_shu-ka_tong-mian_bu_biao_qing-kuai_le_de-ji_qie-500x.jpg","https://img2.wallspic.com/previews/2/6/4/3/7/173462/173462-qi_fen-zi_se_de-zi_ran_jing_guan-yu_hui-de_ping_xian-500x.jpg","https://img2.wallspic.com/previews/3/3/9/1/3/131933/131933-mo_xing-xiao_jie-huang_se_de-nu_hai-fa_xing-500x.jpg","https://img1.wallspic.com/previews/8/3/4/6/2/126438/126438-wei_lai_zhu_yi-shu_ma_yi_shu-jie_duan-zi_ben_shi-yi_shu-500x.jpg","https://img2.wallspic.com/previews/0/1/5/0/7/170510/170510-guang-azure-zi_se_de-zi_ran_huan_jing-zi_ran_jing_guan-500x.jpg","https://img2.wallspic.com/previews/3/6/9/6/5/156963/156963-yi_shu-qi_fen-yu_hui-shou_shi-ren_men_zai_zi_ran_jie-500x.jpg","https://img1.wallspic.com/previews/0/9/3/5/6/165390/165390-qi_fen-zi_se_de-zi_ran_huan_jing-zi_ran_jing_guan-tian_wen_xue_dui_xiang-500x.jpg","https://img3.wallspic.com/previews/2/8/6/1/7/171682/171682-yi_kuai-xing_zhi-ye_ti-yi_shu-shui_xia-500x.jpg","https://img1.wallspic.com/previews/7/1/9/9/89917/89917-bo_xi_ta_nuo-an_zhuang_de_feng_jing-cheng_shi-suo_lun_tuo-shan_zhan-500x.jpg","https://img1.wallspic.com/previews/6/2/3/5/6/165326/165326-pang_ke2077-pang_ke-qi_fen-xing_zhi-zi_se_de-500x.jpg","https://img2.wallspic.com/previews/8/9/4/5/6/165498/165498-ka_tong-tao-pin_hong_se-zhang_zhang_de_tou_fa-ji_qie-500x.jpg","https://img3.wallspic.com/previews/5/7/4/2/7/172475/172475-yi_shu-tao-tou_fa-ka_tong-500x.jpg","https://img2.wallspic.com/previews/5/0/9/0/70905/70905-hai_yang-ma_er_dai_fu-tian_kong-du_jia_cun-huan_jiao-500x.jpg","https://img3.wallspic.com/previews/4/3/4/8/6/168434/168434-xing_zhi-zi_ran_jing_guan-dan_huang-shui_dao-zhi_bei-500x.jpg","https://img2.wallspic.com/previews/6/5/4/5/6/165456/165456-giy_fu_gang-e_mo_sha_shoukimetsu_no_yaiba-shan_zi_de_yi_shu-zi_se_de-dian_lan_se_de-500x.jpg","https://img1.wallspic.com/previews/5/4/0/4/7/174045/174045-jian_ying-qi_fen-ren_men_zai_zi_ran_jie-tian_wen_xue_dui_xiang-yi_shu-500x.jpg","https://img1.wallspic.com/previews/9/3/1/6/5/156139/156139-feng_jing_hua-yi_shu-shu_ma_yi_shu-qi_fen-sheng_tai_qu-500x.jpg","https://img2.wallspic.com/previews/7/6/4/5/7/175467/175467-wo_de_xue_shu_jie_de_ying_xiong-tao-yi_shu-ka_tong-azure-500x.jpg","https://img1.wallspic.com/previews/3/7/0/0/7/170073/170073-liang_ge_ling-ka_tong-shou_shi-chuang_zao_xing_de_yi_shu-hong_se_de-500x.jpg","https://img1.wallspic.com/previews/1/8/3/6/6/166381/166381-shi_zi-xin_ba-bai_se_shi_zi-hu_xu-mao_ke-500x.jpg","https://img3.wallspic.com/previews/4/2/2/3/7/173224/173224-ri_luo-shui_zi_yuan-qi_fen-yu_hui-zi_se_de-500x.jpg","https://img1.wallspic.com/previews/7/5/7/9/6/169757/169757-ji_bo_li_de_bo_wu_guan-zi_ran_jing_guan-yi_shu-ji_yun-500x.jpg","https://img1.wallspic.com/previews/5/2/0/6/7/176025/176025-qi_fen-tian_wen_xue_dui_xiang-yi_shu-dian_lan_se_de-yuan_quan-500x.jpg","https://img3.wallspic.com/previews/6/5/8/1/4/141856/141856-hen_ku_de-hui_hua-yu_yan_jing_tou-zhai_nan-tu_xing_she_ji-500x.jpg","https://img1.wallspic.com/previews/2/1/6/5/6/165612/165612-kimetsu_no_yaiba-e_mo_sha_shoukimetsu_no_yaiba-tao-tou_fa-wai_tao-500x.jpg","https://img3.wallspic.com/previews/5/1/0/2/4/142015/142015-feng_ge-ka_ka_xi_qi_mu-huo_ying_ren_zhe-tu_xing_she_ji-shi_jue_yi_shu-500x.jpg","https://img1.wallspic.com/previews/8/8/7/8/5/158788/158788-e_mo_sha_shoukimetsu_no_yaiba-shnen_man_hua-tao-ka_tong-azure-500x.jpg"],"creative_commons":{"license":"by-nc-sa","language":"deed.zh"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"preload":true,"trigger":"auto","path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-06-25 08:10:50"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+
+    
+        <!-- Baidu Analytics -->
+        <script defer>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?16cea90ac06537b0a37ea52df3d2ede6";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+     
+
+    
+        <!-- Google Analytics -->
+        <script async src='https://www.googletagmanager.com/gtag/js?id=G-T84GJPQD33'></script>
+        <script defer>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-T84GJPQD33');
+        </script>
+    
+
+    
+ 
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
+</head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+    
+        <div class="trm-logo-text">
+            Drace<span>Wang</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    归档
+                </a>
+                
+                <ul>
+                    
+                    <li>
+                        <a  href="/tags/" target="">
+                            标签
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a  href="/categories/" target="">
+                            分类
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/links/" target="">
+                    友链
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            群晖Docker安装Gitlab
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2024
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        Drace Wang
+    </h5>
+    
+        <div class="trm-label">
+            一个
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="/atom.xml" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fas fa-rss"></i>
+        </a>
+    
+        <a href="https://github.com/DraceWang" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/profile.php?id=100006615107136" title="facebook" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-facebook"></i>
+        </a>
+    
+        <a href="https://www.weibo.com/u/2421168192" title="weibo" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-weibo"></i>
+        </a>
+    
+        <a href="https://www.zhihu.com/people/wang-shun-da-55" title="ZhiHu" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-zhihu"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                居住地:
+            </div>
+            <div class="trm-label trm-label-light">
+                无锡
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                码龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                7
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:wsdboy007@163.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            06/23
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            11:00
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            Drace Wang
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="群晖Docker安装Gitlab"><a href="#群晖Docker安装Gitlab" class="headerlink" title="群晖Docker安装Gitlab"></a>群晖Docker安装Gitlab</h1><p>其实也没有什么特别的想法，就是突然觉得要是自己有个像gitlab或者github的私有服务还蛮酷的，于是，就有了这次的折腾。</p>
+<p>首先声明这篇文章借鉴了<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/geescan">涂启标</a>的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/109834567">Nas码农篇：群晖Docker安装Gitlab</a>如果对原作者造成了侵权或者困扰，请联系我，我会第一时间删除，并且致以我最真诚的歉意。</p>
+<p>同时由于安装完成后找不到管理员用户的密码，最后在官方doc上找到了，因此这里也把官方doc地址贴上<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/install/docker.html">GitLab Docker images</a></p>
+<p>那么话不多说，就来说说我自己的折腾经历。</p>
+<h2 id="1-安装gitlab的前提"><a href="#1-安装gitlab的前提" class="headerlink" title="1.安装gitlab的前提"></a>1.安装gitlab的前提</h2><p>先说下我自己的群晖型号DS918+，扩展4G内存，使用两个nvme接口的ssd做了缓存，4块8T的硬盘组了raid10，系统目前已经升级了DSM7.0。</p>
+<p>群晖上安装gitlab有两种方式：</p>
+<ul>
+<li>一种是直接安装套件中心的gitlab。<em><strong>（这种方式我在DSM7.0的套件中心中没有找到）</strong></em></li>
+<li>另一种是在docker中自定义安装。</li>
+</ul>
+<p>因为DSM7.0的套件中心中找不到gitlab，因此我们选择后者据说可以安装最新版本的gitlab。</p>
+<p>注意前提条件：</p>
+<ul>
+<li><p>群晖必须是plus型号，这样才能支持docker。（我的是DS918+，所以没有问题）</p>
+</li>
+<li><p>已经安装Docker套件。（没有安装的就自己在套件中心中搜索docker，安装下就可以了）</p>
+</li>
+<li><p>Gitlab官方推荐内存4G及以上，这里建议8G以上，因为gitlab很容易就会占用掉4g左右的内存。（我安装完成后确实稳定在4.72G左右）</p>
+</li>
+</ul>
+<h2 id="2-安装gitlab"><a href="#2-安装gitlab" class="headerlink" title="2.安装gitlab"></a>2.安装gitlab</h2><p>官方的都是在一个linux完整系统下的docker操作，基本都是命令行，我们这里由于是群晖的DSM系统下的docker，因此大部分都是图形界面，与官方还是有些不同的。但是我这里的方法是21年10月操作的，亲测可以正常安装运行，如果后期有问题请先查询官方doc，同时欢迎留言评论。</p>
+<p>1.在套件中先安装Docker套件。</p>
+<p>2.在docker中，注册页签下，搜索：gitlab，双击下载，选latest</p>
+<p>3.下载完成后，在映像页签下，双击gitlab-ce镜像进行安装。</p>
+<p><em>3.3 【可选】设置环境变量（官方推荐，但是我实际没有操作）</em></p>
+<p><em>Before setting everything else, configure a new environment variable <code>$GITLAB_HOME</code> pointing to the directory where the configuration, logs, and data files will reside. Ensure that the directory exists and appropriate permission have been granted.</em></p>
+<p><em>For Linux users, set the path to <code>/srv/gitlab</code>:</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GITLAB_HOME=/srv/gitlab</span><br></pre></td></tr></table></figure>
+
+<p>4.点击高级设置，在弹出的高级选项中，切换到卷页签，按照下面截图，设置目录。</p>
+<p>这里需要添加对应的文件夹到docker目录下，可以使用filestation在docker目录下，创建gitlab目录，然后在gitlab目录下，分别创建logs，config，data来存储日志、配置和数据信息文件。装载路径手动填写。</p>
+<table>
+<thead>
+<tr>
+<th>Local location</th>
+<th>Container location</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>$GITLAB_HOME/data</code></td>
+<td><code>/var/opt/gitlab</code></td>
+<td>For storing application data.</td>
+</tr>
+<tr>
+<td><code>$GITLAB_HOME/logs</code></td>
+<td><code>/var/log/gitlab</code></td>
+<td>For storing logs.</td>
+</tr>
+<tr>
+<td><code>$GITLAB_HOME/config</code></td>
+<td><code>/etc/gitlab</code></td>
+<td>For storing the GitLab configuration files.</td>
+</tr>
+</tbody></table>
+<p>5.切换端口设置页签，设置一个本地端口，这里指定80容器端口对应本地端口1080。当然也建议将其他本地端口的[自动]改为指定的端口，比如22端口对应的本地端口改为7022之类的，因为后续还要修改配置文件，让克隆地址可以正常显示端口，同时也避免自动获取而带来端口变化而导致的访问问题。</p>
+<p><img src="https://i.loli.net/2021/10/20/pEnGutOlVqZL48m.png" alt="image-20211019170521317"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>这个端口就根据自己的爱好来设置了，注意不要与你已有的服务冲突了就行。比如ssh（22）和web服务（80）。</p>
+<p>6.其他的暂时不用改，直接点击应用，并启动这个docker。正常需要等待一段启动时间，内存飙升到一个比较稳定的数值时，正常就可以访问gitlab的页面了。</p>
+<p><img src="https://i.loli.net/2021/10/20/u5GdVZ3nFBc62eg.png" alt="image-20211019171048060"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>7.浏览器输入nas的ip地址+刚才配置的本地端口号，比如192.168.100.110:8080，这样来访问gitlab，如果此时出现502错误，但是看到了gitlab的图标，这表示服务还没起来，可以再等等。</p>
+<p>8.首次登录，这里我遇到了一个小坑，直接附上官方doc的信息：</p>
+<p>Visit the GitLab URL, and log in with username <code>root</code> and the password from the following command:</p>
+<p>当我们首次访问了我们自己部署的gitlab的服务地址，就会要求我们登录，这时用户名请使用<code>root</code>，密码则使用下面的命令获取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it gitlab grep &#x27;Password:&#x27; /etc/gitlab/initial_root_password</span><br></pre></td></tr></table></figure>
+<p>我在尝试使用了这个密码之后发现并不可行，因为我们DSM虽说也是linux系统，但是并不能识别docker，exec命令。<br>因此，我们需要现在群晖中设置开启ssh访问：</p>
+<p><img src="https://i.loli.net/2021/10/20/TUkWFMa5lAh2vVe.png" alt="image-20211019171941845"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>然后再局域网内使用电脑的终端，比如windows的powershell或者cmd都可以通过ssh连接到群晖：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh 你群晖上的用户名@你自己的群晖的ip -p 你ssh的端口</span><br></pre></td></tr></table></figure>
+<p>如果询问是否建立连接，请输入yes<br>然后输入自己群晖用户名对应的密码（你自己要是不是群晖nas的管理员就别折腾了）<br>通过<code>sudo -i</code>命令获取root权限，再次输入密码<br>然后通过下面的方法获取这个密码文件内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/gitlab/initial_root_password</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>The password file will be automatically deleted in the first reconfigure run after 24 hours.</p>
+<p>这个初始化的密码会在首次配置启动后的24小时之后删除。</p>
+</blockquote>
+<p>9.设置好root密码后，可以使用root账号登录。一般情况下，这就能正常登录到gitlab后台了。</p>
+<p><img src="https://i.loli.net/2021/10/20/LlqcmxTIAjKn6NX.png" alt="image-20211019173058249"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>看到这里就大功告成了，已经可以去玩耍了。</p>
+
+</article>
+    
+    
+
+<ul class="trm-post-copyright">
+    <li class="trm-post-copyright-author">
+        <strong>本文作者：</strong>
+        Drace Wang
+    </li>
+    <li class="trm-post-copyright-link">
+        <strong>本文链接：</strong>
+        <a id="original-link" href="http://dracewang.github.io/2024/06/23/群晖Docker安装Gitlab/" title="群晖Docker安装Gitlab">http://dracewang.github.io/2024/06/23/群晖Docker安装Gitlab/</a>
+    </li>
+    <li class="trm-post-copyright-license">
+        <strong>版权声明：</strong>
+        本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 ">CC BY-NC-SA 4.0</a> 许可协议。
+    </li>
+</ul>
+
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
+        <div class="trm-older-publication">
+            
+            <a class="trm-op-top trm-anima-link" href="/2024/06/21/%E5%9C%A8obsidian%E4%B8%AD%E5%86%85%E5%B5%8C%E6%BB%B4%E7%AD%94%E6%B8%85%E5%8D%95/">
+                <span class="trm-op-cover">
+                    <img alt="cover" class="no-fancybox" src="https://s2.loli.net/2024/06/21/lqhCS71KoHFZyr3.png">
+                </span>
+                <h6 class="trm-op-title">在obsidian中内嵌滴答清单</h6>
+            </a>
+            <div class="trm-divider trm-mb-15 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/06/21</li>
+                <li>15:37</li>
+                <li>日程管理</li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>© 2022- 2024</span>
+            <span class="footer-separator"data-separator=" · "></span>
+            <span class="trm-accent-color">Drace Wang</span>
+        </div>
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.2.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.2
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-1" title="群晖Docker安装Gitlab"><a rel="nofollow" class="trm-toc-link" href="#群晖Docker安装Gitlab"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">群晖Docker安装Gitlab</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="1.安装gitlab的前提"><a rel="nofollow" class="trm-toc-link" href="#1-安装gitlab的前提"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">1.安装gitlab的前提</span></a></li><li class="trm-toc-item trm-toc-level-2" title="2.安装gitlab"><a rel="nofollow" class="trm-toc-link" href="#2-安装gitlab"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">2.安装gitlab</span></a></li></ol></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+<script src="https://unpkg.com/swup@2.0.19/dist/swup.min.js"></script>
+
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+        <script src="/js/plugins/typing.js?v=2.2.2"></script>
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+    <script data-swup-reload-script>
+        (function () {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+
+
+<script id="async-script" src="/js/main.js?v=2.2.2"></script>
+
+<!-- CDN -->
+
+
+    
+<script src="/demo.js"></script>
+
+
+    
+
+    
+
+
+
+</body>
+
+</html>
