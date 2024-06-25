@@ -618,7 +618,7 @@
     <title>git 代码管理工具常用命令</title>
     <url>/2019/09/18/git%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<p>首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。</p>
-<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#x67;&#105;&#116;&#117;&#115;&#x65;&#114;&#x31;&#64;&#x67;&#105;&#x74;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#116;&#117;&#115;&#x65;&#114;&#x31;&#64;&#x67;&#105;&#x74;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#x67;&#105;&#x74;&#x75;&#x73;&#101;&#x72;&#49;&#64;&#103;&#105;&#x74;&#x2e;&#99;&#111;&#109;">&#x67;&#105;&#x74;&#x75;&#x73;&#101;&#x72;&#49;&#64;&#103;&#105;&#x74;&#x2e;&#99;&#111;&#109;</a></p>
 <h3 id="配置git提交时候的全局用户名"><a href="#配置git提交时候的全局用户名" class="headerlink" title="配置git提交时候的全局用户名"></a>配置git提交时候的全局用户名</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gitconfig --global user.name gituser1</span><br></pre></td></tr></table></figure>
 
 <h3 id="配置git提交时候的全局邮箱"><a href="#配置git提交时候的全局邮箱" class="headerlink" title="配置git提交时候的全局邮箱"></a>配置git提交时候的全局邮箱</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email gituser1@git.com</span><br></pre></td></tr></table></figure>
@@ -1070,7 +1070,8 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-        <tag>GitHub page</tag>
+        <tag>GitHub</tag>
+        <tag>page</tag>
       </tags>
   </entry>
   <entry>
