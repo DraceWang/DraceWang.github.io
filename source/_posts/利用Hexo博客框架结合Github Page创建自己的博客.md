@@ -1,12 +1,13 @@
 ---
 title: 利用Hexo博客框架结合Github Page创建自己的博客
-categories: Blog  
-tags: 
-    - Hexo
-    - GitHub page 
+categories: Blog
+tags:
+  - Hexo
+  - GitHub
+  - page
 date: 2024-06-14 17:00
 cover: https://s2.loli.net/2023/10/09/WEFNigBfGyDOzdb.png
-update: 2024-06-24 10:02
+mtime: 2024-06-24 16:54
 ---
 
 
