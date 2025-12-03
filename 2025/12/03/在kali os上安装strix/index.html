@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="在 Kali OS 上安装与配置 Strix 实践笔记Strix 是一款强大的应用安全测试工具，它能够与大型语言模型（LLM）结合，对目标应用进行自动化或半自动化的渗透测试。本笔记旨在记录在 Kali Linux 操作系统上安装和配置 strix-agent 的完整过程，并对每一步操作进行详细的解释，以便于学习和实践。 准备工作：安装kali，开启 SSH 远程登录安装kali就不讲了，基本就是下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Kali OS 上安装与配置 Strix 实践笔记">
+<meta property="og:url" content="http://dracewang.github.io/2025/12/03/%E5%9C%A8kali%20os%E4%B8%8A%E5%AE%89%E8%A3%85strix/index.html">
+<meta property="og:site_name" content="Hexagon">
+<meta property="og:description" content="在 Kali OS 上安装与配置 Strix 实践笔记Strix 是一款强大的应用安全测试工具，它能够与大型语言模型（LLM）结合，对目标应用进行自动化或半自动化的渗透测试。本笔记旨在记录在 Kali Linux 操作系统上安装和配置 strix-agent 的完整过程，并对每一步操作进行详细的解释，以便于学习和实践。 准备工作：安装kali，开启 SSH 远程登录安装kali就不讲了，基本就是下">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-12-03T06:13:00.000Z">
+<meta property="article:modified_time" content="2025-12-03T06:22:31.804Z">
+<meta property="article:author" content="Drace Wang">
+<meta property="article:tag" content="kali">
+<meta property="article:tag" content="Strix">
+<meta property="article:tag" content="security">
+<meta name="twitter:card" content="summary">
+
+
+<title >在 Kali OS 上安装与配置 Strix 实践笔记</title>
+
+<!-- Favicon -->
+
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"dracewang.github.io","author":"Drace Wang","root":"/","typed_text":["平凡的码农"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"failure.ico","show_text":"回来啦~","hide_text":"(●—●)看不见我！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":true,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":200},"toc":{"post_title":true},"live_time":{"start_time":"10/08/2023 10:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner","avatar":false,"delayRange":5000,"speed":80},"covers":["/img/block.jpg","https://img2.wallspic.com/previews/7/6/8/1/7/171867/171867-wu_kong-chao_ji_sai_ya_ren-sai_ya_ren-zamasu-long_zhu-500x.jpg","https://img3.wallspic.com/previews/2/0/1/8/6/168102/168102-yi_shu-ka_tong-mian_bu_biao_qing-kuai_le_de-ji_qie-500x.jpg","https://img2.wallspic.com/previews/2/6/4/3/7/173462/173462-qi_fen-zi_se_de-zi_ran_jing_guan-yu_hui-de_ping_xian-500x.jpg","https://img2.wallspic.com/previews/3/3/9/1/3/131933/131933-mo_xing-xiao_jie-huang_se_de-nu_hai-fa_xing-500x.jpg","https://img1.wallspic.com/previews/8/3/4/6/2/126438/126438-wei_lai_zhu_yi-shu_ma_yi_shu-jie_duan-zi_ben_shi-yi_shu-500x.jpg","https://img2.wallspic.com/previews/0/1/5/0/7/170510/170510-guang-azure-zi_se_de-zi_ran_huan_jing-zi_ran_jing_guan-500x.jpg","https://img2.wallspic.com/previews/3/6/9/6/5/156963/156963-yi_shu-qi_fen-yu_hui-shou_shi-ren_men_zai_zi_ran_jie-500x.jpg","https://img1.wallspic.com/previews/0/9/3/5/6/165390/165390-qi_fen-zi_se_de-zi_ran_huan_jing-zi_ran_jing_guan-tian_wen_xue_dui_xiang-500x.jpg","https://img3.wallspic.com/previews/2/8/6/1/7/171682/171682-yi_kuai-xing_zhi-ye_ti-yi_shu-shui_xia-500x.jpg","https://img1.wallspic.com/previews/7/1/9/9/89917/89917-bo_xi_ta_nuo-an_zhuang_de_feng_jing-cheng_shi-suo_lun_tuo-shan_zhan-500x.jpg","https://img1.wallspic.com/previews/6/2/3/5/6/165326/165326-pang_ke2077-pang_ke-qi_fen-xing_zhi-zi_se_de-500x.jpg","https://img2.wallspic.com/previews/8/9/4/5/6/165498/165498-ka_tong-tao-pin_hong_se-zhang_zhang_de_tou_fa-ji_qie-500x.jpg","https://img3.wallspic.com/previews/5/7/4/2/7/172475/172475-yi_shu-tao-tou_fa-ka_tong-500x.jpg","https://img2.wallspic.com/previews/5/0/9/0/70905/70905-hai_yang-ma_er_dai_fu-tian_kong-du_jia_cun-huan_jiao-500x.jpg","https://img3.wallspic.com/previews/4/3/4/8/6/168434/168434-xing_zhi-zi_ran_jing_guan-dan_huang-shui_dao-zhi_bei-500x.jpg","https://img2.wallspic.com/previews/6/5/4/5/6/165456/165456-giy_fu_gang-e_mo_sha_shoukimetsu_no_yaiba-shan_zi_de_yi_shu-zi_se_de-dian_lan_se_de-500x.jpg","https://img1.wallspic.com/previews/5/4/0/4/7/174045/174045-jian_ying-qi_fen-ren_men_zai_zi_ran_jie-tian_wen_xue_dui_xiang-yi_shu-500x.jpg","https://img1.wallspic.com/previews/9/3/1/6/5/156139/156139-feng_jing_hua-yi_shu-shu_ma_yi_shu-qi_fen-sheng_tai_qu-500x.jpg","https://img2.wallspic.com/previews/7/6/4/5/7/175467/175467-wo_de_xue_shu_jie_de_ying_xiong-tao-yi_shu-ka_tong-azure-500x.jpg","https://img1.wallspic.com/previews/3/7/0/0/7/170073/170073-liang_ge_ling-ka_tong-shou_shi-chuang_zao_xing_de_yi_shu-hong_se_de-500x.jpg","https://img1.wallspic.com/previews/1/8/3/6/6/166381/166381-shi_zi-xin_ba-bai_se_shi_zi-hu_xu-mao_ke-500x.jpg","https://img3.wallspic.com/previews/4/2/2/3/7/173224/173224-ri_luo-shui_zi_yuan-qi_fen-yu_hui-zi_se_de-500x.jpg","https://img1.wallspic.com/previews/7/5/7/9/6/169757/169757-ji_bo_li_de_bo_wu_guan-zi_ran_jing_guan-yi_shu-ji_yun-500x.jpg","https://img1.wallspic.com/previews/5/2/0/6/7/176025/176025-qi_fen-tian_wen_xue_dui_xiang-yi_shu-dian_lan_se_de-yuan_quan-500x.jpg","https://img3.wallspic.com/previews/6/5/8/1/4/141856/141856-hen_ku_de-hui_hua-yu_yan_jing_tou-zhai_nan-tu_xing_she_ji-500x.jpg","https://img1.wallspic.com/previews/2/1/6/5/6/165612/165612-kimetsu_no_yaiba-e_mo_sha_shoukimetsu_no_yaiba-tao-tou_fa-wai_tao-500x.jpg","https://img3.wallspic.com/previews/5/1/0/2/4/142015/142015-feng_ge-ka_ka_xi_qi_mu-huo_ying_ren_zhe-tu_xing_she_ji-shi_jue_yi_shu-500x.jpg","https://img1.wallspic.com/previews/8/8/7/8/5/158788/158788-e_mo_sha_shoukimetsu_no_yaiba-shnen_man_hua-tao-ka_tong-azure-500x.jpg"],"creative_commons":{"license":"by-nc-sa","language":"deed.zh"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"preload":true,"trigger":"auto","path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-12-03 14:22:31"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+
+    
+        <!-- Baidu Analytics -->
+        <script defer>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?16cea90ac06537b0a37ea52df3d2ede6";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+     
+
+    
+        <!-- Google Analytics -->
+        <script async src='https://www.googletagmanager.com/gtag/js?id=G-T84GJPQD33'></script>
+        <script defer>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-T84GJPQD33');
+        </script>
+    
+
+    
+ 
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
+</head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+    
+        <div class="trm-logo-text">
+            Drace<span>Wang</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    归档
+                </a>
+                
+                <ul>
+                    
+                    <li>
+                        <a  href="/tags/" target="">
+                            标签
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a  href="/categories/" target="">
+                            分类
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/links/" target="">
+                    友链
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            在 Kali OS 上安装与配置 Strix 实践笔记
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2025
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        Drace Wang
+    </h5>
+    
+        <div class="trm-label">
+            一个
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="/atom.xml" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fas fa-rss"></i>
+        </a>
+    
+        <a href="https://github.com/DraceWang" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/profile.php?id=100006615107136" title="facebook" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-facebook"></i>
+        </a>
+    
+        <a href="https://www.weibo.com/u/2421168192" title="weibo" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-weibo"></i>
+        </a>
+    
+        <a href="https://www.zhihu.com/people/wang-shun-da-55" title="ZhiHu" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-zhihu"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                居住地:
+            </div>
+            <div class="trm-label trm-label-light">
+                无锡
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                码龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                7
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:wsdboy007@163.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            12/03
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            14:13
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            Drace Wang
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="在-Kali-OS-上安装与配置-Strix-实践笔记"><a href="#在-Kali-OS-上安装与配置-Strix-实践笔记" class="headerlink" title="在 Kali OS 上安装与配置 Strix 实践笔记"></a>在 Kali OS 上安装与配置 Strix 实践笔记</h1><p>Strix 是一款强大的应用安全测试工具，它能够与大型语言模型（LLM）结合，对目标应用进行自动化或半自动化的渗透测试。本笔记旨在记录在 Kali Linux 操作系统上安装和配置 <code>strix-agent</code> 的完整过程，并对每一步操作进行详细的解释，以便于学习和实践。</p>
+<h2 id="准备工作：安装kali，开启-SSH-远程登录"><a href="#准备工作：安装kali，开启-SSH-远程登录" class="headerlink" title="准备工作：安装kali，开启 SSH 远程登录"></a>准备工作：安装kali，开启 SSH 远程登录</h2><p>安装kali就不讲了，基本就是下一步的事，具体根据自己的情况调整即可。</p>
+<p>在进行复杂的安装和配置前，开启 SSH 服务是一个好习惯。这能让你通过远程终端（如 PuTTY、Xshell 或 VSCode Remote）连接到你的 Kali 系统，从而方便地复制粘贴命令、传输文件和进行多任务操作。</p>
+<h3 id="1-修改-SSH-配置文件"><a href="#1-修改-SSH-配置文件" class="headerlink" title="1. 修改 SSH 配置文件"></a>1. 修改 SSH 配置文件</h3><p>首先，我们需要修改 SSH 服务的核心配置文件 <code>sshd_config</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>打开文件后，你需要找到并修改以下两个关键参数，以允许密码验证登录：</p>
+<ul>
+<li><p><strong><code>#PermitRootLogin prohibit-password</code></strong></p>
+<ul>
+<li><strong>修改为</strong>：<code>PermitRootLogin yes</code></li>
+<li><strong>说明</strong>：此项允许 root 用户通过 SSH 登录。在安全的生产环境中，通常不建议这样做，但在个人实验环境中可以临时开启以方便操作。</li>
+</ul>
+</li>
+<li><p><strong><code>#PasswordAuthentication yes</code></strong></p>
+<ul>
+<li><strong>取消注释</strong>：确保该行前面没有 <code>#</code> 号，并设置为 <code>yes</code>。</li>
+<li><strong>说明</strong>：此项开启了使用用户名和密码进行身份验证的登录方式。</li>
+</ul>
+</li>
+</ul>
+<p>修改完成后，按 <code>Ctrl+X</code>，然后按 <code>Y</code> 和回车键保存并退出 <code>nano</code> 编辑器。</p>
+<h3 id="2-重启并设置-SSH-服务"><a href="#2-重启并设置-SSH-服务" class="headerlink" title="2. 重启并设置 SSH 服务"></a>2. 重启并设置 SSH 服务</h3><p>修改配置后，需要重启 SSH 服务使其生效，并设置为开机自启动。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启 SSH 服务</span></span><br><span class="line">sudo systemctl restart ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 SSH 服务开机自启</span></span><br><span class="line">sudo systemctl <span class="built_in">enable</span> ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 SSH 服务状态</span></span><br><span class="line">sudo systemctl status ssh</span><br></pre></td></tr></table></figure>
+
+<p>当看到状态显示为 <code>active (running)</code> 时，说明 SSH 服务已成功启动。</p>
+<h2 id="核心依赖：安装-Docker"><a href="#核心依赖：安装-Docker" class="headerlink" title="核心依赖：安装 Docker"></a>核心依赖：安装 Docker</h2><p>根据 Strix 的设计，它可能依赖 Docker 容器来执行某些隔离的测试任务或运行其组件。因此，安装 Docker 是必不可少的一步。</p>
+<p>我们将使用官方推荐的方法，并配置阿里云的镜像源以加速国内的下载速度。</p>
+<h3 id="1-更新软件包列表与安装依赖"><a href="#1-更新软件包列表与安装依赖" class="headerlink" title="1. 更新软件包列表与安装依赖"></a>1. 更新软件包列表与安装依赖</h3><p>首先，更新 <code>apt</code> 包索引，并安装一些允许 <code>apt</code> 通过 HTTPS 使用仓库所必需的软件包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>说明</strong>：<ul>
+<li><code>apt-transport-https</code>：让 <code>apt</code> 支持 <code>https://</code> 协议的源。</li>
+<li><code>ca-certificates</code>：允许系统检查安全证书。</li>
+<li><code>curl</code>：用于从网络下载文件。</li>
+<li><code>software-properties-common</code>：提供了 <code>add-apt-repository</code> 命令。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-添加-Docker-的-GPG-密钥"><a href="#2-添加-Docker-的-GPG-密钥" class="headerlink" title="2. 添加 Docker 的 GPG 密钥"></a>2. 添加 Docker 的 GPG 密钥</h3><p>为了确保我们下载的 Docker 软件包是官方且未经篡改的，需要添加 Docker 官方（此处使用阿里云镜像）的 GPG 密钥。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/debian/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-添加-Docker-的软件源"><a href="#3-添加-Docker-的软件源" class="headerlink" title="3. 添加 Docker 的软件源"></a>3. 添加 Docker 的软件源</h3><p>接下来，将 Docker 的软件仓库地址添加到你的系统中。这样 <code>apt</code> 就能从中找到并安装 Docker。<br><strong>注意</strong>：Kali 是基于 Debian 的，因此我们应使用 Debian 的仓库。<code>bookworm</code> 是 Debian 12 的代号，请根据你的 Kali 版本对应的 Debian 代号进行调整。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository <span class="string">&quot;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/debian bookworm stable&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-安装-Docker-引擎"><a href="#4-安装-Docker-引擎" class="headerlink" title="4. 安装 Docker 引擎"></a>4. 安装 Docker 引擎</h3><p>万事俱备，现在可以正式安装 Docker 了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 再次更新软件包列表，以包含刚刚添加的 Docker 仓库</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Docker CE (Community Edition)</span></span><br><span class="line">sudo apt-get install -y docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-启动并配置-Docker-服务"><a href="#5-启动并配置-Docker-服务" class="headerlink" title="5. 启动并配置 Docker 服务"></a>5. 启动并配置 Docker 服务</h3><p>与 SSH 类似，我们需要启动 Docker 并将其设置为开机自启。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start docker</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-处理-Docker-用户权限"><a href="#6-处理-Docker-用户权限" class="headerlink" title="6. 处理 Docker 用户权限"></a>6. 处理 Docker 用户权限</h3><p>默认情况下，你需要 <code>sudo</code> 权限才能运行 <code>docker</code> 命令。为了方便，可以将当前用户添加到 <code>docker</code> 用户组中，这样就可以直接执行 <code>docker</code> 命令了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将当前用户（$USER）添加到 docker 组</span></span><br><span class="line">sudo usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>重要提示</strong>：执行此命令后，你需要 <strong>退出当前终端会话并重新登录</strong>（或者重启系统），这样新的用户组权限才会生效。</li>
+</ul>
+<h2 id="安装-Strix-Agent"><a href="#安装-Strix-Agent" class="headerlink" title="安装 Strix Agent"></a>安装 Strix Agent</h2><p>现在，我们可以安装主角——<code>strix-agent</code> 了。推荐使用 <code>pipx</code> 进行安装，因为它可以将 Python 应用安装在独立隔离的环境中，避免与系统或其他项目的依赖产生冲突。</p>
+<h3 id="1-安装-pipx"><a href="#1-安装-pipx" class="headerlink" title="1. 安装 pipx"></a>1. 安装 pipx</h3><p>如果你的系统中还没有 <code>pipx</code>，可以通过 <code>pip</code> 安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install --user pipx</span><br><span class="line">python3 -m pipx ensurepath</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-使用-pipx-安装-strix-agent"><a href="#2-使用-pipx-安装-strix-agent" class="headerlink" title="2. 使用 pipx 安装 strix-agent"></a>2. 使用 pipx 安装 strix-agent</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pipx install strix-agent</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-配置-Strix"><a href="#3-配置-Strix" class="headerlink" title="3. 配置 Strix"></a>3. 配置 Strix</h3><p>Strix 需要知道使用哪个大语言模型（LLM）以及对应的 API 密钥。这通过环境变量来配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置要使用的 LLM 模型，例如 OpenAI 的 gpt-4</span></span><br><span class="line"><span class="built_in">export</span> STRIX_LLM=<span class="string">&quot;openai/gpt-4&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置你的 API 密钥</span></span><br><span class="line"><span class="built_in">export</span> LLM_API_KEY=<span class="string">&quot;sk-YourActualApiKey&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>说明</strong>：<ul>
+<li><code>STRIX_LLM</code>：定义了后端使用的模型。格式通常是 <code>provider/model_name</code>。请根据你拥有的 API 权限填写。</li>
+<li><code>LLM_API_KEY</code>：你的模型提供商的 API 密钥。</li>
+</ul>
+</li>
+<li><strong>建议</strong>：为了不用每次都手动设置，建议将这两行 <code>export</code> 命令添加到你的 shell 配置文件中，例如 <code>~/.bashrc</code> 或 <code>~/.zshrc</code>，然后执行 <code>source ~/.bashrc</code> 使其永久生效。</li>
+</ul>
+<blockquote>
+<p>[!IMPORTANT]</p>
+<h4 id="使用deepseek等国内大模型需要重复设置两个key"><a href="#使用deepseek等国内大模型需要重复设置两个key" class="headerlink" title="使用deepseek等国内大模型需要重复设置两个key"></a>使用deepseek等国内大模型需要重复设置两个key</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export DEEPSEEK_API_KEY=&quot;sk-YourActualApiKey&quot;</span><br></pre></td></tr></table></figure>
+
+<p>具体参考<a target="_blank" rel="noopener" href="https://docs.litellm.ai/docs/providers%E4%B8%AD">https://docs.litellm.ai/docs/providers中</a> :</p>
+<blockquote>
+<h1 id="API-KEY"><a href="#API-KEY" class="headerlink" title="API KEY"></a>API KEY</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># env variable</span><br><span class="line">os.environ[&#x27;DEEPSEEK_API_KEY&#x27;]</span><br></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+<h3 id="4-测试运行"><a href="#4-测试运行" class="headerlink" title="4. 测试运行"></a>4. 测试运行</h3><p>一切就绪后，可以执行一个简单的命令来测试 Strix 是否正常工作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strix --target https://public-firing-range.appspot.com</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>说明</strong>：<ul>
+<li><code>--target</code> 参数指定了你要测试的目标 URL。</li>
+<li><code>public-firing-range.appspot.com</code> 是 Google 提供的一个公开的、用于测试 Web 应用扫描器的网站，用它来做初次测试是安全且合适的。</li>
+</ul>
+</li>
+</ul>
+<p>如果一切顺利，你将看到 Strix 开始分析目标并输出测试信息。至此，整个安装和配置过程就完成了。</p>
+
+</article>
+    
+    
+
+<ul class="trm-post-copyright">
+    <li class="trm-post-copyright-author">
+        <strong>本文作者：</strong>
+        Drace Wang
+    </li>
+    <li class="trm-post-copyright-link">
+        <strong>本文链接：</strong>
+        <a id="original-link" href="http://dracewang.github.io/2025/12/03/在kali os上安装strix/" title="在 Kali OS 上安装与配置 Strix 实践笔记">http://dracewang.github.io/2025/12/03/在kali os上安装strix/</a>
+    </li>
+    <li class="trm-post-copyright-license">
+        <strong>版权声明：</strong>
+        本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 ">CC BY-NC-SA 4.0</a> 许可协议。
+    </li>
+</ul>
+
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
+        <div class="trm-older-publication">
+            
+            <a class="trm-op-top trm-anima-link" href="/2024/06/23/%E7%BE%A4%E6%99%96Docker%E5%AE%89%E8%A3%85Gitlab/">
+                <span class="trm-op-cover">
+                    <img alt="cover" class="no-fancybox" src="https://s2.loli.net/2024/06/25/xoktsdzuDGMFHL8.jpg">
+                </span>
+                <h6 class="trm-op-title">群晖Docker安装Gitlab</h6>
+            </a>
+            <div class="trm-divider trm-mb-15 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/06/23</li>
+                <li>11:00</li>
+                <li>Synology</li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>© 2022- 2025</span>
+            <span class="footer-separator"data-separator=" · "></span>
+            <span class="trm-accent-color">Drace Wang</span>
+        </div>
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.2.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.2
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-1" title="在 Kali OS 上安装与配置 Strix 实践笔记"><a rel="nofollow" class="trm-toc-link" href="#在-Kali-OS-上安装与配置-Strix-实践笔记"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">在 Kali OS 上安装与配置 Strix 实践笔记</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="准备工作：安装kali，开启 SSH 远程登录"><a rel="nofollow" class="trm-toc-link" href="#准备工作：安装kali，开启-SSH-远程登录"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">准备工作：安装kali，开启 SSH 远程登录</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="1. 修改 SSH 配置文件"><a rel="nofollow" class="trm-toc-link" href="#1-修改-SSH-配置文件"><span class="trm-toc-number">1.1.1.</span> <span class="trm-toc-text">1. 修改 SSH 配置文件</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2. 重启并设置 SSH 服务"><a rel="nofollow" class="trm-toc-link" href="#2-重启并设置-SSH-服务"><span class="trm-toc-number">1.1.2.</span> <span class="trm-toc-text">2. 重启并设置 SSH 服务</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="核心依赖：安装 Docker"><a rel="nofollow" class="trm-toc-link" href="#核心依赖：安装-Docker"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">核心依赖：安装 Docker</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="1. 更新软件包列表与安装依赖"><a rel="nofollow" class="trm-toc-link" href="#1-更新软件包列表与安装依赖"><span class="trm-toc-number">1.2.1.</span> <span class="trm-toc-text">1. 更新软件包列表与安装依赖</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2. 添加 Docker 的 GPG 密钥"><a rel="nofollow" class="trm-toc-link" href="#2-添加-Docker-的-GPG-密钥"><span class="trm-toc-number">1.2.2.</span> <span class="trm-toc-text">2. 添加 Docker 的 GPG 密钥</span></a></li><li class="trm-toc-item trm-toc-level-3" title="3. 添加 Docker 的软件源"><a rel="nofollow" class="trm-toc-link" href="#3-添加-Docker-的软件源"><span class="trm-toc-number">1.2.3.</span> <span class="trm-toc-text">3. 添加 Docker 的软件源</span></a></li><li class="trm-toc-item trm-toc-level-3" title="4. 安装 Docker 引擎"><a rel="nofollow" class="trm-toc-link" href="#4-安装-Docker-引擎"><span class="trm-toc-number">1.2.4.</span> <span class="trm-toc-text">4. 安装 Docker 引擎</span></a></li><li class="trm-toc-item trm-toc-level-3" title="5. 启动并配置 Docker 服务"><a rel="nofollow" class="trm-toc-link" href="#5-启动并配置-Docker-服务"><span class="trm-toc-number">1.2.5.</span> <span class="trm-toc-text">5. 启动并配置 Docker 服务</span></a></li><li class="trm-toc-item trm-toc-level-3" title="6. 处理 Docker 用户权限"><a rel="nofollow" class="trm-toc-link" href="#6-处理-Docker-用户权限"><span class="trm-toc-number">1.2.6.</span> <span class="trm-toc-text">6. 处理 Docker 用户权限</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="安装 Strix Agent"><a rel="nofollow" class="trm-toc-link" href="#安装-Strix-Agent"><span class="trm-toc-number">1.3.</span> <span class="trm-toc-text">安装 Strix Agent</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="1. 安装 pipx"><a rel="nofollow" class="trm-toc-link" href="#1-安装-pipx"><span class="trm-toc-number">1.3.1.</span> <span class="trm-toc-text">1. 安装 pipx</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2. 使用 pipx 安装 strix-agent"><a rel="nofollow" class="trm-toc-link" href="#2-使用-pipx-安装-strix-agent"><span class="trm-toc-number">1.3.2.</span> <span class="trm-toc-text">2. 使用 pipx 安装 strix-agent</span></a></li><li class="trm-toc-item trm-toc-level-3" title="3. 配置 Strix"><a rel="nofollow" class="trm-toc-link" href="#3-配置-Strix"><span class="trm-toc-number">1.3.3.</span> <span class="trm-toc-text">3. 配置 Strix</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="使用deepseek等国内大模型需要重复设置两个key"><a rel="nofollow" class="trm-toc-link" href="#使用deepseek等国内大模型需要重复设置两个key"><span class="trm-toc-number">1.3.3.1.</span> <span class="trm-toc-text">使用deepseek等国内大模型需要重复设置两个key</span></a></li></ol></li></ol></li></ol></li><li class="trm-toc-item trm-toc-level-1" title="API KEY"><a rel="nofollow" class="trm-toc-link" href="#API-KEY"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">API KEY</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="4. 测试运行"><a rel="nofollow" class="trm-toc-link" href="#4-测试运行"><span class="trm-toc-number">2.0.1.</span> <span class="trm-toc-text">4. 测试运行</span></a></li></ol></li></ol></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+<script src="https://unpkg.com/swup@2.0.19/dist/swup.min.js"></script>
+
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+        <script src="/js/plugins/typing.js?v=2.2.2"></script>
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+    <script data-swup-reload-script>
+        (function () {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+
+
+<script id="async-script" src="/js/main.js?v=2.2.2"></script>
+
+<!-- CDN -->
+
+
+    
+<script src="/demo.js"></script>
+
+
+    
+
+    
+
+
+
+</body>
+
+</html>
