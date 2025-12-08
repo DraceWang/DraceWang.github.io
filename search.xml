@@ -114,48 +114,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Android 常用工具命令</title>
-    <url>/2015/09/29/Android%20%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h2 id="ADB"><a href="#ADB" class="headerlink" title="ADB"></a>ADB</h2><p>ADB通过IP连接设备</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb connect ***.***.***.***</span><br></pre></td></tr></table></figure>
-<p>ADB指定IP断开连接</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb disconnect ***.***.***.***</span><br></pre></td></tr></table></figure>
-<p>ADB日志缓存清空</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb logcat -c</span><br></pre></td></tr></table></figure>
-<p>ADB日志抓取到指定路径</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb logcat -v time &gt; c:\******.log</span><br></pre></td></tr></table></figure>
-<p>后台抓取日志到盒子</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb logcat -v time &gt; /mnt/sdcard/******.log &amp;</span><br></pre></td></tr></table></figure>
-<p>进入shell</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell</span><br></pre></td></tr></table></figure>
-<p>ADB获取系统高级权限</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb remount</span><br></pre></td></tr></table></figure>
-<p>ADB拉出文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb pull /data/data/***** c:\*****</span><br></pre></td></tr></table></figure>
-<p>ADB推入文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb push **** /****</span><br></pre></td></tr></table></figure>
-<p>获取属性值</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">getprop</span><br></pre></td></tr></table></figure>
-<p>设置属性值</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">setprop &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="网络抓包"><a href="#网络抓包" class="headerlink" title="网络抓包"></a>网络抓包</h3><p>将tcpdump文件push进设备</p>
-<p>shell下</p>
-<figure class="highlight plaintext"><figcaption><span>-p -vv -s 0 -w</span><a href="/data/data/capture.pcap">link</a></figcaption><table><tr><td class="code"><pre><span class="line">```</span><br><span class="line">kill小技巧</span><br><span class="line"></span><br><span class="line">shell下</span><br><span class="line"></span><br><span class="line">```shellkill `ps |grep icntv | busybox awk &#x27;&#123;print $2&#125;&#x27;`</span><br></pre></td></tr></table></figure>
-<p>这个命令可以将grep检索的关键字的进程直接全部杀死</p>
-<p>内存查看</p>
-<p>shell下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">```</span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">dumpsys meminfo</span><br></pre></td></tr></table></figure>
-<p>这个命令很强大，可以查看很多系统信息，比如surface的堆栈信息</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dumpsys SurfaceFilnger</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>ADB</tag>
-        <tag>shell</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Android Service的简单应用</title>
     <url>/2015/09/24/Android%20Service%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/</url>
     <content><![CDATA[<h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><p>先自己写个类继承service</p>
@@ -198,10 +156,52 @@
       </tags>
   </entry>
   <entry>
+    <title>Android 常用工具命令</title>
+    <url>/2015/09/29/Android%20%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h2 id="ADB"><a href="#ADB" class="headerlink" title="ADB"></a>ADB</h2><p>ADB通过IP连接设备</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb connect ***.***.***.***</span><br></pre></td></tr></table></figure>
+<p>ADB指定IP断开连接</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb disconnect ***.***.***.***</span><br></pre></td></tr></table></figure>
+<p>ADB日志缓存清空</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb logcat -c</span><br></pre></td></tr></table></figure>
+<p>ADB日志抓取到指定路径</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb logcat -v time &gt; c:\******.log</span><br></pre></td></tr></table></figure>
+<p>后台抓取日志到盒子</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb logcat -v time &gt; /mnt/sdcard/******.log &amp;</span><br></pre></td></tr></table></figure>
+<p>进入shell</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell</span><br></pre></td></tr></table></figure>
+<p>ADB获取系统高级权限</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb remount</span><br></pre></td></tr></table></figure>
+<p>ADB拉出文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb pull /data/data/***** c:\*****</span><br></pre></td></tr></table></figure>
+<p>ADB推入文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb push **** /****</span><br></pre></td></tr></table></figure>
+<p>获取属性值</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">getprop</span><br></pre></td></tr></table></figure>
+<p>设置属性值</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">setprop &lt;key&gt; &lt;value&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="网络抓包"><a href="#网络抓包" class="headerlink" title="网络抓包"></a>网络抓包</h3><p>将tcpdump文件push进设备</p>
+<p>shell下</p>
+<figure class="highlight plaintext"><figcaption><span>-p -vv -s 0 -w</span><a href="/data/data/capture.pcap">link</a></figcaption><table><tr><td class="code"><pre><span class="line">```</span><br><span class="line">kill小技巧</span><br><span class="line"></span><br><span class="line">shell下</span><br><span class="line"></span><br><span class="line">```shellkill `ps |grep icntv | busybox awk &#x27;&#123;print $2&#125;&#x27;`</span><br></pre></td></tr></table></figure>
+<p>这个命令可以将grep检索的关键字的进程直接全部杀死</p>
+<p>内存查看</p>
+<p>shell下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">```</span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">dumpsys meminfo</span><br></pre></td></tr></table></figure>
+<p>这个命令很强大，可以查看很多系统信息，比如surface的堆栈信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dumpsys SurfaceFilnger</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>ADB</tag>
+        <tag>shell</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>git 代码管理工具常用命令</title>
     <url>/2019/09/18/git%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<p>首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。</p>
-<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#x67;&#x69;&#116;&#117;&#115;&#101;&#114;&#49;&#x40;&#103;&#x69;&#x74;&#46;&#99;&#111;&#109;">&#x67;&#x69;&#116;&#117;&#115;&#101;&#114;&#49;&#x40;&#103;&#x69;&#x74;&#46;&#99;&#111;&#109;</a></p>
+<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#103;&#x69;&#x74;&#x75;&#x73;&#x65;&#114;&#x31;&#x40;&#103;&#x69;&#116;&#46;&#x63;&#111;&#109;">&#103;&#x69;&#x74;&#x75;&#x73;&#x65;&#114;&#x31;&#x40;&#103;&#x69;&#116;&#46;&#x63;&#111;&#109;</a></p>
 <h3 id="配置git提交时候的全局用户名"><a href="#配置git提交时候的全局用户名" class="headerlink" title="配置git提交时候的全局用户名"></a>配置git提交时候的全局用户名</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gitconfig --global user.name gituser1</span><br></pre></td></tr></table></figure>
 
 <h3 id="配置git提交时候的全局邮箱"><a href="#配置git提交时候的全局邮箱" class="headerlink" title="配置git提交时候的全局邮箱"></a>配置git提交时候的全局邮箱</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email gituser1@git.com</span><br></pre></td></tr></table></figure>
@@ -296,6 +296,98 @@
       </categories>
       <tags>
         <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>jenkins+apache+subversion关联LDAP</title>
+    <url>/2014/12/08/jenkins+apache+subversion%E5%85%B3%E8%81%94LDAP/</url>
+    <content><![CDATA[<h2 id="安装jenkins"><a href="#安装jenkins" class="headerlink" title="安装jenkins"></a>安装jenkins</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+
+<p>添加以下信息到你的源<code>/etc/apt/sources.list</code>:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deb http://pkg.jenkins-ci.org/debian binary/</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载安装SVN-apache"><a href="#下载安装SVN-apache" class="headerlink" title="下载安装SVN+apache"></a>下载安装SVN+apache</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install subversion libapache2-svn apache2 apache2-utils</span><br><span class="line"></span><br><span class="line">sudo a2enmod ssl</span><br><span class="line"></span><br><span class="line">sudo a2ensite default-ssl</span><br><span class="line"></span><br><span class="line">sudo a2enmod dav_svn</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="设置apache2"><a href="#设置apache2" class="headerlink" title="设置apache2"></a>设置apache2</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
+<p>编辑该文件使之如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line"></span><br><span class="line">DAV svn</span><br><span class="line"></span><br><span class="line">SVNPath /home/svn</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line"></span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">AuthUserFile /etc/apache2/dav_svn.passwd</span><br><span class="line"></span><br><span class="line">Require valid-user</span><br><span class="line"></span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
+<p>更改 <code>/home/svn</code> 到任何你要保存仓库的地址。如果没有的话就新建。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /home/svn</span><br></pre></td></tr></table></figure>
+<h3 id="开启svn服务"><a href="#开启svn服务" class="headerlink" title="开启svn服务"></a>开启svn服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo svnadmin  create /home/svn</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="是APache成为该仓库的所有者。"><a href="#是APache成为该仓库的所有者。" class="headerlink" title="是APache成为该仓库的所有者。"></a>是APache成为该仓库的所有者。</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">chown</span> -R www-data /home/svn</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="建立密码文件"><a href="#建立密码文件" class="headerlink" title="建立密码文件"></a>建立密码文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo htpasswd -cm /etc/apache2/dav_svn.passwd admin</span><br></pre></td></tr></table></figure>
+<p>admin是你想使用的用户名，然后输入两次密码。</p>
+<h3 id="重启Apache"><a href="#重启Apache" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restar</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="关联svn和LDAP"><a href="#关联svn和LDAP" class="headerlink" title="关联svn和LDAP"></a>关联svn和LDAP</h2><h3 id="a-pache添加ldap组件"><a href="#a-pache添加ldap组件" class="headerlink" title="a pache添加ldap组件"></a>a pache添加ldap组件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo a2enmod ldap</span><br><span class="line"></span><br><span class="line">sudo a2enmod authnz_ldap</span><br></pre></td></tr></table></figure>
+<h3 id="修改apache中的svn配置文件"><a href="#修改apache中的svn配置文件" class="headerlink" title="修改apache中的svn配置文件"></a>修改apache中的svn配置文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line">DAV svn</span><br><span class="line">SVNParentPath /home/svn/</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">#LDAP</span><br><span class="line">AuthBasicProvider ldap</span><br><span class="line">AuthLDAPBindDN &quot;cn=admin,dc=example,dc=com&quot;</span><br><span class="line">AuthLDAPBindPassword admin</span><br><span class="line">AuthLDAPURL &quot;ldap://localhost:389/dc=example,dc=com?uid?sub?(objectClass=*)&quot;</span><br><span class="line"></span><br><span class="line">AuthzSVNAccessFile /etc/apache2/dav_svn.authz</span><br><span class="line">require valid-user</span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="重启Apache-1"><a href="#重启Apache-1" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
+<h2 id="jenkins关联LDAP"><a href="#jenkins关联LDAP" class="headerlink" title="jenkins关联LDAP"></a>jenkins关联LDAP</h2><p>打开localhost：8080，jenkins默认安装在8080端口上</p>
+<p>依次进入–&gt;系统管理–&gt;Configure Global Security</p>
+<p>启用安全设置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LDAP</span><br><span class="line">服务器	     ldap://localhost:389</span><br><span class="line">root DN      dc=example,dc=com</span><br><span class="line">Manager DN	 cn=admin,dc=example,dc=com</span><br><span class="line">管理密码      ****    //这是你之前安装ldap时输入的管理员密码    </span><br></pre></td></tr></table></figure>
+<p>点击保存应用即可</p>
+]]></content>
+      <categories>
+        <category>ALM开发</category>
+      </categories>
+      <tags>
+        <tag>LDAP</tag>
+        <tag>jenkins</tag>
+        <tag>apache</tag>
+        <tag>subversion</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LDAP安装与关联redmine</title>
+    <url>/2014/12/09/ldap%E5%AE%89%E8%A3%85%E4%B8%8E%E5%85%B3%E8%81%94redmine/</url>
+    <content><![CDATA[<h2 id="安装LDAP"><a href="#安装LDAP" class="headerlink" title="安装LDAP"></a>安装LDAP</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
+<p>修改 <code>127.0.1.1 hostname.example.com </code>hostname &#x2F;&#x2F;hostname是本机的hostname不是“hostname”</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install slapd ldap-utils //安装ldap</span><br></pre></td></tr></table></figure>
+<p>测试</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b cn=config dn</span><br><span class="line"></span><br><span class="line">ldapsearch -x -LLL -H ldap:/// -b dc=example,dc=com dn</span><br></pre></td></tr></table></figure>
+<hr>
+<p>添加用户</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/ldap</span><br><span class="line"></span><br><span class="line">sudo vim add_content.ldif   //创建add_content.ldif添加下列文字</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line"><span class="attribute">dn</span>: ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: People</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: Groups</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: cn=miners,ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixGroup</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: miners</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: uid=john,ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: inetOrgPerson</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: shadowAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">uid</span>: john</span><br><span class="line"></span><br><span class="line"><span class="attribute">sn</span>: Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">givenName</span>: John</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">mail</span>: 385691567@qq.com</span><br><span class="line"></span><br><span class="line"><span class="attribute">displayName</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">uidNumber</span>: 10000</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"><span class="attribute">userPassword</span>: johnldap</span><br><span class="line"></span><br><span class="line"><span class="attribute">gecos</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">loginShell</span>: /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="attribute">homeDirectory</span>: /home/john</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line">ldapadd -x -D cn=admin,dc=example,dc=com -W -f add_content.ldif //添加ldif文件</span><br><span class="line"></span><br><span class="line">ldapsearch -x -LLL -b dc=example,dc=com &#x27;uid=john&#x27; cn gidNumber //查询john</span><br></pre></td></tr></table></figure>
+<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>-x:“简单”绑定;不使用默认SASL方法</p>
+<p>-LLL:禁用打印无关的信息</p>
+<p>uid &#x3D;john:一个“过滤器”找到john用户</p>
+<p>cn gidNumber:请求某些特定属性的显示(默认是显示所有属性)</p>
+</div>
+<h2 id="redmine设置"><a href="#redmine设置" class="headerlink" title="redmine设置"></a>redmine设置</h2><hr>
+<p>认证模式（LDAP）</p>
+<p>名称：（随便填）</p>
+<p>主机： ldap服务器IP</p>
+<p>端口： 默认389</p>
+<p>账号： cn&#x3D;admin,dc&#x3D;example,dc&#x3D;com</p>
+<p>密码： admin</p>
+<p>Base DN: dc&#x3D;example,dc&#x3D;com</p>
+<p>LDAP过滤器：</p>
+<p>超时（秒）：</p>
+<p>即时用户生成：打勾</p>
+<p>登录名属性：uid</p>
+<p>名字属性：sn</p>
+<p>姓氏属性：givenName</p>
+<p>邮件属性：mail</p>
+<hr>
+]]></content>
+      <categories>
+        <category>ALM开发</category>
+      </categories>
+      <tags>
+        <tag>LDAP</tag>
+        <tag>redmine</tag>
       </tags>
   </entry>
   <entry>
@@ -716,98 +808,6 @@
       </tags>
   </entry>
   <entry>
-    <title>jenkins+apache+subversion关联LDAP</title>
-    <url>/2014/12/08/jenkins+apache+subversion%E5%85%B3%E8%81%94LDAP/</url>
-    <content><![CDATA[<h2 id="安装jenkins"><a href="#安装jenkins" class="headerlink" title="安装jenkins"></a>安装jenkins</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -</span><br></pre></td></tr></table></figure>
-
-<p>添加以下信息到你的源<code>/etc/apt/sources.list</code>:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">deb http://pkg.jenkins-ci.org/debian binary/</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install jenkins</span><br></pre></td></tr></table></figure>
-
-<h2 id="下载安装SVN-apache"><a href="#下载安装SVN-apache" class="headerlink" title="下载安装SVN+apache"></a>下载安装SVN+apache</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install subversion libapache2-svn apache2 apache2-utils</span><br><span class="line"></span><br><span class="line">sudo a2enmod ssl</span><br><span class="line"></span><br><span class="line">sudo a2ensite default-ssl</span><br><span class="line"></span><br><span class="line">sudo a2enmod dav_svn</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="设置apache2"><a href="#设置apache2" class="headerlink" title="设置apache2"></a>设置apache2</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
-<p>编辑该文件使之如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line"></span><br><span class="line">DAV svn</span><br><span class="line"></span><br><span class="line">SVNPath /home/svn</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line"></span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">AuthUserFile /etc/apache2/dav_svn.passwd</span><br><span class="line"></span><br><span class="line">Require valid-user</span><br><span class="line"></span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
-<p>更改 <code>/home/svn</code> 到任何你要保存仓库的地址。如果没有的话就新建。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /home/svn</span><br></pre></td></tr></table></figure>
-<h3 id="开启svn服务"><a href="#开启svn服务" class="headerlink" title="开启svn服务"></a>开启svn服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo svnadmin  create /home/svn</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="是APache成为该仓库的所有者。"><a href="#是APache成为该仓库的所有者。" class="headerlink" title="是APache成为该仓库的所有者。"></a>是APache成为该仓库的所有者。</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">chown</span> -R www-data /home/svn</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="建立密码文件"><a href="#建立密码文件" class="headerlink" title="建立密码文件"></a>建立密码文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo htpasswd -cm /etc/apache2/dav_svn.passwd admin</span><br></pre></td></tr></table></figure>
-<p>admin是你想使用的用户名，然后输入两次密码。</p>
-<h3 id="重启Apache"><a href="#重启Apache" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restar</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="关联svn和LDAP"><a href="#关联svn和LDAP" class="headerlink" title="关联svn和LDAP"></a>关联svn和LDAP</h2><h3 id="a-pache添加ldap组件"><a href="#a-pache添加ldap组件" class="headerlink" title="a pache添加ldap组件"></a>a pache添加ldap组件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo a2enmod ldap</span><br><span class="line"></span><br><span class="line">sudo a2enmod authnz_ldap</span><br></pre></td></tr></table></figure>
-<h3 id="修改apache中的svn配置文件"><a href="#修改apache中的svn配置文件" class="headerlink" title="修改apache中的svn配置文件"></a>修改apache中的svn配置文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/apache2/mods-enabled/dav_svn.conf</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;Location /svn&gt;</span><br><span class="line">DAV svn</span><br><span class="line">SVNParentPath /home/svn/</span><br><span class="line"></span><br><span class="line">AuthType Basic</span><br><span class="line">AuthName &quot;Subversion Repository&quot;</span><br><span class="line"></span><br><span class="line">#LDAP</span><br><span class="line">AuthBasicProvider ldap</span><br><span class="line">AuthLDAPBindDN &quot;cn=admin,dc=example,dc=com&quot;</span><br><span class="line">AuthLDAPBindPassword admin</span><br><span class="line">AuthLDAPURL &quot;ldap://localhost:389/dc=example,dc=com?uid?sub?(objectClass=*)&quot;</span><br><span class="line"></span><br><span class="line">AuthzSVNAccessFile /etc/apache2/dav_svn.authz</span><br><span class="line">require valid-user</span><br><span class="line">&lt;/Location&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="重启Apache-1"><a href="#重启Apache-1" class="headerlink" title="重启Apache"></a>重启Apache</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restart</span><br></pre></td></tr></table></figure>
-<h2 id="jenkins关联LDAP"><a href="#jenkins关联LDAP" class="headerlink" title="jenkins关联LDAP"></a>jenkins关联LDAP</h2><p>打开localhost：8080，jenkins默认安装在8080端口上</p>
-<p>依次进入–&gt;系统管理–&gt;Configure Global Security</p>
-<p>启用安全设置</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LDAP</span><br><span class="line">服务器	     ldap://localhost:389</span><br><span class="line">root DN      dc=example,dc=com</span><br><span class="line">Manager DN	 cn=admin,dc=example,dc=com</span><br><span class="line">管理密码      ****    //这是你之前安装ldap时输入的管理员密码    </span><br></pre></td></tr></table></figure>
-<p>点击保存应用即可</p>
-]]></content>
-      <categories>
-        <category>ALM开发</category>
-      </categories>
-      <tags>
-        <tag>LDAP</tag>
-        <tag>jenkins</tag>
-        <tag>apache</tag>
-        <tag>subversion</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LDAP安装与关联redmine</title>
-    <url>/2014/12/09/ldap%E5%AE%89%E8%A3%85%E4%B8%8E%E5%85%B3%E8%81%94redmine/</url>
-    <content><![CDATA[<h2 id="安装LDAP"><a href="#安装LDAP" class="headerlink" title="安装LDAP"></a>安装LDAP</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
-<p>修改 <code>127.0.1.1 hostname.example.com </code>hostname &#x2F;&#x2F;hostname是本机的hostname不是“hostname”</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install slapd ldap-utils //安装ldap</span><br></pre></td></tr></table></figure>
-<p>测试</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b cn=config dn</span><br><span class="line"></span><br><span class="line">ldapsearch -x -LLL -H ldap:/// -b dc=example,dc=com dn</span><br></pre></td></tr></table></figure>
-<hr>
-<p>添加用户</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/ldap</span><br><span class="line"></span><br><span class="line">sudo vim add_content.ldif   //创建add_content.ldif添加下列文字</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line"><span class="attribute">dn</span>: ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: People</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: organizationalUnit</span><br><span class="line"></span><br><span class="line"><span class="attribute">ou</span>: Groups</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: cn=miners,ou=Groups,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixGroup</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: miners</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: uid=john,ou=People,dc=example,dc=com</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: inetOrgPerson</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: posixAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">objectClass</span>: shadowAccount</span><br><span class="line"></span><br><span class="line"><span class="attribute">uid</span>: john</span><br><span class="line"></span><br><span class="line"><span class="attribute">sn</span>: Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">givenName</span>: John</span><br><span class="line"></span><br><span class="line"><span class="attribute">cn</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">mail</span>: 385691567@qq.com</span><br><span class="line"></span><br><span class="line"><span class="attribute">displayName</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">uidNumber</span>: 10000</span><br><span class="line"></span><br><span class="line"><span class="attribute">gidNumber</span>: 5000</span><br><span class="line"></span><br><span class="line"><span class="attribute">userPassword</span>: johnldap</span><br><span class="line"></span><br><span class="line"><span class="attribute">gecos</span>: John Doe</span><br><span class="line"></span><br><span class="line"><span class="attribute">loginShell</span>: /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="attribute">homeDirectory</span>: /home/john</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight ldif"><table><tr><td class="code"><pre><span class="line">ldapadd -x -D cn=admin,dc=example,dc=com -W -f add_content.ldif //添加ldif文件</span><br><span class="line"></span><br><span class="line">ldapsearch -x -LLL -b dc=example,dc=com &#x27;uid=john&#x27; cn gidNumber //查询john</span><br></pre></td></tr></table></figure>
-<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>-x:“简单”绑定;不使用默认SASL方法</p>
-<p>-LLL:禁用打印无关的信息</p>
-<p>uid &#x3D;john:一个“过滤器”找到john用户</p>
-<p>cn gidNumber:请求某些特定属性的显示(默认是显示所有属性)</p>
-</div>
-<h2 id="redmine设置"><a href="#redmine设置" class="headerlink" title="redmine设置"></a>redmine设置</h2><hr>
-<p>认证模式（LDAP）</p>
-<p>名称：（随便填）</p>
-<p>主机： ldap服务器IP</p>
-<p>端口： 默认389</p>
-<p>账号： cn&#x3D;admin,dc&#x3D;example,dc&#x3D;com</p>
-<p>密码： admin</p>
-<p>Base DN: dc&#x3D;example,dc&#x3D;com</p>
-<p>LDAP过滤器：</p>
-<p>超时（秒）：</p>
-<p>即时用户生成：打勾</p>
-<p>登录名属性：uid</p>
-<p>名字属性：sn</p>
-<p>姓氏属性：givenName</p>
-<p>邮件属性：mail</p>
-<hr>
-]]></content>
-      <categories>
-        <category>ALM开发</category>
-      </categories>
-      <tags>
-        <tag>LDAP</tag>
-        <tag>redmine</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ubuntu14.04 安装redmine2.5.3</title>
     <url>/2014/12/15/ubuntu14.04%20%E5%AE%89%E8%A3%85redmine2.5.3/</url>
     <content><![CDATA[<h2 id="安装redmine的环境"><a href="#安装redmine的环境" class="headerlink" title="安装redmine的环境"></a>安装redmine的环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install -y apache2 php5 libapache2-mod-php5 mysql-server php5-mysql libapache2-mod-perl2 libcurl4-openssl-dev libssl-dev apache2-dev libapr1-dev libaprutil1-dev libmysqlclient-dev libmagickcore-dev libmagickwand-dev curl git-core patch build-essential bison zlib1g-dev libssl-dev libxml2-dev libxml2-dev sqlite3 libsqlite3-dev autotools-dev libxslt1-dev libyaml-0-2 autoconf automake libreadline6-dev libyaml-dev libtool imagemagick apache2-utils vim </span><br></pre></td></tr></table></figure>
@@ -916,162 +916,6 @@
       <tags>
         <tag>ubuntu</tag>
         <tag>virtualbox</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>利用Hexo博客框架结合Github Page创建自己的博客</title>
-    <url>/2024/06/14/%E5%88%A9%E7%94%A8Hexo%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E7%BB%93%E5%90%88Github%20Page%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实我早在2020年就已经用Hexo搭建了自己的博客，并且使用github page发布了静态的博客。但是中间因为各种原因，差不多就算停更了。现在就是自己再回头记录下，不是说做任何事任何时候开始都不晚么~</p>
-<p>so，那就来记录下吧。</p>
-<p>首先，我这边的目的是记录下Hexo建立博客的过程，之前我都是在windows下弄的，现在想想还是用个虚拟机，系统就Kali 23.2了,主要后面也要常用的。Hexo也更新了好多代了。还记得当时18，19年的时候Hexo1升级到Hexo2，好多组件不兼容，改js改到半夜，也是头秃。不知道现在的Hexo对老版本是否支持，正好也再来把之前做的Hexo主图更新下。而这篇博客就记录下这个过程。</p>
-<p>那就让我们开始把。</p>
-<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><h3 id="什么是-Hexo？"><a href="#什么是-Hexo？" class="headerlink" title="什么是 Hexo？"></a>什么是 Hexo？</h3><p>Hexo 是一个快速、简洁且高效的博客框架。<a href="https://hexo.io/zh-cn/">Hexo</a> 使用 <a href="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
-<p>安装的这部分我也是参考<a href="https://hexo.io/zh-cn/docs/">官方Doc</a>, 不愿意看我废话的，可以自行参考官方Doc。</p>
-<h3 id="系统环境与Hexo依赖软件-删除kali部分，后续还是windows系统更新博客"><a href="#系统环境与Hexo依赖软件-删除kali部分，后续还是windows系统更新博客" class="headerlink" title="系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)"></a>系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)</h3><p><del>由于我是虚拟机部署环境，想着是弄完这一次之后，后面要是长久不用，我也能直接用虚拟机恢复出写博客的环境。（反正想法总是一阵一阵的，就先这样吧）。</del></p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> <del>Kali Linux 2023.2（有需要的改下国内源）</del></li>
-<li><input disabled="" type="checkbox"> <del><a href="http://nodejs.org/">Node.js</a> (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)</del></li>
-<li><input checked="" disabled="" type="checkbox"> <del><a href="http://git-scm.com/">Git</a></del></li>
-</ul>
-<p><del>这里就不讲虚拟机怎么装Kali系统了，网上太多教程了。</del></p>
-<p>这里可以说是非常的蛋疼，我后面其实已经把kali的环境都搭建好了，但是由于GFW的问题，导致无法再Linux下直接通过ssh上传到github，虽然本着有问题解决问题的态度，但是知道是因为代理导致的，那也就没啥好纠结的了，其次是根据Hexo官方现在都已经使用action来构建和部署github page，那原先想着的打包虚拟机整体环境就没有必要了。</p>
-<p>因此最终决定，抛弃kali环境直接在windows环境下搭建博客环境。</p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> windows 10</li>
-<li><input disabled="" type="checkbox"> Node.js</li>
-<li><input disabled="" type="checkbox"> Git</li>
-</ul>
-<h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>我们直接到node.js的官网上下载最新版本的安装包（<a href="https://nodejs.org/en/download/current">Download | Node.js (nodejs.org)</a>）</p>
-<p>根据自己的系统选择对应的32或64bit版本，然后双击运行，一路‘下一步’就完成了，中间建议勾选安装node.js依赖。</p>
-<p>安装完成后可以在开始菜单中看到<br><img src="https://s2.loli.net/2023/10/08/MeQwHWL2yRasS9F.jpg" alt="微信截图_20231008133554"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>点击打开Node.js会弹出命令行，确认Node.js是否安装成功，且版本是多少</p>
-<p><img src="https://s2.loli.net/2023/10/08/1UJ2QLdNXwGIjer.jpg" alt="微信截图_20231008135122"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><p>到官网下载git程序包<a href="https://git-scm.com/downloads">Git - Downloads (git-scm.com)</a></p>
-<p>同样也是一路‘下一步’来安装，建议添加系统环境变量和安装git bash。</p>
-<h3 id="安装Hexo-1"><a href="#安装Hexo-1" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
-
-<p>可以使用git bash或者powershell，git bash有右键菜单，可以省的切换目录，我个人觉得比较舒服，所以后面就以这个为例了。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
-
-<p>我这边因为之前在kali中进行部署发现hexo版本通过默认命令安装的不是最新的，因此，我就加上了版本号</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo@6.3.0</span><br></pre></td></tr></table></figure>
-<h2 id="2024-06-24"><a href="#2024-06-24" class="headerlink" title="2024-06-24"></a>2024-06-24<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo@laster</span><br></pre></td></tr></table></figure></h2><p>如果担心后面组件不全，可以直接用官方的</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<p>然后确认下版本号即可</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
-
-<p>如果你是刚装好node.js，git bash中似乎没有办法找到这个hexo的环境变量，使用下面的命令即可</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npx hexo version</span><br></pre></td></tr></table></figure>
-
-<p>2024-06-23<br>这次安装发现版本查看不出来，我最后是到<code>C:\Users\&lt;your name&gt;\node_modules\hexo</code>下<code>package.json</code>中确认的</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;hexo&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;7.2.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;A fast, simple &amp; powerful blog framework, powered by Node.js.&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;dist/hexo&quot;,</span><br><span class="line">  &quot;bin&quot;: &#123;</span><br><span class="line">    &quot;hexo&quot;: &quot;./bin/hexo&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
-
-<p>然后使用</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
-<p>现在可以安装到最新的hexo</p>
-<hr>
-<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>使用hexo的框架创建一个文件夹，用于部署和生成静态网站</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-
-<p>操作完成之后，可以看到这个文件夹下面结构：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
-
-<h3 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>网站的 <a href="https://hexo.io/zh-cn/docs/configuration">配置</a> 信息，您可以在此配置大部分的参数。</p>
-<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>应用程序的信息。<a href="https://ejs.co/">EJS</a>, <a href="http://learnboost.github.io/stylus/">Stylus</a> 和 <a href="http://daringfireball.net/projects/markdown/">Markdown</a> 渲染引擎 已默认安装，您可以自由移除。</p>
-<h3 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a>scaffolds</h3><p><a href="https://hexo.io/zh-cn/docs/writing#%E6%A8%A1%E7%89%88%EF%BC%88Scaffold%EF%BC%89">模版</a> 文件夹。当您新建文章时，Hexo 会根据 scaffold 来创建文件。</p>
-<p>Hexo 的模板是指在新建的文章文件中默认填充的内容。例如，如果您修改 <code>scaffold/post.md</code> 中的 Front-matter 内容，那么每次新建一篇文章时都会包含这个修改。</p>
-<h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><p>资源文件夹是存放用户资源的地方。除 <code>_posts</code> 文件夹之外，开头命名为 <code>_</code> (下划线)的文件 &#x2F; 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 <code>public</code> 文件夹，而其他文件会被拷贝过去。</p>
-<h3 id="themes"><a href="#themes" class="headerlink" title="themes"></a>themes</h3><p><a href="https://hexo.io/zh-cn/docs/themes">主题</a> 文件夹。Hexo 会根据主题来生成静态页面。</p>
-<h2 id="恢复站点状态使用"><a href="#恢复站点状态使用" class="headerlink" title="恢复站点状态使用"></a>恢复站点状态使用</h2><h3 id="config-yml-1"><a href="#config-yml-1" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>由于我之前已经用过了hexo并且已经建立过站点了，因此现在我可以通过之前备份的主题以及配置文件来恢复，主要是将自己使用的主题放进<code>themes</code>文件夹，并将<code>_config.yml</code>中的参数比对恢复。</p>
-<p><em><strong>这里建议<code>_config.yml</code>中单独恢复把参数对应的值粘贴过来，因为hexo的版本更新，防止出现解析生成静态站的时候出现各种乱七八糟的问题。</strong></em></p>
-<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>我现在找到了一个新的主题，很喜欢，<a href="https://async-docs.imalun.com/">Hexo-Theme-Async</a>推荐给大家，我就在这个主题基础上添加了一些个性化修改。</p>
-<p><del>后期希望可以进一步为这个主题做出一些贡献：</del><br>2024-06-24<br>贡献不了一点，作者更新速度也好，修改都很快也很好，算了，我这个web外行就不要瞎掺和了。</p>
-<hr>
-<h4 id="安装该主题依赖"><a href="#安装该主题依赖" class="headerlink" title="安装该主题依赖"></a>安装该主题依赖</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-renderer-less hexo-renderer-ejs hexo-wordcount hexo-generator-feed katex hexo-generator-searchdb swup hexo-generator-category hexo-generator-tag hexo-generator-index</span><br></pre></td></tr></table></figure>
-
-<p>这边我因为几乎把所有功能都开了，因此安装的依赖比较多。<strong>less和ejs是必须的渲染器。</strong></p>
-<h4 id="安装该主题"><a href="#安装该主题" class="headerlink" title="安装该主题"></a>安装该主题</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i hexo-theme-async@latest</span><br></pre></td></tr></table></figure>
-<h4 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h4><p>修改 Hexo 站点配置文件 <code>_config.yml</code>。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将主题设置为 hexo-theme-async </span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">async</span></span><br></pre></td></tr></table></figure>
-<p>建议安装最新的版本，并且如果不是有无法满足的自定义个性化修改的话，建议就直接只使用原版，并使用该安装版，而<strong>不要去自己clone下来放到<code>/themes</code>目录下</strong>。<em><strong>折腾是由成本的，别问我是怎么知道的😂</strong></em></p>
-<p>如果你硬要改或者就是要clone，那么请看[原因](# github page部署后，主站仅显示背景)</p>
-<p>2024-06-24<br>可以说目前作者提供的自定义以及个性化修改已经非常足够了，可以参照作者大大写好的文档<a href="https://hexo-theme-async.imalun.com/guide/config.html">主题配置 | Hexo-Theme-Async</a></p>
-<hr>
-<h3 id="博客文章"><a href="#博客文章" class="headerlink" title="博客文章"></a>博客文章</h3><p>将之前备份的文章放入<code>source/_post</code>目录。</p>
-<p><em>啊~~，文章日期，封面又不匹配了，再改一遍😟</em></p>
-<h2 id="通过建立本地web服务进行预览"><a href="#通过建立本地web服务进行预览" class="headerlink" title="通过建立本地web服务进行预览"></a>通过建立本地web服务进行预览</h2><p>使用hexo服务器进行本地站的预览，Hexo 3.0 把服务器独立成了个别模块，必须先安装 <a href="https://github.com/hexojs/hexo-server">hexo-server</a> 才能使用。</p>
-<h3 id="安装hexo-server"><a href="#安装hexo-server" class="headerlink" title="安装hexo-server"></a>安装hexo-server</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-server --save</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，输入以下命令以启动服务器，网站会在 <code>http://localhost:4000</code> 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务器。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a><del>生成</del></h2><p>2024-06-24<br>在现在使用github pages来生成我们的博客网站的情况下，已经不需要再使用静态生成了。</p>
-<hr>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>现在的hexo可以使用workflow中的action直接让github自动生成github pages来部署我们的博客，但是这种方式需要把源代码都提交上去，请自行斟酌是否包含<strong>个人敏感信息</strong>。</p>
-<p>我这里就选择使用action来自动化部署，这样我自己博客的内容也完全托管在github上省的以后再找版本了。</p>
-<p>在你自己的特殊储存库（<code>&lt;yourname.github.io&gt;</code>）中建立<code>.github/workflows/pages.yml</code>，内容：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># default branch</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">pages:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">permissions:</span></span><br><span class="line">      <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Use</span> <span class="string">Node.js</span> <span class="number">16.</span><span class="string">x</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;16&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">NPM</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/cache@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">runner.OS</span> <span class="string">&#125;&#125;-npm-cache</span></span><br><span class="line">          <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            $&#123;&#123; runner.OS &#125;&#125;-npm-cache</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>这里就需要我们之前记录下来的npm的版本号(我这边是18)，并修改到Hexo官方的page生成的action中（也就是上面的pages.yml）：</p>
-<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">-     - name: Use Node.js 16.x</span></span><br><span class="line"><span class="addition">+     - name: Use Node.js 18.x</span></span><br><span class="line">        uses: actions/setup-node@v2</span><br><span class="line">        with:</span><br><span class="line"><span class="deletion">-         node-version: &quot;16&quot;</span></span><br><span class="line"><span class="addition">+         node-version: &quot;18&quot;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>参考官方的doc：<a href="https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages">关于 GitHub Pages - GitHub 文档</a></p>
-<h3 id="老主题hexagon的问题"><a href="#老主题hexagon的问题" class="headerlink" title="老主题hexagon的问题"></a>老主题hexagon的问题</h3><h4 id="首先是hexo版本与node-js不匹配"><a href="#首先是hexo版本与node-js不匹配" class="headerlink" title="首先是hexo版本与node.js不匹配"></a>首先是hexo版本与node.js不匹配</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo@指定版本</span><br></pre></td></tr></table></figure>
-
-<p>我们可以参照官方网站来做<a href="https://www.npmjs.com/package/hexo/v/6.3.0">hexo - npm (npmjs.com)</a></p>
-<p>这个问题我这边参考了这篇<a href="https://zhuanlan.zhihu.com/p/491881992">hexo博客网站主页空白或404</a>这里面有说如何降级node.js或者升级Hexo。</p>
-<h4 id="hexo官方给的pages的actions里面用的主分支叫main，我这边master"><a href="#hexo官方给的pages的actions里面用的主分支叫main，我这边master" class="headerlink" title="hexo官方给的pages的actions里面用的主分支叫main，我这边master"></a>hexo官方给的pages的actions里面用的主分支叫main，我这边master</h4><p>这个虽然在Hexo的文档中有说，老的仓库是主分支叫master，但是很容易漏掉，总之我们得确认下。</p>
-<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches:</span><br><span class="line"><span class="deletion">-     - main</span></span><br><span class="line"><span class="addition">+     - master</span></span><br></pre></td></tr></table></figure>
-
-<p>经历了这些后，我的老主题总算是可以显示了，但是发现代码以及markdown的大部分格式都不对，该主题也年久失修的状态了，还是换个主题吧。</p>
-<hr>
-<h3 id="新主题async的部署问题"><a href="#新主题async的部署问题" class="headerlink" title="新主题async的部署问题"></a>新主题async的部署问题</h3><p>2024-06-24<br>如果上面是按照<code>npm i hexo-theme-async@latest</code>方式使用主题的，那大概率是不会遇到这样的问题的。我这边的做法是先用hexo新版本新建一个本地目录，在本地目录中使用新主题，然后复制<code>_config.async.yml</code>过来，使用<code>hexo server</code>检查没有问题后，复制到对应<code>xxx.github.io</code>的仓库下，然后在这个仓库下用<code>hexo server</code>检查渲染等没有问题，然后<code>commit</code> 再<code>push</code>到远端，等待github pages的action动作完成，检查网页渲染。</p>
-<hr>
-<h4 id="github-page部署后，主站仅显示背景"><a href="#github-page部署后，主站仅显示背景" class="headerlink" title="github page部署后，主站仅显示背景"></a>github page部署后，主站仅显示背景</h4><p>主要就这一个问题，我部署后去主站一看，怎么之后背景，以为是index.html没有内容，但是去gh-pages分支一瞅，这不都在么。就非常奇怪，然后跟着主题doc来来回回走了十多遍，都没有修复。然后去讨论区翻帖子，发现没有人有我这个问题，奇怪了还能成个例了？主要我自己<code>hexo server</code>在本地打开时，是好的啊，没有一点问题，不死心的我再去主站上打开开发者模式对比着看，最终发现是有个网页元素是</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;trm-scroll-container&quot;</span> <span class="attr">class</span>=<span class="string">&quot;trm-scroll-container&quot;</span> <span class="attr">style</span>=<span class="string">&quot;opacity: 0&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这里的<code>opacity: 0</code>然后对应的css的样式<code>source/css/_components/base.less</code>中</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.trm-scroll-container</span> &#123;</span><br><span class="line">    <span class="attribute">transition</span>: opacity .<span class="number">6s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>意思是打开网页后0.6s时间内在这个容器中的内容从全透明变成不透明，emmmmm，但是我这边没有执行啊，啥情况？一阵懵逼之后直接在网页上修改元素</p>
-<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">- &lt;div id=&quot;trm-scroll-container&quot; class=&quot;trm-scroll-container&quot; style=&quot;opacity: 0&quot;&gt;</span></span><br><span class="line"><span class="addition">+ &lt;div id=&quot;trm-scroll-container&quot; class=&quot;trm-scroll-container&quot; style=&quot;opacity: 1&quot;&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>网页立马有显示了，但是显示的不全，说明是这个问题，再次尝试了好几次之后还是不行，然后去作者主题讨论区去提了个问题（丢人😳）</p>
-<p>一边等作者大大回复，一边写这个过程，结果突然注意到作者大大在doc中有说</p>
-<blockquote>
-<ul>
-<li>通过克隆本仓库安装（不推荐）</li>
-</ul>
-<blockquote>
-<p><strong>DANGER</strong><br>不推荐直接使用这种方式安装，会导致 bug 版本定位和后续升级比较麻烦。如果您需要自定义样式和页面模块，可以优先使用 <a href="https://async-docs.imalun.com/guide/config.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F-style">自定义样式</a> 和 <a href="https://async-docs.imalun.com/guide/config.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF-layout">自定义模板</a> 配置来个性话您的博客，如果以上方式无法满足您的需求时，且不在需要升级时可选择通过这种方式安装。</p>
-</blockquote>
-<details class="details custom-block" open="" style="box-sizing: border-box; border-width: 1px; border-style: solid; border-color: var(--vp-custom-block-details-border); border-image: initial; border-radius: 8px; padding: 16px 16px 8px; line-height: 24px; font-size: var(--vp-custom-block-font-size); color: var(--vp-custom-block-details-text); background-color: var(--vp-custom-block-details-bg); margin: 16px 0px;"><summary style="box-sizing: border-box; touch-action: manipulation; margin: 0px 0px 8px; font-weight: 700; cursor: pointer;">v2.0.0 后版本</summary><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">从 v2.0.0 开始不在支持拉取后直接使用。新版本的脚本使用 TypeScript 进行重构，项目中不在提供打包压缩后的脚本。</p><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">如果您只想修改模板，您可以前往<span>&nbsp;</span><a href="https://github.com/MaLuns/hexo-theme-async/releases" target="_blank" rel="noreferrer" style="box-sizing: border-box; touch-action: manipulation; color: var(--vp-c-brand-1); text-decoration: underline; font-weight: 500; text-underline-offset: 2px; transition: color 0.25s ease 0s, opacity 0.25s ease 0s;">Github Releases</a><span>&nbsp;</span>的 Assets 下载打包文件<span>&nbsp;</span><code style="box-sizing: border-box; font-family: var(--vp-font-family-mono); font-size: var(--vp-code-font-size); color: var(--vp-code-color); border-radius: 4px; padding: 3px 6px; background-color: var(--vp-custom-block-details-code-bg); transition: color 0.25s ease 0s, background-color 0.5s ease 0s;">hexo-theme-async</code><span>&nbsp;</span>。</p><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">如果您仍然想要使用该方式，请 clone 项目后，手动执行 yarn &amp;&amp; yarn run lib:build 以构建压缩后的脚本。</p></details>
-</blockquote>
-<p>这不尴尬了，这么一找果然，作者大大在主题目录下添加了<code>.gitignore</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># dev esbuild</span><br><span class="line">source/js/</span><br><span class="line">source/plugins/</span><br></pre></td></tr></table></figure>
-
-<p>那么在clone下来的主题中执行</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yarn &amp;&amp; yarn run lib:build</span><br></pre></td></tr></table></figure>
-
-<p>把编译生成的js拷贝到自己的仓库对应目录下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">IIFE ..\hexo-theme-async\source\js\plugins\local_search.js 2.03 KB</span><br><span class="line">IIFE ..\hexo-theme-async\source\js\main.js                 18.51 KB</span><br><span class="line">IIFE ..\hexo-theme-async\source\js\plugins\typing.js       583.00 B</span><br><span class="line">IIFE ⚡️ Build success in 14ms</span><br><span class="line">Done in 2.05s.</span><br></pre></td></tr></table></figure>
-
-<p>删除.gitignore文件后，重新上传部署，终于网站正常打开了。👏👏👏</p>
-]]></content>
-      <categories>
-        <category>Blog</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>GitHub</tag>
-        <tag>page</tag>
       </tags>
   </entry>
   <entry>
@@ -1441,6 +1285,162 @@
       </tags>
   </entry>
   <entry>
+    <title>利用Hexo博客框架结合Github Page创建自己的博客</title>
+    <url>/2024/06/14/%E5%88%A9%E7%94%A8Hexo%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E7%BB%93%E5%90%88Github%20Page%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实我早在2020年就已经用Hexo搭建了自己的博客，并且使用github page发布了静态的博客。但是中间因为各种原因，差不多就算停更了。现在就是自己再回头记录下，不是说做任何事任何时候开始都不晚么~</p>
+<p>so，那就来记录下吧。</p>
+<p>首先，我这边的目的是记录下Hexo建立博客的过程，之前我都是在windows下弄的，现在想想还是用个虚拟机，系统就Kali 23.2了,主要后面也要常用的。Hexo也更新了好多代了。还记得当时18，19年的时候Hexo1升级到Hexo2，好多组件不兼容，改js改到半夜，也是头秃。不知道现在的Hexo对老版本是否支持，正好也再来把之前做的Hexo主图更新下。而这篇博客就记录下这个过程。</p>
+<p>那就让我们开始把。</p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><h3 id="什么是-Hexo？"><a href="#什么是-Hexo？" class="headerlink" title="什么是 Hexo？"></a>什么是 Hexo？</h3><p>Hexo 是一个快速、简洁且高效的博客框架。<a href="https://hexo.io/zh-cn/">Hexo</a> 使用 <a href="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<p>安装的这部分我也是参考<a href="https://hexo.io/zh-cn/docs/">官方Doc</a>, 不愿意看我废话的，可以自行参考官方Doc。</p>
+<h3 id="系统环境与Hexo依赖软件-删除kali部分，后续还是windows系统更新博客"><a href="#系统环境与Hexo依赖软件-删除kali部分，后续还是windows系统更新博客" class="headerlink" title="系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)"></a>系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)</h3><p><del>由于我是虚拟机部署环境，想着是弄完这一次之后，后面要是长久不用，我也能直接用虚拟机恢复出写博客的环境。（反正想法总是一阵一阵的，就先这样吧）。</del></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <del>Kali Linux 2023.2（有需要的改下国内源）</del></li>
+<li><input disabled="" type="checkbox"> <del><a href="http://nodejs.org/">Node.js</a> (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)</del></li>
+<li><input checked="" disabled="" type="checkbox"> <del><a href="http://git-scm.com/">Git</a></del></li>
+</ul>
+<p><del>这里就不讲虚拟机怎么装Kali系统了，网上太多教程了。</del></p>
+<p>这里可以说是非常的蛋疼，我后面其实已经把kali的环境都搭建好了，但是由于GFW的问题，导致无法再Linux下直接通过ssh上传到github，虽然本着有问题解决问题的态度，但是知道是因为代理导致的，那也就没啥好纠结的了，其次是根据Hexo官方现在都已经使用action来构建和部署github page，那原先想着的打包虚拟机整体环境就没有必要了。</p>
+<p>因此最终决定，抛弃kali环境直接在windows环境下搭建博客环境。</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> windows 10</li>
+<li><input disabled="" type="checkbox"> Node.js</li>
+<li><input disabled="" type="checkbox"> Git</li>
+</ul>
+<h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>我们直接到node.js的官网上下载最新版本的安装包（<a href="https://nodejs.org/en/download/current">Download | Node.js (nodejs.org)</a>）</p>
+<p>根据自己的系统选择对应的32或64bit版本，然后双击运行，一路‘下一步’就完成了，中间建议勾选安装node.js依赖。</p>
+<p>安装完成后可以在开始菜单中看到<br><img src="https://s2.loli.net/2023/10/08/MeQwHWL2yRasS9F.jpg" alt="微信截图_20231008133554"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>点击打开Node.js会弹出命令行，确认Node.js是否安装成功，且版本是多少</p>
+<p><img src="https://s2.loli.net/2023/10/08/1UJ2QLdNXwGIjer.jpg" alt="微信截图_20231008135122"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><p>到官网下载git程序包<a href="https://git-scm.com/downloads">Git - Downloads (git-scm.com)</a></p>
+<p>同样也是一路‘下一步’来安装，建议添加系统环境变量和安装git bash。</p>
+<h3 id="安装Hexo-1"><a href="#安装Hexo-1" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
+
+<p>可以使用git bash或者powershell，git bash有右键菜单，可以省的切换目录，我个人觉得比较舒服，所以后面就以这个为例了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
+
+<p>我这边因为之前在kali中进行部署发现hexo版本通过默认命令安装的不是最新的，因此，我就加上了版本号</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo@6.3.0</span><br></pre></td></tr></table></figure>
+<h2 id="2024-06-24"><a href="#2024-06-24" class="headerlink" title="2024-06-24"></a>2024-06-24<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo@laster</span><br></pre></td></tr></table></figure></h2><p>如果担心后面组件不全，可以直接用官方的</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>然后确认下版本号即可</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
+
+<p>如果你是刚装好node.js，git bash中似乎没有办法找到这个hexo的环境变量，使用下面的命令即可</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npx hexo version</span><br></pre></td></tr></table></figure>
+
+<p>2024-06-23<br>这次安装发现版本查看不出来，我最后是到<code>C:\Users\&lt;your name&gt;\node_modules\hexo</code>下<code>package.json</code>中确认的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;hexo&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;7.2.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;A fast, simple &amp; powerful blog framework, powered by Node.js.&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;dist/hexo&quot;,</span><br><span class="line">  &quot;bin&quot;: &#123;</span><br><span class="line">    &quot;hexo&quot;: &quot;./bin/hexo&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>然后使用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
+<p>现在可以安装到最新的hexo</p>
+<hr>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>使用hexo的框架创建一个文件夹，用于部署和生成静态网站</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>操作完成之后，可以看到这个文件夹下面结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+
+<h3 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>网站的 <a href="https://hexo.io/zh-cn/docs/configuration">配置</a> 信息，您可以在此配置大部分的参数。</p>
+<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>应用程序的信息。<a href="https://ejs.co/">EJS</a>, <a href="http://learnboost.github.io/stylus/">Stylus</a> 和 <a href="http://daringfireball.net/projects/markdown/">Markdown</a> 渲染引擎 已默认安装，您可以自由移除。</p>
+<h3 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a>scaffolds</h3><p><a href="https://hexo.io/zh-cn/docs/writing#%E6%A8%A1%E7%89%88%EF%BC%88Scaffold%EF%BC%89">模版</a> 文件夹。当您新建文章时，Hexo 会根据 scaffold 来创建文件。</p>
+<p>Hexo 的模板是指在新建的文章文件中默认填充的内容。例如，如果您修改 <code>scaffold/post.md</code> 中的 Front-matter 内容，那么每次新建一篇文章时都会包含这个修改。</p>
+<h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><p>资源文件夹是存放用户资源的地方。除 <code>_posts</code> 文件夹之外，开头命名为 <code>_</code> (下划线)的文件 &#x2F; 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 <code>public</code> 文件夹，而其他文件会被拷贝过去。</p>
+<h3 id="themes"><a href="#themes" class="headerlink" title="themes"></a>themes</h3><p><a href="https://hexo.io/zh-cn/docs/themes">主题</a> 文件夹。Hexo 会根据主题来生成静态页面。</p>
+<h2 id="恢复站点状态使用"><a href="#恢复站点状态使用" class="headerlink" title="恢复站点状态使用"></a>恢复站点状态使用</h2><h3 id="config-yml-1"><a href="#config-yml-1" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>由于我之前已经用过了hexo并且已经建立过站点了，因此现在我可以通过之前备份的主题以及配置文件来恢复，主要是将自己使用的主题放进<code>themes</code>文件夹，并将<code>_config.yml</code>中的参数比对恢复。</p>
+<p><em><strong>这里建议<code>_config.yml</code>中单独恢复把参数对应的值粘贴过来，因为hexo的版本更新，防止出现解析生成静态站的时候出现各种乱七八糟的问题。</strong></em></p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>我现在找到了一个新的主题，很喜欢，<a href="https://async-docs.imalun.com/">Hexo-Theme-Async</a>推荐给大家，我就在这个主题基础上添加了一些个性化修改。</p>
+<p><del>后期希望可以进一步为这个主题做出一些贡献：</del><br>2024-06-24<br>贡献不了一点，作者更新速度也好，修改都很快也很好，算了，我这个web外行就不要瞎掺和了。</p>
+<hr>
+<h4 id="安装该主题依赖"><a href="#安装该主题依赖" class="headerlink" title="安装该主题依赖"></a>安装该主题依赖</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-renderer-less hexo-renderer-ejs hexo-wordcount hexo-generator-feed katex hexo-generator-searchdb swup hexo-generator-category hexo-generator-tag hexo-generator-index</span><br></pre></td></tr></table></figure>
+
+<p>这边我因为几乎把所有功能都开了，因此安装的依赖比较多。<strong>less和ejs是必须的渲染器。</strong></p>
+<h4 id="安装该主题"><a href="#安装该主题" class="headerlink" title="安装该主题"></a>安装该主题</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i hexo-theme-async@latest</span><br></pre></td></tr></table></figure>
+<h4 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h4><p>修改 Hexo 站点配置文件 <code>_config.yml</code>。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将主题设置为 hexo-theme-async </span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">async</span></span><br></pre></td></tr></table></figure>
+<p>建议安装最新的版本，并且如果不是有无法满足的自定义个性化修改的话，建议就直接只使用原版，并使用该安装版，而<strong>不要去自己clone下来放到<code>/themes</code>目录下</strong>。<em><strong>折腾是由成本的，别问我是怎么知道的😂</strong></em></p>
+<p>如果你硬要改或者就是要clone，那么请看[原因](# github page部署后，主站仅显示背景)</p>
+<p>2024-06-24<br>可以说目前作者提供的自定义以及个性化修改已经非常足够了，可以参照作者大大写好的文档<a href="https://hexo-theme-async.imalun.com/guide/config.html">主题配置 | Hexo-Theme-Async</a></p>
+<hr>
+<h3 id="博客文章"><a href="#博客文章" class="headerlink" title="博客文章"></a>博客文章</h3><p>将之前备份的文章放入<code>source/_post</code>目录。</p>
+<p><em>啊~~，文章日期，封面又不匹配了，再改一遍😟</em></p>
+<h2 id="通过建立本地web服务进行预览"><a href="#通过建立本地web服务进行预览" class="headerlink" title="通过建立本地web服务进行预览"></a>通过建立本地web服务进行预览</h2><p>使用hexo服务器进行本地站的预览，Hexo 3.0 把服务器独立成了个别模块，必须先安装 <a href="https://github.com/hexojs/hexo-server">hexo-server</a> 才能使用。</p>
+<h3 id="安装hexo-server"><a href="#安装hexo-server" class="headerlink" title="安装hexo-server"></a>安装hexo-server</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-server --save</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，输入以下命令以启动服务器，网站会在 <code>http://localhost:4000</code> 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务器。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a><del>生成</del></h2><p>2024-06-24<br>在现在使用github pages来生成我们的博客网站的情况下，已经不需要再使用静态生成了。</p>
+<hr>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>现在的hexo可以使用workflow中的action直接让github自动生成github pages来部署我们的博客，但是这种方式需要把源代码都提交上去，请自行斟酌是否包含<strong>个人敏感信息</strong>。</p>
+<p>我这里就选择使用action来自动化部署，这样我自己博客的内容也完全托管在github上省的以后再找版本了。</p>
+<p>在你自己的特殊储存库（<code>&lt;yourname.github.io&gt;</code>）中建立<code>.github/workflows/pages.yml</code>，内容：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># default branch</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">pages:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">permissions:</span></span><br><span class="line">      <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Use</span> <span class="string">Node.js</span> <span class="number">16.</span><span class="string">x</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;16&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">NPM</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/cache@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">runner.OS</span> <span class="string">&#125;&#125;-npm-cache</span></span><br><span class="line">          <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            $&#123;&#123; runner.OS &#125;&#125;-npm-cache</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里就需要我们之前记录下来的npm的版本号(我这边是18)，并修改到Hexo官方的page生成的action中（也就是上面的pages.yml）：</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">-     - name: Use Node.js 16.x</span></span><br><span class="line"><span class="addition">+     - name: Use Node.js 18.x</span></span><br><span class="line">        uses: actions/setup-node@v2</span><br><span class="line">        with:</span><br><span class="line"><span class="deletion">-         node-version: &quot;16&quot;</span></span><br><span class="line"><span class="addition">+         node-version: &quot;18&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>参考官方的doc：<a href="https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages">关于 GitHub Pages - GitHub 文档</a></p>
+<h3 id="老主题hexagon的问题"><a href="#老主题hexagon的问题" class="headerlink" title="老主题hexagon的问题"></a>老主题hexagon的问题</h3><h4 id="首先是hexo版本与node-js不匹配"><a href="#首先是hexo版本与node-js不匹配" class="headerlink" title="首先是hexo版本与node.js不匹配"></a>首先是hexo版本与node.js不匹配</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo@指定版本</span><br></pre></td></tr></table></figure>
+
+<p>我们可以参照官方网站来做<a href="https://www.npmjs.com/package/hexo/v/6.3.0">hexo - npm (npmjs.com)</a></p>
+<p>这个问题我这边参考了这篇<a href="https://zhuanlan.zhihu.com/p/491881992">hexo博客网站主页空白或404</a>这里面有说如何降级node.js或者升级Hexo。</p>
+<h4 id="hexo官方给的pages的actions里面用的主分支叫main，我这边master"><a href="#hexo官方给的pages的actions里面用的主分支叫main，我这边master" class="headerlink" title="hexo官方给的pages的actions里面用的主分支叫main，我这边master"></a>hexo官方给的pages的actions里面用的主分支叫main，我这边master</h4><p>这个虽然在Hexo的文档中有说，老的仓库是主分支叫master，但是很容易漏掉，总之我们得确认下。</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches:</span><br><span class="line"><span class="deletion">-     - main</span></span><br><span class="line"><span class="addition">+     - master</span></span><br></pre></td></tr></table></figure>
+
+<p>经历了这些后，我的老主题总算是可以显示了，但是发现代码以及markdown的大部分格式都不对，该主题也年久失修的状态了，还是换个主题吧。</p>
+<hr>
+<h3 id="新主题async的部署问题"><a href="#新主题async的部署问题" class="headerlink" title="新主题async的部署问题"></a>新主题async的部署问题</h3><p>2024-06-24<br>如果上面是按照<code>npm i hexo-theme-async@latest</code>方式使用主题的，那大概率是不会遇到这样的问题的。我这边的做法是先用hexo新版本新建一个本地目录，在本地目录中使用新主题，然后复制<code>_config.async.yml</code>过来，使用<code>hexo server</code>检查没有问题后，复制到对应<code>xxx.github.io</code>的仓库下，然后在这个仓库下用<code>hexo server</code>检查渲染等没有问题，然后<code>commit</code> 再<code>push</code>到远端，等待github pages的action动作完成，检查网页渲染。</p>
+<hr>
+<h4 id="github-page部署后，主站仅显示背景"><a href="#github-page部署后，主站仅显示背景" class="headerlink" title="github page部署后，主站仅显示背景"></a>github page部署后，主站仅显示背景</h4><p>主要就这一个问题，我部署后去主站一看，怎么之后背景，以为是index.html没有内容，但是去gh-pages分支一瞅，这不都在么。就非常奇怪，然后跟着主题doc来来回回走了十多遍，都没有修复。然后去讨论区翻帖子，发现没有人有我这个问题，奇怪了还能成个例了？主要我自己<code>hexo server</code>在本地打开时，是好的啊，没有一点问题，不死心的我再去主站上打开开发者模式对比着看，最终发现是有个网页元素是</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;trm-scroll-container&quot;</span> <span class="attr">class</span>=<span class="string">&quot;trm-scroll-container&quot;</span> <span class="attr">style</span>=<span class="string">&quot;opacity: 0&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的<code>opacity: 0</code>然后对应的css的样式<code>source/css/_components/base.less</code>中</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.trm-scroll-container</span> &#123;</span><br><span class="line">    <span class="attribute">transition</span>: opacity .<span class="number">6s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>意思是打开网页后0.6s时间内在这个容器中的内容从全透明变成不透明，emmmmm，但是我这边没有执行啊，啥情况？一阵懵逼之后直接在网页上修改元素</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">- &lt;div id=&quot;trm-scroll-container&quot; class=&quot;trm-scroll-container&quot; style=&quot;opacity: 0&quot;&gt;</span></span><br><span class="line"><span class="addition">+ &lt;div id=&quot;trm-scroll-container&quot; class=&quot;trm-scroll-container&quot; style=&quot;opacity: 1&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>网页立马有显示了，但是显示的不全，说明是这个问题，再次尝试了好几次之后还是不行，然后去作者主题讨论区去提了个问题（丢人😳）</p>
+<p>一边等作者大大回复，一边写这个过程，结果突然注意到作者大大在doc中有说</p>
+<blockquote>
+<ul>
+<li>通过克隆本仓库安装（不推荐）</li>
+</ul>
+<blockquote>
+<p><strong>DANGER</strong><br>不推荐直接使用这种方式安装，会导致 bug 版本定位和后续升级比较麻烦。如果您需要自定义样式和页面模块，可以优先使用 <a href="https://async-docs.imalun.com/guide/config.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F-style">自定义样式</a> 和 <a href="https://async-docs.imalun.com/guide/config.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF-layout">自定义模板</a> 配置来个性话您的博客，如果以上方式无法满足您的需求时，且不在需要升级时可选择通过这种方式安装。</p>
+</blockquote>
+<details class="details custom-block" open="" style="box-sizing: border-box; border-width: 1px; border-style: solid; border-color: var(--vp-custom-block-details-border); border-image: initial; border-radius: 8px; padding: 16px 16px 8px; line-height: 24px; font-size: var(--vp-custom-block-font-size); color: var(--vp-custom-block-details-text); background-color: var(--vp-custom-block-details-bg); margin: 16px 0px;"><summary style="box-sizing: border-box; touch-action: manipulation; margin: 0px 0px 8px; font-weight: 700; cursor: pointer;">v2.0.0 后版本</summary><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">从 v2.0.0 开始不在支持拉取后直接使用。新版本的脚本使用 TypeScript 进行重构，项目中不在提供打包压缩后的脚本。</p><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">如果您只想修改模板，您可以前往<span>&nbsp;</span><a href="https://github.com/MaLuns/hexo-theme-async/releases" target="_blank" rel="noreferrer" style="box-sizing: border-box; touch-action: manipulation; color: var(--vp-c-brand-1); text-decoration: underline; font-weight: 500; text-underline-offset: 2px; transition: color 0.25s ease 0s, opacity 0.25s ease 0s;">Github Releases</a><span>&nbsp;</span>的 Assets 下载打包文件<span>&nbsp;</span><code style="box-sizing: border-box; font-family: var(--vp-font-family-mono); font-size: var(--vp-code-font-size); color: var(--vp-code-color); border-radius: 4px; padding: 3px 6px; background-color: var(--vp-custom-block-details-code-bg); transition: color 0.25s ease 0s, background-color 0.5s ease 0s;">hexo-theme-async</code><span>&nbsp;</span>。</p><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">如果您仍然想要使用该方式，请 clone 项目后，手动执行 yarn &amp;&amp; yarn run lib:build 以构建压缩后的脚本。</p></details>
+</blockquote>
+<p>这不尴尬了，这么一找果然，作者大大在主题目录下添加了<code>.gitignore</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># dev esbuild</span><br><span class="line">source/js/</span><br><span class="line">source/plugins/</span><br></pre></td></tr></table></figure>
+
+<p>那么在clone下来的主题中执行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yarn &amp;&amp; yarn run lib:build</span><br></pre></td></tr></table></figure>
+
+<p>把编译生成的js拷贝到自己的仓库对应目录下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">IIFE ..\hexo-theme-async\source\js\plugins\local_search.js 2.03 KB</span><br><span class="line">IIFE ..\hexo-theme-async\source\js\main.js                 18.51 KB</span><br><span class="line">IIFE ..\hexo-theme-async\source\js\plugins\typing.js       583.00 B</span><br><span class="line">IIFE ⚡️ Build success in 14ms</span><br><span class="line">Done in 2.05s.</span><br></pre></td></tr></table></figure>
+
+<p>删除.gitignore文件后，重新上传部署，终于网站正常打开了。👏👏👏</p>
+]]></content>
+      <categories>
+        <category>Blog</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>GitHub</tag>
+        <tag>page</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在Kali上编译Android系统</title>
     <url>/2020/06/12/%E5%9C%A8Kali%E4%B8%8A%E7%BC%96%E8%AF%91Android%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
@@ -1776,29 +1776,6 @@
       </tags>
   </entry>
   <entry>
-    <title>在obsidian中内嵌滴答清单</title>
-    <url>/2024/06/21/%E5%9C%A8obsidian%E4%B8%AD%E5%86%85%E5%B5%8C%E6%BB%B4%E7%AD%94%E6%B8%85%E5%8D%95/</url>
-    <content><![CDATA[<p>由于我还是比较希望可以有一个统一入口或者平台能够完成GTD，而之前已经做了一下应用市场中找到的一些软件，测试后发现还是滴答清单比较好用，那么就想着将滴答清单内嵌到obsidian中，这样每天就只需要打开obsidian，就可以查看到每天做什么等等。如果可以最好能直接在obsidian中添加滴答的代办。</p>
-<p>目前网上看到两种方式：</p>
-<ul>
-<li>使用custom frames插件把web版的滴答直接加载进来，这个应该效果会不错。<a href="https://github.com/Ellpeck/ObsidianCustomFrames">GitHub - Ellpeck&#x2F;ObsidianCustomFrames: An Obsidian plugin that turns web apps into panes using iframes with custom styling. Also comes with presets for Google Keep, Todoist and more.</a></li>
-<li>使用obsidian-dida-sync插件把滴答清单同步进obsidian中。<a href="https://github.com/eightHundreds/obsidian-dida-sync">GitHub - eightHundreds&#x2F;obsidian-dida-sync: 滴答清单同步到obsidian(ticktick sync to obsidian)</a><br>那么就都来尝试下看看。</li>
-</ul>
-<p>首先是obsidian-dida-sync插件，按照作者的说明测试了下，这个效果emmmm，怎么说呢，直接看图吧<br><img src="https://s2.loli.net/2024/06/21/HcIDTOzjZ4Uqidh.png" alt="image.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>只能说，我还是试下custom frames吧，按照文档测试<br><img src="https://s2.loli.net/2024/06/21/RJTylLosVXONxZb.png" alt="image.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>这个效果是真不错，那么可以把之前在obsidian中task相关的费劲的管理都删除了。</p>
-]]></content>
-      <categories>
-        <category>日程管理</category>
-      </categories>
-      <tags>
-        <tag>GTD</tag>
-        <tag>todo</tag>
-        <tag>日历</tag>
-        <tag>obsidian</tag>
-        <tag>滴答清单</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>在 Kali OS 上安装与配置 Strix 实践笔记</title>
     <url>/2025/12/03/%E5%9C%A8kali%20os%E4%B8%8A%E5%AE%89%E8%A3%85strix/</url>
     <content><![CDATA[<h1 id="在-Kali-OS-上安装与配置-Strix-实践笔记"><a href="#在-Kali-OS-上安装与配置-Strix-实践笔记" class="headerlink" title="在 Kali OS 上安装与配置 Strix 实践笔记"></a>在 Kali OS 上安装与配置 Strix 实践笔记</h1><p>Strix 是一款强大的应用安全测试工具，它能够与大型语言模型（LLM）结合，对目标应用进行自动化或半自动化的渗透测试。本笔记旨在记录在 Kali Linux 操作系统上安装和配置 <code>strix-agent</code> 的完整过程，并对每一步操作进行详细的解释，以便于学习和实践。</p>
@@ -1841,10 +1818,10 @@
 </li>
 </ul>
 <h3 id="2-添加-Docker-的-GPG-密钥"><a href="#2-添加-Docker-的-GPG-密钥" class="headerlink" title="2. 添加 Docker 的 GPG 密钥"></a>2. 添加 Docker 的 GPG 密钥</h3><p>为了确保我们下载的 Docker 软件包是官方且未经篡改的，需要添加 Docker 官方（此处使用阿里云镜像）的 GPG 密钥。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/debian/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/debian/gpg -o /etc/apt/keyrings/docker.asc</span><br><span class="line">sudo <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.asc</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-添加-Docker-的软件源"><a href="#3-添加-Docker-的软件源" class="headerlink" title="3. 添加 Docker 的软件源"></a>3. 添加 Docker 的软件源</h3><p>接下来，将 Docker 的软件仓库地址添加到你的系统中。这样 <code>apt</code> 就能从中找到并安装 Docker。<br><strong>注意</strong>：Kali 是基于 Debian 的，因此我们应使用 Debian 的仓库。<code>bookworm</code> 是 Debian 12 的代号，请根据你的 Kali 版本对应的 Debian 代号进行调整。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository <span class="string">&quot;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/debian bookworm stable&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository <span class="string">&quot;deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://mirrors.aliyun.com/docker-ce/linux/debian bookworm stable&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="4-安装-Docker-引擎"><a href="#4-安装-Docker-引擎" class="headerlink" title="4. 安装 Docker 引擎"></a>4. 安装 Docker 引擎</h3><p>万事俱备，现在可以正式安装 Docker 了。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 再次更新软件包列表，以包含刚刚添加的 Docker 仓库</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Docker CE (Community Edition)</span></span><br><span class="line">sudo apt-get install -y docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
@@ -1902,6 +1879,29 @@
         <tag>kali</tag>
         <tag>Strix</tag>
         <tag>security</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在obsidian中内嵌滴答清单</title>
+    <url>/2024/06/21/%E5%9C%A8obsidian%E4%B8%AD%E5%86%85%E5%B5%8C%E6%BB%B4%E7%AD%94%E6%B8%85%E5%8D%95/</url>
+    <content><![CDATA[<p>由于我还是比较希望可以有一个统一入口或者平台能够完成GTD，而之前已经做了一下应用市场中找到的一些软件，测试后发现还是滴答清单比较好用，那么就想着将滴答清单内嵌到obsidian中，这样每天就只需要打开obsidian，就可以查看到每天做什么等等。如果可以最好能直接在obsidian中添加滴答的代办。</p>
+<p>目前网上看到两种方式：</p>
+<ul>
+<li>使用custom frames插件把web版的滴答直接加载进来，这个应该效果会不错。<a href="https://github.com/Ellpeck/ObsidianCustomFrames">GitHub - Ellpeck&#x2F;ObsidianCustomFrames: An Obsidian plugin that turns web apps into panes using iframes with custom styling. Also comes with presets for Google Keep, Todoist and more.</a></li>
+<li>使用obsidian-dida-sync插件把滴答清单同步进obsidian中。<a href="https://github.com/eightHundreds/obsidian-dida-sync">GitHub - eightHundreds&#x2F;obsidian-dida-sync: 滴答清单同步到obsidian(ticktick sync to obsidian)</a><br>那么就都来尝试下看看。</li>
+</ul>
+<p>首先是obsidian-dida-sync插件，按照作者的说明测试了下，这个效果emmmm，怎么说呢，直接看图吧<br><img src="https://s2.loli.net/2024/06/21/HcIDTOzjZ4Uqidh.png" alt="image.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>只能说，我还是试下custom frames吧，按照文档测试<br><img src="https://s2.loli.net/2024/06/21/RJTylLosVXONxZb.png" alt="image.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>这个效果是真不错，那么可以把之前在obsidian中task相关的费劲的管理都删除了。</p>
+]]></content>
+      <categories>
+        <category>日程管理</category>
+      </categories>
+      <tags>
+        <tag>GTD</tag>
+        <tag>todo</tag>
+        <tag>日历</tag>
+        <tag>obsidian</tag>
+        <tag>滴答清单</tag>
       </tags>
   </entry>
   <entry>
