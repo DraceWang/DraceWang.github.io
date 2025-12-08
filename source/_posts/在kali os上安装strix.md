@@ -81,7 +81,8 @@ sudo apt-get install -y apt-transport-https ca-certificates curl software-proper
 为了确保我们下载的 Docker 软件包是官方且未经篡改的，需要添加 Docker 官方（此处使用阿里云镜像）的 GPG 密钥。
 
 ```bash
-curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/debian/gpg | sudo apt-key add -
+sudo curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 ```
 
 ### 3. 添加 Docker 的软件源
@@ -90,7 +91,7 @@ curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/debian/gpg | sudo apt-key 
 **注意**：Kali 是基于 Debian 的，因此我们应使用 Debian 的仓库。`bookworm` 是 Debian 12 的代号，请根据你的 Kali 版本对应的 Debian 代号进行调整。
 
 ```bash
-sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/debian bookworm stable"
+sudo add-apt-repository "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://mirrors.aliyun.com/docker-ce/linux/debian bookworm stable"
 ```
 
 ### 4. 安装 Docker 引擎
