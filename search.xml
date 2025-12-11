@@ -201,7 +201,7 @@
     <title>git 代码管理工具常用命令</title>
     <url>/2019/09/18/git%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<p>首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。</p>
-<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#103;&#x69;&#x74;&#x75;&#x73;&#x65;&#114;&#x31;&#x40;&#103;&#x69;&#116;&#46;&#x63;&#111;&#109;">&#103;&#x69;&#x74;&#x75;&#x73;&#x65;&#114;&#x31;&#x40;&#103;&#x69;&#116;&#46;&#x63;&#111;&#109;</a></p>
+<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#x67;&#105;&#116;&#x75;&#115;&#x65;&#x72;&#x31;&#x40;&#x67;&#x69;&#x74;&#x2e;&#99;&#x6f;&#109;">&#x67;&#105;&#116;&#x75;&#115;&#x65;&#x72;&#x31;&#x40;&#x67;&#x69;&#x74;&#x2e;&#99;&#x6f;&#109;</a></p>
 <h3 id="配置git提交时候的全局用户名"><a href="#配置git提交时候的全局用户名" class="headerlink" title="配置git提交时候的全局用户名"></a>配置git提交时候的全局用户名</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gitconfig --global user.name gituser1</span><br></pre></td></tr></table></figure>
 
 <h3 id="配置git提交时候的全局邮箱"><a href="#配置git提交时候的全局邮箱" class="headerlink" title="配置git提交时候的全局邮箱"></a>配置git提交时候的全局邮箱</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email gituser1@git.com</span><br></pre></td></tr></table></figure>
@@ -388,6 +388,46 @@
       <tags>
         <tag>LDAP</tag>
         <tag>redmine</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ubuntu14.04 安装redmine2.5.3</title>
+    <url>/2014/12/15/ubuntu14.04%20%E5%AE%89%E8%A3%85redmine2.5.3/</url>
+    <content><![CDATA[<h2 id="安装redmine的环境"><a href="#安装redmine的环境" class="headerlink" title="安装redmine的环境"></a>安装redmine的环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install -y apache2 php5 libapache2-mod-php5 mysql-server php5-mysql libapache2-mod-perl2 libcurl4-openssl-dev libssl-dev apache2-dev libapr1-dev libaprutil1-dev libmysqlclient-dev libmagickcore-dev libmagickwand-dev curl git-core patch build-essential bison zlib1g-dev libssl-dev libxml2-dev libxml2-dev sqlite3 libsqlite3-dev autotools-dev libxslt1-dev libyaml-0-2 autoconf automake libreadline6-dev libyaml-dev libtool imagemagick apache2-utils vim </span><br></pre></td></tr></table></figure>
+<h2 id="安装ruby"><a href="#安装ruby" class="headerlink" title="安装ruby"></a>安装ruby</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get -y install ruby2.0 ruby2.0-dev ruby1.9.1-dev </span><br></pre></td></tr></table></figure>
+<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>安装过程中数据库的管理员密码为：admin</p>
+</div>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p</span><br></pre></td></tr></table></figure>
+<h3 id="创建空的数据库"><a href="#创建空的数据库" class="headerlink" title="创建空的数据库"></a>创建空的数据库</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE redmine <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;redmine&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;my_password&#x27;</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> redmine.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;redmine&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="更新ruby的库（可能需要多更新几次，尽量更新过吧）"><a href="#更新ruby的库（可能需要多更新几次，尽量更新过吧）" class="headerlink" title="更新ruby的库（可能需要多更新几次，尽量更新过吧）"></a>更新ruby的库（可能需要多更新几次，尽量更新过吧）</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo gem update </span><br></pre></td></tr></table></figure>
+<h2 id="安装budler"><a href="#安装budler" class="headerlink" title="安装budler"></a>安装budler</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo gem install bundler </span><br></pre></td></tr></table></figure>
+
+<h2 id="下载redmine2-5-3"><a href="#下载redmine2-5-3" class="headerlink" title="下载redmine2.5.3"></a>下载redmine2.5.3</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://www.redmine.org/releases/redmine-2.5.3.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压<code>redmine-2.5.3.tar.gz</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf redmine-2.5.3.tar.gz</span><br></pre></td></tr></table></figure>
+<p>进入redmine目录修改配置文件，将其与数据库关联</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> redmine-2.5.3/config</span><br><span class="line"><span class="built_in">cp</span> database.yml.examle database.yml</span><br><span class="line">sudo vim databse.yml</span><br></pre></td></tr></table></figure>
+<p><strong>将用户名改为redmine 将密码改为上面对应的my_password</strong></p>
+<h3 id="bundler根据redmine的gemfile进行环境安装"><a href="#bundler根据redmine的gemfile进行环境安装" class="headerlink" title="bundler根据redmine的gemfile进行环境安装"></a>bundler根据redmine的gemfile进行环境安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo bundle install</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成数据存储秘钥"><a href="#生成数据存储秘钥" class="headerlink" title="生成数据存储秘钥"></a>生成数据存储秘钥</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rake generate_secret_token</span><br></pre></td></tr></table></figure>
+<h3 id="创建数据库结构"><a href="#创建数据库结构" class="headerlink" title="创建数据库结构"></a>创建数据库结构</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">RAILS_ENV=production rake db:migrate</span><br></pre></td></tr></table></figure>
+<h3 id="设置默认数据库数据"><a href="#设置默认数据库数据" class="headerlink" title="设置默认数据库数据"></a>设置默认数据库数据</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">RAILS_ENV=production rake redmine:load_default_data</span><br></pre></td></tr></table></figure>
+<h3 id="启动redmine服务"><a href="#启动redmine服务" class="headerlink" title="启动redmine服务"></a>启动redmine服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ruby script/rails server webrick -e production</span><br></pre></td></tr></table></figure>
+<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>将插件解压或者git下来的文件夹，拷贝到<code>/redmine-2.5.3/plugins/</code>  </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rake redmine:plugins:migrate RAILS_ENV=production</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>ALM开发</category>
+      </categories>
+      <tags>
+        <tag>redmine</tag>
+        <tag>ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -808,46 +848,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ubuntu14.04 安装redmine2.5.3</title>
-    <url>/2014/12/15/ubuntu14.04%20%E5%AE%89%E8%A3%85redmine2.5.3/</url>
-    <content><![CDATA[<h2 id="安装redmine的环境"><a href="#安装redmine的环境" class="headerlink" title="安装redmine的环境"></a>安装redmine的环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install -y apache2 php5 libapache2-mod-php5 mysql-server php5-mysql libapache2-mod-perl2 libcurl4-openssl-dev libssl-dev apache2-dev libapr1-dev libaprutil1-dev libmysqlclient-dev libmagickcore-dev libmagickwand-dev curl git-core patch build-essential bison zlib1g-dev libssl-dev libxml2-dev libxml2-dev sqlite3 libsqlite3-dev autotools-dev libxslt1-dev libyaml-0-2 autoconf automake libreadline6-dev libyaml-dev libtool imagemagick apache2-utils vim </span><br></pre></td></tr></table></figure>
-<h2 id="安装ruby"><a href="#安装ruby" class="headerlink" title="安装ruby"></a>安装ruby</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get -y install ruby2.0 ruby2.0-dev ruby1.9.1-dev </span><br></pre></td></tr></table></figure>
-<div class="trm-note tip"><div class="trm-note-title">TIP</div><p>安装过程中数据库的管理员密码为：admin</p>
-</div>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p</span><br></pre></td></tr></table></figure>
-<h3 id="创建空的数据库"><a href="#创建空的数据库" class="headerlink" title="创建空的数据库"></a>创建空的数据库</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE redmine <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;redmine&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;my_password&#x27;</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> redmine.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;redmine&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="更新ruby的库（可能需要多更新几次，尽量更新过吧）"><a href="#更新ruby的库（可能需要多更新几次，尽量更新过吧）" class="headerlink" title="更新ruby的库（可能需要多更新几次，尽量更新过吧）"></a>更新ruby的库（可能需要多更新几次，尽量更新过吧）</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo gem update </span><br></pre></td></tr></table></figure>
-<h2 id="安装budler"><a href="#安装budler" class="headerlink" title="安装budler"></a>安装budler</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo gem install bundler </span><br></pre></td></tr></table></figure>
-
-<h2 id="下载redmine2-5-3"><a href="#下载redmine2-5-3" class="headerlink" title="下载redmine2.5.3"></a>下载redmine2.5.3</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://www.redmine.org/releases/redmine-2.5.3.tar.gz</span><br></pre></td></tr></table></figure>
-<p>解压<code>redmine-2.5.3.tar.gz</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf redmine-2.5.3.tar.gz</span><br></pre></td></tr></table></figure>
-<p>进入redmine目录修改配置文件，将其与数据库关联</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> redmine-2.5.3/config</span><br><span class="line"><span class="built_in">cp</span> database.yml.examle database.yml</span><br><span class="line">sudo vim databse.yml</span><br></pre></td></tr></table></figure>
-<p><strong>将用户名改为redmine 将密码改为上面对应的my_password</strong></p>
-<h3 id="bundler根据redmine的gemfile进行环境安装"><a href="#bundler根据redmine的gemfile进行环境安装" class="headerlink" title="bundler根据redmine的gemfile进行环境安装"></a>bundler根据redmine的gemfile进行环境安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo bundle install</span><br></pre></td></tr></table></figure>
-
-<h3 id="生成数据存储秘钥"><a href="#生成数据存储秘钥" class="headerlink" title="生成数据存储秘钥"></a>生成数据存储秘钥</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rake generate_secret_token</span><br></pre></td></tr></table></figure>
-<h3 id="创建数据库结构"><a href="#创建数据库结构" class="headerlink" title="创建数据库结构"></a>创建数据库结构</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">RAILS_ENV=production rake db:migrate</span><br></pre></td></tr></table></figure>
-<h3 id="设置默认数据库数据"><a href="#设置默认数据库数据" class="headerlink" title="设置默认数据库数据"></a>设置默认数据库数据</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">RAILS_ENV=production rake redmine:load_default_data</span><br></pre></td></tr></table></figure>
-<h3 id="启动redmine服务"><a href="#启动redmine服务" class="headerlink" title="启动redmine服务"></a>启动redmine服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ruby script/rails server webrick -e production</span><br></pre></td></tr></table></figure>
-<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>将插件解压或者git下来的文件夹，拷贝到<code>/redmine-2.5.3/plugins/</code>  </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rake redmine:plugins:migrate RAILS_ENV=production</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>ALM开发</category>
-      </categories>
-      <tags>
-        <tag>redmine</tag>
-        <tag>ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ubuntu14.04 配置openssh</title>
     <url>/2014/12/09/ubuntu14.04%20%E9%85%8D%E7%BD%AEopenssh/</url>
     <content><![CDATA[<p><em>本文对本机内虚拟机上开启SSH服务，没有涉及外网桥接等方法，考虑后续更新。</em></p>
@@ -916,6 +916,162 @@
       <tags>
         <tag>ubuntu</tag>
         <tag>virtualbox</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>利用Hexo博客框架结合Github Page创建自己的博客</title>
+    <url>/2024/06/14/%E5%88%A9%E7%94%A8Hexo%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E7%BB%93%E5%90%88Github%20Page%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实我早在2020年就已经用Hexo搭建了自己的博客，并且使用github page发布了静态的博客。但是中间因为各种原因，差不多就算停更了。现在就是自己再回头记录下，不是说做任何事任何时候开始都不晚么~</p>
+<p>so，那就来记录下吧。</p>
+<p>首先，我这边的目的是记录下Hexo建立博客的过程，之前我都是在windows下弄的，现在想想还是用个虚拟机，系统就Kali 23.2了,主要后面也要常用的。Hexo也更新了好多代了。还记得当时18，19年的时候Hexo1升级到Hexo2，好多组件不兼容，改js改到半夜，也是头秃。不知道现在的Hexo对老版本是否支持，正好也再来把之前做的Hexo主图更新下。而这篇博客就记录下这个过程。</p>
+<p>那就让我们开始把。</p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><h3 id="什么是-Hexo？"><a href="#什么是-Hexo？" class="headerlink" title="什么是 Hexo？"></a>什么是 Hexo？</h3><p>Hexo 是一个快速、简洁且高效的博客框架。<a href="https://hexo.io/zh-cn/">Hexo</a> 使用 <a href="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<p>安装的这部分我也是参考<a href="https://hexo.io/zh-cn/docs/">官方Doc</a>, 不愿意看我废话的，可以自行参考官方Doc。</p>
+<h3 id="系统环境与Hexo依赖软件-删除kali部分，后续还是windows系统更新博客"><a href="#系统环境与Hexo依赖软件-删除kali部分，后续还是windows系统更新博客" class="headerlink" title="系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)"></a>系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)</h3><p><del>由于我是虚拟机部署环境，想着是弄完这一次之后，后面要是长久不用，我也能直接用虚拟机恢复出写博客的环境。（反正想法总是一阵一阵的，就先这样吧）。</del></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <del>Kali Linux 2023.2（有需要的改下国内源）</del></li>
+<li><input disabled="" type="checkbox"> <del><a href="http://nodejs.org/">Node.js</a> (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)</del></li>
+<li><input checked="" disabled="" type="checkbox"> <del><a href="http://git-scm.com/">Git</a></del></li>
+</ul>
+<p><del>这里就不讲虚拟机怎么装Kali系统了，网上太多教程了。</del></p>
+<p>这里可以说是非常的蛋疼，我后面其实已经把kali的环境都搭建好了，但是由于GFW的问题，导致无法再Linux下直接通过ssh上传到github，虽然本着有问题解决问题的态度，但是知道是因为代理导致的，那也就没啥好纠结的了，其次是根据Hexo官方现在都已经使用action来构建和部署github page，那原先想着的打包虚拟机整体环境就没有必要了。</p>
+<p>因此最终决定，抛弃kali环境直接在windows环境下搭建博客环境。</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> windows 10</li>
+<li><input disabled="" type="checkbox"> Node.js</li>
+<li><input disabled="" type="checkbox"> Git</li>
+</ul>
+<h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>我们直接到node.js的官网上下载最新版本的安装包（<a href="https://nodejs.org/en/download/current">Download | Node.js (nodejs.org)</a>）</p>
+<p>根据自己的系统选择对应的32或64bit版本，然后双击运行，一路‘下一步’就完成了，中间建议勾选安装node.js依赖。</p>
+<p>安装完成后可以在开始菜单中看到<br><img src="https://s2.loli.net/2023/10/08/MeQwHWL2yRasS9F.jpg" alt="微信截图_20231008133554"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>点击打开Node.js会弹出命令行，确认Node.js是否安装成功，且版本是多少</p>
+<p><img src="https://s2.loli.net/2023/10/08/1UJ2QLdNXwGIjer.jpg" alt="微信截图_20231008135122"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><p>到官网下载git程序包<a href="https://git-scm.com/downloads">Git - Downloads (git-scm.com)</a></p>
+<p>同样也是一路‘下一步’来安装，建议添加系统环境变量和安装git bash。</p>
+<h3 id="安装Hexo-1"><a href="#安装Hexo-1" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
+
+<p>可以使用git bash或者powershell，git bash有右键菜单，可以省的切换目录，我个人觉得比较舒服，所以后面就以这个为例了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
+
+<p>我这边因为之前在kali中进行部署发现hexo版本通过默认命令安装的不是最新的，因此，我就加上了版本号</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo@6.3.0</span><br></pre></td></tr></table></figure>
+<h2 id="2024-06-24"><a href="#2024-06-24" class="headerlink" title="2024-06-24"></a>2024-06-24<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo@laster</span><br></pre></td></tr></table></figure></h2><p>如果担心后面组件不全，可以直接用官方的</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>然后确认下版本号即可</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
+
+<p>如果你是刚装好node.js，git bash中似乎没有办法找到这个hexo的环境变量，使用下面的命令即可</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npx hexo version</span><br></pre></td></tr></table></figure>
+
+<p>2024-06-23<br>这次安装发现版本查看不出来，我最后是到<code>C:\Users\&lt;your name&gt;\node_modules\hexo</code>下<code>package.json</code>中确认的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;hexo&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;7.2.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;A fast, simple &amp; powerful blog framework, powered by Node.js.&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;dist/hexo&quot;,</span><br><span class="line">  &quot;bin&quot;: &#123;</span><br><span class="line">    &quot;hexo&quot;: &quot;./bin/hexo&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>然后使用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
+<p>现在可以安装到最新的hexo</p>
+<hr>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>使用hexo的框架创建一个文件夹，用于部署和生成静态网站</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>操作完成之后，可以看到这个文件夹下面结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
+
+<h3 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>网站的 <a href="https://hexo.io/zh-cn/docs/configuration">配置</a> 信息，您可以在此配置大部分的参数。</p>
+<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>应用程序的信息。<a href="https://ejs.co/">EJS</a>, <a href="http://learnboost.github.io/stylus/">Stylus</a> 和 <a href="http://daringfireball.net/projects/markdown/">Markdown</a> 渲染引擎 已默认安装，您可以自由移除。</p>
+<h3 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a>scaffolds</h3><p><a href="https://hexo.io/zh-cn/docs/writing#%E6%A8%A1%E7%89%88%EF%BC%88Scaffold%EF%BC%89">模版</a> 文件夹。当您新建文章时，Hexo 会根据 scaffold 来创建文件。</p>
+<p>Hexo 的模板是指在新建的文章文件中默认填充的内容。例如，如果您修改 <code>scaffold/post.md</code> 中的 Front-matter 内容，那么每次新建一篇文章时都会包含这个修改。</p>
+<h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><p>资源文件夹是存放用户资源的地方。除 <code>_posts</code> 文件夹之外，开头命名为 <code>_</code> (下划线)的文件 &#x2F; 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 <code>public</code> 文件夹，而其他文件会被拷贝过去。</p>
+<h3 id="themes"><a href="#themes" class="headerlink" title="themes"></a>themes</h3><p><a href="https://hexo.io/zh-cn/docs/themes">主题</a> 文件夹。Hexo 会根据主题来生成静态页面。</p>
+<h2 id="恢复站点状态使用"><a href="#恢复站点状态使用" class="headerlink" title="恢复站点状态使用"></a>恢复站点状态使用</h2><h3 id="config-yml-1"><a href="#config-yml-1" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>由于我之前已经用过了hexo并且已经建立过站点了，因此现在我可以通过之前备份的主题以及配置文件来恢复，主要是将自己使用的主题放进<code>themes</code>文件夹，并将<code>_config.yml</code>中的参数比对恢复。</p>
+<p><em><strong>这里建议<code>_config.yml</code>中单独恢复把参数对应的值粘贴过来，因为hexo的版本更新，防止出现解析生成静态站的时候出现各种乱七八糟的问题。</strong></em></p>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>我现在找到了一个新的主题，很喜欢，<a href="https://async-docs.imalun.com/">Hexo-Theme-Async</a>推荐给大家，我就在这个主题基础上添加了一些个性化修改。</p>
+<p><del>后期希望可以进一步为这个主题做出一些贡献：</del><br>2024-06-24<br>贡献不了一点，作者更新速度也好，修改都很快也很好，算了，我这个web外行就不要瞎掺和了。</p>
+<hr>
+<h4 id="安装该主题依赖"><a href="#安装该主题依赖" class="headerlink" title="安装该主题依赖"></a>安装该主题依赖</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-renderer-less hexo-renderer-ejs hexo-wordcount hexo-generator-feed katex hexo-generator-searchdb swup hexo-generator-category hexo-generator-tag hexo-generator-index</span><br></pre></td></tr></table></figure>
+
+<p>这边我因为几乎把所有功能都开了，因此安装的依赖比较多。<strong>less和ejs是必须的渲染器。</strong></p>
+<h4 id="安装该主题"><a href="#安装该主题" class="headerlink" title="安装该主题"></a>安装该主题</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i hexo-theme-async@latest</span><br></pre></td></tr></table></figure>
+<h4 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h4><p>修改 Hexo 站点配置文件 <code>_config.yml</code>。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将主题设置为 hexo-theme-async </span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">async</span></span><br></pre></td></tr></table></figure>
+<p>建议安装最新的版本，并且如果不是有无法满足的自定义个性化修改的话，建议就直接只使用原版，并使用该安装版，而<strong>不要去自己clone下来放到<code>/themes</code>目录下</strong>。<em><strong>折腾是由成本的，别问我是怎么知道的😂</strong></em></p>
+<p>如果你硬要改或者就是要clone，那么请看[原因](# github page部署后，主站仅显示背景)</p>
+<p>2024-06-24<br>可以说目前作者提供的自定义以及个性化修改已经非常足够了，可以参照作者大大写好的文档<a href="https://hexo-theme-async.imalun.com/guide/config.html">主题配置 | Hexo-Theme-Async</a></p>
+<hr>
+<h3 id="博客文章"><a href="#博客文章" class="headerlink" title="博客文章"></a>博客文章</h3><p>将之前备份的文章放入<code>source/_post</code>目录。</p>
+<p><em>啊~~，文章日期，封面又不匹配了，再改一遍😟</em></p>
+<h2 id="通过建立本地web服务进行预览"><a href="#通过建立本地web服务进行预览" class="headerlink" title="通过建立本地web服务进行预览"></a>通过建立本地web服务进行预览</h2><p>使用hexo服务器进行本地站的预览，Hexo 3.0 把服务器独立成了个别模块，必须先安装 <a href="https://github.com/hexojs/hexo-server">hexo-server</a> 才能使用。</p>
+<h3 id="安装hexo-server"><a href="#安装hexo-server" class="headerlink" title="安装hexo-server"></a>安装hexo-server</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-server --save</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，输入以下命令以启动服务器，网站会在 <code>http://localhost:4000</code> 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务器。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a><del>生成</del></h2><p>2024-06-24<br>在现在使用github pages来生成我们的博客网站的情况下，已经不需要再使用静态生成了。</p>
+<hr>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>现在的hexo可以使用workflow中的action直接让github自动生成github pages来部署我们的博客，但是这种方式需要把源代码都提交上去，请自行斟酌是否包含<strong>个人敏感信息</strong>。</p>
+<p>我这里就选择使用action来自动化部署，这样我自己博客的内容也完全托管在github上省的以后再找版本了。</p>
+<p>在你自己的特殊储存库（<code>&lt;yourname.github.io&gt;</code>）中建立<code>.github/workflows/pages.yml</code>，内容：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># default branch</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">pages:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">permissions:</span></span><br><span class="line">      <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Use</span> <span class="string">Node.js</span> <span class="number">16.</span><span class="string">x</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;16&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">NPM</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/cache@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">runner.OS</span> <span class="string">&#125;&#125;-npm-cache</span></span><br><span class="line">          <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            $&#123;&#123; runner.OS &#125;&#125;-npm-cache</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里就需要我们之前记录下来的npm的版本号(我这边是18)，并修改到Hexo官方的page生成的action中（也就是上面的pages.yml）：</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">-     - name: Use Node.js 16.x</span></span><br><span class="line"><span class="addition">+     - name: Use Node.js 18.x</span></span><br><span class="line">        uses: actions/setup-node@v2</span><br><span class="line">        with:</span><br><span class="line"><span class="deletion">-         node-version: &quot;16&quot;</span></span><br><span class="line"><span class="addition">+         node-version: &quot;18&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>参考官方的doc：<a href="https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages">关于 GitHub Pages - GitHub 文档</a></p>
+<h3 id="老主题hexagon的问题"><a href="#老主题hexagon的问题" class="headerlink" title="老主题hexagon的问题"></a>老主题hexagon的问题</h3><h4 id="首先是hexo版本与node-js不匹配"><a href="#首先是hexo版本与node-js不匹配" class="headerlink" title="首先是hexo版本与node.js不匹配"></a>首先是hexo版本与node.js不匹配</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo@指定版本</span><br></pre></td></tr></table></figure>
+
+<p>我们可以参照官方网站来做<a href="https://www.npmjs.com/package/hexo/v/6.3.0">hexo - npm (npmjs.com)</a></p>
+<p>这个问题我这边参考了这篇<a href="https://zhuanlan.zhihu.com/p/491881992">hexo博客网站主页空白或404</a>这里面有说如何降级node.js或者升级Hexo。</p>
+<h4 id="hexo官方给的pages的actions里面用的主分支叫main，我这边master"><a href="#hexo官方给的pages的actions里面用的主分支叫main，我这边master" class="headerlink" title="hexo官方给的pages的actions里面用的主分支叫main，我这边master"></a>hexo官方给的pages的actions里面用的主分支叫main，我这边master</h4><p>这个虽然在Hexo的文档中有说，老的仓库是主分支叫master，但是很容易漏掉，总之我们得确认下。</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches:</span><br><span class="line"><span class="deletion">-     - main</span></span><br><span class="line"><span class="addition">+     - master</span></span><br></pre></td></tr></table></figure>
+
+<p>经历了这些后，我的老主题总算是可以显示了，但是发现代码以及markdown的大部分格式都不对，该主题也年久失修的状态了，还是换个主题吧。</p>
+<hr>
+<h3 id="新主题async的部署问题"><a href="#新主题async的部署问题" class="headerlink" title="新主题async的部署问题"></a>新主题async的部署问题</h3><p>2024-06-24<br>如果上面是按照<code>npm i hexo-theme-async@latest</code>方式使用主题的，那大概率是不会遇到这样的问题的。我这边的做法是先用hexo新版本新建一个本地目录，在本地目录中使用新主题，然后复制<code>_config.async.yml</code>过来，使用<code>hexo server</code>检查没有问题后，复制到对应<code>xxx.github.io</code>的仓库下，然后在这个仓库下用<code>hexo server</code>检查渲染等没有问题，然后<code>commit</code> 再<code>push</code>到远端，等待github pages的action动作完成，检查网页渲染。</p>
+<hr>
+<h4 id="github-page部署后，主站仅显示背景"><a href="#github-page部署后，主站仅显示背景" class="headerlink" title="github page部署后，主站仅显示背景"></a>github page部署后，主站仅显示背景</h4><p>主要就这一个问题，我部署后去主站一看，怎么之后背景，以为是index.html没有内容，但是去gh-pages分支一瞅，这不都在么。就非常奇怪，然后跟着主题doc来来回回走了十多遍，都没有修复。然后去讨论区翻帖子，发现没有人有我这个问题，奇怪了还能成个例了？主要我自己<code>hexo server</code>在本地打开时，是好的啊，没有一点问题，不死心的我再去主站上打开开发者模式对比着看，最终发现是有个网页元素是</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;trm-scroll-container&quot;</span> <span class="attr">class</span>=<span class="string">&quot;trm-scroll-container&quot;</span> <span class="attr">style</span>=<span class="string">&quot;opacity: 0&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的<code>opacity: 0</code>然后对应的css的样式<code>source/css/_components/base.less</code>中</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.trm-scroll-container</span> &#123;</span><br><span class="line">    <span class="attribute">transition</span>: opacity .<span class="number">6s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>意思是打开网页后0.6s时间内在这个容器中的内容从全透明变成不透明，emmmmm，但是我这边没有执行啊，啥情况？一阵懵逼之后直接在网页上修改元素</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">- &lt;div id=&quot;trm-scroll-container&quot; class=&quot;trm-scroll-container&quot; style=&quot;opacity: 0&quot;&gt;</span></span><br><span class="line"><span class="addition">+ &lt;div id=&quot;trm-scroll-container&quot; class=&quot;trm-scroll-container&quot; style=&quot;opacity: 1&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>网页立马有显示了，但是显示的不全，说明是这个问题，再次尝试了好几次之后还是不行，然后去作者主题讨论区去提了个问题（丢人😳）</p>
+<p>一边等作者大大回复，一边写这个过程，结果突然注意到作者大大在doc中有说</p>
+<blockquote>
+<ul>
+<li>通过克隆本仓库安装（不推荐）</li>
+</ul>
+<blockquote>
+<p><strong>DANGER</strong><br>不推荐直接使用这种方式安装，会导致 bug 版本定位和后续升级比较麻烦。如果您需要自定义样式和页面模块，可以优先使用 <a href="https://async-docs.imalun.com/guide/config.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F-style">自定义样式</a> 和 <a href="https://async-docs.imalun.com/guide/config.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF-layout">自定义模板</a> 配置来个性话您的博客，如果以上方式无法满足您的需求时，且不在需要升级时可选择通过这种方式安装。</p>
+</blockquote>
+<details class="details custom-block" open="" style="box-sizing: border-box; border-width: 1px; border-style: solid; border-color: var(--vp-custom-block-details-border); border-image: initial; border-radius: 8px; padding: 16px 16px 8px; line-height: 24px; font-size: var(--vp-custom-block-font-size); color: var(--vp-custom-block-details-text); background-color: var(--vp-custom-block-details-bg); margin: 16px 0px;"><summary style="box-sizing: border-box; touch-action: manipulation; margin: 0px 0px 8px; font-weight: 700; cursor: pointer;">v2.0.0 后版本</summary><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">从 v2.0.0 开始不在支持拉取后直接使用。新版本的脚本使用 TypeScript 进行重构，项目中不在提供打包压缩后的脚本。</p><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">如果您只想修改模板，您可以前往<span>&nbsp;</span><a href="https://github.com/MaLuns/hexo-theme-async/releases" target="_blank" rel="noreferrer" style="box-sizing: border-box; touch-action: manipulation; color: var(--vp-c-brand-1); text-decoration: underline; font-weight: 500; text-underline-offset: 2px; transition: color 0.25s ease 0s, opacity 0.25s ease 0s;">Github Releases</a><span>&nbsp;</span>的 Assets 下载打包文件<span>&nbsp;</span><code style="box-sizing: border-box; font-family: var(--vp-font-family-mono); font-size: var(--vp-code-font-size); color: var(--vp-code-color); border-radius: 4px; padding: 3px 6px; background-color: var(--vp-custom-block-details-code-bg); transition: color 0.25s ease 0s, background-color 0.5s ease 0s;">hexo-theme-async</code><span>&nbsp;</span>。</p><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">如果您仍然想要使用该方式，请 clone 项目后，手动执行 yarn &amp;&amp; yarn run lib:build 以构建压缩后的脚本。</p></details>
+</blockquote>
+<p>这不尴尬了，这么一找果然，作者大大在主题目录下添加了<code>.gitignore</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># dev esbuild</span><br><span class="line">source/js/</span><br><span class="line">source/plugins/</span><br></pre></td></tr></table></figure>
+
+<p>那么在clone下来的主题中执行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yarn &amp;&amp; yarn run lib:build</span><br></pre></td></tr></table></figure>
+
+<p>把编译生成的js拷贝到自己的仓库对应目录下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">IIFE ..\hexo-theme-async\source\js\plugins\local_search.js 2.03 KB</span><br><span class="line">IIFE ..\hexo-theme-async\source\js\main.js                 18.51 KB</span><br><span class="line">IIFE ..\hexo-theme-async\source\js\plugins\typing.js       583.00 B</span><br><span class="line">IIFE ⚡️ Build success in 14ms</span><br><span class="line">Done in 2.05s.</span><br></pre></td></tr></table></figure>
+
+<p>删除.gitignore文件后，重新上传部署，终于网站正常打开了。👏👏👏</p>
+]]></content>
+      <categories>
+        <category>Blog</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>GitHub</tag>
+        <tag>page</tag>
       </tags>
   </entry>
   <entry>
@@ -1282,162 +1438,6 @@
         <tag>todo</tag>
         <tag>日历</tag>
         <tag>calendar</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>利用Hexo博客框架结合Github Page创建自己的博客</title>
-    <url>/2024/06/14/%E5%88%A9%E7%94%A8Hexo%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E7%BB%93%E5%90%88Github%20Page%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>其实我早在2020年就已经用Hexo搭建了自己的博客，并且使用github page发布了静态的博客。但是中间因为各种原因，差不多就算停更了。现在就是自己再回头记录下，不是说做任何事任何时候开始都不晚么~</p>
-<p>so，那就来记录下吧。</p>
-<p>首先，我这边的目的是记录下Hexo建立博客的过程，之前我都是在windows下弄的，现在想想还是用个虚拟机，系统就Kali 23.2了,主要后面也要常用的。Hexo也更新了好多代了。还记得当时18，19年的时候Hexo1升级到Hexo2，好多组件不兼容，改js改到半夜，也是头秃。不知道现在的Hexo对老版本是否支持，正好也再来把之前做的Hexo主图更新下。而这篇博客就记录下这个过程。</p>
-<p>那就让我们开始把。</p>
-<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><h3 id="什么是-Hexo？"><a href="#什么是-Hexo？" class="headerlink" title="什么是 Hexo？"></a>什么是 Hexo？</h3><p>Hexo 是一个快速、简洁且高效的博客框架。<a href="https://hexo.io/zh-cn/">Hexo</a> 使用 <a href="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他标记语言）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
-<p>安装的这部分我也是参考<a href="https://hexo.io/zh-cn/docs/">官方Doc</a>, 不愿意看我废话的，可以自行参考官方Doc。</p>
-<h3 id="系统环境与Hexo依赖软件-删除kali部分，后续还是windows系统更新博客"><a href="#系统环境与Hexo依赖软件-删除kali部分，后续还是windows系统更新博客" class="headerlink" title="系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)"></a>系统环境与Hexo依赖软件(删除kali部分，后续还是windows系统更新博客)</h3><p><del>由于我是虚拟机部署环境，想着是弄完这一次之后，后面要是长久不用，我也能直接用虚拟机恢复出写博客的环境。（反正想法总是一阵一阵的，就先这样吧）。</del></p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> <del>Kali Linux 2023.2（有需要的改下国内源）</del></li>
-<li><input disabled="" type="checkbox"> <del><a href="http://nodejs.org/">Node.js</a> (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)</del></li>
-<li><input checked="" disabled="" type="checkbox"> <del><a href="http://git-scm.com/">Git</a></del></li>
-</ul>
-<p><del>这里就不讲虚拟机怎么装Kali系统了，网上太多教程了。</del></p>
-<p>这里可以说是非常的蛋疼，我后面其实已经把kali的环境都搭建好了，但是由于GFW的问题，导致无法再Linux下直接通过ssh上传到github，虽然本着有问题解决问题的态度，但是知道是因为代理导致的，那也就没啥好纠结的了，其次是根据Hexo官方现在都已经使用action来构建和部署github page，那原先想着的打包虚拟机整体环境就没有必要了。</p>
-<p>因此最终决定，抛弃kali环境直接在windows环境下搭建博客环境。</p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> windows 10</li>
-<li><input disabled="" type="checkbox"> Node.js</li>
-<li><input disabled="" type="checkbox"> Git</li>
-</ul>
-<h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>我们直接到node.js的官网上下载最新版本的安装包（<a href="https://nodejs.org/en/download/current">Download | Node.js (nodejs.org)</a>）</p>
-<p>根据自己的系统选择对应的32或64bit版本，然后双击运行，一路‘下一步’就完成了，中间建议勾选安装node.js依赖。</p>
-<p>安装完成后可以在开始菜单中看到<br><img src="https://s2.loli.net/2023/10/08/MeQwHWL2yRasS9F.jpg" alt="微信截图_20231008133554"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<p>点击打开Node.js会弹出命令行，确认Node.js是否安装成功，且版本是多少</p>
-<p><img src="https://s2.loli.net/2023/10/08/1UJ2QLdNXwGIjer.jpg" alt="微信截图_20231008135122"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><p>到官网下载git程序包<a href="https://git-scm.com/downloads">Git - Downloads (git-scm.com)</a></p>
-<p>同样也是一路‘下一步’来安装，建议添加系统环境变量和安装git bash。</p>
-<h3 id="安装Hexo-1"><a href="#安装Hexo-1" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
-
-<p>可以使用git bash或者powershell，git bash有右键菜单，可以省的切换目录，我个人觉得比较舒服，所以后面就以这个为例了。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
-
-<p>我这边因为之前在kali中进行部署发现hexo版本通过默认命令安装的不是最新的，因此，我就加上了版本号</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo@6.3.0</span><br></pre></td></tr></table></figure>
-<h2 id="2024-06-24"><a href="#2024-06-24" class="headerlink" title="2024-06-24"></a>2024-06-24<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo@laster</span><br></pre></td></tr></table></figure></h2><p>如果担心后面组件不全，可以直接用官方的</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<p>然后确认下版本号即可</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
-
-<p>如果你是刚装好node.js，git bash中似乎没有办法找到这个hexo的环境变量，使用下面的命令即可</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npx hexo version</span><br></pre></td></tr></table></figure>
-
-<p>2024-06-23<br>这次安装发现版本查看不出来，我最后是到<code>C:\Users\&lt;your name&gt;\node_modules\hexo</code>下<code>package.json</code>中确认的</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;hexo&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;7.2.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;A fast, simple &amp; powerful blog framework, powered by Node.js.&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;dist/hexo&quot;,</span><br><span class="line">  &quot;bin&quot;: &#123;</span><br><span class="line">    &quot;hexo&quot;: &quot;./bin/hexo&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
-
-<p>然后使用</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
-<p>现在可以安装到最新的hexo</p>
-<hr>
-<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>使用hexo的框架创建一个文件夹，用于部署和生成静态网站</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-
-<p>操作完成之后，可以看到这个文件夹下面结构：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
-
-<h3 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>网站的 <a href="https://hexo.io/zh-cn/docs/configuration">配置</a> 信息，您可以在此配置大部分的参数。</p>
-<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>应用程序的信息。<a href="https://ejs.co/">EJS</a>, <a href="http://learnboost.github.io/stylus/">Stylus</a> 和 <a href="http://daringfireball.net/projects/markdown/">Markdown</a> 渲染引擎 已默认安装，您可以自由移除。</p>
-<h3 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a>scaffolds</h3><p><a href="https://hexo.io/zh-cn/docs/writing#%E6%A8%A1%E7%89%88%EF%BC%88Scaffold%EF%BC%89">模版</a> 文件夹。当您新建文章时，Hexo 会根据 scaffold 来创建文件。</p>
-<p>Hexo 的模板是指在新建的文章文件中默认填充的内容。例如，如果您修改 <code>scaffold/post.md</code> 中的 Front-matter 内容，那么每次新建一篇文章时都会包含这个修改。</p>
-<h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><p>资源文件夹是存放用户资源的地方。除 <code>_posts</code> 文件夹之外，开头命名为 <code>_</code> (下划线)的文件 &#x2F; 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 <code>public</code> 文件夹，而其他文件会被拷贝过去。</p>
-<h3 id="themes"><a href="#themes" class="headerlink" title="themes"></a>themes</h3><p><a href="https://hexo.io/zh-cn/docs/themes">主题</a> 文件夹。Hexo 会根据主题来生成静态页面。</p>
-<h2 id="恢复站点状态使用"><a href="#恢复站点状态使用" class="headerlink" title="恢复站点状态使用"></a>恢复站点状态使用</h2><h3 id="config-yml-1"><a href="#config-yml-1" class="headerlink" title="_config.yml"></a>_config.yml</h3><p>由于我之前已经用过了hexo并且已经建立过站点了，因此现在我可以通过之前备份的主题以及配置文件来恢复，主要是将自己使用的主题放进<code>themes</code>文件夹，并将<code>_config.yml</code>中的参数比对恢复。</p>
-<p><em><strong>这里建议<code>_config.yml</code>中单独恢复把参数对应的值粘贴过来，因为hexo的版本更新，防止出现解析生成静态站的时候出现各种乱七八糟的问题。</strong></em></p>
-<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>我现在找到了一个新的主题，很喜欢，<a href="https://async-docs.imalun.com/">Hexo-Theme-Async</a>推荐给大家，我就在这个主题基础上添加了一些个性化修改。</p>
-<p><del>后期希望可以进一步为这个主题做出一些贡献：</del><br>2024-06-24<br>贡献不了一点，作者更新速度也好，修改都很快也很好，算了，我这个web外行就不要瞎掺和了。</p>
-<hr>
-<h4 id="安装该主题依赖"><a href="#安装该主题依赖" class="headerlink" title="安装该主题依赖"></a>安装该主题依赖</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-renderer-less hexo-renderer-ejs hexo-wordcount hexo-generator-feed katex hexo-generator-searchdb swup hexo-generator-category hexo-generator-tag hexo-generator-index</span><br></pre></td></tr></table></figure>
-
-<p>这边我因为几乎把所有功能都开了，因此安装的依赖比较多。<strong>less和ejs是必须的渲染器。</strong></p>
-<h4 id="安装该主题"><a href="#安装该主题" class="headerlink" title="安装该主题"></a>安装该主题</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i hexo-theme-async@latest</span><br></pre></td></tr></table></figure>
-<h4 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h4><p>修改 Hexo 站点配置文件 <code>_config.yml</code>。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将主题设置为 hexo-theme-async </span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">async</span></span><br></pre></td></tr></table></figure>
-<p>建议安装最新的版本，并且如果不是有无法满足的自定义个性化修改的话，建议就直接只使用原版，并使用该安装版，而<strong>不要去自己clone下来放到<code>/themes</code>目录下</strong>。<em><strong>折腾是由成本的，别问我是怎么知道的😂</strong></em></p>
-<p>如果你硬要改或者就是要clone，那么请看[原因](# github page部署后，主站仅显示背景)</p>
-<p>2024-06-24<br>可以说目前作者提供的自定义以及个性化修改已经非常足够了，可以参照作者大大写好的文档<a href="https://hexo-theme-async.imalun.com/guide/config.html">主题配置 | Hexo-Theme-Async</a></p>
-<hr>
-<h3 id="博客文章"><a href="#博客文章" class="headerlink" title="博客文章"></a>博客文章</h3><p>将之前备份的文章放入<code>source/_post</code>目录。</p>
-<p><em>啊~~，文章日期，封面又不匹配了，再改一遍😟</em></p>
-<h2 id="通过建立本地web服务进行预览"><a href="#通过建立本地web服务进行预览" class="headerlink" title="通过建立本地web服务进行预览"></a>通过建立本地web服务进行预览</h2><p>使用hexo服务器进行本地站的预览，Hexo 3.0 把服务器独立成了个别模块，必须先安装 <a href="https://github.com/hexojs/hexo-server">hexo-server</a> 才能使用。</p>
-<h3 id="安装hexo-server"><a href="#安装hexo-server" class="headerlink" title="安装hexo-server"></a>安装hexo-server</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-server --save</span><br></pre></td></tr></table></figure>
-
-<p>安装完成后，输入以下命令以启动服务器，网站会在 <code>http://localhost:4000</code> 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，无须重启服务器。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a><del>生成</del></h2><p>2024-06-24<br>在现在使用github pages来生成我们的博客网站的情况下，已经不需要再使用静态生成了。</p>
-<hr>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>现在的hexo可以使用workflow中的action直接让github自动生成github pages来部署我们的博客，但是这种方式需要把源代码都提交上去，请自行斟酌是否包含<strong>个人敏感信息</strong>。</p>
-<p>我这里就选择使用action来自动化部署，这样我自己博客的内容也完全托管在github上省的以后再找版本了。</p>
-<p>在你自己的特殊储存库（<code>&lt;yourname.github.io&gt;</code>）中建立<code>.github/workflows/pages.yml</code>，内容：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># default branch</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">pages:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">permissions:</span></span><br><span class="line">      <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Use</span> <span class="string">Node.js</span> <span class="number">16.</span><span class="string">x</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;16&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">NPM</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/cache@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">runner.OS</span> <span class="string">&#125;&#125;-npm-cache</span></span><br><span class="line">          <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            $&#123;&#123; runner.OS &#125;&#125;-npm-cache</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./public</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>这里就需要我们之前记录下来的npm的版本号(我这边是18)，并修改到Hexo官方的page生成的action中（也就是上面的pages.yml）：</p>
-<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">-     - name: Use Node.js 16.x</span></span><br><span class="line"><span class="addition">+     - name: Use Node.js 18.x</span></span><br><span class="line">        uses: actions/setup-node@v2</span><br><span class="line">        with:</span><br><span class="line"><span class="deletion">-         node-version: &quot;16&quot;</span></span><br><span class="line"><span class="addition">+         node-version: &quot;18&quot;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>参考官方的doc：<a href="https://docs.github.com/zh/pages/getting-started-with-github-pages/about-github-pages">关于 GitHub Pages - GitHub 文档</a></p>
-<h3 id="老主题hexagon的问题"><a href="#老主题hexagon的问题" class="headerlink" title="老主题hexagon的问题"></a>老主题hexagon的问题</h3><h4 id="首先是hexo版本与node-js不匹配"><a href="#首先是hexo版本与node-js不匹配" class="headerlink" title="首先是hexo版本与node.js不匹配"></a>首先是hexo版本与node.js不匹配</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo@指定版本</span><br></pre></td></tr></table></figure>
-
-<p>我们可以参照官方网站来做<a href="https://www.npmjs.com/package/hexo/v/6.3.0">hexo - npm (npmjs.com)</a></p>
-<p>这个问题我这边参考了这篇<a href="https://zhuanlan.zhihu.com/p/491881992">hexo博客网站主页空白或404</a>这里面有说如何降级node.js或者升级Hexo。</p>
-<h4 id="hexo官方给的pages的actions里面用的主分支叫main，我这边master"><a href="#hexo官方给的pages的actions里面用的主分支叫main，我这边master" class="headerlink" title="hexo官方给的pages的actions里面用的主分支叫main，我这边master"></a>hexo官方给的pages的actions里面用的主分支叫main，我这边master</h4><p>这个虽然在Hexo的文档中有说，老的仓库是主分支叫master，但是很容易漏掉，总之我们得确认下。</p>
-<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches:</span><br><span class="line"><span class="deletion">-     - main</span></span><br><span class="line"><span class="addition">+     - master</span></span><br></pre></td></tr></table></figure>
-
-<p>经历了这些后，我的老主题总算是可以显示了，但是发现代码以及markdown的大部分格式都不对，该主题也年久失修的状态了，还是换个主题吧。</p>
-<hr>
-<h3 id="新主题async的部署问题"><a href="#新主题async的部署问题" class="headerlink" title="新主题async的部署问题"></a>新主题async的部署问题</h3><p>2024-06-24<br>如果上面是按照<code>npm i hexo-theme-async@latest</code>方式使用主题的，那大概率是不会遇到这样的问题的。我这边的做法是先用hexo新版本新建一个本地目录，在本地目录中使用新主题，然后复制<code>_config.async.yml</code>过来，使用<code>hexo server</code>检查没有问题后，复制到对应<code>xxx.github.io</code>的仓库下，然后在这个仓库下用<code>hexo server</code>检查渲染等没有问题，然后<code>commit</code> 再<code>push</code>到远端，等待github pages的action动作完成，检查网页渲染。</p>
-<hr>
-<h4 id="github-page部署后，主站仅显示背景"><a href="#github-page部署后，主站仅显示背景" class="headerlink" title="github page部署后，主站仅显示背景"></a>github page部署后，主站仅显示背景</h4><p>主要就这一个问题，我部署后去主站一看，怎么之后背景，以为是index.html没有内容，但是去gh-pages分支一瞅，这不都在么。就非常奇怪，然后跟着主题doc来来回回走了十多遍，都没有修复。然后去讨论区翻帖子，发现没有人有我这个问题，奇怪了还能成个例了？主要我自己<code>hexo server</code>在本地打开时，是好的啊，没有一点问题，不死心的我再去主站上打开开发者模式对比着看，最终发现是有个网页元素是</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;trm-scroll-container&quot;</span> <span class="attr">class</span>=<span class="string">&quot;trm-scroll-container&quot;</span> <span class="attr">style</span>=<span class="string">&quot;opacity: 0&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这里的<code>opacity: 0</code>然后对应的css的样式<code>source/css/_components/base.less</code>中</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.trm-scroll-container</span> &#123;</span><br><span class="line">    <span class="attribute">transition</span>: opacity .<span class="number">6s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>意思是打开网页后0.6s时间内在这个容器中的内容从全透明变成不透明，emmmmm，但是我这边没有执行啊，啥情况？一阵懵逼之后直接在网页上修改元素</p>
-<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">- &lt;div id=&quot;trm-scroll-container&quot; class=&quot;trm-scroll-container&quot; style=&quot;opacity: 0&quot;&gt;</span></span><br><span class="line"><span class="addition">+ &lt;div id=&quot;trm-scroll-container&quot; class=&quot;trm-scroll-container&quot; style=&quot;opacity: 1&quot;&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>网页立马有显示了，但是显示的不全，说明是这个问题，再次尝试了好几次之后还是不行，然后去作者主题讨论区去提了个问题（丢人😳）</p>
-<p>一边等作者大大回复，一边写这个过程，结果突然注意到作者大大在doc中有说</p>
-<blockquote>
-<ul>
-<li>通过克隆本仓库安装（不推荐）</li>
-</ul>
-<blockquote>
-<p><strong>DANGER</strong><br>不推荐直接使用这种方式安装，会导致 bug 版本定位和后续升级比较麻烦。如果您需要自定义样式和页面模块，可以优先使用 <a href="https://async-docs.imalun.com/guide/config.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F-style">自定义样式</a> 和 <a href="https://async-docs.imalun.com/guide/config.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF-layout">自定义模板</a> 配置来个性话您的博客，如果以上方式无法满足您的需求时，且不在需要升级时可选择通过这种方式安装。</p>
-</blockquote>
-<details class="details custom-block" open="" style="box-sizing: border-box; border-width: 1px; border-style: solid; border-color: var(--vp-custom-block-details-border); border-image: initial; border-radius: 8px; padding: 16px 16px 8px; line-height: 24px; font-size: var(--vp-custom-block-font-size); color: var(--vp-custom-block-details-text); background-color: var(--vp-custom-block-details-bg); margin: 16px 0px;"><summary style="box-sizing: border-box; touch-action: manipulation; margin: 0px 0px 8px; font-weight: 700; cursor: pointer;">v2.0.0 后版本</summary><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">从 v2.0.0 开始不在支持拉取后直接使用。新版本的脚本使用 TypeScript 进行重构，项目中不在提供打包压缩后的脚本。</p><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">如果您只想修改模板，您可以前往<span>&nbsp;</span><a href="https://github.com/MaLuns/hexo-theme-async/releases" target="_blank" rel="noreferrer" style="box-sizing: border-box; touch-action: manipulation; color: var(--vp-c-brand-1); text-decoration: underline; font-weight: 500; text-underline-offset: 2px; transition: color 0.25s ease 0s, opacity 0.25s ease 0s;">Github Releases</a><span>&nbsp;</span>的 Assets 下载打包文件<span>&nbsp;</span><code style="box-sizing: border-box; font-family: var(--vp-font-family-mono); font-size: var(--vp-code-font-size); color: var(--vp-code-color); border-radius: 4px; padding: 3px 6px; background-color: var(--vp-custom-block-details-code-bg); transition: color 0.25s ease 0s, background-color 0.5s ease 0s;">hexo-theme-async</code><span>&nbsp;</span>。</p><p style="box-sizing: border-box; margin: 8px 0px; overflow-wrap: break-word; line-height: 24px;">如果您仍然想要使用该方式，请 clone 项目后，手动执行 yarn &amp;&amp; yarn run lib:build 以构建压缩后的脚本。</p></details>
-</blockquote>
-<p>这不尴尬了，这么一找果然，作者大大在主题目录下添加了<code>.gitignore</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># dev esbuild</span><br><span class="line">source/js/</span><br><span class="line">source/plugins/</span><br></pre></td></tr></table></figure>
-
-<p>那么在clone下来的主题中执行</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yarn &amp;&amp; yarn run lib:build</span><br></pre></td></tr></table></figure>
-
-<p>把编译生成的js拷贝到自己的仓库对应目录下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">IIFE ..\hexo-theme-async\source\js\plugins\local_search.js 2.03 KB</span><br><span class="line">IIFE ..\hexo-theme-async\source\js\main.js                 18.51 KB</span><br><span class="line">IIFE ..\hexo-theme-async\source\js\plugins\typing.js       583.00 B</span><br><span class="line">IIFE ⚡️ Build success in 14ms</span><br><span class="line">Done in 2.05s.</span><br></pre></td></tr></table></figure>
-
-<p>删除.gitignore文件后，重新上传部署，终于网站正常打开了。👏👏👏</p>
-]]></content>
-      <categories>
-        <category>Blog</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>GitHub</tag>
-        <tag>page</tag>
       </tags>
   </entry>
   <entry>
@@ -1818,10 +1818,10 @@
 </li>
 </ul>
 <h3 id="2-添加-Docker-的-GPG-密钥"><a href="#2-添加-Docker-的-GPG-密钥" class="headerlink" title="2. 添加 Docker 的 GPG 密钥"></a>2. 添加 Docker 的 GPG 密钥</h3><p>为了确保我们下载的 Docker 软件包是官方且未经篡改的，需要添加 Docker 官方（此处使用阿里云镜像）的 GPG 密钥。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/debian/gpg -o /etc/apt/keyrings/docker.asc</span><br><span class="line">sudo <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.asc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -fSSL https://mirrors.aliyun.com/docker-ce/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-添加-Docker-的软件源"><a href="#3-添加-Docker-的软件源" class="headerlink" title="3. 添加 Docker 的软件源"></a>3. 添加 Docker 的软件源</h3><p>接下来，将 Docker 的软件仓库地址添加到你的系统中。这样 <code>apt</code> 就能从中找到并安装 Docker。<br><strong>注意</strong>：Kali 是基于 Debian 的，因此我们应使用 Debian 的仓库。<code>bookworm</code> 是 Debian 12 的代号，请根据你的 Kali 版本对应的 Debian 代号进行调整。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository <span class="string">&quot;deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://mirrors.aliyun.com/docker-ce/linux/debian bookworm stable&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://mirrors.aliyun.com/docker-ce/linux/debian bookworm stable&quot;</span> | sudo <span class="built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br></pre></td></tr></table></figure>
 
 <h3 id="4-安装-Docker-引擎"><a href="#4-安装-Docker-引擎" class="headerlink" title="4. 安装 Docker 引擎"></a>4. 安装 Docker 引擎</h3><p>万事俱备，现在可以正式安装 Docker 了。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 再次更新软件包列表，以包含刚刚添加的 Docker 仓库</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Docker CE (Community Edition)</span></span><br><span class="line">sudo apt-get install -y docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
