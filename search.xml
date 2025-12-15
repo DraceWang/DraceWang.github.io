@@ -615,10 +615,94 @@
       </tags>
   </entry>
   <entry>
+    <title>Windows下的终极AI环境：WSL2+Docker+Python</title>
+    <url>/2025/12/15/Windows%E4%B8%8B%E7%9A%84%E7%BB%88%E6%9E%81AI%E7%8E%AF%E5%A2%83%EF%BC%9AWSL2+Docker+Python/</url>
+    <content><![CDATA[<h1 id="Windows下的终极AI环境：WSL2-Docker-Python"><a href="#Windows下的终极AI环境：WSL2-Docker-Python" class="headerlink" title="Windows下的终极AI环境：WSL2+Docker+Python"></a>Windows下的终极AI环境：WSL2+Docker+Python</h1><h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>最近，AI大火，我也想凑凑热闹，搞些AI的项目，比如本地知识库，n8nAI自动工作流等等，于是我就需要这么一个AI环境。最终选择了 <strong>WSL2 (Windows Subsystem for Linux 2)</strong> 与 <strong>Docker Desktop</strong> 相结合的方案，它不仅解决了环境冲突等各方面不兼容的痛点，更带来了容器化“一次构建，到处运行”的巨大优势。</p>
+<h3 id="第一章：奠定基石-启用并安装-WSL2（可选，Windows自带）"><a href="#第一章：奠定基石-启用并安装-WSL2（可选，Windows自带）" class="headerlink" title="第一章：奠定基石 - 启用并安装 WSL2（可选，Windows自带）"></a>第一章：奠定基石 - 启用并安装 WSL2（可选，Windows自带）</h3><p>一切的起点，是在 Windows 系统中嵌入一个真正的 Linux 内核。WSL2 通过轻量级虚拟化实现了这一点，性能远超第一代。</p>
+<p><strong>1. 启用必要的 Windows 功能</strong></p>
+<p>首先，必须以<strong>管理员身份</strong>打开 PowerShell 或 CMD，执行两条命令，为 WSL2 和 Docker 启用系统级的虚拟化支持。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启用 Linux 子系统功能</span></span><br><span class="line">dism.exe /online /<span class="built_in">enable-feature</span> /featurename:Microsoft<span class="literal">-Windows-Subsystem-Linux</span> /all /norestart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用虚拟机平台（WSL2 和 Docker 的基石）</span></span><br><span class="line">dism.exe /online /<span class="built_in">enable-feature</span> /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure>
+
+<p>执行完毕后，<strong>务必重启电脑</strong>，让配置生效。</p>
+<p><em><strong>目前的windows10和windows11系统的电脑都已经集成了wsl的启动，只是没有安装linux发行版。</strong></em></p>
+<p><strong>2. 安装 Linux 发行版</strong></p>
+<p>重启后，我们从 Microsoft Store 安装一个 Linux 发行版，我个人推荐 <strong>Ubuntu 22.04 LTS</strong>，因为它社区庞大、生态稳定。</p>
+<ol>
+<li>打开 <strong>Microsoft Store</strong>。</li>
+<li>搜索 <strong>Ubuntu 22.04 LTS</strong> 并安装。</li>
+<li>首次启动后，系统会提示你创建一个用于 Linux 环境的用户名和密码，请务必记住，后续 <code>sudo</code> 操作全靠它。</li>
+</ol>
+<p><strong>3. 将 WSL2 设置为默认版本</strong>(默认安装的就是wsl2)</p>
+<p>为确保新安装的系统运行在 WSL2 模式下，需要再次打开<strong>管理员 PowerShell</strong>，执行以下命令：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将未来所有安装的子系统默认设置为 WSL2 版本</span></span><br><span class="line">wsl <span class="literal">--set-default-version</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查当前已安装的发行版及其版本</span></span><br><span class="line">wsl <span class="literal">-l</span> <span class="literal">-v</span></span><br></pre></td></tr></table></figure>
+
+<p>执行 <code>wsl -l -v</code> 后，你应该能看到你的 Ubuntu 版本号（VERSION）显示为 <code>2</code>。</p>
+<h3 id="第二章：容器之力-安装Docker-Desktop-并集成-WSL2"><a href="#第二章：容器之力-安装Docker-Desktop-并集成-WSL2" class="headerlink" title="第二章：容器之力 - 安装Docker Desktop 并集成 WSL2"></a>第二章：容器之力 - 安装Docker Desktop 并集成 WSL2</h3><p>由于现在多数AI项目都用到了docker，因此在linux子系统中安装docker就必不可少。Docker Desktop 是我们与容器世界交互的窗口，它与 WSL2 的深度集成是整个工作流的核心。</p>
+<p><strong>1. 下载与安装</strong></p>
+<p>前往 <a href="https://www.docker.com/products/docker-desktop/">Docker 官网</a> 下载 Windows 版的安装包。安装过程中，请确保勾选了 <strong>“Use WSL 2 instead of Hyper-V”</strong> 选项。</p>
+<p><strong>2. 授权 Docker 访问 WSL</strong></p>
+<p>这是至关重要的一步。如果配置不当，你在 WSL 的终端里将无法使用 <code>docker</code> 命令，因为它找不到 Docker 守护进程。</p>
+<ol>
+<li>启动 Docker Desktop。</li>
+<li>点击界面右上角的<strong>齿轮图标 (⚙️ Settings)</strong> 进入设置。</li>
+<li>在左侧菜单栏选择 <strong>Resources</strong> -&gt; <strong>WSL Integration</strong>。</li>
+<li>确保 <strong>“Enable integration with my default WSL distro”</strong> 已被勾选。</li>
+<li>在下方的发行版列表中，<strong>务必确保你的 Ubuntu 发行版开关是打开状态</strong>。</li>
+<li>点击 <strong>Apply &amp; Restart</strong> 应用并重启 Docker 服务。</li>
+</ol>
+<p><img src="https://s2.loli.net/2025/12/15/wR8JYWXAjiUmeQg.png" alt="image-20251215141746390"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><strong>验证集成</strong>：<br>配置完成后，打开你的 Ubuntu 终端，输入 <code>docker --version</code>。如果命令成功返回版本号，例如 <code>Docker version 26.0.0</code>，则说明 Docker 与 WSL2 的“握手”成功了。</p>
+<h3 id="第三章：解决顽疾-在-WSL-中配置纯净的-Python-环境"><a href="#第三章：解决顽疾-在-WSL-中配置纯净的-Python-环境" class="headerlink" title="第三章：解决顽疾 - 在 WSL 中配置纯净的 Python 环境"></a>第三章：解决顽疾 - 在 WSL 中配置纯净的 Python 环境</h3><p>很多教程在这一步只提到了 <code>sudo apt install python3</code>，但这往往是后续一系列问题的开端。Ubuntu 默认安装的 Python 环境并不“完整”，会导致 <code>pip</code> 缺失或在安装某些库时编译失败。</p>
+<p><strong>1. 更新系统源</strong><br>这是一个好习惯，确保我们安装的都是最新的软件包。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt upgrade -y</span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 安装 Python “全家桶”</strong><br>为了避免后续麻烦，我们一次性把所有必需的组件都安装好。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install python3 python3-pip python3-venv python3-full build-essential -y</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>python3-pip</code>: Python 的包管理器，必须有。</li>
+<li><code>python3-venv</code>: 虚拟环境支持库，现代 Python 开发的基石。</li>
+<li><code>python3-full</code>: 包含了完整的 Python 标准库，可以避免很多意想不到的编译时依赖缺失问题。</li>
+<li><code>build-essential</code>: 包含了 <code>gcc</code> 等编译工具，当 <code>pip</code> 安装需要编译 C 扩展的库（如 <code>numpy</code>, <code>pandas</code>）时，它是必需的。</li>
+</ul>
+<p><strong>3. 使用虚拟环境：告别权限报错</strong><br>为了彻底解决 <code>externally-managed-environment</code> 这类系统级环境管理报错，最佳实践是<strong>永远在虚拟环境中进行开发</strong>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 创建并进入你的项目目录</span></span><br><span class="line"><span class="built_in">mkdir</span> ~/myproject &amp;&amp; <span class="built_in">cd</span> ~/myproject</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 在项目内创建一个名为 venv 的虚拟环境</span></span><br><span class="line">python3 -m venv venv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 激活虚拟环境</span></span><br><span class="line"><span class="built_in">source</span> venv/bin/activate</span><br></pre></td></tr></table></figure>
+<p>激活后，你的命令行提示符会带有 <code>(venv)</code> 前缀，表明你已处于一个隔离、安全的环境中。在此环境下，<code>pip</code> 可以自由使用，不会与系统环境产生任何冲突。</p>
+<h3 id="第四章：实战演练-Dockerfile-最佳实践"><a href="#第四章：实战演练-Dockerfile-最佳实践" class="headerlink" title="第四章：实战演练 - Dockerfile 最佳实践"></a>第四章：实战演练 - Dockerfile 最佳实践</h3><p>现在，我们拥有了完美的 Python 开发环境，可以结合 Docker 来打包和部署应用了。</p>
+<p>在项目目录（例如 <code>~/myproject</code>）中，创建一个 <code>app.py</code> 和 <code>requirements.txt</code>，然后编写一个 <code>Dockerfile</code>：</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Dockerfile</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用官方的轻量级 Python 镜像</span></span><br><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.11</span>-slim</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置容器内的工作目录</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将依赖文件复制到容器中</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> requirements.txt .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖，--no-cache-dir 减小镜像体积</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install --no-cache-dir -r requirements.txt</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将项目所有文件复制到容器中</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 容器启动时执行的命令</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;app.py&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>在 WSL 终端中，于项目目录下执行构建和运行命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 构建镜像</span></span><br><span class="line">docker build -t my-python-app .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行容器</span></span><br><span class="line">docker run -it --<span class="built_in">rm</span> my-python-app</span><br></pre></td></tr></table></figure>
+
+<h3 id="第五章：“偷梁换柱”-Docker换源"><a href="#第五章：“偷梁换柱”-Docker换源" class="headerlink" title="第五章：“偷梁换柱” - Docker换源"></a>第五章：“偷梁换柱” - Docker换源</h3><p>由于某些我们众所周知的原因，国内下载docker官方的镜像源经常会遇到失败的情况，因此我们可以使用阿里的镜像加速。</p>
+<p>可以访问阿里云官方的<a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors">镜像加速器</a>，登录你自己阿里云账号，会获取到一个专属的加速器地址。</p>
+<p>打开deocker desktop，在系统右下角托盘图标内右键菜单选择 Settings，打开配置窗口后左侧导航菜单选择 Docker Daemon。编辑窗口内的JSON串，填写下方加速器地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://xxxxxxxxxx.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编辑完成后点击 Apply 保存按钮，等待Docker重启并应用配置的镜像加速器。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>至此，我们已经成功搭建了一套健壮且高效的本地开发环境。回顾一下，我们获得了：</p>
+<ol>
+<li><strong>一个高性能的 WSL2 Linux 环境</strong>：享受原生 Linux 的开发体验，与 Windows 文件系统无缝互通。</li>
+<li><strong>一个无缝集成的 Docker 环境</strong>：可以直接在 Linux 终端中调用 Docker，进行容器的构建、运行和管理。</li>
+<li><strong>一个纯净且完整的 Python 开发环境</strong>：通过安装“完整”组件和坚持使用 <code>venv</code> 虚拟环境，彻底根除了环境污染和权限问题。</li>
+</ol>
+<p>这套工作流不仅适用于 Web 后端开发或数据科学，对于需要进行 AI 模型微调（如之前的 MiniCPM 实验）等复杂任务也同样游刃有余。它将“环境配置”这个一次性的阵痛，转化为未来高效开发的长期收益。</p>
+]]></content>
+      <categories>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+        <tag>docker</tag>
+        <tag>wsl2</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>git 代码管理工具常用命令</title>
     <url>/2019/09/18/git%20%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<p>首先区分git是分布式代码管理系统，每个计算机上或者说每个克隆的git仓库都是完整的，因此同一个本地克隆的远程的git仓库的关系是，本地对应远程（远端，非本机的），因此git的命令行也就对应了本地仓库的操作和同步到远程仓库的操作。</p>
-<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#103;&#x69;&#x74;&#x75;&#x73;&#x65;&#114;&#49;&#x40;&#103;&#105;&#116;&#x2e;&#x63;&#x6f;&#x6d;">&#103;&#x69;&#x74;&#x75;&#x73;&#x65;&#114;&#49;&#x40;&#103;&#105;&#116;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<h2 id="git基础配置"><a href="#git基础配置" class="headerlink" title="git基础配置"></a>git基础配置</h2><p>假设在git服务器上设置的用户名是：gituser1，邮箱是：<a href="mailto:&#x67;&#105;&#x74;&#117;&#x73;&#x65;&#x72;&#49;&#x40;&#103;&#x69;&#x74;&#46;&#x63;&#111;&#109;">&#x67;&#105;&#x74;&#117;&#x73;&#x65;&#x72;&#49;&#x40;&#103;&#x69;&#x74;&#46;&#x63;&#111;&#109;</a></p>
 <h3 id="配置git提交时候的全局用户名"><a href="#配置git提交时候的全局用户名" class="headerlink" title="配置git提交时候的全局用户名"></a>配置git提交时候的全局用户名</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gitconfig --global user.name gituser1</span><br></pre></td></tr></table></figure>
 
 <h3 id="配置git提交时候的全局邮箱"><a href="#配置git提交时候的全局邮箱" class="headerlink" title="配置git提交时候的全局邮箱"></a>配置git提交时候的全局邮箱</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.email gituser1@git.com</span><br></pre></td></tr></table></figure>
