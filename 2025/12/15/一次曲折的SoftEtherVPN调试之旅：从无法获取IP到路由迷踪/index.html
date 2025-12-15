@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="一次曲折的 SoftEther VPN 调试之旅：从无法获取 IP 到路由迷踪写在前面最近在折腾家庭内网穿透，方案选定了在 OpenWrt 软路由上部署 SoftEther VPN Server。目标很简单：出门在外时，能像在家里一样，安全地访问内网的所有设备（192.168.xxx.0&#x2F;24 网段）。 我的网络环境不算复杂但也略有特色：PVE 虚拟化环境，其中一台 OpenWrt 作为主路由，网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一次曲折的 SoftEther VPN 调试之旅：从无法获取 IP 到路由迷踪">
+<meta property="og:url" content="http://dracewang.github.io/2025/12/15/%E4%B8%80%E6%AC%A1%E6%9B%B2%E6%8A%98%E7%9A%84SoftEtherVPN%E8%B0%83%E8%AF%95%E4%B9%8B%E6%97%85%EF%BC%9A%E4%BB%8E%E6%97%A0%E6%B3%95%E8%8E%B7%E5%8F%96IP%E5%88%B0%E8%B7%AF%E7%94%B1%E8%BF%B7%E8%B8%AA/index.html">
+<meta property="og:site_name" content="Hexagon">
+<meta property="og:description" content="一次曲折的 SoftEther VPN 调试之旅：从无法获取 IP 到路由迷踪写在前面最近在折腾家庭内网穿透，方案选定了在 OpenWrt 软路由上部署 SoftEther VPN Server。目标很简单：出门在外时，能像在家里一样，安全地访问内网的所有设备（192.168.xxx.0&#x2F;24 网段）。 我的网络环境不算复杂但也略有特色：PVE 虚拟化环境，其中一台 OpenWrt 作为主路由，网">
+<meta property="og:locale">
+<meta property="og:image" content="http://dracewang.github.io/img/404.jpg">
+<meta property="og:image" content="http://dracewang.github.io/img/404.jpg">
+<meta property="og:image" content="http://dracewang.github.io/img/404.jpg">
+<meta property="article:published_time" content="2025-12-15T05:22:00.000Z">
+<meta property="article:modified_time" content="2025-12-15T05:26:37.282Z">
+<meta property="article:author" content="Drace Wang">
+<meta property="article:tag" content="openwrt">
+<meta property="article:tag" content="softetherVPN">
+<meta property="article:tag" content="VPN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dracewang.github.io/img/404.jpg">
+
+
+<title >一次曲折的 SoftEther VPN 调试之旅：从无法获取 IP 到路由迷踪</title>
+
+<!-- Favicon -->
+
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"dracewang.github.io","author":"Drace Wang","root":"/","typed_text":["平凡的码农"],"theme_version":"2.2.2","theme":{"switch":true,"default":"auto"},"favicon":{"logo":null,"icon16":null,"icon32":null,"apple_touch_icon":null,"webmanifest":null,"visibilitychange":true,"hidden":"failure.ico","show_text":"回来啦~","hide_text":"(●—●)看不见我！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","sticky":"置顶","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":true,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":200},"toc":{"post_title":true},"live_time":{"start_time":"10/08/2023 10:00:00","prefix":"博客已萌萌哒运行 undefined 天"},"danmu":{"enable":false,"el":".trm-banner","avatar":false,"delayRange":5000,"speed":80},"covers":["/img/block.jpg","https://img2.wallspic.com/previews/7/6/8/1/7/171867/171867-wu_kong-chao_ji_sai_ya_ren-sai_ya_ren-zamasu-long_zhu-500x.jpg","https://img3.wallspic.com/previews/2/0/1/8/6/168102/168102-yi_shu-ka_tong-mian_bu_biao_qing-kuai_le_de-ji_qie-500x.jpg","https://img2.wallspic.com/previews/2/6/4/3/7/173462/173462-qi_fen-zi_se_de-zi_ran_jing_guan-yu_hui-de_ping_xian-500x.jpg","https://img2.wallspic.com/previews/3/3/9/1/3/131933/131933-mo_xing-xiao_jie-huang_se_de-nu_hai-fa_xing-500x.jpg","https://img1.wallspic.com/previews/8/3/4/6/2/126438/126438-wei_lai_zhu_yi-shu_ma_yi_shu-jie_duan-zi_ben_shi-yi_shu-500x.jpg","https://img2.wallspic.com/previews/0/1/5/0/7/170510/170510-guang-azure-zi_se_de-zi_ran_huan_jing-zi_ran_jing_guan-500x.jpg","https://img2.wallspic.com/previews/3/6/9/6/5/156963/156963-yi_shu-qi_fen-yu_hui-shou_shi-ren_men_zai_zi_ran_jie-500x.jpg","https://img1.wallspic.com/previews/0/9/3/5/6/165390/165390-qi_fen-zi_se_de-zi_ran_huan_jing-zi_ran_jing_guan-tian_wen_xue_dui_xiang-500x.jpg","https://img3.wallspic.com/previews/2/8/6/1/7/171682/171682-yi_kuai-xing_zhi-ye_ti-yi_shu-shui_xia-500x.jpg","https://img1.wallspic.com/previews/7/1/9/9/89917/89917-bo_xi_ta_nuo-an_zhuang_de_feng_jing-cheng_shi-suo_lun_tuo-shan_zhan-500x.jpg","https://img1.wallspic.com/previews/6/2/3/5/6/165326/165326-pang_ke2077-pang_ke-qi_fen-xing_zhi-zi_se_de-500x.jpg","https://img2.wallspic.com/previews/8/9/4/5/6/165498/165498-ka_tong-tao-pin_hong_se-zhang_zhang_de_tou_fa-ji_qie-500x.jpg","https://img3.wallspic.com/previews/5/7/4/2/7/172475/172475-yi_shu-tao-tou_fa-ka_tong-500x.jpg","https://img2.wallspic.com/previews/5/0/9/0/70905/70905-hai_yang-ma_er_dai_fu-tian_kong-du_jia_cun-huan_jiao-500x.jpg","https://img3.wallspic.com/previews/4/3/4/8/6/168434/168434-xing_zhi-zi_ran_jing_guan-dan_huang-shui_dao-zhi_bei-500x.jpg","https://img2.wallspic.com/previews/6/5/4/5/6/165456/165456-giy_fu_gang-e_mo_sha_shoukimetsu_no_yaiba-shan_zi_de_yi_shu-zi_se_de-dian_lan_se_de-500x.jpg","https://img1.wallspic.com/previews/5/4/0/4/7/174045/174045-jian_ying-qi_fen-ren_men_zai_zi_ran_jie-tian_wen_xue_dui_xiang-yi_shu-500x.jpg","https://img1.wallspic.com/previews/9/3/1/6/5/156139/156139-feng_jing_hua-yi_shu-shu_ma_yi_shu-qi_fen-sheng_tai_qu-500x.jpg","https://img2.wallspic.com/previews/7/6/4/5/7/175467/175467-wo_de_xue_shu_jie_de_ying_xiong-tao-yi_shu-ka_tong-azure-500x.jpg","https://img1.wallspic.com/previews/3/7/0/0/7/170073/170073-liang_ge_ling-ka_tong-shou_shi-chuang_zao_xing_de_yi_shu-hong_se_de-500x.jpg","https://img1.wallspic.com/previews/1/8/3/6/6/166381/166381-shi_zi-xin_ba-bai_se_shi_zi-hu_xu-mao_ke-500x.jpg","https://img3.wallspic.com/previews/4/2/2/3/7/173224/173224-ri_luo-shui_zi_yuan-qi_fen-yu_hui-zi_se_de-500x.jpg","https://img1.wallspic.com/previews/7/5/7/9/6/169757/169757-ji_bo_li_de_bo_wu_guan-zi_ran_jing_guan-yi_shu-ji_yun-500x.jpg","https://img1.wallspic.com/previews/5/2/0/6/7/176025/176025-qi_fen-tian_wen_xue_dui_xiang-yi_shu-dian_lan_se_de-yuan_quan-500x.jpg","https://img3.wallspic.com/previews/6/5/8/1/4/141856/141856-hen_ku_de-hui_hua-yu_yan_jing_tou-zhai_nan-tu_xing_she_ji-500x.jpg","https://img1.wallspic.com/previews/2/1/6/5/6/165612/165612-kimetsu_no_yaiba-e_mo_sha_shoukimetsu_no_yaiba-tao-tou_fa-wai_tao-500x.jpg","https://img3.wallspic.com/previews/5/1/0/2/4/142015/142015-feng_ge-ka_ka_xi_qi_mu-huo_ying_ren_zhe-tu_xing_she_ji-shi_jue_yi_shu-500x.jpg","https://img1.wallspic.com/previews/8/8/7/8/5/158788/158788-e_mo_sha_shoukimetsu_no_yaiba-shnen_man_hua-tao-ka_tong-azure-500x.jpg"],"creative_commons":{"license":"by-nc-sa","language":"deed.zh"},"search":{"enable":true,"type":"local","href":"https://www.google.com/search?q=site:","domain":null,"preload":true,"trigger":"auto","path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-12-15 13:26:37"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+
+    
+        <!-- Baidu Analytics -->
+        <script defer>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?16cea90ac06537b0a37ea52df3d2ede6";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+     
+
+    
+        <!-- Google Analytics -->
+        <script async src='https://www.googletagmanager.com/gtag/js?id=G-T84GJPQD33'></script>
+        <script defer>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-T84GJPQD33');
+        </script>
+    
+
+    
+ 
+<meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Hexagon" type="application/atom+xml">
+</head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+    
+        <div class="trm-logo-text">
+            Drace<span>Wang</span>
+        </div>
+    
+</a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    首页
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    归档
+                </a>
+                
+                <ul>
+                    
+                    <li>
+                        <a  href="/tags/" target="">
+                            标签
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a  href="/categories/" target="">
+                            分类
+                        </a>
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/links/" target="">
+                    友链
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a data-no-swup href="/about/" target="">
+                    关于
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            一次曲折的 SoftEther VPN 调试之旅：从无法获取 IP 到路由迷踪
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2025
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        Drace Wang
+    </h5>
+    
+        <div class="trm-label">
+            一个
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="/atom.xml" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fas fa-rss"></i>
+        </a>
+    
+        <a href="https://github.com/DraceWang" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/profile.php?id=100006615107136" title="facebook" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-facebook"></i>
+        </a>
+    
+        <a href="https://www.weibo.com/u/2421168192" title="weibo" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-weibo"></i>
+        </a>
+    
+        <a href="https://www.zhihu.com/people/wang-shun-da-55" title="ZhiHu" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-zhihu"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                居住地:
+            </div>
+            <div class="trm-label trm-label-light">
+                无锡
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                码龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                7
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:wsdboy007@163.com" class="trm-btn">
+            联系我
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            12/15
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            13:22
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            Drace Wang
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="一次曲折的-SoftEther-VPN-调试之旅：从无法获取-IP-到路由迷踪"><a href="#一次曲折的-SoftEther-VPN-调试之旅：从无法获取-IP-到路由迷踪" class="headerlink" title="一次曲折的 SoftEther VPN 调试之旅：从无法获取 IP 到路由迷踪"></a>一次曲折的 SoftEther VPN 调试之旅：从无法获取 IP 到路由迷踪</h2><h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>最近在折腾家庭内网穿透，方案选定了在 OpenWrt 软路由上部署 SoftEther VPN Server。目标很简单：出门在外时，能像在家里一样，安全地访问内网的所有设备（<code>192.168.xxx.0/24</code> 网段）。</p>
+<p>我的网络环境不算复杂但也略有特色：PVE 虚拟化环境，其中一台 OpenWrt 作为主路由，网口直通，负责拨号和 DHCP 服务。SoftEther Server 就安装在这台 OpenWrt 上。</p>
+<p>一切似乎都很顺利，直到客户端拨号成功的那一刻——连接状态显示正常，但虚拟网卡就是拿不到期望的内网 IP 地址，只有一个 <code>169.254.x.x</code> 的自动分配地址。这通常意味着一件事：<strong>DHCP 请求失败了</strong>。</p>
+<p>一场横跨多个技术层面的调试就此拉开序幕。</p>
+<h3 id="第一章：DHCP-请求的“黑洞”"><a href="#第一章：DHCP-请求的“黑洞”" class="headerlink" title="第一章：DHCP 请求的“黑洞”"></a>第一章：DHCP 请求的“黑洞”</h3><p>最初的症状非常明确：客户端无法获取 IP。SoftEther 我配置的是“本地桥接”模式，理论上 VPN 客户端应该像一个物理设备一样被接入了我的局域网交换机，DHCP 请求理应能被 OpenWrt 的 DHCP 服务收到。</p>
+<p><strong>我的第一反应是</strong>：是不是 OpenWrt 的防火墙把 DHCP 的广播包给拦了？</p>
+<p>为了验证这一点，我祭出了网络调试的瑞士军刀——<code>tcpdump</code>。通过 SSH 登录到 OpenWrt，我执行了以下命令，专门监听 <code>br-lan</code> 接口上的 DHCP 流量（端口 67 和 68）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 OpenWrt 上执行</span></span><br><span class="line">tcpdump -i br-lan -n port 67 or port 68</span><br></pre></td></tr></table></figure>
+
+<p>让 VPN 客户端重新连接后，<code>tcpdump</code> 的输出给了我第一个决定性的线索：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">16:17:38.509738 IP 0.0.0.0.68 &gt; 255.255.255.255.67: BOOTP/DHCP, Request from xx:3b:xx:xx:eb:05, length 300</span><br><span class="line">... (重复多次) ...</span><br></pre></td></tr></table></figure>
+
+<p><strong>分析</strong>:</p>
+<ul>
+<li><code>br-lan</code> 接口上<strong>确实</strong>看到了来自 VPN 客户端虚拟 MAC 地址（<code>xx:3b:xx:xx:eb:05</code>）的 DHCP 请求广播包。</li>
+<li>但是，输出中<strong>完全没有</strong>看到来自我的 DHCP 服务器（<code>192.168.xxx.254</code>）的任何响应包（<code>Offer</code> 或 <code>ACK</code>）。</li>
+</ul>
+<p>这个发现意义重大。它排除了 SoftEther 本地桥接本身的问题，也排除了 VPN 客户端到 OpenWrt 之间的网络问题。数据包已经成功到达了局域网的“大门口”。问题变成了：<strong>为什么门口的 DHCP 服务员（dnsmasq）不理它？</strong></p>
+<h3 id="第二章：沉默的-DHCP-服务器"><a href="#第二章：沉默的-DHCP-服务器" class="headerlink" title="第二章：沉默的 DHCP 服务器"></a>第二章：沉默的 DHCP 服务器</h3><p>既然 DHCP 包到了，但服务没响应，那么嫌疑人就转移到了 DHCP 服务器本身——在 OpenWrt 中，它是由 <code>dnsmasq</code> 进程负责的。</p>
+<p>一个服务不响应，排查的第一步永远是：<strong>它到底还活着吗？</strong></p>
+<p>我通过 <code>logread</code> 命令来查看 <code>dnsmasq</code> 的系统日志：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logread | grep dnsmasq</span><br></pre></td></tr></table></figure>
+
+<p>结果令人震惊，也让整个调试豁然开朗：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">daemon.crit dnsmasq[1]: cannot read /tmp/dnsmasq.d/dnsmasq-ssrplus.d/gfw_list.conf...</span><br><span class="line">daemon.crit dnsmasq[1]: FAILED to start up</span><br></pre></td></tr></table></figure>
+
+<p>**真相??**：我的 DHCP 服务器根本就没在运行！它在启动时，因为一个名为 <code>ssrplus</code> 的第三方插件配置出错（试图读取一个不存在的文件），导致整个进程直接崩溃退出了。</p>
+<p>一个“死掉”的服务自然不会响应任何请求。这就是 DHCP 请求石沉大海的根本原因。</p>
+<p>后续的分析发现，这是一个典型的“时序问题”。有时 <code>ssrplus</code> 插件的后台进程会晚于 <code>dnsmasq</code> 的启动，导致 <code>dnsmasq</code> 启动时找不到由 <code>ssrplus</code> 生成的配置文件。而在我手动排查的过程中，<code>ssrplus</code> 可能已经完成了它的工作，当我再次尝试重启 <code>dnsmasq</code> 服务时 (<code>/etc/init.d/dnsmasq restart</code>)，文件已经存在，服务就“奇迹般”地恢复了。</p>
+<p>我一开就是这么以为的，那么现在既然<code>dnsmasq</code>已经在运行了，那么我发起vpn客户端的连接，应该就可以了，结果依旧获取不到ip地址，<code>logread | grep dnsmasq</code>检查log，却没有输出任何日志信息。</p>
+<p>这说明，DHCP请求包在到达 br-lan 接口后，在被内核传递给 dnsmasq 这个应用程序之前，就被系统静默地丢弃了。</p>
+<p>  这是一个非常棘手的情况，通常与Linux内核的网络过滤子系统有关。当SoftEther这种非标准的网络程序直接向一个网桥设备（br-lan）注入数据包时，可能会触发一些内核的底层安全或过滤机制<br>  ，导致数据包无法被上层应用（如dnsmasq）正常接收。</p>
+<p>  <strong>最终解决方案</strong>：改用更稳定标准的TAP桥接模式</p>
+<p>  既然直接桥接到 br-lan 的“高级”模式遇到了这种疑难杂症，我们就改用在Linux系统上更稳定、更标准的桥接方法：TAP设备模式。</p>
+<p>  这种模式的原理是：<br>       1.  让SoftEther创建一个标准的虚拟网卡（TAP设备）。<br>                <img src="https://s2.loli.net/2025/12/15/sdy5jvNTMcJS2R4.png" alt="image-20251215131453006"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>       2.  然后我们用OpenWrt自带的、非常成熟的桥接功能，将这个虚拟网卡加入到br-lan中。</p>
+<p><img src="https://s2.loli.net/2025/12/15/9TBf3w2QKX1nb4z.png" alt="image-20251215131622929"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>  这样一来，所有网络数据都通过标准的内核接口来走，可以完美兼容OpenWrt的防火墙和网络服务。</p>
+<h3 id="第三章：柳暗花明，与新的谜团"><a href="#第三章：柳暗花明，与新的谜团" class="headerlink" title="第三章：柳暗花明，与新的谜团"></a>第三章：柳暗花明，与新的谜团</h3><p>在确保 <code>dnsmasq</code> 正常运行后，我再次尝试连接 VPN。这一次，客户端虚拟网卡上终于跳出了熟悉的内网 IP 地址——问题解决！</p>
+<p>但喜悦只持续了半分钟。我发现，虽然能访问内网了，但这台连接了 VPN 的 PC <strong>自己的互联网访问却断了</strong>。</p>
+<p>这又是一个经典问题：<strong>VPN 的路由冲突</strong>。</p>
+<p>默认情况下，VPN 客户端会非常“霸道”地接管系统的默认网关。也就是说，这台 PC 所有的流量（无论访问内网还是外网）都会被一股脑地塞进 VPN 隧道，发往我家的 OpenWrt。如果 OpenWrt 没有被正确配置为替这些 VPN 客户端做 NAT 转发，那么它们自然就无法访问互联网了。</p>
+<p>我的需求是**分离隧道 (Split Tunneling)**：只有访问内网的流量走 VPN，访问互联网的流量还走本地网络。</p>
+<h3 id="第四章：寻找丢失的“默认网关”选项"><a href="#第四章：寻找丢失的“默认网关”选项" class="headerlink" title="第四章：寻找丢失的“默认网关”选项"></a>第四章：寻找丢失的“默认网关”选项</h3><p>根据经验，实现分离隧道最简单的方法是在 Windows 的网络适配器设置里，取消勾选“<strong>在远程网络上使用默认网关</strong>”。</p>
+<p>但奇怪的是，当我找到 SoftEther 创建的虚拟网卡，进入 “TCP&#x2F;IP 属性” -&gt; “高级”，在“IP 设置”选项卡里，这个熟悉的选项竟然<strong>消失了</strong>。</p>
+<p>这说明 SoftEther 的虚拟网卡驱动与标准的 Windows VPN 适配器行为不同，它把路由控制的权力收回到了 SoftEther Client 软件本身。</p>
+<p>于是，我回到 <strong>SoftEther VPN Client Manager</strong>，右键点击我的 <code>home vpn</code> 连接，进入“属性”，再点击“高级设置”，终于在一个角落里找到了“元凶”：</p>
+<p>在 “高级设置” -&gt; “其他设置” 中，有一个选项叫 “**不保留路由表(A)**”。</p>
+<p><img src="https://s2.loli.net/2025/12/15/xqH7plnSdbOGriB.png" alt="image-20251215131746275"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>它的逻辑是反的：</p>
+<ul>
+<li><strong>不勾选（默认）</strong>：客户端会修改路由表，添加默认网关（导致断网）。</li>
+<li><strong>勾选</strong>：客户端<strong>不</strong>修改路由表，只添加访问内网必需的子网路由。</li>
+</ul>
+<p>勾选“不保留路由表”，确定，重连。世界终于清静了。内网访问正常，外网访问也恢复了正常。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这次看似简单的 VPN 配置问题，最终演变成了一场涉及网络抓包、服务状态检查、第三方插件排错和客户端路由策略设定的全链路调试。整个过程曲折但收获满满，也再次印证了几个朴素的IT运维真理：</p>
+<ol>
+<li><strong>眼见为实</strong>：当怀疑网络问题时，<code>tcpdump</code> 是最诚实的伙伴。它能明确告诉你数据包走到了哪里。</li>
+<li><strong>先看死活</strong>：在调试一个“不响应”的服务前，先用 <code>ps</code> 或 <code>logread</code> 确认它是否真的在运行。一个沉默的服务，很可能是一个已经“死掉”的服务。</li>
+<li><strong>警惕“黑盒”</strong>：第三方插件和自定义脚本在带来便利的同时，也可能以意想不到的方式干扰核心服务。</li>
+<li><strong>理清需求</strong>：VPN 的网络问题，多半是路由问题。想清楚自己需要“完整隧道”还是“分离隧道”，是解决问题的关键。</li>
+</ol>
+<p>从一头雾水到柳暗花明，这种抽丝剥茧、最终定位根源的过程，正是技术调试的魅力所在。</p>
+
+</article>
+    
+    
+
+<ul class="trm-post-copyright">
+    <li class="trm-post-copyright-author">
+        <strong>本文作者：</strong>
+        Drace Wang
+    </li>
+    <li class="trm-post-copyright-link">
+        <strong>本文链接：</strong>
+        <a id="original-link" href="http://dracewang.github.io/2025/12/15/一次曲折的SoftEtherVPN调试之旅：从无法获取IP到路由迷踪/" title="一次曲折的 SoftEther VPN 调试之旅：从无法获取 IP 到路由迷踪">http://dracewang.github.io/2025/12/15/一次曲折的SoftEtherVPN调试之旅：从无法获取IP到路由迷踪/</a>
+    </li>
+    <li class="trm-post-copyright-license">
+        <strong>版权声明：</strong>
+        本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 ">CC BY-NC-SA 4.0</a> 许可协议。
+    </li>
+</ul>
+
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            其他文章
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-older-publications-card trm-scroll-animation trm-active-el">
+        <div class="trm-older-publication">
+            
+            <a class="trm-op-top trm-anima-link" href="/2025/12/03/%E5%9C%A8kali%20os%E4%B8%8A%E5%AE%89%E8%A3%85strix/">
+                <span class="trm-op-cover">
+                    <img alt="cover" class="no-fancybox" src="https://i.loli.net/2020/10/27/9rtGQh87JIpNVbE.jpg">
+                </span>
+                <h6 class="trm-op-title">在 Kali OS 上安装与配置 Strix 实践笔记</h6>
+            </a>
+            <div class="trm-divider trm-mb-15 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>25/12/03</li>
+                <li>14:13</li>
+                <li>cybersecurity</li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>© 2022- 2025</span>
+            <span class="footer-separator"data-separator=" · "></span>
+            <span class="trm-accent-color">Drace Wang</span>
+        </div>
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v7.2.0
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                主题 - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.2
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        目录导航
+				<span id="post-toc-top">
+					置顶
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="一次曲折的 SoftEther VPN 调试之旅：从无法获取 IP 到路由迷踪"><a rel="nofollow" class="trm-toc-link" href="#一次曲折的-SoftEther-VPN-调试之旅：从无法获取-IP-到路由迷踪"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">一次曲折的 SoftEther VPN 调试之旅：从无法获取 IP 到路由迷踪</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="写在前面"><a rel="nofollow" class="trm-toc-link" href="#写在前面"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">写在前面</span></a></li><li class="trm-toc-item trm-toc-level-3" title="第一章：DHCP 请求的“黑洞”"><a rel="nofollow" class="trm-toc-link" href="#第一章：DHCP-请求的“黑洞”"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">第一章：DHCP 请求的“黑洞”</span></a></li><li class="trm-toc-item trm-toc-level-3" title="第二章：沉默的 DHCP 服务器"><a rel="nofollow" class="trm-toc-link" href="#第二章：沉默的-DHCP-服务器"><span class="trm-toc-number">1.3.</span> <span class="trm-toc-text">第二章：沉默的 DHCP 服务器</span></a></li><li class="trm-toc-item trm-toc-level-3" title="第三章：柳暗花明，与新的谜团"><a rel="nofollow" class="trm-toc-link" href="#第三章：柳暗花明，与新的谜团"><span class="trm-toc-number">1.4.</span> <span class="trm-toc-text">第三章：柳暗花明，与新的谜团</span></a></li><li class="trm-toc-item trm-toc-level-3" title="第四章：寻找丢失的“默认网关”选项"><a rel="nofollow" class="trm-toc-link" href="#第四章：寻找丢失的“默认网关”选项"><span class="trm-toc-number">1.5.</span> <span class="trm-toc-text">第四章：寻找丢失的“默认网关”选项</span></a></li><li class="trm-toc-item trm-toc-level-3" title="总结"><a rel="nofollow" class="trm-toc-link" href="#总结"><span class="trm-toc-number">1.6.</span> <span class="trm-toc-text">总结</span></a></li></ol></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="目录">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn hidden-md" data-title="单栏和双栏切换" onclick="asyncFun.switchSingleColumn()">
+            <i class="iconfont fas fa-arrows-alt-h"></i>
+        </div>
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="搜索文章...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    请输入关键词进行搜索
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+<script src="https://unpkg.com/swup@2.0.19/dist/swup.min.js"></script>
+
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+        <script src="/js/plugins/typing.js?v=2.2.2"></script>
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+    <script data-swup-reload-script>
+        (function () {
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+
+
+<script id="async-script" src="/js/main.js?v=2.2.2"></script>
+
+<!-- CDN -->
+
+
+    
+<script src="/demo.js"></script>
+
+
+    
+
+    
+
+
+
+</body>
+
+</html>
